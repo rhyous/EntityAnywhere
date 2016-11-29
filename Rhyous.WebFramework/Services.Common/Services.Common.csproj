@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7D0DF978-26C0-4E12-A23E-13C21D213631}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Services.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\AssemblyDictionary.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\AssemblyDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\AssemblyLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\AssemblyLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Extensions\AppDomainExtensions.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Extensions\AppDomainExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Extensions\TypeExtensions.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Extensions\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\InstancesLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\InstancesLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IAssemblyDictionary.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IAssemblyDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IAssemblyLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IAssemblyLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\ILoadInstancesOfType.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\ILoadInstancesOfType.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\ILoadPlugins.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\ILoadPlugins.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IName.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IName.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IPluginDependencyResolver.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IPluginDependencyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IPluginFinder.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Interfaces\IPluginFinder.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Plugin.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\Plugin.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginCollection.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginDependencyResolver.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginDependencyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginFinder.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginFinder.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\packages\Rhyous.SimplePluginLoader.Sources.1.1.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginPaths.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.4\PluginPaths.cs</Link>
+    </Compile>
+    <Compile Include="Business\CryptoRandomString.cs" />
+    <Compile Include="Business\Hash.cs" />
+    <Compile Include="Business\RepositoryLoader.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Interfaces\ISearchableServiceCommon.cs" />
+    <Compile Include="Interfaces\IServiceCommon.cs" />
+    <Compile Include="Model\Property.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extensions\ValueAccessorExtensions.cs" />
+    <Compile Include="SearchableServiceCommon.cs" />
+    <Compile Include="ServiceCommon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
