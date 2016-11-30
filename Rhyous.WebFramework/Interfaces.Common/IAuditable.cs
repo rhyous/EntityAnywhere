@@ -1,12 +1,6 @@
-﻿using System;
-
-namespace Rhyous.WebFramework.Interfaces
+﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IAuditable
+    public interface IAuditable : IAuditableCreateDate, IAuditableLastUpdatedDate, IAuditableUsers
     {
-        DateTime CreateDate { get; set; }
-        DateTime? LastUpdated { get; set; }
-        int CreatedBy { get; set; }
-        int? LastUpdatedBy { get; set; }
     }
 }

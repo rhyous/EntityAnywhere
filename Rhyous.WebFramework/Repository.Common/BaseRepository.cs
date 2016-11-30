@@ -3,6 +3,7 @@ using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -60,6 +61,11 @@ namespace Rhyous.WebFramework.Repositories
             return DbContext.Entities.AsExpandable().FirstOrDefault(e => propertyExpression.Invoke(e) == name);
         }
 
+        public virtual List<Tinterface> GetByExpression(Expression<Func<T, bool>> expression)
+        {
+            return DbContext.Entities.AsExpandable().Where(expression).ToList<Tinterface>();
+        }
+
         public virtual List<Tinterface> Search(string searchString, params Expression<Func<T, string>>[] propertyExpressions)
         {
             var predicate = PredicateBuilder.New<T>();
@@ -67,7 +73,7 @@ namespace Rhyous.WebFramework.Repositories
             {
                 predicate.Or(e => expression.Invoke(e).Contains(searchString));
             }
-            return DbContext.Entities.AsExpandable().Where(predicate).ToList<Tinterface>();
+            return GetByExpression(predicate);
         }
 
         public virtual Tinterface Update(Tinterface item, IEnumerable<string> changedProperties)

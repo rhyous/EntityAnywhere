@@ -33,6 +33,13 @@ namespace Rhyous.WebFramework.Interfaces
         Tinterface Get(string name, Expression<Func<T, string>> propertyExpression);
 
         /// <summary>
+        /// List items that match the query expression.
+        /// </summary>
+        /// <param name="expression">A LINQ expression</param>
+        /// <returns>A list of all items that match the expression</returns>
+        List<Tinterface> GetByExpression(Expression<Func<T, bool>> expression);
+
+        /// <summary>
         /// List items that match the query string.
         /// </summary>
         /// <returns>A list of all items that match the query string</returns>

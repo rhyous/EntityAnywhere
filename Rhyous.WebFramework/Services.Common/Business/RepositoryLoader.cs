@@ -26,7 +26,9 @@ namespace Rhyous.WebFramework.Services
             var dir = Path.Combine(plugindir, "Repositories", "Common");
             var genericPluginLoader = new PluginLoader<IRepository<T, Tinterface>>();
             var genericPlugins = genericPluginLoader.LoadPlugins(new List<string> { dir });
-            return genericPlugins?[0]?.PluginObjects?[0];
+            return (genericPlugins != null && genericPlugins.Count > 0 && genericPlugins[0].PluginObjects != null && genericPlugins[0].PluginObjects.Count > 0)
+                ? genericPlugins[0].PluginObjects[0]
+                : null;
         }
     }
 }

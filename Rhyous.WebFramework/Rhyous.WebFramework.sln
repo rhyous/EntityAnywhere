@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.User", "Interfaces.User\Interfaces.User.csproj", "{222278D6-81F4-4BE6-973B-6D534DE47E8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.User", "WebServices.User\WebServices.User.csproj", "{37FB5728-AB6D-4B78-9A1E-D9B1901E4C92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB1F79B0-3836-45F9-B3C6-732A1D56BC64} = {BB1F79B0-3836-45F9-B3C6-732A1D56BC64}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Common", "Repository.Common\Repository.Common.csproj", "{4952293D-0EEC-4772-8854-4FE0F818CC92}"
 EndProject
@@ -34,10 +37,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.UserType", "Services.UserType\Services.UserType.csproj", "{7C93EFE7-E893-43DB-8B96-AAB63A8CB32D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.UserType", "WebServices.UserType\WebServices.UserType.csproj", "{B7388648-D806-43AC-B7D6-9B6CB7531AAD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB1F79B0-3836-45F9-B3C6-732A1D56BC64} = {BB1F79B0-3836-45F9-B3C6-732A1D56BC64}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Referenceable", "Referenceable", "{10050584-2309-4B6F-9C79-01127BC582AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{64AB3818-4030-4973-9332-298B14DDA131}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserType", "Interfaces.UserToUserType\Interfaces.UserToUserType.csproj", "{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.UserToUserType", "Services.UserToUserType\Services.UserToUserType.csproj", "{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.UserToUserType", "WebServices.UserToUserType\WebServices.UserToUserType.csproj", "{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB1F79B0-3836-45F9-B3C6-732A1D56BC64} = {BB1F79B0-3836-45F9-B3C6-732A1D56BC64}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +102,18 @@ Global
 		{B7388648-D806-43AC-B7D6-9B6CB7531AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7388648-D806-43AC-B7D6-9B6CB7531AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7388648-D806-43AC-B7D6-9B6CB7531AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +133,8 @@ Global
 		{4A880844-E629-4F2E-947E-5CB608249B75} = {DCDDC0C1-F67C-4A01-A354-2F62C5FD496D}
 		{7C93EFE7-E893-43DB-8B96-AAB63A8CB32D} = {FB77673B-3541-4880-A63C-46395C7B5DFD}
 		{B7388648-D806-43AC-B7D6-9B6CB7531AAD} = {27C3026B-DA20-4986-8924-94EE052935A4}
-		{64AB3818-4030-4973-9332-298B14DDA131} = {10050584-2309-4B6F-9C79-01127BC582AD}
+		{634E3B8C-12DF-4C82-B695-5AFCAA8A5755} = {DCDDC0C1-F67C-4A01-A354-2F62C5FD496D}
+		{3CD7046A-A57D-4B4A-8DF4-EB4443D3D22A} = {FB77673B-3541-4880-A63C-46395C7B5DFD}
+		{4ABB6A6C-F436-4B93-9B16-6CC3CB8F14BA} = {27C3026B-DA20-4986-8924-94EE052935A4}
 	EndGlobalSection
 EndGlobal

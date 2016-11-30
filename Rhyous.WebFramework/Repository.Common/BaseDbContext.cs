@@ -1,4 +1,4 @@
-using Rhyous.Db.Auditable;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Repositories
     {
         #region Constructors
         public BaseDbContext()
-            : this(0)            
+            : this(0)
         {
         }
 
@@ -70,6 +70,23 @@ namespace Rhyous.WebFramework.Repositories
                     var mi = obj.GetType().GetMethod("AsNoTracking");
                     mi.Invoke(obj, null);
                 }
+            }
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            if (typeof(T).IsAssignableFrom(typeof(IAuditableCreateDate)))
+            {
+                modelBuilder.Entity<T>()
+                    .Property(f => (f as IAuditableCreateDate).CreateDate)
+                    .HasColumnType("datetime2");
+            }
+            if (typeof(T).IsAssignableFrom(typeof(IAuditableLastUpdatedDate)))
+            {
+                modelBuilder.Entity<T>()
+                    .Property(f => (f as IAuditableLastUpdatedDate).LastUpdated)
+                    .HasColumnType("datetime2");
             }
         }
     }

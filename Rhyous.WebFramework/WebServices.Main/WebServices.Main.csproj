@@ -129,4 +129,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="afterClean">
+      <ItemGroup>
+        <FilesToDelete Include="Plugins\**\*"/>
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+  </Target>
 </Project>

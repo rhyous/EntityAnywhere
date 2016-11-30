@@ -42,6 +42,12 @@
   <ItemGroup>
     <Compile Include="ConcreteConverter.cs" />
     <Compile Include="IAuditable.cs" />
+    <Compile Include="IAuditableCreateDate.cs" />
+    <Compile Include="IAuditableCreatedBy.cs" />
+    <Compile Include="IAuditableDates.cs" />
+    <Compile Include="IAuditableLastUpdatedBy.cs" />
+    <Compile Include="IAuditableLastUpdatedDate.cs" />
+    <Compile Include="IAuditableUsers.cs" />
     <Compile Include="IName.cs" />
     <Compile Include="IId.cs" />
     <Compile Include="IRepository.cs" />
