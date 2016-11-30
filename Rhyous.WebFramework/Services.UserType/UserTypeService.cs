@@ -25,7 +25,7 @@ namespace Rhyous.WebFramework.Services
                     duplicateTypes.Add(entity.Type);
             }
             if (duplicateTypes.Count > 0)
-                throw new Exception("Duplicate UserType detected:" + string.Concat(", ", duplicateTypes));
+                throw new Exception("Duplicate UserType(s) detected:" + string.Concat(", ", duplicateTypes));
             return base.Add(entities);
         }
     }
