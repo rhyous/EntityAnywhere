@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.UserToUserType;
-using IEntity = Rhyous.WebFramework.Interfaces.IUserToUserType;
 using EntityService = Rhyous.WebFramework.Services.UserToUserTypeService;
 
 namespace Rhyous.WebFramework.WebServices
@@ -52,10 +51,17 @@ namespace Rhyous.WebFramework.WebServices
             return WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri;
         }
 
-        public List<OdataObject<Entity>> GetById(string id, string property)
+        #region Mapping table methods
+        public List<OdataObject<Entity>> GetByPrimaryEntityId(string id)
         {
-            return Service.GetByPropertyId(id.ToInt(), property)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+            return Service.GetByPropertyId(id.ToInt(), Service.PrimaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
+
+        public List<OdataObject<Entity>> GetBySecondaryEntityId(string id)
+        {
+            return Service.GetByPropertyId(id.ToInt(), Service.SecondaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+        }
+        #endregion
 
         #region Injectable Dependency
         internal EntityService Service

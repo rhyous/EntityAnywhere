@@ -9,38 +9,42 @@ namespace Rhyous.WebFramework.WebServices
     public interface IUserToUserTypeWebService
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "UserToUserType", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "UserToUserTypes", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<Entity>> GetAll();
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "UserToUserType/Ids", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "UserToUserTypes/Ids", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<Entity>> GetByIds(List<int> ids);
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "UserToUserType({id})/{property}", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "UserToUserTypes({id})/{property}", ResponseFormat = WebMessageFormat.Json)]
         string GetProperty(string id, string property);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "UserToUserType", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "UserToUserTypes", ResponseFormat = WebMessageFormat.Json)]
         Entity Post(Entity entity);
 
         [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "UserToUserType({id})", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "PUT", UriTemplate = "UserToUserTypes({id})", ResponseFormat = WebMessageFormat.Json)]
         Entity Put(string id, Entity entity);
 
         [OperationContract]
-        [WebInvoke(Method = "PATCH", UriTemplate = "UserToUserType({id})", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        [WebInvoke(Method = "PATCH", UriTemplate = "UserToUserTypes({id})", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         Entity Patch(string id, Entity entity, List<string> changedProperties);
 
         [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "UserToUserType({id})", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "DELETE", UriTemplate = "UserToUserTypes({id})", ResponseFormat = WebMessageFormat.Json)]
         bool Delete(string id);
 
 
         #region Mapping Table Specific
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "User({id})/{property}", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Entity>> GetById(string id, string property);
+        [WebInvoke(Method = "GET", UriTemplate = "Users({id})/UserTypes", ResponseFormat = WebMessageFormat.Json)]
+        List<OdataObject<Entity>> GetByPrimaryEntityId(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "UserTypes({id})/Users", ResponseFormat = WebMessageFormat.Json)]
+        List<OdataObject<Entity>> GetBySecondaryEntityId(string id);
         #endregion
     }
 }
