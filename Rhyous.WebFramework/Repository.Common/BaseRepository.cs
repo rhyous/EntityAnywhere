@@ -19,13 +19,13 @@ namespace Rhyous.WebFramework.Repositories
             set { _DbContext = value; }
         } private BaseDbContext<T> _DbContext;
 
-        public virtual Tinterface Create(Tinterface item)
+        public virtual List<Tinterface> Create(IList<Tinterface> items)
         {
-            Tinterface result = default(T);
-            if (item != null)
+            List<Tinterface> result = new List<Tinterface>();
+            if (items != null && items.Count > 0)
             {
-                var concrete = ConcreteConverter.ToConcrete<T, Tinterface>(item);
-                result = DbContext.Entities.Add(concrete);
+                var concrete = ConcreteConverter.ToConcrete<T, Tinterface>(items);
+                result.AddRange(DbContext.Entities.AddRange(concrete));
                 DbContext.SaveChanges();
             }
             return result;

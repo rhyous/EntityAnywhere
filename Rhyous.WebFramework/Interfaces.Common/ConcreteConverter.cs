@@ -1,9 +1,16 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
 {
     public static class ConcreteConverter
     {
+        public static IEnumerable<T> ToConcrete<T, Tinterface>(this IEnumerable<Tinterface> items)
+            where T : class, Tinterface, new()
+        {
+            return items.Select(i => i.ToConcrete<T,Tinterface>()).ToList();
+        }
+
         public static T ToConcrete<T, Tinterface>(this Tinterface item)
             where T : class, Tinterface, new()
         {
@@ -28,6 +35,6 @@ namespace Rhyous.WebFramework.Interfaces
                 prop.SetValue(concrete, prop.GetValue(source, null), null);
             }
             return concrete;
-        }        
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace Rhyous.WebFramework.WebServices
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "UserTypes", ResponseFormat = WebMessageFormat.Json)]
-        Entity Post(Entity entity);
+        List<Entity> Post(List<Entity> entity);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", UriTemplate = "UserTypes({id})", ResponseFormat = WebMessageFormat.Json)]

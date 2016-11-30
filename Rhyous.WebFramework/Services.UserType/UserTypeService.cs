@@ -16,11 +16,17 @@ namespace Rhyous.WebFramework.Services
             return Repo.Search(type, u => u.Type);
         }
 
-        public override IUserType Add(IUserType entity)
+        public override List<IUserType> Add(IList<IUserType> entities)
         {
-            if (Get(entity.Type) != null)
-                throw new Exception("Duplicate UserType detected.");
-            return base.Add(entity);
+            var duplicateTypes = new List<string>();
+            foreach (var entity in entities)
+            {
+                if (Get(entity.Type) != null)
+                    duplicateTypes.Add(entity.Type);
+            }
+            if (duplicateTypes.Count > 0)
+                throw new Exception("Duplicate UserType detected:" + string.Concat(", ", duplicateTypes));
+            return base.Add(entities);
         }
     }
 }

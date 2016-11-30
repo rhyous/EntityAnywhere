@@ -36,9 +36,9 @@ namespace Rhyous.WebFramework.WebServices
             return Service.GetProperty(id.ToInt(), property);
         }
         
-        public Entity Post(Entity entity)
+        public List<Entity> Post(List<Entity> entities)
         {
-            return Service.Add(entity).ToConcrete<Entity>();
+            return Service.Add(entities.ToList<IEntity>()).ToConcrete<Entity>().ToList();
         }
 
         public Entity Patch(string id, Entity entity, List<string> changedProperties)

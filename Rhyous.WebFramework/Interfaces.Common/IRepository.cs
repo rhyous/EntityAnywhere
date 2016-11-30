@@ -46,11 +46,11 @@ namespace Rhyous.WebFramework.Interfaces
         List<Tinterface> Search(string searchString, params Expression<Func<T, string>>[] propertyExpressions);
 
         /// <summary>
-        /// A item to add.
+        /// A item(s) to add.
         /// </summary>
-        /// <param name="item">A item object.</param>
+        /// <param name="item">One or more items.</param>
         /// <returns></returns>
-        Tinterface Create(Tinterface item);
+        List<Tinterface> Create(IList<Tinterface> items);
 
         /// <summary>
         /// The item to change. The item Id must be specific in the item object.

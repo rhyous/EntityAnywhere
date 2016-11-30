@@ -16,18 +16,30 @@ namespace Rhyous.WebFramework.Services
             return Repo.Search(name, u => u.Username);
         }
 
-        public override IUser Add(IUser user)
+        public override List<IUser> Add(IList<IUser> users)
         {
-            if (Get(user.Username) != null)
-                throw new Exception("Duplicate name detected.");
-            if (string.IsNullOrWhiteSpace(user.Salt))
+            var duplicateUsernames = new List<string>();
+            foreach (User user in users)
             {
-                user.Salt = Hash.Get(user.Username);
+                if (Get(user.Username) != null)
+                {
+                    duplicateUsernames.Add(user.Username);
+                    continue;
+                }
+                if (string.IsNullOrWhiteSpace(user.Salt))
+                {
+                    user.Salt = Hash.Get(user.Username);
+                }
                 if (string.IsNullOrWhiteSpace(user.Password))
+                {
+                    // Todo: Password notification email here. Maybe plugins for handling password (Creation, Resetting, etc.)
                     user.Password = Hash.Get(CryptoRandomString.GetCryptoRandomAlphaNumericString(10), user.Salt);
+                }
                 user.Password = Hash.Get(user.Password, user.Salt);
             }
-            return Repo.Create(user);
+            if (duplicateUsernames.Count > 0)
+                throw new Exception("Duplicate username(s) detected: " + string.Join(", ", duplicateUsernames));
+            return Repo.Create(users);
         }
     }
 }

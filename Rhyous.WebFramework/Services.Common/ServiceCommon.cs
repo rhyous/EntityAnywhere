@@ -34,9 +34,9 @@ namespace Rhyous.WebFramework.Services
             return Repo.Get(Id)?.GetPropertyValue(property)?.ToString();
         }
 
-        public virtual Tinterface Add(Tinterface entity)
+        public virtual List<Tinterface> Add(IList<Tinterface> entities)
         {            
-            return Repo.Create(entity);
+            return Repo.Create(entities);
         }
 
         public virtual Tinterface Update(int Id, Tinterface entity, List<string> changedProperties)
