@@ -6,6 +6,8 @@ namespace Rhyous.WebFramework.Services
 {
     public static class ValueAccessorExtensions
     {
+        public static StringComparison Comparison { get; set; } = StringComparison.InvariantCultureIgnoreCase;
+
         /// <summary>
         /// A static method to get the PropertyInfo of a property of any object.
         /// </summary>
@@ -26,7 +28,7 @@ namespace Rhyous.WebFramework.Services
         public static PropertyInfo GetPropertyInfo(this Type t, string propertyName)
         {
             var props = t.GetProperties();
-            return props.FirstOrDefault(propInfo => propInfo.Name == propertyName);
+            return props.FirstOrDefault(propInfo => propInfo.Name.Equals(propertyName, Comparison));
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace Rhyous.WebFramework.Services
         public static FieldInfo GetFieldInfo(this Type t, string fieldName)
         {
             var fields = t.GetFields();
-            return fields.FirstOrDefault(fieldInfo => fieldInfo.Name == fieldName);
+            return fields.FirstOrDefault(fieldInfo => fieldInfo.Name.Equals(fieldName, Comparison));
         }
 
         /// <summary>
