@@ -13,6 +13,10 @@ namespace Rhyous.WebFramework.WebServices
         List<OdataObject<Entity>> GetAll();
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "UserToUserTypes({id})", ResponseFormat = WebMessageFormat.Json)]
+        OdataObject<Entity> Get(string id);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "UserToUserTypes/Ids", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<Entity>> GetByIds(List<int> ids);
 

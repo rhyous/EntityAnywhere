@@ -102,13 +102,15 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\ISearchableServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommon.cs" />
-    <Compile Include="Interfaces\IServiceCommonMap.cs" />
+    <Compile Include="Interfaces\IServiceCommonOneToMany.cs" />
+    <Compile Include="Interfaces\IServiceCommonManyToMany.cs" />
     <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
     <Compile Include="SearchableServiceCommon.cs" />
     <Compile Include="ServiceCommon.cs" />
-    <Compile Include="ServiceCommonMap.cs" />
+    <Compile Include="ServiceCommonOneToMany.cs" />
+    <Compile Include="ServiceCommonManyToMany.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
