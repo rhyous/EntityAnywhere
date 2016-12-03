@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</ProjectGuid>
+    <ProjectGuid>{7AA1310C-871F-429D-982C-1575508C69C1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.WebServices.Common</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.WebServices.Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -44,21 +42,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
-    <Compile Include="Behaviors\ServiceBehaviorBase.cs" />
-    <Compile Include="ICommonWebService.cs" />
-    <Compile Include="OdataExtensions.cs" />
-    <Compile Include="OdataObject.cs" />
-    <Compile Include="ODataUri.cs" />
+    <Compile Include="AuthenticationWebService.cs" />
+    <Compile Include="IAuthenticationWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
-      <Name>Services.Common</Name>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Token\Interfaces.Token.csproj">
+      <Project>{50CB75A3-E903-40A9-BADC-BE6A836FDA90}</Project>
+      <Name>Interfaces.Token</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Authentication\Services.Authentication.csproj">
+      <Project>{4F1824E2-427D-40EF-960C-4286203275DD}</Project>
+      <Name>Services.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Token\Services.Token.csproj">
+      <Project>{CDA51597-83FF-4110-80B6-D9EC40B03D29}</Project>
+      <Name>Services.Token</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\WebServices"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+
+REM Uncomment this to copy additional dll dependencies
+REM SET dllDir="%25copyToDir%25\bin"
+REM ECHO %25dllDir%25
+REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+REM COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+REM COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

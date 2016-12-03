@@ -4,13 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</ProjectGuid>
+    <ProjectGuid>{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.WebServices.Common</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Interfaces.Interfaces</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Interfaces.Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,11 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,18 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
-    <Compile Include="Behaviors\ServiceBehaviorBase.cs" />
-    <Compile Include="ICommonWebService.cs" />
-    <Compile Include="OdataExtensions.cs" />
-    <Compile Include="OdataObject.cs" />
-    <Compile Include="ODataUri.cs" />
+    <Compile Include="ICredentials.cs" />
+    <Compile Include="ICredentialsValidator.cs" />
+    <Compile Include="ITokenBuilder.cs" />
+    <Compile Include="ICredentialsExtensions.cs" />
+    <Compile Include="ITokenValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
-      <Name>Services.Common</Name>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Token\Interfaces.Token.csproj">
+      <Project>{F5AC20A5-7B44-4E70-8ADE-1FCBD0B2DF70}</Project>
+      <Name>Interfaces.Token</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Business\CryptoRandomString.cs" />
     <Compile Include="Business\Hash.cs" />
+    <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -107,7 +108,6 @@
     <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
-    <Compile Include="SearchableServiceCommon.cs" />
     <Compile Include="ServiceCommon.cs" />
     <Compile Include="ServiceCommonOneToMany.cs" />
     <Compile Include="ServiceCommonManyToMany.cs" />

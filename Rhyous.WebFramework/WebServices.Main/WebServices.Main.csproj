@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Plugins\Authenticators\" />
     <Folder Include="Plugins\Repositories\" />
     <Folder Include="Plugins\WebServices\" />
   </ItemGroup>
@@ -130,8 +131,8 @@
   </Target>
   -->
   <Target Name="afterClean">
-      <ItemGroup>
-        <FilesToDelete Include="Plugins\**\*"/>
+    <ItemGroup>
+      <FilesToDelete Include="Plugins\**\*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
   </Target>

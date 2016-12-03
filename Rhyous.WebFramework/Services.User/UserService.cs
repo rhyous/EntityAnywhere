@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserService : SearchableServiceCommon<User, IUser>
+    public class UserService : ServiceCommon<User, IUser>, ISearchableServiceCommon<User,IUser>
     {
-        public override IUser Get(string name)
+        public IUser Get(string name)
         {
             return Repo.Get(name, u => u.Username);
         }
 
-        public override List<IUser> Search(string name)
+        public List<IUser> Search(string name)
         {
             return Repo.Search(name, u => u.Username);
         }
