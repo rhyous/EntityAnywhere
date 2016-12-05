@@ -28,7 +28,8 @@ namespace Rhyous.WebFramework.Interfaces
         /// <summary>
         /// Gets an item by Id
         /// </summary>
-        /// <param name="name">The name of the item to return.</param>
+        /// <param name="value">The string value the property expression must be equal to
+        /// to find the item to return.</param>
         /// <returns></returns>
         Tinterface Get(string name, Expression<Func<T, string>> propertyExpression);
 
