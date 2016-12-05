@@ -1,20 +1,13 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserService : ServiceCommon<User, IUser>, ISearchableServiceCommon<User,IUser>
+    public class UserService : ServiceCommonSearchable<User, IUser>
     {
-        public IUser Get(string name)
-        {
-            return Repo.Get(name, u => u.Username);
-        }
-
-        public List<IUser> Search(string name)
-        {
-            return Repo.Search(name, u => u.Username);
-        }
+        public override Expression<Func<User, string>> PropertyExpression => e => e.Username;
 
         public override List<IUser> Add(IList<IUser> users)
         {
