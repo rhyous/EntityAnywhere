@@ -111,6 +111,7 @@
     <Compile Include="ServiceCommon.cs" />
     <Compile Include="ServiceCommonOneToMany.cs" />
     <Compile Include="ServiceCommonManyToMany.cs" />
+    <Compile Include="ServiceCommonSearchable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
