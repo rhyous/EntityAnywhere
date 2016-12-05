@@ -3,7 +3,7 @@
 namespace Rhyous.WebFramework.Services
 {
     public interface IServiceCommonManyToMany<T,Tinterface> : IServiceCommon<T, Tinterface>
-        where T : class
+        where T : class, Tinterface
     {
         string PrimaryEntity { get; }
         string SecondaryEntity { get; }

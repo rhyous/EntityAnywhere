@@ -6,7 +6,7 @@ using System.Linq;
 namespace Rhyous.WebFramework.Services
 {
     public class ServiceCommon<T, Tinterface> : IServiceCommon<T, Tinterface>
-        where T: class
+        where T: class, Tinterface
     {
         public virtual IRepository<T, Tinterface> Repo
         {
@@ -35,7 +35,7 @@ namespace Rhyous.WebFramework.Services
         }
 
         public virtual List<Tinterface> Add(IList<Tinterface> entities)
-        {            
+        {
             return Repo.Create(entities);
         }
 

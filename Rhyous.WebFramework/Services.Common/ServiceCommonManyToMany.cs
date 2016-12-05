@@ -5,7 +5,7 @@ using System.Linq;
 namespace Rhyous.WebFramework.Services
 {
     public class ServiceCommonManyToMany<T, Tinterface> : ServiceCommon<T, Tinterface>, IServiceCommonManyToMany<T, Tinterface> 
-        where T : class
+        where T : class, Tinterface
     {
         public virtual string PrimaryEntity { get; }
         public virtual string SecondaryEntity { get; }

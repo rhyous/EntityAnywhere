@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Rhyous.WebFramework.Services
 {
     public interface IServiceCommon<T, Tinterface>
-        where T : class
+        where T : class, Tinterface
     {
         IRepository<T, Tinterface> Repo { get; set; }
         List<Tinterface> Get();
