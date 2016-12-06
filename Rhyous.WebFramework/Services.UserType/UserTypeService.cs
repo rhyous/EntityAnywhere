@@ -1,12 +1,11 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
-using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
     using IEntity = IUserType;
     using Entity = UserType;
-    using System.Linq.Expressions;
 
     public class UserTypeService : ServiceCommonSearchable<Entity, IEntity>
     {
