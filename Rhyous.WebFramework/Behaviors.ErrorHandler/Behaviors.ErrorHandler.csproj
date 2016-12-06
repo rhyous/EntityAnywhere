@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ServiceResonseExtensions.cs" />
+    <Compile Include="Configuration\ServiceResponseExtensions.cs" />
     <Compile Include="Configuration\ServiceResponse.cs" />
     <Compile Include="Configuration\ServiceResponseCollection.cs" />
     <Compile Include="Configuration\ServiceResponseSection.cs" />
