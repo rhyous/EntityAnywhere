@@ -4,7 +4,7 @@ using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class AuthenticationService
+    public partial class AuthenticationService
     {
         public IToken Authenticate(Credentials creds)
         {

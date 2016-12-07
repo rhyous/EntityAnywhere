@@ -1,10 +1,9 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
-using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserType : IUserType
+    public partial class UserType : IUserType
     {
         public int Id { get; set; }
         public string Type { get; set; }

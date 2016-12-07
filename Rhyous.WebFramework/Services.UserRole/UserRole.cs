@@ -3,7 +3,7 @@ using System;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserRole : IUserRole
+    public partial class UserRole : IUserRole
     {
         public int Id { get; set; }
         public string Name { get; set; }

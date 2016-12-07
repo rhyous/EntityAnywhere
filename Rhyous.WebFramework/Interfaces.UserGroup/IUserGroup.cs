@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Rhyous.WebFramework.Interfaces
+﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IUserGroup : IId, IAuditable, IName, IDescription
+    public partial interface IUserGroup : IId, IAuditable, IName, IDescription
     {
     }
 }

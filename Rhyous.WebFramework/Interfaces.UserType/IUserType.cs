@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Rhyous.WebFramework.Interfaces
+﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IUserType : IId, IAuditable
+    public partial interface IUserType : IId, IAuditable
     {
         string Type { get; set; }
     }

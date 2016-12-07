@@ -2,7 +2,7 @@
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserToUserRoleService : ServiceCommonManyToMany<UserToUserRole, IUserToUserRole>
+    public partial class UserToUserRoleService : ServiceCommonManyToMany<UserToUserRole, IUserToUserRole>
     {
         public override string PrimaryEntity => "User";
         public override string SecondaryEntity => "UserRole";

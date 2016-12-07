@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class UserService : ServiceCommonSearchable<User, IUser>
+    public partial class UserService : ServiceCommonSearchable<User, IUser>
     {
         public override Expression<Func<User, string>> PropertyExpression => e => e.Username;
 

@@ -1,11 +1,8 @@
-using System.Collections.Generic;
 using System;
 using Rhyous.WebFramework.Interfaces;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Rhyous.WebFramework.Services
 {
-    [Table("Users")]
     public partial class User : IUser
     {
         public int Id { get; set; }

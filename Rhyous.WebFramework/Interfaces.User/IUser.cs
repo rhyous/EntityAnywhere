@@ -1,6 +1,6 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IUser : IId, IAuditable, IActivateable
+    public partial interface IUser : IId, IAuditable, IActivateable
     {
         string Username { get; set; }
         string OrganizationId { get; set; }
