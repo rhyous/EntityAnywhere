@@ -6,6 +6,6 @@ namespace Rhyous.WebFramework.Services
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public int UserTypeId { get; set; }
+        public int UserRoleId { get; set; }
     }
 }
