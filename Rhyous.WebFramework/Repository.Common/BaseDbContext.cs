@@ -68,7 +68,8 @@ namespace Rhyous.WebFramework.Repositories
                 if (obj.GetType().IsGenericType && obj.GetType().GetGenericTypeDefinition() == typeof(DbSet<>))
                 {
                     var mi = obj.GetType().GetMethod("AsNoTracking");
-                    mi.Invoke(obj, null);
+                    try { mi.Invoke(obj, null); }
+                    catch (Exception e) { throw e; }
                 }
             }
         }

@@ -1,7 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Routing;
 using System.ServiceModel.Activation;
+using System.Collections.Generic;
+using System.Configuration;
+using System.ServiceModel.Configuration;
+using System.Web.Hosting;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -9,8 +14,6 @@ namespace Rhyous.WebFramework.WebServices
     {
         protected void Application_Start(object sender, EventArgs e)
         {
-            //RouteTable.Routes.Add(new ServiceRoute("UserService", new WebServiceHostFactory(), typeof(UserWebService)));
-            //RouteTable.Routes.Add(new ServiceRoute("UserTypeService", new WebServiceHostFactory(), typeof(UserTypeWebService)));
         }
 
         protected void Session_Start(object sender, EventArgs e)
