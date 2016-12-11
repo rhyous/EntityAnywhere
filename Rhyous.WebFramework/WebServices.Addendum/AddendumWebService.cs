@@ -4,14 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Web;
-using Entity = Rhyous.WebFramework.Services.UserGroup;
-using IEntity = Rhyous.WebFramework.Interfaces.IUserGroup;
-using EntityService = Rhyous.WebFramework.Services.UserGroupService;
-using IdType = System.Int32;
+using Entity = Rhyous.WebFramework.Services.Addendum;
+using IEntity = Rhyous.WebFramework.Interfaces.IAddendum;
+using EntityService = Rhyous.WebFramework.Services.AddendumService;
+using IdType = System.Int64;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class UserGroupWebService : IUserGroupWebService
+    public class AddendumWebService : IAddendumWebService
     {
         public List<OdataObject<Entity>> GetAll()
         {
@@ -23,20 +23,16 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
 
-        public OdataObject<Entity> Get(string idOrName)
+        public OdataObject<Entity> Get(string id)
         {
-            if (string.IsNullOrWhiteSpace(idOrName))
-                return null;
-            if (idOrName.Any(c=>!char.IsDigit(c)))
-                return Service.Get(idOrName)?.ToConcrete<Entity>().AsOdata(GetRequestUri());
-            return Service.Get(idOrName.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
+            return Service.Get(id.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
         public string GetProperty(string id, string property)
         {
             return Service.GetProperty(id.ToInt(), property);
         }
-        
+
         public List<Entity> Post(List<Entity> entities)
         {
             return Service.Add(entities.ToList<IEntity>()).ToConcrete<Entity>().ToList();
@@ -63,11 +59,11 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         #region Injectable Dependency
-        internal ISearchableServiceCommon<Entity,IEntity, int> Service
+        internal IServiceCommonOneToMany<Entity, IEntity, long, string> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
-        } private ISearchableServiceCommon<Entity, IEntity, int> _Service;
+        } private IServiceCommonOneToMany<Entity, IEntity, long, string> _Service;
         #endregion
     }
 }
