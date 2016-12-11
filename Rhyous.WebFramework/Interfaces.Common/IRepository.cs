@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IRepository<T,Tinterface>
+    public interface IRepository<T,Tinterface, Tid>
     {
         /// <summary>
         /// List all items of T.
@@ -16,14 +16,14 @@ namespace Rhyous.WebFramework.Interfaces
         /// List all items of T with the given ids.
         /// </summary>
         /// <returns>A list of all items of T with the give ids</returns>
-        List<Tinterface> Get(List<int> ids);
+        List<Tinterface> Get(List<Tid> ids);
 
         /// <summary>
         /// Gets an item by Id
         /// </summary>
         /// <param name="userId">The id of the item to return.</param>
         /// <returns></returns>
-        Tinterface Get(int id);
+        Tinterface Get(Tid id);
 
         /// <summary>
         /// Gets an item by Id
@@ -66,6 +66,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="id">The Id of the item to delete.</param>
         /// <returns></returns>
-        bool Delete(int id);
+        bool Delete(Tid id);
     }
 }

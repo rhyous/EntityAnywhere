@@ -3,15 +3,14 @@ using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Repositories
 {
-    public class BaseRepository<T, Tinterface> : IRepository<T, Tinterface>
-        where Tinterface : IId
-        where T : class, Tinterface, IId, new()
+    public class BaseRepository<T, Tinterface, Tid> : IRepository<T, Tinterface, Tid>
+        where Tinterface : IId<Tid>
+        where T : class, Tinterface, new()
     {
         protected BaseDbContext<T> DbContext
         {
@@ -31,9 +30,9 @@ namespace Rhyous.WebFramework.Repositories
             return result;
         }
 
-        public virtual bool Delete(int id)
+        public virtual bool Delete(Tid id)
         {
-            var item = DbContext.Entities.FirstOrDefault(o => o.Id == id);
+            var item = DbContext.Entities.FirstOrDefault(o => o.Id.Equals(id));
             if (item == null)
                 return true;
             DbContext.Entities.Remove(item);
@@ -46,14 +45,14 @@ namespace Rhyous.WebFramework.Repositories
             return DbContext.Entities.ToList<Tinterface>();
         }
 
-        public virtual List<Tinterface> Get(List<int> ids)
+        public virtual List<Tinterface> Get(List<Tid> ids)
         {
             return DbContext.Entities.Where(o => ids.Contains(o.Id)).ToList<Tinterface>();
         }
 
-        public virtual Tinterface Get(int id)
+        public virtual Tinterface Get(Tid id)
         {
-            return DbContext.Entities.FirstOrDefault(o => o.Id == id);
+            return DbContext.Entities.FirstOrDefault(o => o.Id.Equals(id));
         }
 
         public virtual Tinterface Get(string name, Expression<Func<T, string>> propertyExpression)
@@ -78,7 +77,7 @@ namespace Rhyous.WebFramework.Repositories
 
         public virtual Tinterface Update(Tinterface item, IEnumerable<string> changedProperties)
         {
-            var existingItem = DbContext.Entities.FirstOrDefault(o => o.Id == item.Id);
+            var existingItem = DbContext.Entities.FirstOrDefault(o => o.Id.Equals(item.Id));
             foreach (var prop in changedProperties)
             {
                 var value = item.GetPropertyValue(prop);

@@ -62,11 +62,11 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         #region Injectable Dependency
-        internal ISearchableServiceCommon<Entity,IEntity> Service
+        internal ISearchableServiceCommon<Entity,IEntity, int> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
-        } private ISearchableServiceCommon<Entity, IEntity> _Service;
+        } private ISearchableServiceCommon<Entity, IEntity, int> _Service;
         #endregion
     }
 }

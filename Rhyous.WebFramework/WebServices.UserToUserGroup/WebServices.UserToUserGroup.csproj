@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</ProjectGuid>
+    <ProjectGuid>{786E046C-0695-4C73-840B-0F8E8E0218D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.WebServices.Common</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.WebServices.UserToUserGroup</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -44,28 +43,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
-    <Compile Include="Behaviors\ServiceBehaviorBase.cs" />
-    <Compile Include="ICommonWebService.cs" />
-    <Compile Include="OdataExtensions.cs" />
-    <Compile Include="OdataObject.cs" />
-    <Compile Include="ODataUri.cs" />
+    <Compile Include="IUserToUserGroupWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserToUserGroupWebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Interfaces.UserToUserGroup\Interfaces.UserToUserGroup.csproj">
+      <Project>{d1256fe6-4018-428e-aac7-33f6bfd47b8f}</Project>
+      <Name>Interfaces.UserToUserGroup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+      <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.UserToUserGroup\Services.UserToUserGroup.csproj">
+      <Project>{34fe4dcd-c855-4b44-9d5f-173dae65c12e}</Project>
+      <Name>Services.UserToUserGroup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj">
+      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
+      <Name>WebServices.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\WebServices"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+
+SET dllDir="%25copyToDir%25\bin"
+ECHO %25dllDir%25
+IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

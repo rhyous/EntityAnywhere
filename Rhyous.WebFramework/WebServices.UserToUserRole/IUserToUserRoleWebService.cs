@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.UserToUserRole;
+using IdType = System.Int64;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -18,7 +19,7 @@ namespace Rhyous.WebFramework.WebServices
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "UserToUserRoles/Ids", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Entity>> GetByIds(List<int> ids);
+        List<OdataObject<Entity>> GetByIds(List<IdType> ids);
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "UserToUserRoles({id})/{property}", ResponseFormat = WebMessageFormat.Json)]

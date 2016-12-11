@@ -7,8 +7,8 @@ namespace Rhyous.WebFramework.Services
     using IEntity = IUserType;
     using Entity = UserType;
 
-    public partial class UserTypeService : ServiceCommonSearchable<Entity, IEntity>
+    public partial class UserTypeService : ServiceCommonSearchable<Entity, IEntity, int>
     {
-        public override Expression<Func<Entity, string>> PropertyExpression => e => e.Type;        
+        public override Expression<Func<Entity, string>> PropertyExpression => e => e.Type;
     }
 }

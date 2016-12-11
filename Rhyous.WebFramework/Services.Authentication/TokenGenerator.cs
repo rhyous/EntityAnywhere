@@ -7,7 +7,7 @@ namespace Rhyous.WebFramework.Services
     {
         public static int TokenSize = 100;
 
-        public IToken Build(ICredentials creds, int userId = 0)
+        public IToken Build(ICredentials creds, long userId = 0)
         {
             var tokenvalue = CryptoRandomString.GetCryptoRandomBase64String(TokenSize);
             IUser user = null;

@@ -18,13 +18,13 @@ namespace Rhyous.WebFramework.Services
             return plugins?[0]?.PluginObjects?[0];
         }
 
-        public static IRepository<T, Tinterface> Load<T, Tinterface>()
+        public static IRepository<T, Tinterface, Tid> Load<T, Tinterface, Tid>()
             where T : class
         {
             var plugindir = ConfigurationManager.AppSettings.Get("PluginDirectory", @".\Plugins\Repositories");
 
             var dir = Path.Combine(plugindir, "Repositories", "Common");
-            var genericPluginLoader = new PluginLoader<IRepository<T, Tinterface>>();
+            var genericPluginLoader = new PluginLoader<IRepository<T, Tinterface, Tid>>();
             var genericPlugins = genericPluginLoader.LoadPlugins(new List<string> { dir });
             return (genericPlugins != null && genericPlugins.Count > 0 && genericPlugins[0].PluginObjects != null && genericPlugins[0].PluginObjects.Count > 0)
                 ? genericPlugins[0].PluginObjects[0]

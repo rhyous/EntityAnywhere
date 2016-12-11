@@ -2,6 +2,6 @@
 {
     public interface ITokenBuilder
     {
-        IToken Build(ICredentials creds, int userId);
+        IToken Build(ICredentials creds, long userId);
     }
 }

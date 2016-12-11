@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public abstract class ServiceCommonSearchable<T, Tinterface> : ServiceCommon<T, Tinterface>, ISearchableServiceCommon<T, Tinterface>
+    public abstract class ServiceCommonSearchable<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, ISearchableServiceCommon<T, Tinterface, Tid>
+        where Tinterface : IId<Tid>
         where T : class, Tinterface
     {
         public abstract Expression<Func<T, string>> PropertyExpression { get; }

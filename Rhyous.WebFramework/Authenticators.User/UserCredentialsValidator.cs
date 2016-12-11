@@ -12,7 +12,7 @@ namespace Rhyous.WebFramework.Authenticators
         /// </summary>
         public static bool ForceExternalUsersToAuthenticateExternally { get { return ConfigurationManager.AppSettings.Get("ForceExternalUsersToAuthenticateExternally", true); } }
 
-        public IToken Build(ICredentials creds, int userId)
+        public IToken Build(ICredentials creds, long userId)
         {
             return TokenGenerator.Build(creds, userId);                
         }

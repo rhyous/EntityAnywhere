@@ -1,7 +1,7 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IId
+    public interface IId<T>
     {
-        int Id { get; set; }
+        T Id { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.UserToUserRole;
 using IEntity = Rhyous.WebFramework.Interfaces.IUserToUserRole;
 using EntityService = Rhyous.WebFramework.Services.UserToUserRoleService;
+using IdType = System.Int64;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -22,7 +23,7 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Get(id.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
-        public List<OdataObject<Entity>> GetByIds(List<int> ids)
+        public List<OdataObject<Entity>> GetByIds(List<IdType> ids)
         {
             return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
@@ -70,11 +71,11 @@ namespace Rhyous.WebFramework.WebServices
         #endregion
 
         #region Injectable Dependency
-        internal IServiceCommonManyToMany<Entity, IEntity> Service
+        internal IServiceCommonManyToMany<Entity, IEntity, long, long, int> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
-        } private IServiceCommonManyToMany<Entity, IEntity> _Service;
+        } private IServiceCommonManyToMany<Entity, IEntity, long, long, int> _Service;
         #endregion
 
     }

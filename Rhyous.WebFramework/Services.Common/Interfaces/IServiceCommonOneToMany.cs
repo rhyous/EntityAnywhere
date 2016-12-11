@@ -2,11 +2,11 @@
 
 namespace Rhyous.WebFramework.Services
 {
-    public interface IServiceCommonOneToMany<T, Tinterface> : IServiceCommon<T, Tinterface>
+    public interface IServiceCommonOneToMany<T, Tinterface, Tid, TidRelated> : IServiceCommon<T, Tinterface, Tid>
         where T : class, Tinterface
     {
         string RelatedEntity { get; }
         string IdSuffix { get; }
-        List<Tinterface> GetByRelatedEntityId(int id);
+        List<Tinterface> GetByRelatedEntityId(TidRelated id);
     }
 }

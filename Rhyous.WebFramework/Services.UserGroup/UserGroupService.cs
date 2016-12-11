@@ -6,8 +6,9 @@ namespace Rhyous.WebFramework.Services
 {
     using IEntity = IUserGroup;
     using Entity = UserGroup;
+    using IdType = System.Int32;
 
-    public class UserGroupService : ServiceCommonSearchable<Entity, IEntity>
+    public class UserGroupService : ServiceCommonSearchable<Entity, IEntity, IdType>
     {
         public override Expression<Func<Entity, string>> PropertyExpression => e => e.Name;        
     }

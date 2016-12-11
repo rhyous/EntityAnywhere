@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.User;
 using IEntity = Rhyous.WebFramework.Interfaces.IUser;
 using EntityService = Rhyous.WebFramework.Services.UserService;
+using IdType = System.Int64;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -17,7 +18,7 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Get()?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
 
-        public List<OdataObject<Entity>> GetByIds(List<int> ids)
+        public List<OdataObject<Entity>> GetByIds(List<IdType> ids)
         {
             return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
@@ -28,7 +29,7 @@ namespace Rhyous.WebFramework.WebServices
                 return null;
             if (idOrName.Any(c=>!char.IsDigit(c)))
                 return Service.Get(idOrName)?.ToConcrete<Entity>().AsOdata(GetRequestUri());
-            return Service.Get(idOrName.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
+            return Service.Get(idOrName.ToLong())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
         public string GetProperty(string id, string property)
@@ -62,11 +63,11 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         #region Injectable Dependency
-        internal ISearchableServiceCommon<Entity,IEntity> Service
+        internal ISearchableServiceCommon<Entity,IEntity, IdType> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
-        } private ISearchableServiceCommon<Entity, IEntity> _Service;
+        } private ISearchableServiceCommon<Entity, IEntity, IdType> _Service;
         #endregion
 
     }

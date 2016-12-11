@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class ServiceCommon<T, Tinterface> : IServiceCommon<T, Tinterface>
+    public class ServiceCommon<T, Tinterface, Tid> : IServiceCommon<T, Tinterface, Tid>
         where T: class, Tinterface
     {
-        public virtual IRepository<T, Tinterface> Repo
+        public virtual IRepository<T, Tinterface, Tid> Repo
         {
-            get { return _Repo ?? (_Repo = RepositoryLoader.Load<T, Tinterface>()); }
+            get { return _Repo ?? (_Repo = RepositoryLoader.Load<T, Tinterface, Tid>()); }
             set { _Repo = value; }
-        } private IRepository<T, Tinterface> _Repo;
+        } private IRepository<T, Tinterface, Tid> _Repo;
 
-        public virtual List<Tinterface> Get(List<int> ids)
+        public virtual List<Tinterface> Get(List<Tid> ids)
         {
             return Repo.Get(ids).ToList();
         }
@@ -24,12 +24,12 @@ namespace Rhyous.WebFramework.Services
             return Repo.Get().ToList();
         }
 
-        public virtual Tinterface Get(int Id)
+        public virtual Tinterface Get(Tid Id)
         {
             return Repo.Get(Id);
         }
 
-        public virtual string GetProperty(int Id, string property)
+        public virtual string GetProperty(Tid Id, string property)
         {
             return Repo.Get(Id)?.GetPropertyValue(property)?.ToString();
         }
@@ -39,12 +39,12 @@ namespace Rhyous.WebFramework.Services
             return Repo.Create(entities);
         }
 
-        public virtual Tinterface Update(int Id, Tinterface entity, List<string> changedProperties)
+        public virtual Tinterface Update(Tid Id, Tinterface entity, List<string> changedProperties)
         {
             return Repo.Update(entity, changedProperties);
         }
 
-        public virtual Tinterface Replace(int Id, Tinterface entity)
+        public virtual Tinterface Replace(Tid Id, Tinterface entity)
         {
             var allProperties = from prop in typeof(Tinterface).GetProperties()
                                 where prop.CanRead && prop.CanWrite && prop.Name != "Id"
@@ -52,7 +52,7 @@ namespace Rhyous.WebFramework.Services
             return Repo.Update(entity, allProperties);
         }
 
-        public virtual bool Delete(int id)
+        public virtual bool Delete(Tid id)
         {
             return Repo.Delete(id);
         }        

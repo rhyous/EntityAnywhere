@@ -27,6 +27,18 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <summary>
+        /// Converts a string to an int.
+        /// </summary>
+        /// <param name="s">String Input</param>
+        /// <returns></returns>
+        public static long ToLong(this string s)
+        {
+            long convertedValue;
+            long.TryParse(s, out convertedValue);
+            return convertedValue;
+        }
+
+        /// <summary>
         /// Gets as double.
         /// </summary>
         /// <param name="s">The s.</param>

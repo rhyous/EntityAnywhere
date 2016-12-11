@@ -2,9 +2,9 @@
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IToken : IId, IAuditable
+    public interface IToken : IId<long>, IAuditable
     {
         string Text { get; set; }
-        int UserId { get; set; }
+        long UserId { get; set; }
     }
 }

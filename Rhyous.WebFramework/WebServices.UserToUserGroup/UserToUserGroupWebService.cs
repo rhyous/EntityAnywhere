@@ -4,23 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Web;
-using Entity = Rhyous.WebFramework.Services.Token;
-using IEntity = Rhyous.WebFramework.Interfaces.IToken;
-using EntityService = Rhyous.WebFramework.Services.TokenService;
+using Entity = Rhyous.WebFramework.Services.UserToUserGroup;
+using IEntity = Rhyous.WebFramework.Interfaces.IUserToUserGroup;
+using EntityService = Rhyous.WebFramework.Services.UserToUserGroupService;
 using IdType = System.Int64;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class TokenWebService : ITokenWebService
+    public class UserToUserGroupWebService : IUserToUserGroupWebService
     {
         public List<OdataObject<Entity>> GetAll()
         {
             return Service.Get()?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
-        }
-
-        public List<OdataObject<Entity>> GetByIds(List<IdType> ids)
-        {
-            return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
 
         public OdataObject<Entity> Get(string id)
@@ -28,11 +23,16 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Get(id.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
+        public List<OdataObject<Entity>> GetByIds(List<IdType> ids)
+        {
+            return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+        }
+
         public string GetProperty(string id, string property)
         {
             return Service.GetProperty(id.ToInt(), property);
         }
-        
+
         public List<Entity> Post(List<Entity> entities)
         {
             return Service.Add(entities.ToList<IEntity>()).ToConcrete<Entity>().ToList();
@@ -58,19 +58,24 @@ namespace Rhyous.WebFramework.WebServices
             return WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri;
         }
 
-        #region One to Many methods
-        public List<OdataObject<Entity>> GetByRelatedEntityId(string id)
+        #region Many to Many methods
+        public List<OdataObject<Entity>> GetByPrimaryEntityId(string id)
         {
-            return Service.GetByRelatedEntityId(id.ToInt())?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+            return Service.GetByRelatedEntityId(id.ToInt(), Service.PrimaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+        }
+
+        public List<OdataObject<Entity>> GetBySecondaryEntityId(string id)
+        {
+            return Service.GetByRelatedEntityId(id.ToInt(), Service.SecondaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
         #endregion
 
         #region Injectable Dependency
-        internal IServiceCommonOneToMany<Entity,IEntity, long, long> Service
+        internal IServiceCommonManyToMany<Entity, IEntity, long, long, int> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
-        } private IServiceCommonOneToMany<Entity, IEntity, long, long> _Service;
+        } private IServiceCommonManyToMany<Entity, IEntity, long, long, int> _Service;
         #endregion
 
     }
