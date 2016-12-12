@@ -62,12 +62,34 @@ namespace Rhyous.WebFramework.WebServices
             return WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri;
         }
 
+        public List<Addendum> GetAddenda(string id)
+        {
+            var entityName = typeof(Entity).Name;
+            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
+                                 .ToConcrete<Addendum>().ToList();
+        }
+
+        public Addendum GetAddendaByName(string id, string name)
+        {
+            var entityName = typeof(Entity).Name;
+            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
+                                 .OrderByDescending(x=>x.CreateDate)
+                                 .FirstOrDefault()
+                                 .ToConcrete<Addendum>();
+        }
+
         #region Injectable Dependency
         internal ISearchableServiceCommon<Entity,IEntity, IdType> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }
         } private ISearchableServiceCommon<Entity, IEntity, IdType> _Service;
+
+        internal IServiceCommon<Addendum, IAddendum, long> AddendaService
+        {
+            get { return _AddendaService ?? (_AddendaService = new AddendumService()); }
+            set { _AddendaService = value; }
+        } private IServiceCommon<Addendum, IAddendum, long> _AddendaService;
         #endregion
 
     }

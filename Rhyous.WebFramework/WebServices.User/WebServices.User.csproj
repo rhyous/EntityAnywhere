@@ -57,6 +57,10 @@
       <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services.Addendum\Services.Addendum.csproj">
+      <Project>{61c244bb-3b38-4a29-b661-ae178e6d92ea}</Project>
+      <Name>Services.Addendum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>

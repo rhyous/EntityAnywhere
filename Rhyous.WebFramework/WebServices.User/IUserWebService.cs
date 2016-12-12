@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Rhyous.WebFramework.Services;
+using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.User;
@@ -40,5 +41,13 @@ namespace Rhyous.WebFramework.WebServices
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "Users({id})", ResponseFormat = WebMessageFormat.Json)]
         bool Delete(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Users({id})/Properties", ResponseFormat = WebMessageFormat.Json)]
+        List<Addendum> GetAddenda(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Users({id})/Properties({name})", ResponseFormat = WebMessageFormat.Json)]
+        Addendum GetAddendaByName(string id, string name);
     }
 }
