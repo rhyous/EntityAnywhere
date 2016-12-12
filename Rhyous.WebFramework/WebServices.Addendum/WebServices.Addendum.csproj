@@ -48,10 +48,6 @@
     <Compile Include="AddendumWebService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.Addendum\Interfaces.Addendum.csproj">
-      <Project>{4383f806-5a1e-446c-85f6-a9bd1daa8709}</Project>
-      <Name>Interfaces.Addendum</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>

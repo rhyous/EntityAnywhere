@@ -48,19 +48,20 @@ namespace Rhyous.WebFramework.WebServices
 
         public static OdataObject<T> AsOdata<T>(this T t, Uri uri, params string[] properties)
         {
-            return t.AsOdata<T>(uri, false, properties);
+            var leftPart = uri.GetLeftPart(UriPartial.Path);
+            return t.AsOdata<T>(leftPart, false, properties);
         }
 
-        public static OdataObject<T> AsOdata<T>(this T t, Uri uri, bool addIdToUrl, params string[] properties)
+        public static OdataObject<T> AsOdata<T>(this T t, string leftPart, bool addIdToUrl, params string[] properties)
         {
-            var leftPart = uri.GetLeftPart(UriPartial.Path);
             var id = t.GetPropertyValue(IdProperty);
             return t.AsOdata(leftPart, IdProperty, addIdToUrl, properties);
         }
 
         public static List<OdataObject<T>> AsOdata<T>(this List<T> ts, Uri uri, params string[] properties)
         {
-            return ts.Select(t => t.AsOdata(uri, true, properties)).ToList();
+            var leftPart = uri.GetLeftPart(UriPartial.Path);
+            return ts.Select(t => t.AsOdata(leftPart, true, properties)).ToList();
         }
     }
 }

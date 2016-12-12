@@ -2,7 +2,7 @@
 
 namespace Rhyous.WebFramework.Services
 {
-    public partial class AddendumService : ServiceCommonOneToMany<Addendum, IAddendum, long, string>
+    public partial class AddendumService : ServiceCommon<Addendum, IAddendum, long>
     {
     }
 }

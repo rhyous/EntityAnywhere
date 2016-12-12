@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
@@ -27,6 +28,11 @@ namespace Rhyous.WebFramework.Services
         public virtual Tinterface Get(Tid Id)
         {
             return Repo.Get(Id);
+        }
+
+        public virtual List<Tinterface> Get(Expression<Func<T, bool>> expression)
+        {
+            return Repo.GetByExpression(expression).ToList();
         }
 
         public virtual string GetProperty(Tid Id, string property)

@@ -41,5 +41,13 @@ namespace Rhyous.WebFramework.WebServices
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "Addenda({id})", ResponseFormat = WebMessageFormat.Json)]
         bool Delete(string id);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Users({relatedEntityId})/Properties", ResponseFormat = WebMessageFormat.Json)]
+        List<Entity> GetAddenda(string relatedEntityId);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Users({relatedEntityId})/Properties({name})", ResponseFormat = WebMessageFormat.Json)]
+        Entity GetAddendaByName(string relatedEntityId, string name);
     }
 }
