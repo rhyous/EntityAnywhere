@@ -105,7 +105,6 @@
     <Compile Include="Interfaces\IServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommonOneToMany.cs" />
     <Compile Include="Interfaces\IServiceCommonManyToMany.cs" />
-    <Compile Include="Model\Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
     <Compile Include="ServiceCommon.cs" />

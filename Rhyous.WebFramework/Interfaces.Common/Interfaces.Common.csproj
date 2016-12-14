@@ -54,10 +54,6 @@
     <Compile Include="IDescription.cs" />
     <Compile Include="IName.cs" />
     <Compile Include="IId.cs" />
-    <Compile Include="IProperty.cs" />
-    <Compile Include="IPropertyCollection.cs" />
-    <Compile Include="IPropertyCollectionExtensions.cs" />
-    <Compile Include="IPropertyExtensions.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
