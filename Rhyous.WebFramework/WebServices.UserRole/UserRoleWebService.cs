@@ -7,6 +7,8 @@ using System.ServiceModel.Web;
 using Entity = Rhyous.WebFramework.Services.UserRole;
 using IEntity = Rhyous.WebFramework.Interfaces.IUserRole;
 using EntityService = Rhyous.WebFramework.Services.UserRoleService;
+using TypeId = System.Int32;
+using Rhyous.StringLibrary;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -17,7 +19,7 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Get()?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
 
-        public List<OdataObject<Entity>> GetByIds(List<int> ids)
+        public List<OdataObject<Entity>> GetByIds(List<TypeId> ids)
         {
             return Service.Get(ids)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
@@ -26,16 +28,16 @@ namespace Rhyous.WebFramework.WebServices
         {
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
-            if (idOrName.Any(c=>!char.IsDigit(c)))
+            if (idOrName.Any(c => !char.IsDigit(c)))
                 return Service.Get(idOrName)?.ToConcrete<Entity>().AsOdata(GetRequestUri());
-            return Service.Get(idOrName.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
+            return Service.Get(idOrName.To<TypeId>())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
         public string GetProperty(string id, string property)
         {
-            return Service.GetProperty(id.ToInt(), property);
+            return Service.GetProperty(id.To<TypeId>(), property);
         }
-        
+
         public List<Entity> Post(List<Entity> entities)
         {
             return Service.Add(entities.ToList<IEntity>()).ToConcrete<Entity>().ToList();
@@ -62,7 +64,7 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         #region Injectable Dependency
-        internal ISearchableServiceCommon<Entity,IEntity, int> Service
+        internal ISearchableServiceCommon<Entity, IEntity, int> Service
         {
             get { return _Service ?? (_Service = new EntityService()); }
             set { _Service = value; }

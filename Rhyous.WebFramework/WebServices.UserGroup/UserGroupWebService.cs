@@ -8,6 +8,7 @@ using Entity = Rhyous.WebFramework.Services.UserGroup;
 using IEntity = Rhyous.WebFramework.Interfaces.IUserGroup;
 using EntityService = Rhyous.WebFramework.Services.UserGroupService;
 using IdType = System.Int32;
+using Rhyous.StringLibrary;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -29,12 +30,12 @@ namespace Rhyous.WebFramework.WebServices
                 return null;
             if (idOrName.Any(c=>!char.IsDigit(c)))
                 return Service.Get(idOrName)?.ToConcrete<Entity>().AsOdata(GetRequestUri());
-            return Service.Get(idOrName.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
+            return Service.Get(idOrName.To<IdType>())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
         public string GetProperty(string id, string property)
         {
-            return Service.GetProperty(id.ToInt(), property);
+            return Service.GetProperty(id.To<IdType>(), property);
         }
         
         public List<Entity> Post(List<Entity> entities)
@@ -44,17 +45,17 @@ namespace Rhyous.WebFramework.WebServices
 
         public Entity Patch(string id, Entity entity, List<string> changedProperties)
         {
-            return Service.Update(id.ToInt(), entity, changedProperties).ToConcrete<Entity>();
+            return Service.Update(id.To<IdType>(), entity, changedProperties).ToConcrete<Entity>();
         }
 
         public Entity Put(string id, Entity entity)
         {
-            return Service.Replace(id.ToInt(), entity).ToConcrete<Entity>();
+            return Service.Replace(id.To<IdType>(), entity).ToConcrete<Entity>();
         }
 
         public bool Delete(string id)
         {
-            return Service.Delete(id.ToInt());
+            return Service.Delete(id.To<IdType>());
         }
 
         public Uri GetRequestUri()

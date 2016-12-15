@@ -8,6 +8,7 @@ using Entity = Rhyous.WebFramework.Services.UserToUserType;
 using IEntity = Rhyous.WebFramework.Interfaces.IUserToUserType;
 using EntityService = Rhyous.WebFramework.Services.UserToUserTypeService;
 using IdType = System.Int64;
+using Rhyous.StringLibrary;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -20,7 +21,7 @@ namespace Rhyous.WebFramework.WebServices
 
         public OdataObject<Entity> Get(string id)
         {
-            return Service.Get(id.ToInt())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
+            return Service.Get(id.To<IdType>())?.ToConcrete<Entity>().AsOdata(GetRequestUri());
         }
 
         public List<OdataObject<Entity>> GetByIds(List<IdType> ids)
@@ -30,7 +31,7 @@ namespace Rhyous.WebFramework.WebServices
 
         public string GetProperty(string id, string property)
         {
-            return Service.GetProperty(id.ToInt(), property);
+            return Service.GetProperty(id.To<IdType>(), property);
         }
 
         public List<Entity> Post(List<Entity> entities)
@@ -40,17 +41,17 @@ namespace Rhyous.WebFramework.WebServices
 
         public Entity Patch(string id, Entity entity, List<string> changedProperties)
         {
-            return Service.Update(id.ToInt(), entity, changedProperties).ToConcrete<Entity>();
+            return Service.Update(id.To<IdType>(), entity, changedProperties).ToConcrete<Entity>();
         }
 
         public Entity Put(string id, Entity entity)
         {
-            return Service.Replace(id.ToInt(), entity).ToConcrete<Entity>();
+            return Service.Replace(id.To<IdType>(), entity).ToConcrete<Entity>();
         }
 
         public bool Delete(string id)
         {
-            return Service.Delete(id.ToInt());
+            return Service.Delete(id.To<IdType>());
         }
 
         public Uri GetRequestUri()
@@ -61,12 +62,12 @@ namespace Rhyous.WebFramework.WebServices
         #region Many to Many methods
         public List<OdataObject<Entity>> GetByPrimaryEntityId(string id)
         {
-            return Service.GetByRelatedEntityId(id.ToInt(), Service.PrimaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+            return Service.GetByRelatedEntityId(id.To<IdType>(), Service.PrimaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
 
         public List<OdataObject<Entity>> GetBySecondaryEntityId(string id)
         {
-            return Service.GetByRelatedEntityId(id.ToInt(), Service.SecondaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
+            return Service.GetByRelatedEntityId(id.To<IdType>(), Service.SecondaryEntity)?.ToConcrete<Entity>().ToList().AsOdata(GetRequestUri());
         }
         #endregion
 
