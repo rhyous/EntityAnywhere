@@ -11,11 +11,6 @@ namespace Rhyous.WebFramework.Services
 
         public override string RelatedEntity => "User";
 
-        public IToken Get(string tokenText)
-        {
-            return Repo.Get(tokenText, PropertyExpression);
-        }
-
         public List<IToken> Search(string tokenText)
         {
             return Repo.Search(tokenText, PropertyExpression);

@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Services
     {
         public abstract Expression<Func<T, string>> PropertyExpression { get; }
 
-        public Tinterface Get(string stringProperty)
+        public override Tinterface Get(string stringProperty)
         {
             return Repo.Get(stringProperty, PropertyExpression);
         }

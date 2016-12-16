@@ -12,6 +12,7 @@ namespace Rhyous.WebFramework.Services
         List<Tinterface> Get();
         List<Tinterface> Get(List<Tid> ids);
         Tinterface Get(Tid id);
+        Tinterface Get(string id);
         List<Tinterface> Get(Expression<Func<T, bool>> expression);
         string GetProperty(Tid id, string property);
         Tinterface Update(Tid id, Tinterface entity, List<string> changedProperties);

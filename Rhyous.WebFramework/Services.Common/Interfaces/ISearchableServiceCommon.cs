@@ -9,7 +9,6 @@ namespace Rhyous.WebFramework.Services
         where Tinterface : IId<Tid>
         where T : class, Tinterface
     {
-        Tinterface Get(string name);
         List<Tinterface> Search(string name);
         Expression<Func<T, string>> PropertyExpression { get; }
     }

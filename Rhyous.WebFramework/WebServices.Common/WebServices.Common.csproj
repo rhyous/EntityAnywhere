@@ -93,6 +93,9 @@
     <Compile Include="OdataObject.cs" />
     <Compile Include="ODataUri.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SearchableEntityWebService.cs" />
+    <Compile Include="Services\EntityWebService.cs" />
+    <Compile Include="Services\IEntityWebService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
