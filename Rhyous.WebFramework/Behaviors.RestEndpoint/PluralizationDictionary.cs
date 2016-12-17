@@ -7,9 +7,9 @@ namespace Rhyous.WebFramework.Behaviors
     {
         #region Singleton
 
-        private static readonly Lazy<RestDictionary> Lazy = new Lazy<RestDictionary>(() => new RestDictionary());
+        private static readonly Lazy<PlaralizationDictionary> Lazy = new Lazy<PlaralizationDictionary>(() => new PlaralizationDictionary());
 
-        public static RestDictionary Instance { get { return Lazy.Value; } }
+        public static PlaralizationDictionary Instance { get { return Lazy.Value; } }
 
         internal PlaralizationDictionary()
         {

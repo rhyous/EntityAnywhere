@@ -11,5 +11,6 @@ namespace Rhyous.WebFramework.Services
     {
         List<Tinterface> Search(string name);
         Expression<Func<T, string>> PropertyExpression { get; }
+        Tinterface Get(string id);
     }
 }

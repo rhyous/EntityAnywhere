@@ -17,8 +17,13 @@ namespace Rhyous.WebFramework.WebServices
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return Service.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
+                return SearchableService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
             return Service.Get(idOrName.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
+        }
+        
+        public virtual ISearchableServiceCommon<T, Tinterface, Tid> SearchableService
+        {
+            get { return Service as ISearchableServiceCommon<T, Tinterface, Tid>; }
         }
     }
 }

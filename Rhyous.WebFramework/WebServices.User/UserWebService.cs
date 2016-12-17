@@ -3,7 +3,12 @@ using Rhyous.WebFramework.Services;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class UserWebService : EntityWebService<User, IUser, long, UserService>, IUserWebService
+    public class UserWebService : SearchableEntityWebService<User, IUser, long, UserService>, IUserWebService
     {
+        public UserWebService()
+        {
+            Service = new ServiceCommonSearchable<User, IUser, long>(x => x.Username);
+        }
+
     }
 }

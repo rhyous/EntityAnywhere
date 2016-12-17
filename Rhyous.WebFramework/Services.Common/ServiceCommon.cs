@@ -30,11 +30,6 @@ namespace Rhyous.WebFramework.Services
             return Repo.Get(Id);
         }
 
-        public virtual Tinterface Get(string Id)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual List<Tinterface> Get(Expression<Func<T, bool>> expression)
         {
             return Repo.GetByExpression(expression).ToList();

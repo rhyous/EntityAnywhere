@@ -58,10 +58,6 @@
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services.UserRole\Services.UserRole.csproj">
-      <Project>{d7e7c74c-5d18-4da1-9ae9-391ec42c76b0}</Project>
-      <Name>Services.UserRole</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

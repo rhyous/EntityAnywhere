@@ -101,7 +101,7 @@
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Interfaces\ISearchableServiceCommon.cs" />
+    <Compile Include="Interfaces\IServiceCommonSearchable.cs" />
     <Compile Include="Interfaces\IServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommonOneToMany.cs" />
     <Compile Include="Interfaces\IServiceCommonManyToMany.cs" />

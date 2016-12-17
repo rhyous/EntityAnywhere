@@ -5,13 +5,22 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public abstract class ServiceCommonSearchable<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, ISearchableServiceCommon<T, Tinterface, Tid>
+    public class ServiceCommonSearchable<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, ISearchableServiceCommon<T, Tinterface, Tid>
         where Tinterface : IId<Tid>
         where T : class, Tinterface
     {
-        public abstract Expression<Func<T, string>> PropertyExpression { get; }
+        public ServiceCommonSearchable()
+        {
+        }
 
-        public override Tinterface Get(string stringProperty)
+        public ServiceCommonSearchable(Expression<Func<T, string>> propertyExpression)
+        {
+            PropertyExpression = propertyExpression;
+        }
+
+        public virtual Expression<Func<T, string>> PropertyExpression { get; private set; }
+
+        public Tinterface Get(string stringProperty)
         {
             return Repo.Get(stringProperty, PropertyExpression);
         }

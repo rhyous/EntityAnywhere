@@ -44,7 +44,7 @@ namespace Rhyous.WebFramework.WebServices
 
         #region Mapping Table Specific
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "Users({id})/UserGroups", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "UserToUserGroups/Users({id})/UserGroups", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<Entity>> GetByPrimaryEntityId(string id);
 
         [OperationContract]

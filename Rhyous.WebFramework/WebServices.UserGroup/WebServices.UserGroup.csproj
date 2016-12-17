@@ -55,13 +55,13 @@
       <Project>{8318202b-41e3-45a7-ab87-2167bf301dce}</Project>
       <Name>Interfaces.UserGroup</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models.UserGroup\Models.UserGroup.csproj">
+      <Project>{c36af01e-d689-49c0-b0c6-51c38de14c6a}</Project>
+      <Name>Models.UserGroup</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.UserGroup\Services.UserGroup.csproj">
-      <Project>{6c991870-d287-43f1-9a33-43c9519d74d2}</Project>
-      <Name>Services.UserGroup</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>
