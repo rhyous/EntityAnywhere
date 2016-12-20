@@ -1,7 +1,6 @@
-﻿using Rhyous.WebFramework.Services;
-using System.Collections.Generic;
+﻿using Rhyous.WebFramework.Models;
 using System.ServiceModel;
-using System.ServiceModel.Web;
+
 namespace Rhyous.WebFramework.WebServices
 {
     [ServiceContract]

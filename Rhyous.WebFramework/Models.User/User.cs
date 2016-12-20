@@ -1,7 +1,7 @@
 using System;
 using Rhyous.WebFramework.Interfaces;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.WebFramework.Models
 {
     public partial class User : IUser
     {

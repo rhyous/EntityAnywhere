@@ -1,4 +1,5 @@
 ﻿using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.Models;
 using Rhyous.WebFramework.Services;
 
 namespace Rhyous.WebFramework.WebServices

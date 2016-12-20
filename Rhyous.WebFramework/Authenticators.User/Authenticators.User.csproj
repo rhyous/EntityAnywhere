@@ -61,6 +61,10 @@
       <Project>{222278D6-81F4-4BE6-973B-6D534DE47E8E}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Models.User\Models.User.csproj">
+      <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
+      <Name>Models.User</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Services.Authentication\Services.Authentication.csproj">
       <Project>{4f1824e2-427d-40ef-960c-4286203275dd}</Project>
       <Name>Services.Authentication</Name>
