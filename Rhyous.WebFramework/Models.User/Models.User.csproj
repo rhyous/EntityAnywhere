@@ -7,8 +7,8 @@
     <ProjectGuid>{671BDEAF-6C84-40F7-80EA-1735D623CF1E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Models.User</RootNamespace>
-    <AssemblyName>Models.User</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Models</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Models.User</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
