@@ -1,6 +1,6 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public partial interface IUserGroup : IId<int>, IAuditable, IName, IDescription
+    public partial interface IUserGroup : IEntity<int>, IEntity, IAuditable, IName, IDescription
     {
     }
 }

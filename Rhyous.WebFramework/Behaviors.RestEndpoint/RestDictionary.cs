@@ -30,6 +30,7 @@ namespace Rhyous.WebFramework.Behaviors
             Add("Delete", "{0}({{id}})"); // 0 should be pluralized entity name
             Add("GetAddenda", "{0}({{id}})/Properties"); // 0 should be pluralized entity name
             Add("GetAddendaByName", "{0}({{id}})/Properties({{name}})"); // 0 should be pluralized entity name
+            Add("GetByRelatedEntityId", "{0}/?{relatedEntity}={id})"); // 0 should be pluralized entity name
         }
     }
 }

@@ -50,6 +50,10 @@
     <Compile Include="TokenGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entities.Token\Entities.Token.csproj">
+      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
+      <Name>Entities.Token</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
       <Name>Interfaces.Authentication</Name>
@@ -66,17 +70,13 @@
       <Project>{222278D6-81F4-4BE6-973B-6D534DE47E8E}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models.User\Models.User.csproj">
+    <ProjectReference Include="..\Entities.User\Entities.User.csproj">
       <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
-      <Name>Models.User</Name>
+      <Name>Entities.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.Token\Services.Token.csproj">
-      <Project>{CDA51597-83FF-4110-80B6-D9EC40B03D29}</Project>
-      <Name>Services.Token</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.User\Services.User.csproj">
       <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>

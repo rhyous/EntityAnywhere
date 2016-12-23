@@ -5,8 +5,14 @@ namespace Rhyous.WebFramework.WebServices
 {
     public class Global : HttpApplication
     {
+
         protected void Application_Start(object sender, EventArgs e)
         {
+            var entityLoader = new EntityLoader();
+            foreach (var item in entityLoader.Plugins)
+            {
+                EntityEndPointBuilder.BuildEntityRestService(item);
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Rhyous.WebFramework.Interfaces;
+using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Services
 {
     public interface IServiceCommonManyToMany<T,Tinterface, Tid, TidPrimary, TidSecondary> : IServiceCommon<T, Tinterface, Tid>
         where T : class, Tinterface
+        where Tinterface : IId<Tid>
     {
         string PrimaryEntity { get; }
         string SecondaryEntity { get; }

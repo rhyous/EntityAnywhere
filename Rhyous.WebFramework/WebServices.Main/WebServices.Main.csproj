@@ -82,7 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Plugins\Authenticators\" />
+    <Folder Include="Plugins\Entities\" />
     <Folder Include="Plugins\Repositories\" />
+    <Folder Include="Plugins\ServiceBehaviors\" />
+    <Folder Include="Plugins\Services\" />
     <Folder Include="Plugins\WebServices\" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +95,24 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
+      <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
+      <Name>Behaviors.RestEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
+      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+      <Name>Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj">
+      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
+      <Name>WebServices.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

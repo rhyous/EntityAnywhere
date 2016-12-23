@@ -8,7 +8,7 @@ namespace Rhyous.WebFramework.WebServices
 {
     public class SearchableEntityWebService<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
         where T : class, Tinterface, new()
-        where Tinterface : IId<Tid>
+        where Tinterface : IEntity<Tid>
         where TService : class, ISearchableServiceCommon<T, Tinterface, Tid>, new()
         where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {

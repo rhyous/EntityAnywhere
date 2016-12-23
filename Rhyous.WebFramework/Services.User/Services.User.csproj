@@ -54,9 +54,9 @@
       <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Models.User\Models.User.csproj">
+    <ProjectReference Include="..\Entities.User\Entities.User.csproj">
       <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
-      <Name>Models.User</Name>
+      <Name>Entities.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>

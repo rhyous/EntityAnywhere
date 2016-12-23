@@ -7,7 +7,8 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Services
 {
-    public abstract class PluginLoaderBase<T> where T : class
+    public abstract class PluginLoaderBase<T>
+        where T : class
     {
         public const string PluginDirConfig = "PluginDirectory";
 
@@ -16,32 +17,40 @@ namespace Rhyous.WebFramework.Services
         public static string AppName = "Auth.TokenService";
         public static string PluginFolder = "Plugins";
 
-        public abstract string PluginSubFolder { get; }
+        public virtual bool ThrowExceptionIfNoPluginFound => true;
 
         public string DefaultPluginDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Company, AppName, PluginFolder);
 
-        public PluginCollection<T> PluginCollection { get; internal set; } // Set exposed as internal for unit tests
+        public abstract string PluginSubFolder { get; }
 
-        public ILoadPlugins<T> PluginLoader
+        public virtual PluginCollection<T> PluginCollection { get; internal set; } // Set exposed as internal for unit tests
+
+        public virtual ILoadPlugins<T> PluginLoader
         {
             get { return _PluginLoader ?? new PluginLoader<T>(Path.Combine(ConfigurationManager.AppSettings.Get(PluginDirConfig, DefaultPluginDirectory), PluginSubFolder)); }
             internal set { _PluginLoader = value; } // Set exposed as internal for unit tests
-        } private ILoadPlugins<T> _PluginLoader;
+        }
+        private ILoadPlugins<T> _PluginLoader;
 
-        public List<T> Plugins
+        public virtual List<T> Plugins
         {
             get
             {
                 var pluginLibraries = PluginCollection ?? GetPluginLibraries();
-                return pluginLibraries.SelectMany(p => p.PluginObjects).ToList();
+                return pluginLibraries?.SelectMany(p => p.PluginObjects).ToList();
             }
-        } private List<T> _Plugins;
+        }
+        private List<T> _Plugins;
 
-        private PluginCollection<T> GetPluginLibraries()
+        protected virtual PluginCollection<T> GetPluginLibraries()
         {
             var plugins = PluginLoader.LoadPlugins();
             if (plugins == null || plugins.Count == 0)
-                throw new Exception($"No {PluginSubFolder} plugin not found.");
+            {
+                if (ThrowExceptionIfNoPluginFound)
+                    throw new Exception($"No {PluginSubFolder} plugin not found.");
+                return null;
+            }
             return plugins;
         }
     }

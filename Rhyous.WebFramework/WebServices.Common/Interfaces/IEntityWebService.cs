@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Services;
+﻿using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;

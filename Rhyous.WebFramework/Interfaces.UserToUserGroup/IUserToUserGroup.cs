@@ -1,6 +1,6 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IUserToUserGroup : IId<long>
+    public interface IUserToUserGroup : IEntity<long>
     {
         int UserId { get; set; }
         int UserGroupId { get; set; }

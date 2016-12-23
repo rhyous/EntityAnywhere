@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using System;
 
 namespace Rhyous.WebFramework.Services
@@ -33,15 +34,13 @@ namespace Rhyous.WebFramework.Services
         {
             get { return _UserService ?? (_UserService = new UserService()); }
             set { _UserService = value; }
-        }
-        private UserService _UserService;
+        } private UserService _UserService;
 
-        public TokenService TokenService
+        public ServiceCommonSearchable<Token, IToken, long> TokenService
         {
-            get { return _TokenService ?? (_TokenService = new TokenService()); }
+            get { return _TokenService ?? (_TokenService = new ServiceCommonSearchable<Token, IToken, long>(x => x.Text)); }
             set { _TokenService = value; }
-        }
-        private TokenService _TokenService;
+        } private ServiceCommonSearchable<Token, IToken, long> _TokenService;
         #endregion
     }
 }

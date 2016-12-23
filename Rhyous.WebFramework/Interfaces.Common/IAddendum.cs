@@ -1,6 +1,6 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IAddendum : IId<long>, IAuditable
+    public interface IAddendum : IEntity<long>, IAuditable
     {
         string Entity { get; set; }
         string EntityId { get; set; }

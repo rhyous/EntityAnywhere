@@ -35,7 +35,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,7 +90,11 @@
     </Compile>
     <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
     <Compile Include="Behaviors\ServiceBehaviorBase.cs" />
+    <Compile Include="Business\EntityEndPointBuilder.cs" />
+    <Compile Include="Business\EntityWebServiceLoader.cs" />
+    <Compile Include="Business\EntityLoader.cs" />
     <Compile Include="ICommonWebService.cs" />
+    <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
     <Compile Include="OdataExtensions.cs" />
     <Compile Include="OdataObject.cs" />
     <Compile Include="ODataUri.cs" />
@@ -98,13 +104,17 @@
     <Compile Include="Interfaces\IEntityWebService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
+      <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
+      <Name>Behaviors.RestEndpoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities.Addendum\Entities.Addendum.csproj">
+      <Project>{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}</Project>
+      <Name>Entities.Addendum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.Addendum\Services.Addendum.csproj">
-      <Project>{61c244bb-3b38-4a29-b661-ae178e6d92ea}</Project>
-      <Name>Services.Addendum</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>

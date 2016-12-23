@@ -45,6 +45,10 @@
     <Compile Include="TokenValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entities.Token\Entities.Token.csproj">
+      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
+      <Name>Entities.Token</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}</Project>
       <Name>Interfaces.Authentication</Name>
@@ -60,10 +64,6 @@
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.Token\Services.Token.csproj">
-      <Project>{cda51597-83ff-4110-80b6-d9ec40b03d29}</Project>
-      <Name>Services.Token</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

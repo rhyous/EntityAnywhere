@@ -1,4 +1,5 @@
 ﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
@@ -10,9 +11,9 @@ namespace Rhyous.WebFramework.WebServices
 {
     public class EntityWebService<T, Tinterface, Tid, TService> : IEntityWebService<T, Tid>
         where T : class, Tinterface, new()
-        where Tinterface : IId<Tid>
-        where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
+        where Tinterface : IEntity<Tid>
         where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
     {
         public virtual List<OdataObject<T>> GetAll()
         {
@@ -33,7 +34,7 @@ namespace Rhyous.WebFramework.WebServices
         {
             return Service.GetProperty(id.To<Tid>(), property);
         }
-        
+
         public virtual List<T> Post(List<T> entities)
         {
             return Service.Add(entities.ToList<Tinterface>()).ToConcrete<T, Tinterface>().ToList();
@@ -70,13 +71,17 @@ namespace Rhyous.WebFramework.WebServices
         {
             var entityName = typeof(T).Name;
             return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
-                                 .OrderByDescending(x=>x.CreateDate)
+                                 .OrderByDescending(x => x.CreateDate)
                                  .FirstOrDefault()
                                  .ToConcrete<Addendum>();
         }
 
+        #region Type property
+        public static Type EntityType => typeof(T);
+        #endregion
+
         #region Injectable Dependency
-        protected virtual IServiceCommon<T,Tinterface, Tid> Service
+        protected virtual IServiceCommon<T, Tinterface, Tid> Service
         {
             get { return _Service ?? (_Service = new TService()); }
             set { _Service = value; }
@@ -84,7 +89,7 @@ namespace Rhyous.WebFramework.WebServices
 
         protected virtual IServiceCommon<Addendum, IAddendum, long> AddendaService
         {
-            get { return _AddendaService ?? (_AddendaService = new AddendumService()); }
+            get { return _AddendaService ?? (_AddendaService = new ServiceCommon<Addendum, IAddendum, long>()); }
             set { _AddendaService = value; }
         } private IServiceCommon<Addendum, IAddendum, long> _AddendaService;
         #endregion

@@ -1,10 +1,21 @@
-# WebFramework
-A web framework that uses one microservice per entity.
+# Entity Anywhere 
+A new API for Business
 
-This idea came from looking at the idea of object-oriented development, objects being an Enitity, how entities are used in an ORM (such as Entity Framework) but not necessarily being for an RDBMS, but instead use the idea of a WebServices for entities, each with a decoupled Repository.
+What is EntityAnywhere? It is a web framework that uses one microservice per entity.
 
+In many environments, your could have entities that come from various different places: cloud service, different databases, files, etc. What if you could create in minutesan authentication-ready REST API with Create, Read, Update Delete (CRUD) (and granual *authorization) for all the spread out entities in your environment. That is the solution Entity Anywhere exists to provide.
 
-Adding an Entity
+How did this API come about? Well, after using Entity Framework, it came to my attention that boiler plate code doesn't end with the entity to database code. Boilerplate code includes almost all REST/CRUD/Authentication/Authorization code. The only coding that should be needed is 
+1. Defining an entity.
+2. Providing UI interactions beyond CRUD.
+
+## Getting Started 
+
+1. Check out the source code.
+
+2. Build and Run. You have many common Entities built-in.
+
+### Adding an Entity
 
 In the instructions below. Replace $Entity wth the name of your entity. For example, if your entity is "User" replace $Entity with User.
 
@@ -36,7 +47,7 @@ namespace Rhyous.WebFramework.Interfaces
 }
 ```
 
-5. Add Extension
+5. Add this Extension.
 ```
 using System.Collections.Generic;
 using System.Linq;
@@ -62,22 +73,22 @@ namespace Rhyous.WebFramework.Interfaces
 }
 ```
 
-Step 2 - Create a Service for the Entity
+Step 2 - Create a Model for the Entity
 
 
 1.	New Project | Class Library | .NET 4.6.1 or later
-    Name: Services.$Entity
+    Name: Models.$Entity
 	
 2.	Project Properties:
-    Rename Assembly: Rhyous.WebFramework.Services.$Entity
-	Rename Default Namespace: Rhyous.WebFramework.Services  <-- Notice it doesn't have $Entity
+    Rename Assembly: Rhyous.WebFramework.Services.$Models
+	Rename Default Namespace: Rhyous.WebFramework.Models  <-- Notice it doesn't have $Entity
 	
 3.	Add References:
 	Interfaces.Common
 	Interfaces.$Entity
-	Services.Common
+	Models.Common
 
-4.	Add Concrete class that implememts Interface I$Entity
+4.	Add Concrete class.
 	Name: $Entity
 	Inheritance: Must inherit I$Entity.
 ```	
@@ -93,6 +104,42 @@ namespace Rhyous.WebFramework.Services
 }
 ```
 
+That is it. You now have a Microservce CRUD API for that entity.
+
+But just because you don't have to customize the WebService, Service, or Repository, doesn't mean you can't.
+
+## Customizations
+
+There are three layers of interaction for each entity. 
+
+1. WebService - The REST front end to be hosted in IIS
+2. Service - A layer that translates REST to CRUD for the repository.
+3. Repository - A Concrete implementation of the generic IRepository that actually does the CRUD operations.
+
+Each layer has a common generic implementation that will work for many of your entities. The concrete Repository is the one that we expect will change the most. 
+
+### (Optional) Create a Repository for the Entity
+
+
+
+### (Optional) Create a Custom Service for the Entity
+
+
+Only do this step if you need a custom service. Otherwise, use ServiceCommon.cs or another variant such as ServiceCommonSearchable.cs.
+
+1.	New Project | Class Library | .NET 4.6.1 or later
+    Name: Services.$Entity
+	
+2.	Project Properties:
+    Rename Assembly: Rhyous.WebFramework.Services.$Entity
+	Rename Default Namespace: Rhyous.WebFramework.Services  <-- Notice it doesn't have $Entity
+	
+3.	Add References:
+	Interfaces.Common
+	Interfaces.$Entity
+    Models.$Entity
+	Services.Common
+
 5.  Add Service for the entity
 
 	Note: The service can inherit any of a few classes. Below are examples:
@@ -100,6 +147,7 @@ namespace Rhyous.WebFramework.Services
 ServiceCommon<T, Tinterface> = This class allows for CRUD operations on an Entity loading a repository from a Plugin. By default the Plugin in the Repositories\Common folder is used. However, if there is a repository in Plugins\Repositories\$Entity, it will use that instead of the common repository. If no other library is using your Services layer, then their is no reason to create the below object. In the WebService (next Step) nstantiate a generic instance of: ServiceCommon<$Entity, I$Entity>
 ```	
 using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.Models;
 using System;
 
 namespace Rhyous.WebFramework.Services
@@ -109,42 +157,12 @@ namespace Rhyous.WebFramework.Services
 
     public class $EntityService : ServiceCommon<Entity, IEntity>
     {
+        // Custom Service methods and overrides here . . .
     }
 }
 ```
 
-ServiceCommonSearchable<T, Tinterface> = This class inherits ServiceCommon and adds to it the ability to search a string property for exact match of a string. You have to create this object to tell it what property is searchable.
-```	
-using Rhyous.WebFramework.Interfaces;
-using System;
-using System.Linq.Expressions;
-
-namespace Rhyous.WebFramework.Services
-{
-    using IEntity = I$Entity;
-    using Entity = $Entity;
-
-    public class $EntityService : ServiceCommonSearchable<Entity, IEntity>
-    {
-        public override Expression<Func<Entity, string>> PropertyExpression => e => e.$SearchableProperty;
-    }
-}
-```
-ServiceCommonManyToMany<T, Tinterface> = This allows for an Entity that is a many to many map between two other entities. 
-```
-using Rhyous.WebFramework.Interfaces;
-
-namespace Rhyous.WebFramework.Services
-{
-    public class $EntityService : ServiceCommonManyToMany<$Entity, I$Entity>
-    {
-        public override string PrimaryEntity => "PrimaryEntity";
-        public override string SecondaryEntity => "SecondaryEntity";
-    }
-}
-```
-
-Step 3 - Create a web service for the entity
+### (Optional) Create a Custom Web Service for the Entity
 
 
 1.	New Project | Class Library | .NET 4.6.1 or later
@@ -176,8 +194,9 @@ REM COPY /Y "$(Targetdir)*.pdb" %dllDir%
 	System.ServiceModel.Web
 	Interfaces.Common
 	Interfaces.$Entity
+	Models.$Entity
 	Services.Common
-	Services.Entity
+	*Services.Entity <-- Only if you added a custom service.
 	WebServices.Common	
 	
 5.	Add a RESTful WCF webservice Interface
@@ -199,39 +218,8 @@ using Entity = Rhyous.WebFramework.Services.$Entity;
 namespace Rhyous.WebFramework.WebServices
 {
     [ServiceContract]
-    public interface I$EntityWebService
-    {
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "$Entitys", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Entity>> GetAll();
-
-        [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "$Entitys/Ids", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Entity>> GetByIds(List<int> ids);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "$Entitys({id})", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<Entity> Get(string id);
-
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "$Entitys({id})/{property}", ResponseFormat = WebMessageFormat.Json)]
-        string GetProperty(string id, string property);
-
-        [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "$Entitys", ResponseFormat = WebMessageFormat.Json)]
-        List<Entity> Post(List<Entity> entity);
-
-        [OperationContract]
-        [WebInvoke(Method = "PUT", UriTemplate = "$Entitys({id})", ResponseFormat = WebMessageFormat.Json)]
-        Entity Put(string id, Entity entity);
-
-        [OperationContract]
-        [WebInvoke(Method = "PATCH", UriTemplate = "$Entitys({id})", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        Entity Patch(string id, Entity entity, List<string> changedProperties);
-
-        [OperationContract]
-        [WebInvoke(Method = "DELETE", UriTemplate = "$Entitys({id})", ResponseFormat = WebMessageFormat.Json)]
-        bool Delete(string id);
+    public interface I$EntityWebService<> : IEntityWebService<>
+    {        
     }
 }
 

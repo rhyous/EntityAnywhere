@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
-using System.Linq;
 
 namespace Rhyous.WebFramework.Behaviors
 {
@@ -14,7 +13,7 @@ namespace Rhyous.WebFramework.Behaviors
 
         public override void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
         {
-            var entityType = endpoint.Contract.ContractType.GetInterfaces().Where(i => i.IsGenericType).FirstOrDefault().GenericTypeArguments[0];
+            var entityType = endpoint.Contract.ContractType.GenericTypeArguments[0];
             string pluarlEntityName = PlaralizationDictionary.Instance.GetValueOrDefault(entityType.Name);
             foreach (OperationDescription od in endpoint.Contract.Operations)
             {                

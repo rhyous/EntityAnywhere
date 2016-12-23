@@ -7,6 +7,7 @@ namespace Rhyous.WebFramework.Services
 {
     public interface IServiceCommon<T, Tinterface, Tid>
         where T : class, Tinterface
+        where Tinterface : IId<Tid>
     {
         IRepository<T, Tinterface, Tid> Repo { get; set; }
         List<Tinterface> Get();

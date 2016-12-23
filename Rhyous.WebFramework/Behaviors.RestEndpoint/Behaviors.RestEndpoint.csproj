@@ -35,6 +35,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,26 +46,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="ServiceBehaviorLoader.cs" />
     <Compile Include="IDictionaryDefaultValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluralizationDictionary.cs" />
     <Compile Include="RestDictionary.cs" />
     <Compile Include="RestEndpointBehavior.cs" />
     <Compile Include="RestEndpointBehaviorExtension.cs" />
+    <Compile Include="RestWebServiceHost.cs" />
+    <Compile Include="RestWebServiceHostFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Attributes.Common\Attributes.Common.csproj">
+      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
+      <Name>Attributes.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
+      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+      <Name>Services.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\WebServices"
-ECHO %25copyToDir%25
-IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
-
-SET dllDir="%25copyToDir%25\bin"
-ECHO %25dllDir%25
-IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

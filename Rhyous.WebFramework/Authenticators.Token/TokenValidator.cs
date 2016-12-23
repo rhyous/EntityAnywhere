@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Configuration;
@@ -26,11 +27,11 @@ namespace Rhyous.WebFramework.Authenticators
         }
 
         #region Injectable
-        public TokenService Service
+        public ServiceCommonSearchable<Token, IToken, long> Service
         {
-            get { return _Service ?? (_Service = new TokenService()); }
+            get { return _Service ?? (_Service = new ServiceCommonSearchable<Token, IToken, long>(x => x.Text)); }
             set { _Service = value; }
-        } private TokenService _Service;
+        } private ServiceCommonSearchable<Token, IToken, long> _Service;
         #endregion
     }
 }

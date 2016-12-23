@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    using IEntity = IToken;
+    using EntityInterface = IToken;
 
     public static class ITokenExtensions
     {
-        public static IEnumerable<T> ToConcrete<T>(this IEnumerable<IEntity> items)
-            where T : class, IEntity, new()
+        public static IEnumerable<T> ToConcrete<T>(this IEnumerable<EntityInterface> items)
+            where T : class, EntityInterface, new()
         {
             return items.Select(i => i.ToConcrete<T>()).ToList();
         }
 
-        public static T ToConcrete<T>(this IEntity item)
-            where T : class, IEntity, new()
+        public static T ToConcrete<T>(this EntityInterface item)
+            where T : class, EntityInterface, new()
         {
-            return ConcreteConverter.ToConcrete<T, IEntity>(item);
+            return ConcreteConverter.ToConcrete<T, EntityInterface>(item);
         }
     }
 }

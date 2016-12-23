@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 namespace Rhyous.WebFramework.Repositories
 {
     public class BaseRepository<T, Tinterface, Tid> : IRepository<T, Tinterface, Tid>
-        where Tinterface : IId<Tid>
+        where Tinterface : IEntity<Tid>
         where T : class, Tinterface, new()
     {
         protected BaseDbContext<T> DbContext

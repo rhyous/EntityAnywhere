@@ -14,7 +14,7 @@ namespace Rhyous.WebFramework.Authenticators
 
         public IToken Build(ICredentials creds, long userId)
         {
-            return TokenGenerator.Build(creds, userId);                
+            return TokenGenerator.Build(creds, userId);
         }
 
         public bool IsValid(ICredentials creds, out IToken token)
@@ -25,7 +25,9 @@ namespace Rhyous.WebFramework.Authenticators
                 return false;
             if (user.ExternalAuth && ForceExternalUsersToAuthenticateExternally)
                 return false; // This will allow a different authenticator plugin to attempt authentication
-            var result = Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding);
+            bool result = (user.IsHashed) ? Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding)
+                                          : creds.Password == user.Password;
+
             token = result ? Build(creds, user.Id) : null;
             return result;
         }

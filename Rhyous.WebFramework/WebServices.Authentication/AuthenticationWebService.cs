@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System.ServiceModel.Activation;
 
@@ -10,6 +11,11 @@ namespace Rhyous.WebFramework.WebServices
         public Token Authenticate(Credentials creds)
         {
             return Service.Authenticate(creds).ToConcrete<Token>();
+        }
+
+        public Token AuthenticateInQuery(string user, string password)
+        {
+            return Service.Authenticate(new Credentials() { User = user, Password = password }).ToConcrete<Token>();
         }
 
         #region Injectable
