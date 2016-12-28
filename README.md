@@ -104,6 +104,22 @@ namespace Rhyous.WebFramework.Services
 }
 ```
 
+5. Add a Post-Build action to copy the entity dll to the Plugin\Entities folder
+
+```
+SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
+ECHO %copyToDir%
+IF NOT EXIST %copyToDir% MKDIR %copyToDir%
+COPY /Y "$(TargetPath)" %copyToDir%
+COPY /Y "$(TargetDir)$(TargetName).pdb" %copyToDir%
+
+SET dllDir="%copyToDir%"
+ECHO %dllDir%
+IF NOT EXIST %dllDir% MKDIR %dllDir%
+COPY /Y "$(Targetdir)*.dll" %dllDir%
+COPY /Y "$(Targetdir)*.pdb" %dllDir%
+```
+
 That is it. You now have a Microservce CRUD API for that entity.
 
 But just because you don't have to customize the WebService, Service, or Repository, doesn't mean you can't.
@@ -175,7 +191,7 @@ namespace Rhyous.WebFramework.Services
 3.	Add the following post build code:
 
 ```
-SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\WebServices"
+SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices"
 ECHO %copyToDir%
 IF NOT EXIST %copyToDir% MKDIR %copyToDir%
 COPY /Y "$(TargetPath)" %copyToDir%
