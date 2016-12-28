@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities.Token\Entities.Token.csproj">
+    <ProjectReference Include="..\Entities\Entities.Token\Entities.Token.csproj">
       <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
       <Name>Entities.Token</Name>
     </ProjectReference>

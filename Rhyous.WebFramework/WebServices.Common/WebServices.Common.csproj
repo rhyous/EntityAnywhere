@@ -109,7 +109,7 @@
       <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
       <Name>Behaviors.RestEndpoint</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities.Addendum\Entities.Addendum.csproj">
+    <ProjectReference Include="..\Entities\Entities.Addendum\Entities.Addendum.csproj">
       <Project>{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}</Project>
       <Name>Entities.Addendum</Name>
     </ProjectReference>

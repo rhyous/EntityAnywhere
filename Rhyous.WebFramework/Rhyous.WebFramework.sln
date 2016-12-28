@@ -67,25 +67,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.RestEndpoint", "B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{7D3F3E32-B76A-4FA9-B535-943A9603C3E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserGroup", "Entities.UserGroup\Entities.UserGroup.csproj", "{C36AF01E-D689-49C0-B0C6-51C38DE14C6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserGroup", "Entities\Entities.UserGroup\Entities.UserGroup.csproj", "{C36AF01E-D689-49C0-B0C6-51C38DE14C6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserType", "Entities.UserType\Entities.UserType.csproj", "{E8042731-DA78-41FB-8CA6-61BD3938EBC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserType", "Entities\Entities.UserType\Entities.UserType.csproj", "{E8042731-DA78-41FB-8CA6-61BD3938EBC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserRole", "Entities.UserRole\Entities.UserRole.csproj", "{6A875937-0058-45DD-92CC-342E86467C94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserRole", "Entities\Entities.UserRole\Entities.UserRole.csproj", "{6A875937-0058-45DD-92CC-342E86467C94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.User", "Entities.User\Entities.User.csproj", "{671BDEAF-6C84-40F7-80EA-1735D623CF1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.User", "Entities\Entities.User\Entities.User.csproj", "{671BDEAF-6C84-40F7-80EA-1735D623CF1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserGroup", "Interfaces\Interfaces.UserGroup\Interfaces.UserGroup.csproj", "{81DD92EA-596B-4DEE-A782-F239B78B9290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Token", "Entities.Token\Entities.Token.csproj", "{43F70F7F-50FC-4080-876C-EAB2825D27D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Token", "Entities\Entities.Token\Entities.Token.csproj", "{43F70F7F-50FC-4080-876C-EAB2825D27D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Addendum", "Entities.Addendum\Entities.Addendum.csproj", "{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Addendum", "Entities\Entities.Addendum\Entities.Addendum.csproj", "{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserGroup", "Entities.UserToUserGroup\Entities.UserToUserGroup.csproj", "{592507AF-77ED-4135-876B-52CBDD9F778B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserGroup", "Entities\Entities.UserToUserGroup\Entities.UserToUserGroup.csproj", "{592507AF-77ED-4135-876B-52CBDD9F778B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserRole", "Entities.UserToUserRole\Entities.UserToUserRole.csproj", "{7A9AA737-1753-4D7C-B786-9A84A034813B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserRole", "Entities\Entities.UserToUserRole\Entities.UserToUserRole.csproj", "{7A9AA737-1753-4D7C-B786-9A84A034813B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserType", "Entities.UserToUserType\Entities.UserToUserType.csproj", "{E71C8AA0-DFB3-4B0D-A9F2-66A2106FB941}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserType", "Entities\Entities.UserToUserType\Entities.UserToUserType.csproj", "{E71C8AA0-DFB3-4B0D-A9F2-66A2106FB941}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes.Common", "Attributes.Common\Attributes.Common.csproj", "{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}"
 EndProject

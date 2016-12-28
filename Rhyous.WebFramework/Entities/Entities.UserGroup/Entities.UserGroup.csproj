@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E71C8AA0-DFB3-4B0D-A9F2-66A2106FB941}</ProjectGuid>
+    <ProjectGuid>{C36AF01E-D689-49C0-B0C6-51C38DE14C6A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Entities</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Entities.UserToUserType</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Models</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Models.UserGroup</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,16 +36,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserToUserType.cs" />
+    <Compile Include="UserGroup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.UserToUserType\Interfaces.UserToUserType.csproj">
-      <Project>{634e3b8c-12df-4c82-b695-5afcaa8a5755}</Project>
-      <Name>Interfaces.UserToUserType</Name>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.UserGroup\Interfaces.UserGroup.csproj">
+      <Project>{81dd92ea-596b-4dee-a782-f239b78b9290}</Project>
+      <Name>Interfaces.UserGroup</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
