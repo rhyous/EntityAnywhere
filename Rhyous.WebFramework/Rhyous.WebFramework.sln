@@ -1,4 +1,4 @@
-﻿
+﻿f
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServices.Wcf", "WebServi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FB77673B-3541-4880-A63C-46395C7B5DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.User", "Interfaces.User\Interfaces.User.csproj", "{222278D6-81F4-4BE6-973B-6D534DE47E8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.User", "Interfaces\Interfaces.User\Interfaces.User.csproj", "{222278D6-81F4-4BE6-973B-6D534DE47E8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Common", "Repository.Common\Repository.Common.csproj", "{4952293D-0EEC-4772-8854-4FE0F818CC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "Interfaces.Common\Interfaces.Common.csproj", "{0A228DCF-0770-433D-A2BE-6AE9993C7109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "Interfaces\Interfaces.Common\Interfaces.Common.csproj", "{0A228DCF-0770-433D-A2BE-6AE9993C7109}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Common", "WebServices.Common\WebServices.Common.csproj", "{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}"
 EndProject
@@ -27,19 +27,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{18B03637-2A3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Main", "WebServices.Main\WebServices.Main.csproj", "{BB1F79B0-3836-45F9-B3C6-732A1D56BC64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserType", "Interfaces.UserType\Interfaces.UserType.csproj", "{4A880844-E629-4F2E-947E-5CB608249B75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserType", "Interfaces\Interfaces.UserType\Interfaces.UserType.csproj", "{4A880844-E629-4F2E-947E-5CB608249B75}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Referenceable", "Referenceable", "{10050584-2309-4B6F-9C79-01127BC582AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserType", "Interfaces.UserToUserType\Interfaces.UserToUserType.csproj", "{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserType", "Interfaces\Interfaces.UserToUserType\Interfaces.UserToUserType.csproj", "{634E3B8C-12DF-4C82-B695-5AFCAA8A5755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Token", "Interfaces.Token\Interfaces.Token.csproj", "{50CB75A3-E903-40A9-BADC-BE6A836FDA90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Token", "Interfaces\Interfaces.Token\Interfaces.Token.csproj", "{50CB75A3-E903-40A9-BADC-BE6A836FDA90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBehaviors", "ServiceBehaviors", "{7E78B03F-7CBF-497C-8A9F-88C1EC0CD180}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.TokenValidation", "Behaviors.TokenValidation\Behaviors.TokenValidation.csproj", "{74C1AEDF-A491-4078-8246-3D4D7788BCF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Authentication", "Interfaces.Authentication\Interfaces.Authentication.csproj", "{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Authentication", "Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj", "{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "Services.Authentication\Services.Authentication.csproj", "{4F1824E2-427D-40EF-960C-4286203275DD}"
 EndProject
@@ -57,11 +57,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessRules", "BusinessRu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.ErrorHandler", "Behaviors.ErrorHandler\Behaviors.ErrorHandler.csproj", "{B87C3034-DD84-460C-A6E1-55C5D62F8E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserRole", "Interfaces.UserRole\Interfaces.UserRole.csproj", "{6D72B792-5126-47EF-A5BB-58552DEA11C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserRole", "Interfaces\Interfaces.UserRole\Interfaces.UserRole.csproj", "{6D72B792-5126-47EF-A5BB-58552DEA11C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserRole", "Interfaces.UserToUserRole\Interfaces.UserToUserRole.csproj", "{3C55ECF0-50C1-4A1A-B95A-7CEC1B398499}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserRole", "Interfaces\Interfaces.UserToUserRole\Interfaces.UserToUserRole.csproj", "{3C55ECF0-50C1-4A1A-B95A-7CEC1B398499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserGroup", "Interfaces.UserToUserGroup\Interfaces.UserToUserGroup.csproj", "{D1256FE6-4018-428E-AAC7-33F6BFD47B8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserGroup", "Interfaces\Interfaces.UserToUserGroup\Interfaces.UserToUserGroup.csproj", "{D1256FE6-4018-428E-AAC7-33F6BFD47B8F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.RestEndpoint", "Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj", "{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}"
 EndProject
@@ -75,7 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserRole", "Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.User", "Entities.User\Entities.User.csproj", "{671BDEAF-6C84-40F7-80EA-1735D623CF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserGroup", "Interfaces.UserGroup\Interfaces.UserGroup.csproj", "{81DD92EA-596B-4DEE-A782-F239B78B9290}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserGroup", "Interfaces\Interfaces.UserGroup\Interfaces.UserGroup.csproj", "{81DD92EA-596B-4DEE-A782-F239B78B9290}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Token", "Entities.Token\Entities.Token.csproj", "{43F70F7F-50FC-4080-876C-EAB2825D27D1}"
 EndProject

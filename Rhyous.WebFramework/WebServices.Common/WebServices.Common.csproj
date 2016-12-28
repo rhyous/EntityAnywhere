@@ -113,7 +113,7 @@
       <Project>{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}</Project>
       <Name>Entities.Addendum</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>

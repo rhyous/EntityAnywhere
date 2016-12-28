@@ -39,11 +39,11 @@
     <Compile Include="UserRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.UserRole\Interfaces.UserRole.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.UserRole\Interfaces.UserRole.csproj">
       <Project>{6d72b792-5126-47ef-a5bb-58552dea11c7}</Project>
       <Name>Interfaces.UserRole</Name>
     </ProjectReference>

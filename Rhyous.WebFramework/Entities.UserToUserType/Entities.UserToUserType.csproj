@@ -38,11 +38,11 @@
     <Compile Include="UserToUserType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.UserToUserType\Interfaces.UserToUserType.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.UserToUserType\Interfaces.UserToUserType.csproj">
       <Project>{634e3b8c-12df-4c82-b695-5afcaa8a5755}</Project>
       <Name>Interfaces.UserToUserType</Name>
     </ProjectReference>

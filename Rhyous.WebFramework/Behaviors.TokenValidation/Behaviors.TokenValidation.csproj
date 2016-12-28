@@ -50,15 +50,15 @@
     <Compile Include="TokenValidationServiceBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.Authentication\Interfaces.Authentication.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
       <Name>Interfaces.Authentication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Token\Interfaces.Token.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
       <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>

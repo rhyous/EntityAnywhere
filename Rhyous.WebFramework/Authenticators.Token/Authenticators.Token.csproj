@@ -49,15 +49,15 @@
       <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
       <Name>Entities.Token</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Authentication\Interfaces.Authentication.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}</Project>
       <Name>Interfaces.Authentication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.Token\Interfaces.Token.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
       <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>

@@ -46,11 +46,11 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces.User\Interfaces.User.csproj">
+    <ProjectReference Include="..\Interfaces\Interfaces.User\Interfaces.User.csproj">
       <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
