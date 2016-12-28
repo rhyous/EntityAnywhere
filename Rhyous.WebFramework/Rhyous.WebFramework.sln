@@ -1,4 +1,4 @@
-﻿f
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.User", "Interfaces\Interfaces.User\Interfaces.User.csproj", "{222278D6-81F4-4BE6-973B-6D534DE47E8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.Common", "Repository.Common\Repository.Common.csproj", "{4952293D-0EEC-4772-8854-4FE0F818CC92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Common", "Repositories\Repositories.Common\Repositories.Common.csproj", "{4952293D-0EEC-4772-8854-4FE0F818CC92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "Interfaces\Interfaces.Common\Interfaces.Common.csproj", "{0A228DCF-0770-433D-A2BE-6AE9993C7109}"
 EndProject
