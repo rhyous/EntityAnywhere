@@ -55,7 +55,7 @@
     <Compile Include="ServiceErrorResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BusinessRules\BusinessRules.csproj">
+    <ProjectReference Include="..\..\Misc\BusinessRules\BusinessRules.csproj">
       <Project>{2cf2d0c5-b4ce-40a3-a1fa-e3be27e2339d}</Project>
       <Name>BusinessRules</Name>
     </ProjectReference>

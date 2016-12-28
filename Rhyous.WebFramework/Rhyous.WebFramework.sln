@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.User", "Auth
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{2206DA89-1090-4AE1-AE90-8B93D419AD13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessRules", "BusinessRules\BusinessRules.csproj", "{2CF2D0C5-B4CE-40A3-A1FA-E3BE27E2339D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessRules", "Misc\BusinessRules\BusinessRules.csproj", "{2CF2D0C5-B4CE-40A3-A1FA-E3BE27E2339D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.ErrorHandler", "Behaviors\Behaviors.ErrorHandler\Behaviors.ErrorHandler.csproj", "{B87C3034-DD84-460C-A6E1-55C5D62F8E93}"
 EndProject
@@ -87,7 +87,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserRole", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.UserToUserType", "Entities\Entities.UserToUserType\Entities.UserToUserType.csproj", "{E71C8AA0-DFB3-4B0D-A9F2-66A2106FB941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes.Common", "Attributes.Common\Attributes.Common.csproj", "{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes.Common", "Misc\Attributes.Common\Attributes.Common.csproj", "{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EndpointBehaviors", "EndpointBehaviors", "{1952391A-9B0F-4F94-8518-D18DE2468356}"
 EndProject

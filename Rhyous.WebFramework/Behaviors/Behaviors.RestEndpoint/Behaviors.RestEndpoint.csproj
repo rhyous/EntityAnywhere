@@ -57,7 +57,7 @@
     <Compile Include="RestWebServiceHostFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Attributes.Common\Attributes.Common.csproj">
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
     </ProjectReference>
