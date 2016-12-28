@@ -83,7 +83,7 @@ namespace Rhyous.WebFramework.WebServices
         #region Injectable Dependency
         protected virtual IServiceCommon<T, Tinterface, Tid> Service
         {
-            get { return _Service ?? (_Service = new TService()); }
+            get { return _Service ?? (_Service = new EntityServiceLoader<T, Tinterface, Tid>().LoadPluginOrCommon()); }
             set { _Service = value; }
         } protected IServiceCommon<T, Tinterface, Tid> _Service;
 

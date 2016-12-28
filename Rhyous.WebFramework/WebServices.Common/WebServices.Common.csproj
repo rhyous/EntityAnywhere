@@ -91,6 +91,7 @@
     <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
     <Compile Include="Behaviors\ServiceBehaviorBase.cs" />
     <Compile Include="Business\EntityEndPointBuilder.cs" />
+    <Compile Include="Business\EntityServiceLoader.cs" />
     <Compile Include="Business\EntityWebServiceLoader.cs" />
     <Compile Include="Business\EntityLoader.cs" />
     <Compile Include="ICommonWebService.cs" />

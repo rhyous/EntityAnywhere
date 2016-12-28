@@ -6,8 +6,9 @@ using System.Linq;
 namespace Rhyous.WebFramework.Services
 {
     public class ServiceCommonOneToMany<T, Tinterface, Tid, TidRelated> : ServiceCommon<T, Tinterface, Tid>, IServiceCommonOneToMany<T, Tinterface, Tid, TidRelated> 
-        where T : class, Tinterface
+        where T : class, Tinterface, new()
         where Tinterface : IId<Tid>
+        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public virtual string RelatedEntity { get; }
         public virtual string IdSuffix => "Id";

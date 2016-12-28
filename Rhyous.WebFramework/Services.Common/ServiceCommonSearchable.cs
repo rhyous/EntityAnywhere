@@ -6,8 +6,9 @@ using System.Linq.Expressions;
 namespace Rhyous.WebFramework.Services
 {
     public class ServiceCommonSearchable<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, ISearchableServiceCommon<T, Tinterface, Tid>
-        where T : class, Tinterface
+        where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
+        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public ServiceCommonSearchable()
         {

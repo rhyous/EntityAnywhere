@@ -99,6 +99,7 @@
     <Compile Include="Business\CryptoRandomString.cs" />
     <Compile Include="Business\EntityRepoositoryLoader.cs" />
     <Compile Include="Business\Hash.cs" />
+    <Compile Include="Business\IPluginLoader.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
