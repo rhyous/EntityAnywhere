@@ -46,46 +46,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Comparison\StringComparisonExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Comparison\StringComparisonExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Comparison\StringComparisonExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\PrimitiveStringExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\PrimitiveStringExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\PrimitiveStringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\StreamStringExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\StreamStringExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Conversion\StreamStringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Globalization\GlobalizationStringExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Globalization\GlobalizationStringExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Globalization\GlobalizationStringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\IgnoreTrim.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\IgnoreTrim.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\IgnoreTrim.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\Trim.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\Trim.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Attributes\Trim.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimDictionaryExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimDictionaryExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimDictionaryExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimListExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimListExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimListExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimObjectExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimObjectExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimObjectExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimPropertyInfoExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimPropertyInfoExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimPropertyInfoExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimStringExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimStringExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimStringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimTypeExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimTypeExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Extensions\TrimTypeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Settings\TrimPropertiesSettings.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Settings\TrimPropertiesSettings.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Trim\Settings\TrimPropertiesSettings.cs</Link>
     </Compile>
-    <Compile Include="..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Wrap\WrapStringExtensions.cs">
+    <Compile Include="..\..\packages\Rhyous.StringLibrary.Sources.1.0.3\src\App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Wrap\WrapStringExtensions.cs">
       <Link>App_Packages\Rhyous.StringLibrary.Sources.1.0.3\Wrap\WrapStringExtensions.cs</Link>
     </Compile>
     <Compile Include="Behaviors\BehaviorExtensionBase.cs" />
@@ -105,19 +105,19 @@
     <Compile Include="Interfaces\IEntityWebService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
+    <ProjectReference Include="..\..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
       <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
       <Name>Behaviors.RestEndpoint</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.Addendum\Entities.Addendum.csproj">
+    <ProjectReference Include="..\..\Entities\Entities.Addendum\Entities.Addendum.csproj">
       <Project>{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}</Project>
       <Name>Entities.Addendum</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>

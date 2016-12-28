@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Common", "Repo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "Interfaces\Interfaces.Common\Interfaces.Common.csproj", "{0A228DCF-0770-433D-A2BE-6AE9993C7109}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Common", "WebServices.Common\WebServices.Common.csproj", "{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Common", "WebServices\WebServices.Common\WebServices.Common.csproj", "{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common", "Services\Services.Common\Services.Common.csproj", "{7D0DF978-26C0-4E12-A23E-13C21D213631}"
 EndProject
@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.User", "Services\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{18B03637-2A3D-45A1-89F9-DE53B5104495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Main", "WebServices.Main\WebServices.Main.csproj", "{BB1F79B0-3836-45F9-B3C6-732A1D56BC64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Main", "WebServices\WebServices.Main\WebServices.Main.csproj", "{BB1F79B0-3836-45F9-B3C6-732A1D56BC64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserType", "Interfaces\Interfaces.UserType\Interfaces.UserType.csproj", "{4A880844-E629-4F2E-947E-5CB608249B75}"
 EndProject
@@ -47,7 +47,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authentic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.Token", "Authenticators\Authenticators.Token\Authenticators.Token.csproj", "{FF0C8677-9B8E-4F3B-8419-49C3098FA707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Authentication", "WebServices.Authentication\WebServices.Authentication.csproj", "{7AA1310C-871F-429D-982C-1575508C69C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Authentication", "WebServices\WebServices.Authentication\WebServices.Authentication.csproj", "{7AA1310C-871F-429D-982C-1575508C69C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.User", "Authenticators\Authenticators.User\Authenticators.User.csproj", "{B0BA508E-5A8E-4ADD-8B52-E24EA8F5BE80}"
 EndProject

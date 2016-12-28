@@ -70,14 +70,14 @@
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
+    <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
       <Name>WebServices.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\ServiceBehaviors"
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\ServiceBehaviors"
 ECHO %25copyToDir%25
 IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
 COPY /Y "$(TargetPath)" %25copyToDir%25
