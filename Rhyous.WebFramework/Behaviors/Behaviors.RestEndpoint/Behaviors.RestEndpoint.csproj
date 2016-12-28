@@ -61,7 +61,7 @@
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>

@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common", "Interf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Common", "WebServices.Common\WebServices.Common.csproj", "{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common", "Services.Common\Services.Common.csproj", "{7D0DF978-26C0-4E12-A23E-13C21D213631}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Common", "Services\Services.Common\Services.Common.csproj", "{7D0DF978-26C0-4E12-A23E-13C21D213631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.User", "Services.User\Services.User.csproj", "{2977ED71-1E02-4C18-9648-6FFE33F06312}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.User", "Services\Services.User\Services.User.csproj", "{2977ED71-1E02-4C18-9648-6FFE33F06312}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{18B03637-2A3D-45A1-89F9-DE53B5104495}"
 EndProject
@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.TokenValidation",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Authentication", "Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj", "{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "Services.Authentication\Services.Authentication.csproj", "{4F1824E2-427D-40EF-960C-4286203275DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "Services\Services.Authentication\Services.Authentication.csproj", "{4F1824E2-427D-40EF-960C-4286203275DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authenticators", "{A41DC669-99DE-4351-A273-03A1D11E97B6}"
 EndProject

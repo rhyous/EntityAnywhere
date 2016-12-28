@@ -61,7 +61,7 @@
       <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>

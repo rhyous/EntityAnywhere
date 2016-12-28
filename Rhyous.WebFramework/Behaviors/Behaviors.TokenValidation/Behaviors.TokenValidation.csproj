@@ -62,11 +62,11 @@
       <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Authentication\Services.Authentication.csproj">
+    <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj">
       <Project>{4f1824e2-427d-40ef-960c-4286203275dd}</Project>
       <Name>Services.Authentication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>

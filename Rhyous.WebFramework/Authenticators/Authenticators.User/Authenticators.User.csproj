@@ -65,15 +65,15 @@
       <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
       <Name>Entities.User</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Authentication\Services.Authentication.csproj">
+    <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj">
       <Project>{4f1824e2-427d-40ef-960c-4286203275dd}</Project>
       <Name>Services.Authentication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services.User\Services.User.csproj">
+    <ProjectReference Include="..\..\Services\Services.User\Services.User.csproj">
       <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
       <Name>Services.User</Name>
     </ProjectReference>

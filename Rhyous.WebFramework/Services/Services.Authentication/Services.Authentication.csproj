@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2977ED71-1E02-4C18-9648-6FFE33F06312}</ProjectGuid>
+    <ProjectGuid>{4F1824E2-427D-40EF-960C-4286203275DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebServices.Services</RootNamespace>
-    <AssemblyName>Rhyous.WebServices.Services.User</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Services.Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,25 +42,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationService.cs" />
+    <Compile Include="BasicAuth.cs" />
+    <Compile Include="Models\Credentials.cs" />
+    <Compile Include="PluginCredentialsValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="TokenGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\..\Entities\Entities.Token\Entities.Token.csproj">
+      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
+      <Name>Entities.Token</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
+      <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
+      <Name>Interfaces.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.User\Interfaces.User.csproj">
-      <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
+      <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
+      <Name>Interfaces.Token</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
+      <Project>{222278D6-81F4-4BE6-973B-6D534DE47E8E}</Project>
       <Name>Interfaces.User</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.User\Entities.User.csproj">
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj">
       <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
       <Name>Entities.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
+      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
       <Name>Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services.User\Services.User.csproj">
+      <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
+      <Name>Services.User</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

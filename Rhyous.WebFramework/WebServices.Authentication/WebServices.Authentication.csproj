@@ -59,7 +59,7 @@
       <Project>{50CB75A3-E903-40A9-BADC-BE6A836FDA90}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services.Authentication\Services.Authentication.csproj">
+    <ProjectReference Include="..\Services\Services.Authentication\Services.Authentication.csproj">
       <Project>{4F1824E2-427D-40EF-960C-4286203275DD}</Project>
       <Name>Services.Authentication</Name>
     </ProjectReference>
