@@ -12,7 +12,7 @@ namespace Rhyous.WebFramework.WebServices
         where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public override bool ThrowExceptionIfNoPluginFound => false;
-        public override string PluginSubFolder => Path.Combine("WebServices", typeof(T).Name);
+        public override string PluginSubFolder => Path.Combine("Services", typeof(T).Name);
 
         public ServiceCommon<T, Tinterface, Tid> LoadPluginOrCommon()
         {
