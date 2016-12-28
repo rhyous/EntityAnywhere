@@ -8,11 +8,7 @@ namespace Rhyous.WebFramework.WebServices
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            var entityLoader = new EntityLoader();
-            foreach (var item in entityLoader.Plugins)
-            {
-                EntityEndPointBuilder.BuildEntityRestService(item);
-            }
+            EntityLoader.LoadEntities();
         }
 
         protected void Session_Start(object sender, EventArgs e)
