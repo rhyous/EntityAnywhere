@@ -97,7 +97,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
+    <ProjectReference Include="..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
       <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
       <Name>Behaviors.RestEndpoint</Name>
     </ProjectReference>

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</ProjectGuid>
+    <ProjectGuid>{B87C3034-DD84-460C-A6E1-55C5D62F8E93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Behaviors</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Behaviors.RestEndpoint</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.Behaviors.ErrorHandler</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,8 +33,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,31 +44,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryExtensions.cs" />
-    <Compile Include="ServiceBehaviorLoader.cs" />
-    <Compile Include="IDictionaryDefaultValueProvider.cs" />
+    <Compile Include="Configuration\ServiceResponseExtensions.cs" />
+    <Compile Include="Configuration\ServiceResponse.cs" />
+    <Compile Include="Configuration\ServiceResponseCollection.cs" />
+    <Compile Include="Configuration\ServiceResponseSection.cs" />
+    <Compile Include="ErrorHandler.cs" />
+    <Compile Include="ErrorHandlerBehaviorExtension.cs" />
+    <Compile Include="ErrorHandlerServiceBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PluralizationDictionary.cs" />
-    <Compile Include="RestDictionary.cs" />
-    <Compile Include="RestEndpointBehavior.cs" />
-    <Compile Include="RestEndpointBehaviorExtension.cs" />
-    <Compile Include="RestWebServiceHost.cs" />
-    <Compile Include="RestWebServiceHostFactory.cs" />
+    <Compile Include="ServiceErrorResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Attributes.Common\Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
-      <Name>Attributes.Common</Name>
+    <ProjectReference Include="..\..\BusinessRules\BusinessRules.csproj">
+      <Project>{2cf2d0c5-b4ce-40a3-a1fa-e3be27e2339d}</Project>
+      <Name>BusinessRules</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
-      <Name>Services.Common</Name>
+    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
+      <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>
+      <Name>WebServices.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices.Main\Plugins\ServiceBehaviors"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+
+SET dllDir="%25copyToDir%25\bin"
+ECHO %25dllDir%25
+IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

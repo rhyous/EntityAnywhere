@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Token", "Interfa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBehaviors", "ServiceBehaviors", "{7E78B03F-7CBF-497C-8A9F-88C1EC0CD180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.TokenValidation", "Behaviors.TokenValidation\Behaviors.TokenValidation.csproj", "{74C1AEDF-A491-4078-8246-3D4D7788BCF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.TokenValidation", "Behaviors\Behaviors.TokenValidation\Behaviors.TokenValidation.csproj", "{74C1AEDF-A491-4078-8246-3D4D7788BCF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Authentication", "Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj", "{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}"
 EndProject
@@ -45,17 +45,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authenticators", "{A41DC669-99DE-4351-A273-03A1D11E97B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.Token", "Authenticators.Token\Authenticators.Token.csproj", "{FF0C8677-9B8E-4F3B-8419-49C3098FA707}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.Token", "Authenticators\Authenticators.Token\Authenticators.Token.csproj", "{FF0C8677-9B8E-4F3B-8419-49C3098FA707}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Authentication", "WebServices.Authentication\WebServices.Authentication.csproj", "{7AA1310C-871F-429D-982C-1575508C69C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.User", "Authenticators.User\Authenticators.User.csproj", "{B0BA508E-5A8E-4ADD-8B52-E24EA8F5BE80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.User", "Authenticators\Authenticators.User\Authenticators.User.csproj", "{B0BA508E-5A8E-4ADD-8B52-E24EA8F5BE80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{2206DA89-1090-4AE1-AE90-8B93D419AD13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessRules", "BusinessRules\BusinessRules.csproj", "{2CF2D0C5-B4CE-40A3-A1FA-E3BE27E2339D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.ErrorHandler", "Behaviors.ErrorHandler\Behaviors.ErrorHandler.csproj", "{B87C3034-DD84-460C-A6E1-55C5D62F8E93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.ErrorHandler", "Behaviors\Behaviors.ErrorHandler\Behaviors.ErrorHandler.csproj", "{B87C3034-DD84-460C-A6E1-55C5D62F8E93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserRole", "Interfaces\Interfaces.UserRole\Interfaces.UserRole.csproj", "{6D72B792-5126-47EF-A5BB-58552DEA11C7}"
 EndProject
@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserRole",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.UserToUserGroup", "Interfaces\Interfaces.UserToUserGroup\Interfaces.UserToUserGroup.csproj", "{D1256FE6-4018-428E-AAC7-33F6BFD47B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.RestEndpoint", "Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj", "{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.RestEndpoint", "Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj", "{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{7D3F3E32-B76A-4FA9-B535-943A9603C3E7}"
 EndProject
