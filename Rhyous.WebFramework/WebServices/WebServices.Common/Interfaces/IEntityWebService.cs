@@ -1,5 +1,4 @@
 ﻿using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -12,6 +11,10 @@ namespace Rhyous.WebFramework.WebServices
         where T : class, new()
         where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
+        EntityMetadata<T> GetMetadata();
+
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<T>> GetAll();

@@ -15,6 +15,11 @@ namespace Rhyous.WebFramework.WebServices
         where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
         where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
     {
+        public virtual EntityMetadata<T> GetMetadata()
+        {
+            return new EntityMetadata<T>() { EntityName = typeof(T).Name, ExampleEntity = new T() };
+        }
+
         public virtual List<OdataObject<T>> GetAll()
         {
             return Service.Get()?.ToConcrete<T, Tinterface>().ToList().AsOdata(GetRequestUri());

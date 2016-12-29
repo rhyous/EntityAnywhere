@@ -20,6 +20,7 @@ namespace Rhyous.WebFramework.Behaviors
 
         public void Init()
         {
+            Add("GetMetadata", "$Metadata");
             Add("GetAll", "{0}"); // 0 should be pluralized entity name
             Add("GetByIds", "{0}/Ids"); // 0 should be pluralized entity name
             Add("Get", "{0}({{id}})"); // 0 should be pluralized entity name
