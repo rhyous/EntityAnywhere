@@ -93,6 +93,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EndpointBehaviors", "Endpoi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderValidators.BasicAuth", "Authenticators\HeaderValidators.BasicAuth\HeaderValidators.BasicAuth.csproj", "{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.ActiveDirectory", "Authenticators\Authenticators.ActiveDirectory\Authenticators.ActiveDirectory.csproj", "{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -373,6 +375,14 @@ Global
 		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.DEV2|Any CPU.Build.0 = Debug|Any CPU
 		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.DEV1|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.DEV1|Any CPU.Build.0 = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.DEV2|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.DEV2|Any CPU.Build.0 = Debug|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -419,5 +429,6 @@ Global
 		{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80} = {2206DA89-1090-4AE1-AE90-8B93D419AD13}
 		{1952391A-9B0F-4F94-8518-D18DE2468356} = {27C3026B-DA20-4986-8924-94EE052935A4}
 		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B} = {A41DC669-99DE-4351-A273-03A1D11E97B6}
+		{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A} = {A41DC669-99DE-4351-A273-03A1D11E97B6}
 	EndGlobalSection
 EndGlobal

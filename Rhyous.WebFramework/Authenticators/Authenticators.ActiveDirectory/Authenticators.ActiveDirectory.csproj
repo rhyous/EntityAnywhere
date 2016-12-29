@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DA13CD1B-B7F2-4208-918B-DEB9A6002A9A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhyous.WebFramework.Authenticators</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Authenticators.ActiveDirectory</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectoryCredentialsValidator.cs" />
+    <Compile Include="ActiveDirectoryManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj">
+      <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
+      <Name>Entities.User</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
+      <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
+      <Name>Interfaces.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
+      <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
+      <Name>Interfaces.Token</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
+      <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
+      <Name>Interfaces.User</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj">
+      <Project>{4F1824E2-427D-40EF-960C-4286203275DD}</Project>
+      <Name>Services.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
+      <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
+      <Name>Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\Services.User\Services.User.csproj">
+      <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
+      <Name>Services.User</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
