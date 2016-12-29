@@ -1,5 +1,6 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Net;
 using System.ServiceModel;
@@ -9,7 +10,7 @@ using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class TokenValidationInspector : IDispatchMessageInspector
+    public class HeaderValidationInspector : IDispatchMessageInspector
     {
 
         public static readonly string AllowAnonymousSvcPages = "AllowAnonymousSvcPages";
@@ -23,16 +24,7 @@ namespace Rhyous.WebFramework.Behaviors
             if (IsAnonymousAllowed(request.Headers.To.AbsolutePath))
                 return null;
 
-            // Get Token from header
-            var token = WebOperationContext.Current.IncomingRequest.Headers["Token"];
-            if (!string.IsNullOrWhiteSpace(token))
-            {
-                ValidateToken(token);
-            }
-            else
-            {
-                ValidateBasicAuthentication();
-            }
+            ValidateByHeaders(WebOperationContext.Current.IncomingRequest.Headers);
             return null;
         }
 
@@ -44,15 +36,15 @@ namespace Rhyous.WebFramework.Behaviors
                        && absolutePath.Contains("/help"));
         }
 
-        private static void ValidateToken(string token)
+        private static void ValidateByHeaders(NameValueCollection token)
         {
-            ITokenValidator validator = new PluginTokenValidator();
+            IHeaderValidator validator = new PluginHeaderValidator();
             if (!validator.IsValid(token))
             {
                 throw new WebFaultException(HttpStatusCode.Forbidden);
             }
             // Add Userid to the header so the service has it if needed
-            WebOperationContext.Current?.IncomingRequest.Headers.Add("UserId", validator.Token.UserId.ToString());
+            WebOperationContext.Current?.IncomingRequest.Headers.Add("UserId", validator.UserId.ToString());
         }
 
         private static void ValidateBasicAuthentication()

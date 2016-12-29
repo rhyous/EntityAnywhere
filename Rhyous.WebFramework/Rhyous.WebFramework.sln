@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Token", "Interfa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceBehaviors", "ServiceBehaviors", "{7E78B03F-7CBF-497C-8A9F-88C1EC0CD180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.TokenValidation", "Behaviors\Behaviors.TokenValidation\Behaviors.TokenValidation.csproj", "{74C1AEDF-A491-4078-8246-3D4D7788BCF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.HeaderValidation", "Behaviors\Behaviors.HeaderValidation\Behaviors.HeaderValidation.csproj", "{74C1AEDF-A491-4078-8246-3D4D7788BCF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Authentication", "Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj", "{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}"
 EndProject
@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Authentication", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authenticators", "Authenticators", "{A41DC669-99DE-4351-A273-03A1D11E97B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticators.Token", "Authenticators\Authenticators.Token\Authenticators.Token.csproj", "{FF0C8677-9B8E-4F3B-8419-49C3098FA707}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderValidators.Token", "Authenticators\HeaderValidators.Token\HeaderValidators.Token.csproj", "{FF0C8677-9B8E-4F3B-8419-49C3098FA707}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Authentication", "WebServices\WebServices.Authentication\WebServices.Authentication.csproj", "{7AA1310C-871F-429D-982C-1575508C69C1}"
 EndProject
@@ -90,6 +90,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes.Common", "Misc\Attributes.Common\Attributes.Common.csproj", "{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EndpointBehaviors", "EndpointBehaviors", "{1952391A-9B0F-4F94-8518-D18DE2468356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderValidators.BasicAuth", "Authenticators\HeaderValidators.BasicAuth\HeaderValidators.BasicAuth.csproj", "{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -363,6 +365,14 @@ Global
 		{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}.DEV2|Any CPU.Build.0 = Debug|Any CPU
 		{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.DEV1|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.DEV1|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.DEV2|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.DEV2|Any CPU.Build.0 = Debug|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -408,5 +418,6 @@ Global
 		{E71C8AA0-DFB3-4B0D-A9F2-66A2106FB941} = {7D3F3E32-B76A-4FA9-B535-943A9603C3E7}
 		{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80} = {2206DA89-1090-4AE1-AE90-8B93D419AD13}
 		{1952391A-9B0F-4F94-8518-D18DE2468356} = {27C3026B-DA20-4986-8924-94EE052935A4}
+		{C2C0F6EE-DBCE-40CB-858C-EB53749FA47B} = {A41DC669-99DE-4351-A273-03A1D11E97B6}
 	EndGlobalSection
 EndGlobal

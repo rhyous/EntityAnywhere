@@ -2,16 +2,17 @@
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
+using System.Collections.Specialized;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    class PluginTokenValidator : PluginLoaderBase<ITokenValidator>, ITokenValidator
+    class PluginHeaderValidator : PluginLoaderBase<IHeaderValidator>, IHeaderValidator
     {
         public override string PluginSubFolder => "Authenticators";
+        
+        public long UserId { get; set; }
 
-        public IToken Token { get; set; }
-
-        private PluginCollection<ITokenValidator> GetPlugins()
+        private PluginCollection<IHeaderValidator> GetPlugins()
         {
             var plugins = PluginLoader.LoadPlugins();
             if (plugins == null || plugins.Count == 0)
@@ -19,16 +20,16 @@ namespace Rhyous.WebFramework.Behaviors
             return plugins;
         }
 
-        public bool IsValid(string token)
+        public bool IsValid(NameValueCollection headers)
         {
             var plugins = PluginCollection ?? GetPlugins();
             foreach (var plugin in plugins)
             {
                 foreach (var obj in plugin.PluginObjects)
                 {
-                    if (obj.IsValid(token))
+                    if (obj.IsValid(headers))
                     {
-                        Token = obj.Token;
+                        UserId = obj.UserId;
                         return true;
                     }
                 }

@@ -2,23 +2,28 @@
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
+using System.Collections.Specialized;
 using System.Configuration;
 
-namespace Rhyous.WebFramework.Authenticators
+namespace Rhyous.WebFramework.HeaderValidators
 {
-    public class TokenValidator : ITokenValidator
+    public class TokenHeaderValidator : IHeaderValidator
     {
-        public IToken Token { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// Time to live of the token in seconds
         /// </summary>
         public long TimeToLive { get { return ConfigurationManager.AppSettings.Get("TokenTimeToLive", 604800L); } }
 
-        public bool IsValid(string tokenText)
+        public bool IsValid(NameValueCollection headers)
         {
-            Token = Service.Get(tokenText);
-            return Token != null && !IsExpired(Token);
+            var tokenText = headers["Token"];
+            var token = Service.Get(tokenText);
+            if (token == null || IsExpired(token))
+                return false;
+            UserId = token.UserId;
+            return true;
         }
 
         internal bool IsExpired(IToken token)

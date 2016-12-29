@@ -5,7 +5,7 @@ using System.ServiceModel.Dispatcher;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class TokenValidationServiceBehavior : ServiceBehaviorBase
+    public class PluginValidationServiceBehavior : ServiceBehaviorBase
     {
         public override void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
@@ -16,7 +16,7 @@ namespace Rhyous.WebFramework.Behaviors
                 {
                     foreach (var endpointDispatcher in channelDispatcher.Endpoints)
                     {
-                        endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new TokenValidationInspector());
+                        endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new HeaderValidationInspector());
                     }
                 }
             }
