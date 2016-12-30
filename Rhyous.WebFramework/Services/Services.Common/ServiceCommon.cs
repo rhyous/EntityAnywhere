@@ -9,7 +9,7 @@ namespace Rhyous.WebFramework.Services
     public class ServiceCommon<T, Tinterface, Tid> : IServiceCommon<T, Tinterface, Tid>
         where T: class, Tinterface, new()
         where Tinterface : IId<Tid>
-        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where Tid : struct, IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         public virtual IRepository<T, Tinterface, Tid> Repo
         {

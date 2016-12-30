@@ -9,7 +9,7 @@ namespace Rhyous.WebFramework.WebServices
     [ServiceContract]
     public interface IEntityWebService<T, Tid>
         where T : class, new()
-        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where Tid : struct, IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
