@@ -10,7 +10,7 @@ namespace Rhyous.WebFramework.WebServices
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
         where TService : class, ISearchableServiceCommon<T, Tinterface, Tid>, new()
-        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public override OdataObject<T> Get(string idOrName)
         {

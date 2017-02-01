@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Repositories
     public class BaseRepository<T, Tinterface, Tid> : IRepository<T, Tinterface, Tid>
         where Tinterface : IEntity<Tid>
         where T : class, Tinterface, new()
-        where Tid : struct, IComparable, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         protected BaseDbContext<T> DbContext
         {

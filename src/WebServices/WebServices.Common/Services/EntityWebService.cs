@@ -12,7 +12,7 @@ namespace Rhyous.WebFramework.WebServices
     public class EntityWebService<T, Tinterface, Tid, TService> : IEntityWebService<T, Tid>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
-        where Tid : struct, IComparable, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
         where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
     {
         public virtual EntityMetadata<T> GetMetadata()

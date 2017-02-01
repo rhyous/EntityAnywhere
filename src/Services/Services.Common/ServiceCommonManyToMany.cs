@@ -8,7 +8,7 @@ namespace Rhyous.WebFramework.Services
     public class ServiceCommonManyToMany<T, Tinterface, Tid, TidPrimary, TidSecondary> : ServiceCommon<T, Tinterface, Tid>, IServiceCommonManyToMany<T, Tinterface, Tid, TidPrimary, TidSecondary> 
         where T : class, Tinterface, new()
         where Tinterface : IId<Tid>
-        where Tid : struct, IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public virtual string PrimaryEntity { get; }
         public virtual string SecondaryEntity { get; }

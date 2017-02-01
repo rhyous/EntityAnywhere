@@ -9,7 +9,7 @@ namespace Rhyous.WebFramework.WebServices
     public class EntityServiceLoader<T, Tinterface, Tid> : PluginLoaderBase<ServiceCommon<T, Tinterface, Tid>>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
-        where Tid : struct, IComparable, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         public override bool ThrowExceptionIfNoPluginFound => false;
         public override string PluginSubFolder => Path.Combine("Services", typeof(T).Name);
