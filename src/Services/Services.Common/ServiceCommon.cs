@@ -32,7 +32,7 @@ namespace Rhyous.WebFramework.Services
             return Repo.Get(Id);
         }
 
-        public virtual List<Tinterface> Get(Expression<Func<T, bool>> expression)
+        public virtual List<Tinterface> Get(Expression<Func<Tinterface, bool>> expression)
         {
             return Repo.GetByExpression(expression).ToList();
         }

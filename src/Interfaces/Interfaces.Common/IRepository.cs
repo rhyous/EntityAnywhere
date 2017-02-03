@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 namespace Rhyous.WebFramework.Interfaces
 {
     public interface IRepository<T,Tinterface, Tid>
+        where T : Tinterface
     {
         /// <summary>
         /// List all items of T.
@@ -31,20 +32,20 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="value">The string value the property expression must be equal to
         /// to find the item to return.</param>
         /// <returns></returns>
-        Tinterface Get(string name, Expression<Func<T, string>> propertyExpression);
+        Tinterface Get(string name, Expression<Func<Tinterface, string>> propertyExpression);
 
         /// <summary>
         /// List items that match the query expression.
         /// </summary>
         /// <param name="expression">A LINQ expression</param>
         /// <returns>A list of all items that match the expression</returns>
-        List<Tinterface> GetByExpression(Expression<Func<T, bool>> expression);
+        List<Tinterface> GetByExpression(Expression<Func<Tinterface, bool>> expression);
 
         /// <summary>
         /// List items that match the query string.
         /// </summary>
         /// <returns>A list of all items that match the query string</returns>
-        List<Tinterface> Search(string searchString, params Expression<Func<T, string>>[] propertyExpressions);
+        List<Tinterface> Search(string searchString, params Expression<Func<Tinterface, string>>[] propertyExpressions);
 
         /// <summary>
         /// A item(s) to add.

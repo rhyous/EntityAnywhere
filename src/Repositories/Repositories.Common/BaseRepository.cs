@@ -48,27 +48,27 @@ namespace Rhyous.WebFramework.Repositories
 
         public virtual List<Tinterface> Get(List<Tid> ids)
         {
-            return DbContext.Entities.Where(o => ids.Contains(o.Id)).ToList<Tinterface>();
+            return DbContext.Entities.Where(e => ids.Contains(e.Id)).ToList<Tinterface>();
         }
 
         public virtual Tinterface Get(Tid id)
         {
-            return DbContext.Entities.FirstOrDefault(o => o.Id.Equals(id));
+            return DbContext.Entities.FirstOrDefault(e => e.Id.Equals(id));
         }
 
-        public virtual Tinterface Get(string name, Expression<Func<T, string>> propertyExpression)
+        public virtual Tinterface Get(string name, Expression<Func<Tinterface, string>> propertyExpression)
         {
             return DbContext.Entities.AsExpandable().FirstOrDefault(e => propertyExpression.Invoke(e) == name);
         }
 
-        public virtual List<Tinterface> GetByExpression(Expression<Func<T, bool>> expression)
+        public virtual List<Tinterface> GetByExpression(Expression<Func<Tinterface, bool>> expression)
         {
-            return DbContext.Entities.AsExpandable().Where(expression).ToList<Tinterface>();
+            return DbContext.Entities.AsExpandable().Where(expression).ToList();
         }
 
-        public virtual List<Tinterface> Search(string searchString, params Expression<Func<T, string>>[] propertyExpressions)
+        public virtual List<Tinterface> Search(string searchString, params Expression<Func<Tinterface, string>>[] propertyExpressions)
         {
-            var predicate = PredicateBuilder.New<T>();
+            var predicate = PredicateBuilder.New<Tinterface>();
             foreach (var expression in propertyExpressions)
             {
                 predicate.Or(e => expression.Invoke(e).Contains(searchString));

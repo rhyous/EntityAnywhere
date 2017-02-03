@@ -104,7 +104,8 @@
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Interfaces\IServiceCommonSearchable.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Interfaces\IServiceCommonAltId.cs" />
     <Compile Include="Interfaces\IServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommonOneToMany.cs" />
     <Compile Include="Interfaces\IServiceCommonManyToMany.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="ServiceCommon.cs" />
     <Compile Include="ServiceCommonOneToMany.cs" />
     <Compile Include="ServiceCommonManyToMany.cs" />
-    <Compile Include="ServiceCommonSearchable.cs" />
+    <Compile Include="ServiceCommonAltId.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">

@@ -6,7 +6,8 @@ using System.IO;
 namespace Rhyous.WebFramework.WebServices
 {
 
-    public class EntityWebServiceLoader<T, Tinterface, Tid, TService> : PluginLoaderBase<EntityWebService<T, Tinterface, Tid, TService>>
+    public class EntityWebServiceLoader<Ts, T, Tinterface, Tid, TService> : PluginLoaderBase<Ts>
+        where Ts : class, new()
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
         where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>

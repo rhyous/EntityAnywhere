@@ -43,6 +43,26 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <summary>
+        /// A static method to get the value of a property of any object.
+        /// </summary>
+        /// <param name="o">The instance from which to read the value.</param>
+        /// <param name="propertyName">The name of the property</param>
+        /// <returns>The value of the property boxed as an object.</returns>
+        public static object GetStaticPropertyValue(this Type t, string propertyName, object defaultValue = null)
+        {
+            var tmpType = t;
+            object obj = null;
+            int count = 0;
+            while (obj == null && tmpType != null && count < 10)
+            {
+                obj = tmpType.GetProperty("EntityType")?.GetValue(null);
+                tmpType = tmpType.BaseType;
+                count++;
+            }
+            return obj ?? defaultValue;
+        }
+
+        /// <summary>
         /// A static method to get the FieldInfo of a field of any object.
         /// </summary>
         /// <param name="type">The Type that has the field</param>

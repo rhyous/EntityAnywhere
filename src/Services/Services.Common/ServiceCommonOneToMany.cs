@@ -18,7 +18,7 @@ namespace Rhyous.WebFramework.Services
             if (string.IsNullOrWhiteSpace(RelatedEntity))
                 throw new InvalidOperationException("The RelatedEntity must be assigned a value before this method is called.");
             var relatedEntityColumnName = RelatedEntity + IdSuffix;
-            return Repo.GetByExpression(relatedEntityColumnName.ToLambda<T, TidRelated>(id)).ToList();
+            return Repo.GetByExpression(relatedEntityColumnName.ToLambda<Tinterface, TidRelated>(id)).ToList();
         }
     }
 }

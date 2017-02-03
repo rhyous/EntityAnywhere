@@ -1,0 +1,19 @@
+## Ignore the NuGet packages folder in the root of the repository
+packages
+..\packages
+..\packages\**\*
+..\packages\*\*
+#include package target files which may be required for msbuild
+!packages\*.targets
+!..\packages\*.targets
+#Ignore developer changes
+dev.config
+
+!\Authenticators\Authenticators.User\*.*
+!\Authenticators\Authenticators.User\Properties\*.*
+!\Interfaces\Interfaces.User\*.*
+!\Interfaces\Interfaces.User\Properties\*.*
+!\Entities\Entities.User\*.*
+!\Entities\Entities.User\Properties\*.*
+!\Services\Services.User\*.*
+!\Services\Services.User\Properties\*.*

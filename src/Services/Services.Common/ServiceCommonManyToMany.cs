@@ -29,12 +29,12 @@ namespace Rhyous.WebFramework.Services
 
         public List<Tinterface> GetByRelatedPrimaryEntityId(TidPrimary id, string entity)
         {
-            return Repo.GetByExpression((entity + IdSuffix).ToLambda<T, TidPrimary>(id)).ToList();
+            return Repo.GetByExpression((entity + IdSuffix).ToLambda<Tinterface, TidPrimary>(id)).ToList();
         }
 
         public List<Tinterface> GetByRelatedSecondaryEntityId(TidSecondary id, string entity)
         {
-            return Repo.GetByExpression((entity + IdSuffix).ToLambda<T, TidSecondary>(id)).ToList();
+            return Repo.GetByExpression((entity + IdSuffix).ToLambda<Tinterface, TidSecondary>(id)).ToList();
         }
     }
 }

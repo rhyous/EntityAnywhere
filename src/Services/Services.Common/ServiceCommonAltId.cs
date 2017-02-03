@@ -1,25 +1,27 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class ServiceCommonSearchable<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, ISearchableServiceCommon<T, Tinterface, Tid>
+    public class ServiceCommonAltId<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, IServiceCommonAltId<T, Tinterface, Tid>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
         where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
-        public ServiceCommonSearchable()
+        public ServiceCommonAltId()
         {
-        }
+            PropertyExpression = typeof(T).GetAlternateIdProperty().ToLambda<Tinterface, string>();
+        }        
 
-        public ServiceCommonSearchable(Expression<Func<T, string>> propertyExpression)
+        public ServiceCommonAltId(Expression<Func<Tinterface, string>> propertyExpression)
         {
             PropertyExpression = propertyExpression;
         }
 
-        public virtual Expression<Func<T, string>> PropertyExpression { get; private set; }
+        public virtual Expression<Func<Tinterface, string>> PropertyExpression { get; set; }
 
         public Tinterface Get(string stringProperty)
         {

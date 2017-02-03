@@ -32,11 +32,11 @@ namespace Rhyous.WebFramework.HeaderValidators
         }
 
         #region Injectable
-        public ServiceCommonSearchable<Token, IToken, long> Service
+        public ServiceCommonAltId<Token, IToken, long> Service
         {
-            get { return _Service ?? (_Service = new ServiceCommonSearchable<Token, IToken, long>(x => x.Text)); }
+            get { return _Service ?? (_Service = new ServiceCommonAltId<Token, IToken, long>(x => x.Text)); }
             set { _Service = value; }
-        } private ServiceCommonSearchable<Token, IToken, long> _Service;
+        } private ServiceCommonAltId<Token, IToken, long> _Service;
         #endregion
     }
 }

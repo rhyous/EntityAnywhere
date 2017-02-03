@@ -7,6 +7,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel.Dispatcher;
 using System.Collections.Generic;
 using System.ServiceModel.Description;
+using Rhyous.WebFramework.Services;
 
 namespace Rhyous.WebFramework.Behaviors
 {
@@ -19,7 +20,8 @@ namespace Rhyous.WebFramework.Behaviors
             var serviceBehaviorLoader = new ServiceBehaviorLoader();
             if (serviceBehaviorLoader.Plugins?.Count > 0)
             {
-                AddServiceBehaviorPlugin(serviceType.GetProperty("EntityType").GetValue(null) as Type, host.Description.Behaviors, serviceBehaviorLoader.Plugins);
+                var entityType = serviceType.GetStaticPropertyValue("EntityType") as Type;
+                AddServiceBehaviorPlugin(entityType, host.Description.Behaviors, serviceBehaviorLoader.Plugins);
             }
             return host;
         }

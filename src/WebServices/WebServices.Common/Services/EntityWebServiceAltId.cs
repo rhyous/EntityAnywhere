@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class SearchableEntityWebService<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
+    public class EntityWebServiceAltId<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
-        where TService : class, ISearchableServiceCommon<T, Tinterface, Tid>, new()
+        where TService : class, IServiceCommonAltId<T, Tinterface, Tid>, new()
         where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
     {
         public override OdataObject<T> Get(string idOrName)
@@ -17,13 +17,13 @@ namespace Rhyous.WebFramework.WebServices
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return SearchableService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
+                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
             return Service.Get(idOrName.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
         }
         
-        public virtual ISearchableServiceCommon<T, Tinterface, Tid> SearchableService
+        public virtual IServiceCommonAltId<T, Tinterface, Tid> AltIdService
         {
-            get { return Service as ISearchableServiceCommon<T, Tinterface, Tid>; }
+            get { return Service as IServiceCommonAltId<T, Tinterface, Tid>; }
         }
     }
 }

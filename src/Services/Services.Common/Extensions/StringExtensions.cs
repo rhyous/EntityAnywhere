@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Rhyous.WebFramework.Services
 {
     public static class StringExtensions
     {
+        public static Expression<Func<E, Eout>> ToLambda<E, Eout>(this string propertyName)
+        {
+            var param = Expression.Parameter(typeof(E));
+            var body = Expression.PropertyOrField(param, propertyName);
+            return Expression.Lambda<Func<E, Eout>>(body, param);
+        }
+
         public static Expression<Func<E, bool>> ToLambda<E, V>(this string propertyName, V value, string methodName = "Equals")
         {
             ParameterExpression parameter = Expression.Parameter(typeof(E), "e");

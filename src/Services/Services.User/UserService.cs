@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public partial class UserService : ServiceCommonSearchable<User, IUser, long>
+    public partial class UserService : ServiceCommonAltId<User, IUser, long>
     {
-        public override Expression<Func<User, string>> PropertyExpression => e => e.Username;
+        public override Expression<Func<IUser, string>> PropertyExpression => e => e.Username;
 
         public override List<IUser> Add(IList<IUser> users)
         {
