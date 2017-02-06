@@ -14,11 +14,11 @@ namespace Rhyous.WebFramework.Behaviors
         public override void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
         {
             var entityType = endpoint.Contract.ContractType.GenericTypeArguments[0];
-            string pluarlEntityName = PlaralizationDictionary.Instance.GetValueOrDefault(entityType.Name);
+            string pluralEntityName = PlaralizationDictionary.Instance.GetValueOrDefault(entityType.Name);
             foreach (OperationDescription od in endpoint.Contract.Operations)
             {                
                 var webInvokeAttribute = od.OperationBehaviors[typeof(WebInvokeAttribute)] as WebInvokeAttribute;
-                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluarlEntityName);
+                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
             }
             base.ApplyDispatchBehavior(endpoint, endpointDispatcher);
         }
