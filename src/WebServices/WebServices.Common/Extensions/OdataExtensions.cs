@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Services;
+﻿using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,10 +59,18 @@ namespace Rhyous.WebFramework.WebServices
             return t.AsOdata(leftPart, IdProperty, addIdToUrl, properties);
         }
 
-        public static List<OdataObject<T>> AsOdata<T>(this List<T> ts, Uri uri, params string[] properties)
+        public static List<OdataObject<T>> AsOdata<T>(this List<T> ts, Uri uri,  params string[] properties)
         {
             var leftPart = uri.GetLeftPart(UriPartial.Path);
             return ts.Select(t => t.AsOdata(leftPart, true, properties)).ToList();
+        }
+
+        public static OdataObject<T> AsOdata<T>(this T t, Uri uri, List<Addendum> addenda, params string[] properties)
+        {
+            var leftPart = uri.GetLeftPart(UriPartial.Path);            
+            var odata = t.AsOdata<T>(leftPart, false, properties);
+            odata.Addenda = addenda;
+            return odata;
         }
     }
 }

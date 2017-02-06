@@ -1,5 +1,4 @@
-﻿using Rhyous.StringLibrary;
-using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Linq;
@@ -17,8 +16,8 @@ namespace Rhyous.WebFramework.WebServices
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri);
-            return Service.Get(idOrName.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri);
+                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(idOrName));
+            return base.Get(idOrName);
         }
         
         public virtual IServiceCommonAltId<T, Tinterface, Tid> AltIdService

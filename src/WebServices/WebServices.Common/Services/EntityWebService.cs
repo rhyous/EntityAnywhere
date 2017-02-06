@@ -51,7 +51,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A single entity wrapped in an odata object.</returns>
         public virtual OdataObject<T> Get(string id)
         {
-            return Service.Get(id.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri);
+            return Service.Get(id.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
         /// <summary>
