@@ -17,8 +17,8 @@ namespace Rhyous.WebFramework.WebServices
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
-            return Service.Get(idOrName.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(GetRequestUri());
+                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri);
+            return Service.Get(idOrName.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri);
         }
         
         public virtual IServiceCommonAltId<T, Tinterface, Tid> AltIdService
