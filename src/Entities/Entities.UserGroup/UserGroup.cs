@@ -3,7 +3,7 @@ using System;
 
 namespace Rhyous.WebFramework.Entities
 {
-    public class UserGroup : IUserGroup
+    public partial class UserGroup : IUserGroup
     {
         public int Id { get; set; }
         public string Name { get; set; }
