@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.WebFramework.Interfaces
 {
     public interface IServiceCommon<T, Tinterface, Tid>
         where T : class, Tinterface

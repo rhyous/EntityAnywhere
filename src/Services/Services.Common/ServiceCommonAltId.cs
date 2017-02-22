@@ -9,7 +9,7 @@ namespace Rhyous.WebFramework.Services
     public class ServiceCommonAltId<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, IServiceCommonAltId<T, Tinterface, Tid>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
-        where Tid : IComparable, IConvertible, IComparable<Tid>, IEquatable<Tid>
+        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         public ServiceCommonAltId()
         {

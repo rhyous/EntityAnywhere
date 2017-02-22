@@ -27,7 +27,7 @@ namespace Rhyous.WebFramework.Interfaces
         Tinterface Get(Tid id);
 
         /// <summary>
-        /// Gets an item by Id
+        /// Gets an item by comparing a key string property, such as Name, to its value
         /// </summary>
         /// <param name="value">The string value the property expression must be equal to
         /// to find the item to return.</param>
