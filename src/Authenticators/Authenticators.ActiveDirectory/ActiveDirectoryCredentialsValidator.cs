@@ -12,7 +12,6 @@ namespace Rhyous.WebFramework.Authenticators
     {
         const string Domain = "Domain";
         const string DomainGroup = "DomainGroup";
-        const string InternalOrgId = "InternalOrgId";
 
         public IToken Build(ICredentials creds, long userId)
         {
@@ -46,8 +45,7 @@ namespace Rhyous.WebFramework.Authenticators
                         Username = creds.User,
                         Password = creds.Password,
                         ExternalAuth = true,
-                        Active = true,
-                        OrganizationId = ConfigurationManager.AppSettings[InternalOrgId]
+                        Active = true
                     }
                 }
             );
