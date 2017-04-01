@@ -16,9 +16,10 @@ namespace Rhyous.WebFramework.Behaviors
             var entityType = endpoint.Contract.ContractType.GenericTypeArguments[0];
             string pluralEntityName = PlaralizationDictionary.Instance.GetValueOrDefault(entityType.Name);
             foreach (OperationDescription od in endpoint.Contract.Operations)
-            {                
+            {
                 var webInvokeAttribute = od.OperationBehaviors[typeof(WebInvokeAttribute)] as WebInvokeAttribute;
-                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
+                if (string.IsNullOrWhiteSpace(webInvokeAttribute.UriTemplate))
+                    webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
             }
             base.ApplyDispatchBehavior(endpoint, endpointDispatcher);
         }
