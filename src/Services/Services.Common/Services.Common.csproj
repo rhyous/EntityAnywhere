@@ -41,59 +41,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\AssemblyDictionary.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\AssemblyDictionary.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\AssemblyDictionary.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\AssemblyDictionary.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\AssemblyLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\AssemblyLoader.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\AssemblyLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\AssemblyLoader.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Extensions\AppDomainExtensions.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Extensions\AppDomainExtensions.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Extensions\AppDomainExtensions.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Extensions\AppDomainExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Extensions\TypeExtensions.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Extensions\TypeExtensions.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Extensions\TypeExtensions.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Extensions\TypeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\InstancesLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\InstancesLoader.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\InstancesLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\InstancesLoader.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IAssemblyDictionary.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IAssemblyDictionary.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IAssemblyDictionary.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IAssemblyDictionary.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IAssemblyLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IAssemblyLoader.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IAssemblyLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IAssemblyLoader.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\ILoadInstancesOfType.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\ILoadInstancesOfType.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\ILoadInstancesOfType.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\ILoadInstancesOfType.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\ILoadPlugins.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\ILoadPlugins.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\ILoadPlugins.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\ILoadPlugins.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IName.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IName.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IName.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IName.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IPluginDependencyResolver.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IPluginDependencyResolver.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IPluginDependencyResolver.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IPluginDependencyResolver.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IPluginFinder.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Interfaces\IPluginFinder.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IPluginFinder.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Interfaces\IPluginFinder.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Plugin.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\Plugin.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Plugin.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\Plugin.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginCollection.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginCollection.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginCollection.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginCollection.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginDependencyResolver.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginDependencyResolver.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginDependencyResolver.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginDependencyResolver.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginFinder.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginFinder.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginFinder.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginFinder.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginLoader.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginLoader.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginLoader.cs</Link>
     </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.5\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginPaths.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.5\PluginPaths.cs</Link>
+    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.1.8\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginPaths.cs">
+      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.1.8\PluginPaths.cs</Link>
     </Compile>
     <Compile Include="Business\EntityRepoositoryLoaderCommon.cs" />
     <Compile Include="Business\CryptoRandomString.cs" />
