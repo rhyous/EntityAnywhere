@@ -70,10 +70,12 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -84,7 +86,7 @@ IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
 COPY /Y "$(TargetPath)" %25copyToDir%25
 COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 
-SET dllDir="%25copyToDir%25\$(TargetName)"
+SET dllDir="%25copyToDir%25\bin"
 ECHO %25dllDir%25
 IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
 COPY /Y "$(Targetdir)*.dll" %25dllDir%25

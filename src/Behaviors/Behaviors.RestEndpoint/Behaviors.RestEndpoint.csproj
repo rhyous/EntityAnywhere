@@ -45,16 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="ServiceBehaviorLoader.cs" />
-    <Compile Include="IDictionaryDefaultValueProvider.cs" />
+    <Compile Include="Interfaces\IDictionaryDefaultValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PluralizationDictionary.cs" />
-    <Compile Include="RestDictionary.cs" />
+    <Compile Include="Dictionaries\PluralizationDictionary.cs" />
+    <Compile Include="Dictionaries\RestDictionary.cs" />
     <Compile Include="RestEndpointBehavior.cs" />
     <Compile Include="RestEndpointBehaviorExtension.cs" />
     <Compile Include="RestWebServiceHost.cs" />
     <Compile Include="RestWebServiceHostFactory.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">

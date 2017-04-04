@@ -9,8 +9,8 @@ namespace Rhyous.WebFramework.Services
             where T : class, Tinterface
             where Tinterface : IId<Tid>
         {
-            return new EntityRepoositoryLoader<T, Tinterface, Tid>().Plugins?.FirstOrDefault()
-                ?? new EntityRepoositoryLoaderCommon<T, Tinterface, Tid>().Plugins?.FirstOrDefault();
+            return new EntityRepositoryLoader<T, Tinterface, Tid>().Plugins?.FirstOrDefault()
+                ?? new EntityRepositoryLoaderCommon<T, Tinterface, Tid>().Plugins?.FirstOrDefault();
         }
     }
 }

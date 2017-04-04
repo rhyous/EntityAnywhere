@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.WebServices;
+﻿using Rhyous.WebFramework.Attributes;
+using Rhyous.WebFramework.WebServices;
 using System.Linq;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -14,5 +15,7 @@ namespace Rhyous.WebFramework.Behaviors
                 channelDispatcher.ErrorHandlers.Add(new ErrorHandler());
             }
         }
+
+        public override ServiceBehaviorType Type { get { return ServiceBehaviorType.ErrorHandler; } }
     }
 }

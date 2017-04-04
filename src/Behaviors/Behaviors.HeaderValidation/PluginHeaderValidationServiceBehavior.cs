@@ -1,11 +1,12 @@
-﻿using Rhyous.WebFramework.WebServices;
+﻿using Rhyous.WebFramework.Attributes;
+using Rhyous.WebFramework.WebServices;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class PluginValidationServiceBehavior : ServiceBehaviorBase
+    public class PluginHeaderValidationServiceBehavior : ServiceBehaviorBase
     {
         public override void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
@@ -21,5 +22,7 @@ namespace Rhyous.WebFramework.Behaviors
                 }
             }
         }
+
+        public override ServiceBehaviorType Type { get { return ServiceBehaviorType.Authenticator; } }
     }
 }

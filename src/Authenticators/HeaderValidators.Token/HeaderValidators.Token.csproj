@@ -68,14 +68,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Authenticators"
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Authenticators\Token"
 ECHO %25copyToDir%25
 IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
 COPY /Y "$(TargetPath)" %25copyToDir%25
 COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 
 REM Uncomment to copy dependencies
-REM SET dllDir="%25copyToDir%25\$(TargetName)"
+REM SET dllDir="%25copyToDir%25\bin"
 REM ECHO %25dllDir%25
 REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
 REM COPY /Y "$(Targetdir)*.dll" %25dllDir%25

@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.Collections.ObjectModel;
 using System.ServiceModel.Channels;
+using Rhyous.WebFramework.Attributes;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -16,5 +17,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
         }
+
+        public virtual ServiceBehaviorType Type { get; }
     }
 }

@@ -16,12 +16,21 @@ namespace Rhyous.WebFramework.Behaviors
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)
         {
             var host = new RestWebServiceHost(serviceType, baseAddresses);
+            var attribute = serviceType.GetCustomAttributes(true).FirstOrDefault(a => typeof(CustomWebServiceAttribute).IsAssignableFrom(a.GetType())) as CustomWebServiceAttribute;
+            if (attribute != null && attribute.ServiceContract != null)
+            {
+                var keysToRemove = host.ImplementedContracts.Keys.Where(k => k != attribute.ServiceContract.FullName).ToList();
+                foreach (var key in keysToRemove)
+                {
+                    host.ImplementedContracts.Remove(key);
+                }
+            }
             var pluginLoader = new PluginLoader<IDispatchMessageInspector>();
             var serviceBehaviorLoader = new ServiceBehaviorLoader();
             if (serviceBehaviorLoader.Plugins?.Count > 0)
             {
-                var entityType = serviceType.GetStaticPropertyValue("EntityType") as Type;
-                AddServiceBehaviorPlugin(entityType, host.Description.Behaviors, serviceBehaviorLoader.Plugins);
+                var type = serviceType.GetStaticPropertyValue("EntityType") as Type ?? serviceType;
+                AddServiceBehaviorPlugin(type, host.Description.Behaviors, serviceBehaviorLoader.Plugins);
             }
             return host;
         }
@@ -37,8 +46,8 @@ namespace Rhyous.WebFramework.Behaviors
             foreach (var serviceBehavior in serviceBehaviorPlugins)
             {
                 if (!hasAttribute
-                    || (include && includedAttribute.ServiceBehaviors.Any(sb => serviceBehavior.GetType().FullName == sb || serviceBehavior.GetType().Name == sb))
-                    || (!include && !excludedAttribute.ServiceBehaviors.Any(sb => serviceBehavior.GetType().FullName == sb || serviceBehavior.GetType().Name == sb)))
+                    || (include && includedAttribute.ServiceBehaviors.Any(sb => serviceBehavior.GetType().FullName == sb || serviceBehavior.GetType().Name == sb || serviceBehavior.GetType().Name.Replace("ServiceBehavior","") == sb))
+                    || (!include && !excludedAttribute.ServiceBehaviors.Any(sb => serviceBehavior.GetType().FullName == sb || serviceBehavior.GetType().Name == sb || serviceBehavior.GetType().Name.Replace("ServiceBehavior", "") == sb)))
                 {
                     behaviors.Add(serviceBehavior);
                 }

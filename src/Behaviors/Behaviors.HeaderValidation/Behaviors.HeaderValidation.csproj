@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HeaderValidationBehaviorExtension.cs" />
     <Compile Include="HeaderValidationInspector.cs" />
-    <Compile Include="PluginValidationServiceBehavior.cs" />
+    <Compile Include="PluginHeaderValidationServiceBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
@@ -61,6 +61,10 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
       <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
       <Name>Interfaces.Token</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
+      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
+      <Name>Attributes.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj">
       <Project>{4f1824e2-427d-40ef-960c-4286203275dd}</Project>

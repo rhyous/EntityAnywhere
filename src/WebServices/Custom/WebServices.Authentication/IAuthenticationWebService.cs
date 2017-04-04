@@ -6,7 +6,6 @@ using Rhyous.WebFramework.Entities;
 namespace  Rhyous.WebFramework.WebServices
 {
     [ServiceContract]
-
     public interface IAuthenticationWebService
     {
         [OperationContract]

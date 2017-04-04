@@ -2,7 +2,7 @@
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class HeaderValidationBehaviorExtension : BehaviorExtensionBase<PluginValidationServiceBehavior>
+    public class HeaderValidationBehaviorExtension : BehaviorExtensionBase<PluginHeaderValidationServiceBehavior>
     {
     }
 }

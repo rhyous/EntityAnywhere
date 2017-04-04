@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel.Description;
 using System.ServiceModel.Web;
 
@@ -28,6 +29,11 @@ namespace Rhyous.WebFramework.Behaviors
             endpoint.EndpointBehaviors.Clear();
             endpoint.EndpointBehaviors.Add(new RestEndpointBehavior());
             base.AddServiceEndpoint(endpoint);
+        }
+
+        public new IDictionary<string, ContractDescription> ImplementedContracts
+        {
+            get { return base.ImplementedContracts; }
         }
     }
 }

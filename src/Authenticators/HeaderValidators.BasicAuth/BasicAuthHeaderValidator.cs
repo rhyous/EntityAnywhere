@@ -1,8 +1,6 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
-using System;
 using System.Collections.Specialized;
-using System.Configuration;
 
 namespace Rhyous.WebFramework.HeaderValidators
 {
@@ -17,8 +15,9 @@ namespace Rhyous.WebFramework.HeaderValidators
             {
                 var token = AuthService.Authenticate(new BasicAuth(basicAuthHeader).Creds);
                 UserId = token.UserId;
+                return true;
             }
-            return true;
+            return false;
         }
 
         #region Injectable

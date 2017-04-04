@@ -14,7 +14,7 @@ namespace Rhyous.WebFramework.Services
 
         public static string AppRoot = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string Company = "Rhyous";
-        public static string AppName = "Auth.TokenService";
+        public static string AppName = "EntityAnywhere";
         public static string PluginFolder = "Plugins";
 
         public virtual bool ThrowExceptionIfNoPluginFound => true;
@@ -31,6 +31,15 @@ namespace Rhyous.WebFramework.Services
             internal set { _PluginLoader = value; } // Set exposed as internal for unit tests
         } private ILoadPlugins<T> _PluginLoader;
 
+        public virtual List<Type> PluginTypes
+        {
+            get
+            {
+                var pluginLibraries = PluginCollection ?? GetPluginLibraries();
+                return pluginLibraries?.SelectMany(p => p.PluginTypes).ToList();
+            }
+        } private List<T> _PluginTypes;
+
         public virtual List<T> Plugins
         {
             get
@@ -46,7 +55,7 @@ namespace Rhyous.WebFramework.Services
             if (plugins == null || plugins.Count == 0)
             {
                 if (ThrowExceptionIfNoPluginFound)
-                    throw new Exception($"No {PluginSubFolder} plugin not found.");
+                    throw new Exception($"No {PluginSubFolder} plugin found.");
                 return null;
             }
             return plugins;

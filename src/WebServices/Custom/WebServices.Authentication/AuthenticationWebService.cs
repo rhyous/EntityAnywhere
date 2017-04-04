@@ -1,12 +1,13 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.WebFramework.Attributes;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
-using System.ServiceModel.Activation;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-    public class AuthenticationWebService : IAuthenticationWebService
+    [ExcludedServiceBehaviorTypes(ServiceBehaviorType.Authenticator)]
+    [CustomWebService("AuthenticationWebService", typeof(IAuthenticationWebService), null, "AuthenticationService.svc")]
+    public class AuthenticationWebService : IAuthenticationWebService, ICustomWebService
     {
         public Token Authenticate(Credentials creds)
         {

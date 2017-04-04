@@ -4,13 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F1824E2-427D-40EF-960C-4286203275DD}</ProjectGuid>
+    <ProjectGuid>{69CC8737-02DA-4523-A67A-A851AA33586E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Services.Authentication</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.WebServices.User</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,8 +35,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,56 +46,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationService.cs" />
-    <Compile Include="BasicAuth.cs" />
-    <Compile Include="Models\Credentials.cs" />
-    <Compile Include="PluginCredentialsValidator.cs" />
+    <Compile Include="IUserWebService.cs" />
+    <Compile Include="UserWebService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TokenGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Entities\Entities.Token\Entities.Token.csproj">
-      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
-      <Name>Entities.Token</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\..\..\Entities\Entities.User\Entities.User.csproj">
+      <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
+      <Name>Entities.User</Name>
+      <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
-      <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
-      <Name>Interfaces.Authentication</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
-      <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
-      <Name>Interfaces.Token</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
-      <Project>{222278D6-81F4-4BE6-973B-6D534DE47E8E}</Project>
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
+      <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
       <Name>Interfaces.User</Name>
-      <Private>False</Private>
+      <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj">
-      <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
-      <Name>Entities.User</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
+      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
+      <Name>Attributes.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+    <ProjectReference Include="..\..\..\Services\Services.Common\Services.Common.csproj">
+      <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
       <Name>Services.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Services.User\Services.User.csproj">
-      <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
-      <Name>Services.User</Name>
+    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
+      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
+      <Name>WebServices.Common</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\User"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+
+SET dllDir="%25copyToDir%25\bin"
+ECHO %25dllDir%25
+IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

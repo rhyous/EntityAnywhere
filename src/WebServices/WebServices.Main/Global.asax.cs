@@ -8,7 +8,7 @@ namespace Rhyous.WebFramework.WebServices
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            EntityLoader.LoadEntities();
+            Starter.Start();
         }
 
         protected void Session_Start(object sender, EventArgs e)

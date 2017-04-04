@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class PlaralizationDictionary : Dictionary<string, string>, IDictionaryDefaultValueProvider<string, string>
+    public class PluralizationDictionary : Dictionary<string, string>, IDictionaryDefaultValueProvider<string, string>
     {
         #region Singleton
 
-        private static readonly Lazy<PlaralizationDictionary> Lazy = new Lazy<PlaralizationDictionary>(() => new PlaralizationDictionary());
+        private static readonly Lazy<PluralizationDictionary> Lazy = new Lazy<PluralizationDictionary>(() => new PluralizationDictionary());
 
-        public static PlaralizationDictionary Instance { get { return Lazy.Value; } }
+        public static PluralizationDictionary Instance { get { return Lazy.Value; } }
 
-        internal PlaralizationDictionary()
+        internal PluralizationDictionary()
         {
             Init();
         }
