@@ -32,8 +32,6 @@ namespace Rhyous.WebFramework.WebServices
 
         public static void BuildEntityRestService(Type entityType)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver;
-
             try
             {
                 var interfaceType = entityType.GetInterface("I" + entityType.Name);
@@ -68,12 +66,6 @@ namespace Rhyous.WebFramework.WebServices
             dynamic loader = Activator.CreateInstance(entityWebServiceLoaderType);
             var plugins = loader.Plugins as IList;
             return (plugins != null && plugins.Count > 0) ? plugins[0].GetType() : webServiceBaseType;
-        }
-
-
-        private static Assembly AssemblyResolver(object sender, ResolveEventArgs args)
-        {
-            return null;
         }
     }
 }
