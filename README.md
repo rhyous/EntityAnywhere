@@ -3,7 +3,7 @@ A new API for Business
 
 What is EntityAnywhere? It is a web framework that uses one microservice per entity.
 
-In many environments, your could have entities that come from various different places: cloud service, different databases, files, etc. What if you could create in minutesan authentication-ready REST API with Create, Read, Update Delete (CRUD) (and granual *authorization) for all the spread out entities in your environment. That is the solution Entity Anywhere exists to provide.
+In many environments, your could have entities that come from various different places: cloud service, different databases, files, etc. What if you could create in minutes an authentication-ready REST API with Create, Read, Update Delete (CRUD) (and granual *authorization) for all the spread out entities in your environment. That is the solution Entity Anywhere exists to provide.
 
 How did this API come about? Well, after using Entity Framework, it came to my attention that boiler plate code doesn't end with the entity to database code. Boilerplate code includes almost all REST/CRUD/Authentication/Authorization code. The only coding that should be needed is 
 1. Defining an entity.
