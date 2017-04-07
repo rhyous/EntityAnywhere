@@ -33,13 +33,13 @@ Step 1 - Create an Interface for the Entity
 
 4.	Add Interface
 	Name: I$Entity
-	Inheritance: Must inherit IId.
+	Inheritance: Must inherit IEntity and IId<Tid> or it is easiest to implement IEntity<Tid>.
 	Other: Make the interface partial
 	
 ```
 namespace Rhyous.WebFramework.Interfaces
 {
-    public interface I$Entity : IId
+    public interface I$Entity : IEntity
     {
         // Add properties here
 		// No methods please!!! Poco only!!!
