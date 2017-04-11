@@ -21,6 +21,11 @@ namespace Rhyous.WebFramework.Repositories
             UserId = userId;
         }
 
+        protected BaseDbContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        {
+        }
+
         public BaseDbContext(bool proxyCreationEnabled, bool lazyLoadingEnabled = false, bool asNoTracking = true)
             : base("name=SqlRepository")
         {

@@ -13,7 +13,7 @@ namespace Rhyous.WebFramework.Repositories
         where T : class, Tinterface, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
-        protected BaseDbContext<T> DbContext
+        protected virtual BaseDbContext<T> DbContext
         {
             get { return _DbContext ?? (DbContext = new BaseDbContext<T>()); }
             set { _DbContext = value; }
