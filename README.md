@@ -8,6 +8,7 @@ In many environments, your could have entities that come from various different 
 How did this API come about? Well, after using Entity Framework, it came to my attention that boiler plate code doesn't end with the entity to database code. Boilerplate code includes almost all REST/CRUD/Authentication/Authorization code. The only coding that should be needed is 
 1. Defining an entity.
 2. Providing UI interactions beyond CRUD.
+3. Sometimes creating a custom repository when the repository isn't a new MS SQL database.
 
 ## Getting Started 
 
