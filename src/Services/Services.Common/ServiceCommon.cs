@@ -47,6 +47,11 @@ namespace Rhyous.WebFramework.Services
             return Repo.Create(entities);
         }
 
+        public virtual Tinterface Add(Tinterface entity)
+        {
+            return Repo.Create(new[] { entity }).FirstOrDefault();
+        }
+
         public virtual Tinterface Update(Tid Id, Tinterface entity, List<string> changedProperties)
         {
             return Repo.Update(entity, changedProperties);

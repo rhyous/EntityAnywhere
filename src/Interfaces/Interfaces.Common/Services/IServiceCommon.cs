@@ -16,7 +16,8 @@ namespace Rhyous.WebFramework.Interfaces
         List<Tinterface> Get(Expression<Func<Tinterface, bool>> expression);
         string GetProperty(Tid id, string property);
         Tinterface Update(Tid id, Tinterface entity, List<string> changedProperties);
-        List<Tinterface> Add(IList<Tinterface> entity);
+        Tinterface Add(Tinterface entity);
+        List<Tinterface> Add(IList<Tinterface> entities);
         Tinterface Replace(Tid id, Tinterface entity);
         bool Delete(Tid userId);
     }
