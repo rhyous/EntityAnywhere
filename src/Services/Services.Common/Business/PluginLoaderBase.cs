@@ -1,4 +1,6 @@
 ﻿using Rhyous.SimplePluginLoader;
+using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,7 +24,9 @@ namespace Rhyous.WebFramework.Services
         public string DefaultPluginDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Company, AppName, PluginFolder);
 
         public abstract string PluginSubFolder { get; }
-        
+
+        public virtual string PluginGroup => PluginSubFolder;
+
         public virtual PluginCollection<T> PluginCollection { get; internal set; } // Set exposed as internal for unit tests
 
         public virtual ILoadPlugins<T> PluginLoader
@@ -44,8 +48,10 @@ namespace Rhyous.WebFramework.Services
         {
             get
             {
+                if (_Plugins != null)
+                    return _Plugins;
                 var pluginLibraries = PluginCollection ?? GetPluginLibraries();
-                return pluginLibraries?.SelectMany(p => p.PluginObjects).ToList();
+                return (_Plugins = pluginLibraries?.SelectMany(p => p.PluginObjects).ToList());
             }
         } private List<T> _Plugins;
 
