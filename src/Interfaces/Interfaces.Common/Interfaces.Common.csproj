@@ -45,7 +45,7 @@
     <Compile Include="IAuditableLastUpdatedBy.cs" />
     <Compile Include="IAuditableLastUpdatedDate.cs" />
     <Compile Include="IAuditableUsers.cs" />
-    <Compile Include="IActivateable.cs" />
+    <Compile Include="IEnabled.cs" />
     <Compile Include="IDescription.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IName.cs" />

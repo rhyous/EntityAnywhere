@@ -45,7 +45,7 @@ namespace Rhyous.WebFramework.Authenticators
                         Username = creds.User,
                         Password = creds.Password,
                         ExternalAuth = true,
-                        Active = true
+                        Enabled = true
                     }
                 }
             );

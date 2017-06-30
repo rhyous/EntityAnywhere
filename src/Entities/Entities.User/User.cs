@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Entities
         public string Password { get; set; }
         public string Salt { get; set; }
         public bool IsHashed { get; set; }
-        public bool Active { get; set; }
+        public bool Enabled { get; set; }
         public bool ExternalAuth { get; set; }
 
         public DateTime CreateDate { get; set; }
