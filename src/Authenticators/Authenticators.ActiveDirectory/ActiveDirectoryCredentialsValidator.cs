@@ -20,12 +20,18 @@ namespace Rhyous.WebFramework.Authenticators
 
         public bool IsValid(ICredentials creds, out IToken token)
         {
-            CleanUserName(creds);
             token = null;
-            var domain = ConfigurationManager.AppSettings[Domain];
-            var domainGroup = ConfigurationManager.AppSettings[DomainGroup];
-            var netCreds = new NetworkCredential(creds.User, creds.Password, domain);
-            if (ValidateMethod(netCreds, domainGroup))
+            var domain = ConfigurationManager.AppSettings.Get<string>("Domain", null);
+            if (string.IsNullOrWhiteSpace(domain))
+                throw new Exception("The 'Domain' appsetting value in the web.config must be populated.");
+
+            var group = ConfigurationManager.AppSettings.Get<string>("DomainGroup", null);
+            if (string.IsNullOrWhiteSpace(group))
+                throw new Exception("The 'DomainGroup' appsetting value in the web.config must be populated.");
+
+            var userDomain = GetDomain(creds.User) ?? domain;
+            var netCreds = new NetworkCredential(GetUserName(creds.User), creds.Password, userDomain);
+            if (ADService.ValidateCredentialsAgainstDomain(netCreds) && ADService.IsUserInGroup(netCreds, domain, group))
             {
                 var user = UserService.Get(creds.User);
                 if (user == null)
@@ -54,16 +60,29 @@ namespace Rhyous.WebFramework.Authenticators
             return user;
         }
 
-        public void CleanUserName(ICredentials creds)
+        internal string GetDomain(string username)
         {
-            if (creds.User.Contains(@"\"))
-                creds.User.Substring(creds.User.IndexOf(@"\") + 1);
-            if (creds.User.Contains("@"))
-                creds.User.Substring(0, creds.User.IndexOf("@"));
+            if (username.Contains(@"\"))
+                return username.Substring(0, username.IndexOf(@"\"));
+            return ConfigurationManager.AppSettings["Domain"];
+        }
+
+        public void GetUserName(string username)
+        {
+            if (username.Contains(@"\"))
+                username.Substring(username.IndexOf(@"\") + 1);
+            if (username.Contains("@"))
+                username.Substring(0, username.IndexOf("@"));
             return;
         }
-        
+
         #region Lazy Injectables for unit tests
+        public IActiveDirectoryService ADService
+        {
+            get { return _ADService ?? (_ADService = new ActiveDirectoryService()); }
+            set { _ADService = value; }
+        } private IActiveDirectoryService _ADService;
+
         public UserService UserService
         {
             get { return _UserService ?? (_UserService = new UserService()); }
@@ -75,13 +94,6 @@ namespace Rhyous.WebFramework.Authenticators
             get { return _TokenGenerator ?? (_TokenGenerator = new TokenGenerator()); }
             set { _TokenGenerator = value; }
         } private TokenGenerator _TokenGenerator;
-
-
-        public Func<NetworkCredential, string, bool> ValidateMethod
-        {
-            get { return _ValidateMethod ?? (_ValidateMethod = ActiveDirectoryManager.ValidateCredentials); }
-            set { _ValidateMethod = value; }
-        } private Func<NetworkCredential, string, bool> _ValidateMethod;
 
         #endregion
     }

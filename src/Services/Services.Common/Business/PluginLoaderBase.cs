@@ -39,10 +39,12 @@ namespace Rhyous.WebFramework.Services
         {
             get
             {
+                if (_PluginTypes != null)
+                    return _PluginTypes;
                 var pluginLibraries = PluginCollection ?? GetPluginLibraries();
-                return pluginLibraries?.SelectMany(p => p.PluginTypes).ToList();
+                return (_PluginTypes = pluginLibraries?.SelectMany(p => p.PluginTypes).ToList());
             }
-        } private List<T> _PluginTypes;
+        } private List<Type> _PluginTypes;
 
         public virtual List<T> Plugins
         {

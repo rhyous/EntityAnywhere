@@ -44,7 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveDirectoryCredentialsValidator.cs" />
-    <Compile Include="ActiveDirectoryManager.cs" />
+    <Compile Include="ActiveDirectoryService.cs" />
+    <Compile Include="IActiveDirectoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

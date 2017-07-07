@@ -128,7 +128,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual Addendum GetAddendaByName(string id, string name)
         {
             var entityName = typeof(T).Name;
-            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
+            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString() && x.Property.Equals(name, StringComparison.InvariantCultureIgnoreCase))
                                  .OrderByDescending(x => x.CreateDate)
                                  .FirstOrDefault()
                                  .ToConcrete<Addendum>();
