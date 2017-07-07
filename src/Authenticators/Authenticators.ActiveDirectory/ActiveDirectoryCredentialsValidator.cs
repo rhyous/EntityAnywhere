@@ -67,13 +67,13 @@ namespace Rhyous.WebFramework.Authenticators
             return ConfigurationManager.AppSettings["Domain"];
         }
 
-        public void GetUserName(string username)
+        internal string GetUserName(string username)
         {
             if (username.Contains(@"\"))
-                username.Substring(username.IndexOf(@"\") + 1);
+                return username.Substring(username.IndexOf(@"\") + 1);
             if (username.Contains("@"))
-                username.Substring(0, username.IndexOf("@"));
-            return;
+                return username.Substring(0, username.IndexOf("@"));
+            return username;
         }
 
         #region Lazy Injectables for unit tests
