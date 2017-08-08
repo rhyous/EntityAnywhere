@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NewEntityInterface")]
+[assembly: AssemblyTitle("EntityAnywhere.Interface")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jared Barneck")]
-[assembly: AssemblyProduct("NewEntityInterface")]
+[assembly: AssemblyProduct("EntityAnywhere.Interface")]
 [assembly: AssemblyCopyright("Copyright © Jared Barneck 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("31edddf3-ec14-4201-a484-100971ddd7b7")]
+[assembly: Guid("9796ae37-d6b9-48b0-8a66-ee2ae2681278")]
 
 // Version information for an assembly consists of the following four values:
 //
