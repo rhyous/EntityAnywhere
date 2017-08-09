@@ -5,7 +5,7 @@ namespace Rhyous.WebFramework.Interfaces
 {
     using EntityInterface = IEntity1;
 
-    public static class ISkuExtensions
+    public static class I$EntityNameHere$Extensions
     {
         public static IEnumerable<T> ToConcrete<T>(this IEnumerable<EntityInterface> items)
             where T : class, EntityInterface, new()
