@@ -25,6 +25,7 @@ namespace Rhyous.WebFramework.Behaviors
             Add("GetByIds", "{0}/Ids"); // {0} should be pluralized entity name
             Add("Get", "{0}({{id}})"); // {0} should be pluralized entity name
             Add("GetProperty", "{0}({{id}})/{{property}}"); // {0} should be pluralized entity name
+            Add("UpdateProperty", "{0}({{id}})/{{property}}"); // {0} should be pluralized entity name
             Add("Post", "{0}"); // {0} should be pluralized entity name
             Add("Put", "{0}({{id}})"); // {0} should be pluralized entity name
             Add("Patch", "{0}({{id}})"); // {0} should be pluralized entity name

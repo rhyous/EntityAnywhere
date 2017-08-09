@@ -1,6 +1,7 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -32,6 +33,11 @@ namespace Rhyous.WebFramework.Services
             return Repo.Get(Id);
         }
 
+        public virtual List<Tinterface> Get(NameValueCollection parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual List<Tinterface> Get(Expression<Func<Tinterface, bool>> expression)
         {
             return Repo.GetByExpression(expression).ToList();
@@ -40,6 +46,16 @@ namespace Rhyous.WebFramework.Services
         public virtual string GetProperty(Tid Id, string property)
         {
             return Repo.Get(Id)?.GetPropertyValue(property)?.ToString();
+        }
+
+        public virtual string UpdateProperty(Tid id, string property, string value)
+        {
+            var entity = Get(id);
+            var changedProperties = new List<string>() { property };
+            var type = entity.GetPropertyInfo(property).PropertyType;
+            var typedValue = Convert.ChangeType(value, type);
+            entity.GetPropertyInfo(property).SetValue(entity, typedValue);
+            return Update(id, entity, changedProperties).GetPropertyValue(property).ToString();
         }
 
         public virtual List<Tinterface> Add(IList<Tinterface> entities)
