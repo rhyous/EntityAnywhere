@@ -32,10 +32,6 @@ namespace Rhyous.WebFramework.WebServices
         string GetProperty(string id, string property);
 
         [OperationContract]
-        [WebInvoke(Method = "PATCH", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        string UpdateProperty(string id, string property, string value);
-
-        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
         List<T> Post(List<T> entity);
 

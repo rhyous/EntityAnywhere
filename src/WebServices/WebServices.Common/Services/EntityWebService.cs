@@ -5,7 +5,6 @@ using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
@@ -32,8 +31,6 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns></returns>
         public virtual List<OdataObject<T>> GetAll()
         {
-            if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
             return Service.Get()?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
         }
 
@@ -68,18 +65,6 @@ namespace Rhyous.WebFramework.WebServices
         public virtual string GetProperty(string id, string property)
         {
             return Service.GetProperty(id.To<Tid>(), property);
-        }
-
-        /// <summary>
-        /// Updates a single properties value
-        /// </summary>
-        /// <param name="id">The entity's Id.</param>
-        /// <param name="property">The property name to update.</param>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        public string UpdateProperty(string id, string property, string value)
-        {
-            return Service.UpdateProperty(id.To<Tid>(),property, value);
         }
 
         /// <summary>
