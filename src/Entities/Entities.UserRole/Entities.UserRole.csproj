@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +41,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.UserRole\Interfaces.UserRole.csproj">
       <Project>{6d72b792-5126-47ef-a5bb-58552dea11c7}</Project>

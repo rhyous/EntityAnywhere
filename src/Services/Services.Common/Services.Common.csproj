@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D0DF978-26C0-4E12-A23E-13C21D213631}</ProjectGuid>
+    <ProjectGuid>{1563AA30-4399-4E19-A661-02072E245F66}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -95,9 +98,9 @@
     <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.2\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.2\PluginPaths.cs">
       <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.2\PluginPaths.cs</Link>
     </Compile>
-    <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
     <Compile Include="Business\CryptoRandomString.cs" />
     <Compile Include="Business\EntityRepositoryLoader.cs" />
+    <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
     <Compile Include="Business\Hash.cs" />
     <Compile Include="Business\IPluginLoader.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />
@@ -105,26 +108,19 @@
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
     <Compile Include="ServiceCommon.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCommonAltId.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
-      <Name>Interfaces.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

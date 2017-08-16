@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F2DABD2-F7D9-4CF6-A488-06AAB3B4C585}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhyous.WebFramework.Clients</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Clients.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Dictionaries\PluralizationDictionary.cs">
+      <Link>Dictionaries\PluralizationDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Extensions\DictionaryExtensions.cs">
+      <Link>Extensions\DictionaryExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Interfaces\IDictionaryDefaultValueProvider.cs">
+      <Link>Interfaces\IDictionaryDefaultValueProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Entities\Entities.Addendum\Addendum.cs">
+      <Link>Models\Addendum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\ConcreteConverter.cs">
+      <Link>Extensions\ConcreteConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAddendum.cs">
+      <Link>Interfaces\IAddendum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditable.cs">
+      <Link>Interfaces\IAuditable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableCreateDate.cs">
+      <Link>Interfaces\IAuditableCreateDate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableCreatedBy.cs">
+      <Link>Interfaces\IAuditableCreatedBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableDates.cs">
+      <Link>Interfaces\IAuditableDates.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableLastUpdatedBy.cs">
+      <Link>Interfaces\IAuditableLastUpdatedBy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableLastUpdatedDate.cs">
+      <Link>Interfaces\IAuditableLastUpdatedDate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableUsers.cs">
+      <Link>Interfaces\IAuditableUsers.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IEntity.cs">
+      <Link>Interfaces\IEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IId.cs">
+      <Link>Interfaces\IId.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Services\Services.Common\Extensions\NameValueCollectionExtensions.cs">
+      <Link>Extensions\NameValueCollectionExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\ClientCommon.cs">
+      <Link>ClientCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Extensions\HttpClientExtensions.cs">
+      <Link>Extensions\HttpClientExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IClientCommon.cs">
+      <Link>Interfaces\IClientCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
+      <Link>Interfaces\IEntityWebService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\EntityMetadata.cs">
+      <Link>Models\EntityMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\OdataObject.cs">
+      <Link>Models\OdataObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\ODataUri.cs">
+      <Link>Models\ODataUri.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\PatchedEntity.cs">
+      <Link>Models\PatchedEntity.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

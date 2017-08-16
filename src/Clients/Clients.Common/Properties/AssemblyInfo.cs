@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Rhyous.WebFramework.Services.Common")]
+[assembly: AssemblyTitle("Rhyous.WebFramework.Clients.Common")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Rhyous.WebFramework.Services.Common")]
-[assembly: AssemblyCopyright("Copyright © Rhyous Publishing 2017")]
+[assembly: AssemblyProduct("Rhyous.WebFramework.Clients.Common")]
+[assembly: AssemblyCopyright("Copyright © Rhyous Publishing LLC 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1563aa30-4399-4e19-a661-02072e245f66")]
+[assembly: Guid("0f2dabd2-f7d9-4cf6-a488-06aab3b4c585")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -41,6 +41,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
       <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
@@ -49,17 +50,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>REM SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
-REM ECHO %25copyToDir%25
-REM IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-REM COPY /Y "$(TargetPath)" %25copyToDir%25
-REM COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 
-REM SET dllDir="%25copyToDir%25\bin"
-REM ECHO %25dllDir%25
-REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-REM COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-REM COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
+SET dllDir="%25copyToDir%25\bin"
+ECHO %25dllDir%25
+IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

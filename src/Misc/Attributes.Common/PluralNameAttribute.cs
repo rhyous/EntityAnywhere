@@ -7,10 +7,18 @@ namespace Rhyous.WebFramework.Attributes
     {
         public PluralNameAttribute(string pluralName)
         {
-            _PluralName = pluralName;
+            PluralName = pluralName;
         }
 
-        public string PluralName => _PluralName;
-        private string _PluralName;
+        public string PluralName
+        {
+            get { return _PluralName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Plural name must be specified.");
+                _PluralName = value;
+            }
+        } private string _PluralName;
     }
 }

@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    using EntityInterface = IUserRole;
+    using EntityInterface = IUser;
 
-    public static class IUserRoleExtensions
+    public static class Extensions
     {
         public static IEnumerable<T> ToConcrete<T>(this IEnumerable<EntityInterface> items)
             where T : class, EntityInterface, new()

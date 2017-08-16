@@ -5,6 +5,7 @@ using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
@@ -18,7 +19,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <summary>
         /// This retuns metadata about the services.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Schema of entity. Should be in CSDL (option for both json or xml should exist)</returns>
         public virtual EntityMetadata<T> GetMetadata()
         {
             return new EntityMetadata<T>() { EntityName = typeof(T).Name, ExampleEntity = new T() };
@@ -28,9 +29,11 @@ namespace Rhyous.WebFramework.WebServices
         /// Gets all entities.
         /// Note: Be careful using this on entities that are extremely large in quantity.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List{OdataObject{T}} containing all entities</returns>
         public virtual List<OdataObject<T>> GetAll()
         {
+            if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
+                Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
             return Service.Get()?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
         }
 
@@ -38,7 +41,7 @@ namespace Rhyous.WebFramework.WebServices
         /// Get a list of Entities where the Entity id is in the list of ids provided.
         /// </summary>
         /// <param name="ids"></param>
-        /// <returns>A list of entities where each is wrapped in an Odata object.</returns>
+        /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
         public virtual List<OdataObject<T>> GetByIds(List<Tid> ids)
         {
             return Service.Get(ids)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
@@ -48,7 +51,7 @@ namespace Rhyous.WebFramework.WebServices
         /// Get the exact entity with the id.
         /// </summary>
         /// <param name="id">The entity id.</param>
-        /// <returns>A single entity wrapped in an odata object.</returns>
+        /// <returns>A OdataObject<T> object contain the single entity with the id provided.</returns>
         public virtual OdataObject<T> Get(string id)
         {
             return Service.Get(id.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
@@ -68,13 +71,25 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         /// <summary>
+        /// Updates a single properties value
+        /// </summary>
+        /// <param name="id">The entity's Id.</param>
+        /// <param name="property">The property name to update.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public string UpdateProperty(string id, string property, string value)
+        {
+            return Service.UpdateProperty(id.To<Tid>(), property, value);
+        }
+
+        /// <summary>
         /// Creates one or more (an array) of entities. 
         /// </summary>
         /// <param name="entities">The list of entities to create</param>
         /// <returns>The created entities.</returns>
-        public virtual List<T> Post(List<T> entities)
+        public virtual List<OdataObject<T>> Post(List<T> entities)
         {
-            return Service.Add(entities.ToList<Tinterface>()).ToConcrete<T, Tinterface>().ToList();
+            return Service.Add(entities.ToList<Tinterface>()).ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
         }
 
         /// <summary>
@@ -85,9 +100,9 @@ namespace Rhyous.WebFramework.WebServices
         /// the required properties for deserialization and changed properties.</param>
         /// <param name="changedProperties">the list of properties that are being changed.</param>
         /// <returns>The changed entity.</returns>
-        public virtual T Patch(string id, T entity, List<string> changedProperties)
+        public virtual OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity)
         {
-            return Service.Update(id.To<Tid>(), entity, changedProperties).ToConcrete<T, Tinterface>();
+            return Service.Update(id.To<Tid>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
         /// <summary>
@@ -96,9 +111,9 @@ namespace Rhyous.WebFramework.WebServices
         /// <param name="id">The entity id to replace.</param>
         /// <param name="entity">The new entity.</param>
         /// <returns>The new entity.</returns>
-        public virtual T Put(string id, T entity)
+        public virtual OdataObject<T> Put(string id, T entity)
         {
-            return Service.Replace(id.To<Tid>(), entity).ToConcrete<T, Tinterface>();
+            return Service.Replace(id.To<Tid>(), entity).ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
 

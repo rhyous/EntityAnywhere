@@ -32,16 +32,20 @@ namespace Rhyous.WebFramework.WebServices
         string GetProperty(string id, string property);
 
         [OperationContract]
+        [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json)]
+        string UpdateProperty(string id, string property, string value);
+
+        [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<T> Post(List<T> entity);
+        List<OdataObject<T>> Post(List<T> entity);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json)]
-        T Put(string id, T entity);
+        OdataObject<T> Put(string id, T entity);
 
         [OperationContract]
-        [WebInvoke(Method = "PATCH", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        T Patch(string id, T entity, List<string> changedProperties);
+        [WebInvoke(Method = "PATCH", ResponseFormat = WebMessageFormat.Json)]
+        OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json)]

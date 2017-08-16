@@ -81,7 +81,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
       <Private>False</Private>
     </ProjectReference>

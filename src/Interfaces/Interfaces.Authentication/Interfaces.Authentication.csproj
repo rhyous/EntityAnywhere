@@ -11,10 +11,6 @@
     <AssemblyName>Rhyous.WebFramework.Interfaces.Authentication</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +37,7 @@
     <Compile Include="ICredentials.cs" />
     <Compile Include="ICredentialsValidator.cs" />
     <Compile Include="ITokenBuilder.cs" />
-    <Compile Include="ICredentialsExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IHeaderValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

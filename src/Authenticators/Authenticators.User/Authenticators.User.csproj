@@ -70,7 +70,7 @@
       <Name>Services.Authentication</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{7d0df978-26c0-4e12-a23e-13c21d213631}</Project>
+      <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.User\Services.User.csproj">
@@ -80,14 +80,14 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Authenticators"
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Authenticators\User"
 ECHO %25copyToDir%25
 IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
 COPY /Y "$(TargetPath)" %25copyToDir%25
 COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 
 REM Uncomment to copy dependencies
-REM SET dllDir="%25copyToDir%25\$(TargetName)"
+REM SET dllDir="%25copyToDir%25\bin"
 REM ECHO %25dllDir%25
 REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
 REM COPY /Y "$(Targetdir)*.dll" %25dllDir%25

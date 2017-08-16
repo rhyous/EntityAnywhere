@@ -26,7 +26,18 @@ namespace Rhyous.WebFramework.Behaviors
 
         public string DefaultValueProvider(string key)
         {
+            if (key.EndsWith("y", StringComparison.OrdinalIgnoreCase))
+            {
+                return key.Substring(0, key.Length - 1) + "ies";
+            }
+            foreach (var esChars in EsCharacters)
+            {
+                if (key.EndsWith(esChars, StringComparison.OrdinalIgnoreCase))
+                    return key + "es";
+            }
             return key + "s";
         }
+
+        public List<string> EsCharacters { get; } = new List<string> { "ch", "s", "sh", "x", "z" };
     }
 }

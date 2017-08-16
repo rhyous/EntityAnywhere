@@ -11,6 +11,10 @@
     <AssemblyName>Rhyous.WebFramework.Interfaces.Token</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +38,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITokenExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

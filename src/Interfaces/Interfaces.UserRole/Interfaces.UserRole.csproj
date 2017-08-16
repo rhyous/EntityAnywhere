@@ -35,13 +35,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IUserRole.cs" />
-    <Compile Include="IUserRoleExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

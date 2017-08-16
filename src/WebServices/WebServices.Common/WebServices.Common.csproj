@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.StringLibrary.1.0.5\lib\net40-client\Rhyous.StringLibrary.dll</HintPath>
       <Private>True</Private>
@@ -58,7 +64,9 @@
     <Compile Include="Business\EntityLoader.cs" />
     <Compile Include="Business\Starter.cs" />
     <Compile Include="Business\WebServiceLoader.cs" />
-    <Compile Include="Interfaces\ICommonWebService.cs" />
+    <Compile Include="Clients\ClientCommon.cs" />
+    <Compile Include="Extensions\HttpClientExtensions.cs" />
+    <Compile Include="Interfaces\IClientCommon.cs" />
     <Compile Include="Interfaces\ICustomWebService.cs" />
     <Compile Include="Interfaces\IEntityWebService.cs" />
     <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
@@ -67,6 +75,7 @@
     <Compile Include="Extensions\OdataExtensions.cs" />
     <Compile Include="Models\OdataObject.cs" />
     <Compile Include="Models\ODataUri.cs" />
+    <Compile Include="Models\PatchedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EntityWebServiceAltId.cs" />
     <Compile Include="Services\EntityWebService.cs" />
@@ -90,7 +99,7 @@
       <Name>Attributes.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
+      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
   </ItemGroup>

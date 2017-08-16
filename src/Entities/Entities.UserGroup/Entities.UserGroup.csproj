@@ -42,6 +42,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.UserGroup\Interfaces.UserGroup.csproj">
       <Project>{81dd92ea-596b-4dee-a782-f239b78b9290}</Project>

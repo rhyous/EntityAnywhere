@@ -89,6 +89,7 @@
     <Folder Include="Plugins\WebServices\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\DebugProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -104,10 +105,6 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{7D0DF978-26C0-4E12-A23E-13C21D213631}</Project>
-      <Name>Services.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>

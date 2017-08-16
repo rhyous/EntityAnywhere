@@ -5,7 +5,7 @@ namespace Rhyous.WebFramework.Interfaces
 {
     using Entity = IUserToUserGroup;
 
-    public static class IUserToUserGroupExtensions
+    public static class Extensions
     {
         public static IEnumerable<T> ToConcrete<T>(this IEnumerable<Entity> items)
             where T : class, Entity, new()
