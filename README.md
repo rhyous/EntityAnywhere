@@ -18,6 +18,17 @@ How did this API come about? Well, after using Entity Framework, it came to my a
 
 ### Adding an Entity
 
+UPDATE: We are going to update the instructions below to include our templates: 
+
+#### Project Templates ####
+To use the templates, build the templates project and copy the output zip files here:
+
+```C:\Users\UserName\Documents\Visual Studio 2017\Templates\ProjectTemplates\Visual C#```
+
+Then use the templates to create your Entity and Entity interface.
+
+#### Prior Manual Steps ####
+
 In the instructions below. Replace $Entity wth the name of your entity. For example, if your entity is "User" replace $Entity with User.
 
 Step 1 - Create an Interface for the Entity
