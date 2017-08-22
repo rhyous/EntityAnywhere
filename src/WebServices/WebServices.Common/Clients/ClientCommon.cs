@@ -73,6 +73,20 @@ namespace Rhyous.WebFramework.Clients
             catch { return null; }
         }
 
+        public List<OdataObject<T>> GetAll(string queryParameters)
+        {
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}");
+            try
+            {
+                response.Wait();
+                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
+                readAsStringTask.Wait();
+                var result = readAsStringTask.Result;
+                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
+            }
+            catch { return null; }
+        }
+
         public List<OdataObject<T>> GetByIds(List<Tid> ids)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
