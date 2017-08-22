@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class EntityWebServiceAltId<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
+    public class EntityWebServiceAlternateKey<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>
-        where TService : class, IServiceCommonAltId<T, Tinterface, Tid>, new()
+        where TService : class, IServiceCommonAlternateKey<T, Tinterface, Tid>, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
         public override OdataObject<T> Get(string idOrName)
@@ -15,13 +15,13 @@ namespace Rhyous.WebFramework.WebServices
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return AltIdService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(idOrName));
+                return AltKeyService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(idOrName));
             return base.Get(idOrName);
         }
         
-        public virtual IServiceCommonAltId<T, Tinterface, Tid> AltIdService
+        public virtual IServiceCommonAlternateKey<T, Tinterface, Tid> AltKeyService
         {
-            get { return Service as IServiceCommonAltId<T, Tinterface, Tid>; }
+            get { return Service as IServiceCommonAlternateKey<T, Tinterface, Tid>; }
         }
     }
 }

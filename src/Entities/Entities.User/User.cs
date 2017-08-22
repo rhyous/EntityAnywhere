@@ -3,7 +3,7 @@ using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
 {
-    [AlternateId("Username")]
+    [AlternateKey("Username")]
     public partial class User : IUser
     {
         public long Id { get; set; }

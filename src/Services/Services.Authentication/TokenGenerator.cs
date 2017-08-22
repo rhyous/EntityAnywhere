@@ -36,11 +36,11 @@ namespace Rhyous.WebFramework.Services
             set { _UserService = value; }
         } private UserService _UserService;
 
-        public ServiceCommonAltId<Token, IToken, long> TokenService
+        public ServiceCommonAlternateKey<Token, IToken, long> TokenService
         {
-            get { return _TokenService ?? (_TokenService = new ServiceCommonAltId<Token, IToken, long>(x => x.Text)); }
+            get { return _TokenService ?? (_TokenService = new ServiceCommonAlternateKey<Token, IToken, long>(x => x.Text)); }
             set { _TokenService = value; }
-        } private ServiceCommonAltId<Token, IToken, long> _TokenService;
+        } private ServiceCommonAlternateKey<Token, IToken, long> _TokenService;
         #endregion
     }
 }

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IServiceCommonAltId<T, Tinterface, Tid> : IServiceCommon<T,Tinterface, Tid>
+    public interface IServiceCommonAlternateKey<T, Tinterface, Tid> : IServiceCommon<T,Tinterface, Tid>
         where Tinterface : IEntity<Tid>
         where T : class, Tinterface
     {

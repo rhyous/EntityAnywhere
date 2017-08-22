@@ -111,7 +111,7 @@
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
     <Compile Include="ServiceCommon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceCommonAltId.cs" />
+    <Compile Include="ServiceCommonAlternateKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

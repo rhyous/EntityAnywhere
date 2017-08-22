@@ -60,8 +60,8 @@ namespace Rhyous.WebFramework.WebServices
 
         private static Type BuildAltIdWebService(Type entityType, Type interfaceType, Type idType, string altIdProperty)
         {
-            var serviceType = typeof(ServiceCommonAltId<,,>).MakeGenericType(entityType, interfaceType, idType);
-            var webServiceBaseType = typeof(EntityWebServiceAltId<,,,>).MakeGenericType(entityType, interfaceType, idType, serviceType);
+            var serviceType = typeof(ServiceCommonAlternateKey<,,>).MakeGenericType(entityType, interfaceType, idType);
+            var webServiceBaseType = typeof(EntityWebServiceAlternateKey<,,,>).MakeGenericType(entityType, interfaceType, idType, serviceType);
             var entityWebServiceLoaderType = typeof(EntityWebServiceLoader<,,,,>).MakeGenericType(webServiceBaseType, entityType, interfaceType, idType, serviceType);
             dynamic loader = Activator.CreateInstance(entityWebServiceLoaderType);
             var plugins = loader.Plugins as IList;

@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
-    public partial class UserService : ServiceCommonAltId<User, IUser, long>
+    public partial class UserService : ServiceCommonAlternateKey<User, IUser, long>
     {
         public override Expression<Func<IUser, string>> PropertyExpression => e => e.Username;
 
