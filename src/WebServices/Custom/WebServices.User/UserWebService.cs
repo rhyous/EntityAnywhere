@@ -6,7 +6,7 @@ using Rhyous.WebFramework.Services;
 namespace Rhyous.WebFramework.WebServices
 {
     [CustomWebService("UserWebService", typeof(IUserWebService), typeof(User))]    
-    public class UserWebService : EntityWebServiceAltId<User, IUser, long, ServiceCommonAltId<User, IUser, long>>, IUserWebService
+    public class UserWebService : EntityWebServiceAlternateKey<User, IUser, long, ServiceCommonAlternateKey<User, IUser, long>>, IUserWebService
     {
         public string Test()
         {
