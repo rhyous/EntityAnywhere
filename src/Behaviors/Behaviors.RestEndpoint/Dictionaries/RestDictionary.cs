@@ -83,6 +83,16 @@ namespace Rhyous.WebFramework.Behaviors
 
             // No implemented yet - may change
             Add("GetByRelatedEntityId", "{0}/?{relatedEntity}={id})"); // {0} should be pluralized entity name
+
+            // https://<server>/<MappingEntity>Service.svc/<entities>/<MappedEntity1> (Post of List<E1Tid>)
+            // Takes in a list of entity ids and gets all the entities for the Ids posted.
+            // Returns: all the entities for the Ids posted
+            Add("GetByE1Ids", "{0}/{1}/Ids"); // {0} should be pluralized entity name, {1} should be the first mapped entity name pluralized.
+
+            // https://<server>/<MappingEntity>Service.svc/<entities>/<MappedEntity2> (Post of List<E2Tid>)
+            // Takes in a list of entity ids and gets all the entities for the Ids posted.
+            // Returns: all the entities for the Ids posted
+            Add("GetByE2Ids", "{0}/{1}/Ids"); // {0} should be pluralized entity name, {1} should be the second mapped entity name pluralized.
         }
     }
 }

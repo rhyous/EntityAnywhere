@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
@@ -19,6 +20,16 @@ namespace Rhyous.WebFramework.Services
             Expression target = Expression.Constant(value);
             Expression method = Expression.Call(property, methodName, null, target);
             return Expression.Lambda<Func<E, bool>>(method, parameter);
+        }
+        
+        public static Expression<Func<E, bool>> ToLambda<E, Tid, V>(this string propertyName, List<Tid> values)
+        {
+            var methodInfo = typeof(List<Tid>).GetMethod("Contains",  new Type[] { typeof(Tid) });
+            var list = Expression.Constant(values);
+            var param = Expression.Parameter(typeof(E), "e");
+            var value = Expression.Property(param, propertyName);
+            var body = Expression.Call(list, methodInfo, value);            
+            return Expression.Lambda<Func<E, bool>>(body, param);
         }
     }
 }

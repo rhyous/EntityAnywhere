@@ -34,10 +34,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AdditionalServiceTypes.cs" />
+    <Compile Include="Attributes\AdditionalWebServiceTypes.cs" />
+    <Compile Include="Attributes\EntityAttribute.cs" />
+    <Compile Include="Attributes\MappingEntityAttribute.cs" />
     <Compile Include="Attributes\RelatedEntityAttribute.cs" />
     <Compile Include="ConcreteConverter.cs" />
     <Compile Include="IAddendum.cs" />
     <Compile Include="IAddendumExtensions.cs" />
+    <Compile Include="IAdditionalTypes.cs" />
     <Compile Include="IAuditable.cs" />
     <Compile Include="IAuditableCreateDate.cs" />
     <Compile Include="IAuditableCreatedBy.cs" />
@@ -48,6 +53,7 @@
     <Compile Include="IDescription.cs" />
     <Compile Include="IEnabled.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="IMappingEntity.cs" />
     <Compile Include="IName.cs" />
     <Compile Include="IId.cs" />
     <Compile Include="IRepository.cs" />

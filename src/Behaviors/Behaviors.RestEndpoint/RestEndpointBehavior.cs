@@ -1,4 +1,6 @@
 ﻿using Rhyous.WebFramework.Attributes;
+using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.Services;
 using System;
 using System.Linq;
 using System.ServiceModel.Description;
@@ -24,7 +26,25 @@ namespace Rhyous.WebFramework.Behaviors
                 {
                     var webInvokeAttribute = od.OperationBehaviors[typeof(WebInvokeAttribute)] as WebInvokeAttribute;
                     if (string.IsNullOrWhiteSpace(webInvokeAttribute.UriTemplate))
-                        webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
+                    {
+                        if (entityType.ImplementsGenericInterface(typeof(IMappingEntity<,>)))
+                        {
+                            if (od.Name == "GetByE1Ids")
+                            {
+                                var entity1Pluralized = entityType.GetMappingEntity1Pluralized();
+                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity1Pluralized);
+                            }
+                            else if (od.Name == "GetByE2Ids")
+                            {
+                                var entity2Pluralized = entityType.GetMappingEntity2Pluralized();
+                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity2Pluralized);
+                            }
+                            else
+                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
+                        }
+                        else
+                            webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
+                    }
                 }
             }
             base.ApplyDispatchBehavior(endpoint, endpointDispatcher);
@@ -40,7 +60,7 @@ namespace Rhyous.WebFramework.Behaviors
         {
             // Get by Attribute
             var type = endpoint.Contract.ContractType;
-            var attribute = type.GetCustomAttributes(true).FirstOrDefault(a=>typeof(CustomWebServiceAttribute).IsAssignableFrom(a.GetType())) as CustomWebServiceAttribute;
+            var attribute = type.GetCustomAttributes(true).FirstOrDefault(a => typeof(CustomWebServiceAttribute).IsAssignableFrom(a.GetType())) as CustomWebServiceAttribute;
             if (attribute != null && attribute.Entity != null)
                 return attribute.Entity;
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</ProjectGuid>
+    <ProjectGuid>{3C55ECF0-50C1-4A1A-B95A-7CEC1B398499}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Behaviors</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Behaviors.RestEndpoint</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Interfaces</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Interfaces.UserToUserRole</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,50 +32,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="ServiceBehaviorLoader.cs" />
-    <Compile Include="Interfaces\IDictionaryDefaultValueProvider.cs" />
+    <Compile Include="IUserRoleMembership.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Dictionaries\PluralizationDictionary.cs" />
-    <Compile Include="Dictionaries\RestDictionary.cs" />
-    <Compile Include="RestEndpointBehavior.cs" />
-    <Compile Include="RestEndpointBehaviorExtension.cs" />
-    <Compile Include="RestWebServiceHost.cs" />
-    <Compile Include="RestWebServiceHostFactory.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
-      <Name>Attributes.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
-      <Name>Services.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

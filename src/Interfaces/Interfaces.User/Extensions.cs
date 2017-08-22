@@ -5,7 +5,7 @@ namespace Rhyous.WebFramework.Interfaces
 {
     using EntityInterface = IUser;
 
-    public static class Extensions
+    public static class UserExtensions
     {
         public static IEnumerable<T> ToConcrete<T>(this IEnumerable<EntityInterface> items)
             where T : class, EntityInterface, new()

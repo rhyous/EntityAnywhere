@@ -38,6 +38,8 @@ namespace Rhyous.WebFramework.Behaviors
             return key + "s";
         }
 
+        public string DefaultValue => null;
+
         public List<string> EsCharacters { get; } = new List<string> { "ch", "s", "sh", "x", "z" };
     }
 }

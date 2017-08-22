@@ -2,7 +2,8 @@
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    public class AlternateKeyAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Class)]
+    public class AlternateKeyAttribute : EntityAttribute
     {
         public AlternateKeyAttribute() { }
         public AlternateKeyAttribute(string idProperty) { KeyProperty = idProperty; }
