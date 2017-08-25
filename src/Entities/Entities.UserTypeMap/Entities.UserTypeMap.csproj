@@ -43,7 +43,7 @@
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.UserToUserType\Interfaces.UserTypeMap.csproj">
+    <ProjectReference Include="..\..\Interfaces\Interfaces.UserTypeMap\Interfaces.UserTypeMap.csproj">
       <Project>{634e3b8c-12df-4c82-b695-5afcaa8a5755}</Project>
       <Name>Interfaces.UserTypeMap</Name>
     </ProjectReference>
