@@ -3,6 +3,7 @@ using System;
 
 namespace Rhyous.WebFramework.Entities
 {
+    [AlternateKey("Type")]
     public partial class UserType : IUserType
     {
         public int Id { get; set; }
