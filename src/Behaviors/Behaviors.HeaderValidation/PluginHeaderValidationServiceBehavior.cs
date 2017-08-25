@@ -1,5 +1,4 @@
 ﻿using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.WebServices;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;

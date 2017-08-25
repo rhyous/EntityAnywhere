@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B87C3034-DD84-460C-A6E1-55C5D62F8E93}</ProjectGuid>
+    <ProjectGuid>{0CFF60BB-38E4-4C3C-8AB3-775EEEFB0ACE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Behaviors</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Behaviors.ErrorHandler</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.Behaviors.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,9 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,49 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ServiceResponseExtensions.cs" />
-    <Compile Include="Configuration\ServiceResponse.cs" />
-    <Compile Include="Configuration\ServiceResponseCollection.cs" />
-    <Compile Include="Configuration\ServiceResponseSection.cs" />
-    <Compile Include="ErrorHandler.cs" />
-    <Compile Include="ErrorHandlerBehaviorExtension.cs" />
-    <Compile Include="ErrorHandlerServiceBehavior.cs" />
+    <Compile Include="BehaviorExtensionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceErrorResponse.cs" />
+    <Compile Include="ServiceBehaviorBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
+      <Project>{b8fb6e36-1760-4154-9c0a-4f7b6fc64e80}</Project>
       <Name>Attributes.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Misc\BusinessRules\BusinessRules.csproj">
-      <Project>{2cf2d0c5-b4ce-40a3-a1fa-e3be27e2339d}</Project>
-      <Name>BusinessRules</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
-      <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
-      <Name>Behaviors.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\ServiceBehaviors"
-ECHO %25copyToDir%25
-IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
-
-SET dllDir="%25copyToDir%25\bin"
-ECHO %25dllDir%25
-IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

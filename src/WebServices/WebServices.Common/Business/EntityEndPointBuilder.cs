@@ -92,7 +92,6 @@ namespace Rhyous.WebFramework.WebServices
         {
             get { return _ServiceDictionary ?? (_ServiceDictionary = AttributeToServiceDictionary.Instance); }
             set { _ServiceDictionary = value; }
-        }
-        private static IDictionaryDefaultValueProvider<Type, Tuple<Type, Type, Type>> _ServiceDictionary;
+        } private static IDictionaryDefaultValueProvider<Type, Tuple<Type, Type, Type>> _ServiceDictionary;
     }
 }

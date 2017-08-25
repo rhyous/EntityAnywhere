@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Behaviors</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Behaviors.TokenValidation</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.Behaviors.HeaderValidation</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -74,9 +74,9 @@
       <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
-      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
-      <Name>WebServices.Common</Name>
+    <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
+      <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
+      <Name>Behaviors.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

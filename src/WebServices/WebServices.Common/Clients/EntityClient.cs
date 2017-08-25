@@ -12,7 +12,7 @@ using Rhyous.WebFramework.Entities;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class ClientCommon<T, Tid> : IClientCommon<T, Tid>
+    public class EntityClient<T, Tid> : IEntityClient<T, Tid>
         where T : class, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
@@ -22,10 +22,16 @@ namespace Rhyous.WebFramework.Clients
             set { _HttpClient = value; }
         } private HttpClient _HttpClient;
 
+        public IHttpContextProvider HttpContextProvider
+        {
+            get { return _HttpContextProvider ?? (_HttpContextProvider = new HttpContextProvider()); }
+            set { _HttpContextProvider = value; }
+        } private IHttpContextProvider _HttpContextProvider;
+
         public string ServiceUrl
         {
-            get => _ServiceUrl ?? (_ServiceUrl = ConfigurationManager.AppSettings.Get($"{Entity}WebServiceUrl", ""));
-            set => throw new NotImplementedException();
+            get { return _ServiceUrl ?? (_ServiceUrl = ConfigurationManager.AppSettings.Get($"{Entity}WebServiceUrl", $"{HttpContextProvider.WebHost}/{typeof(T).Name}Service.svc")); }
+            set { _ServiceUrl = value; }
         } internal string _ServiceUrl;
 
         public string Entity => typeof(T).Name;
@@ -33,7 +39,7 @@ namespace Rhyous.WebFramework.Clients
 
         public bool Delete(string id)
         {
-            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})");
+            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/{EntityPluralized}({id})");
             try
             {
                 response.Wait();
@@ -44,10 +50,10 @@ namespace Rhyous.WebFramework.Clients
             }
             catch { return false; }            
         }
-
+        
         public OdataObject<T> Get(string idOrName)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}({idOrName})");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({idOrName})");
             try
             {
                 response.Wait();
@@ -61,7 +67,28 @@ namespace Rhyous.WebFramework.Clients
 
         public List<OdataObject<T>> GetAll()
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}");
+            try
+            {
+                response.Wait();
+                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
+                readAsStringTask.Wait();
+                var result = readAsStringTask.Result;
+                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
+            }
+            catch { return null; }
+        }
+
+        /// <summary>
+        /// Include only the part of the url after the https://hsotname/path/EntityService.svc/
+        /// This is useful for services with custom endpoints, so a client can call the custom
+        /// endpoint without having to create an EntityClient child object.
+        /// </summary>
+        /// <param name="urlPart"></param>
+        /// <returns></returns>
+        public List<OdataObject<T>> GetByCustomUrl(string urlPart)
+        {
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{urlPart}");
             try
             {
                 response.Wait();
@@ -75,7 +102,7 @@ namespace Rhyous.WebFramework.Clients
 
         public List<OdataObject<T>> GetAll(string queryParameters)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}");
             try
             {
                 response.Wait();
@@ -87,10 +114,9 @@ namespace Rhyous.WebFramework.Clients
             catch { return null; }
         }
 
-        public List<OdataObject<T>> GetByIds(List<Tid> ids)
-        {
+        public List<OdataObject<T>> GetByIds(IEnumerable<Tid> ids) {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/Api/{EntityPluralized}/Ids", postContent);
+            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids", postContent);
             try
             {
                 response.Wait();
@@ -100,11 +126,15 @@ namespace Rhyous.WebFramework.Clients
                 return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
             }
             catch { return null; }
+        }
+        public List<OdataObject<T>> GetByIds(List<Tid> ids)
+        {
+            return GetByIds((IEnumerable<Tid>)ids);
         }
 
         public string GetProperty(string id, string property)
         {
-            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})/{property}");
+            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/{EntityPluralized}({id})/{property}");
             try
             {
                 response.Wait();
@@ -118,7 +148,7 @@ namespace Rhyous.WebFramework.Clients
 
         public EntityMetadata<T> GetMetadata()
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}/$Metadata");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}/$Metadata");
             try
             {
                 response.Wait();
@@ -132,7 +162,7 @@ namespace Rhyous.WebFramework.Clients
         public OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(patchedEntity), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})", postContent);
+            Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/{EntityPluralized}({id})", postContent);
             try
             {
                 response.Wait();
@@ -147,7 +177,7 @@ namespace Rhyous.WebFramework.Clients
         public List<OdataObject<T>> Post(List<T> entity)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/Api/{EntityPluralized}", postContent);
+            Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/{EntityPluralized}", postContent);
             try
             {
                 response.Wait();
@@ -162,7 +192,7 @@ namespace Rhyous.WebFramework.Clients
         public OdataObject<T> Put(string id, T entity)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PutAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})", postContent);
+            Task<HttpResponseMessage> response = HttpClient.PutAsync($"{ServiceUrl}/{EntityPluralized}({id})", postContent);
             try
             {
                 response.Wait();
@@ -177,7 +207,7 @@ namespace Rhyous.WebFramework.Clients
         public string UpdateProperty(string id, string property, string value)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})/{property}", postContent);
+            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}({id})/{property}", postContent);
             try
             {
                 response.Wait();
@@ -190,7 +220,7 @@ namespace Rhyous.WebFramework.Clients
 
         public List<Addendum> GetAddenda(string id)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})/Addenda");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({id})/Addenda");
             try
             {
                 response.Wait();
@@ -204,7 +234,7 @@ namespace Rhyous.WebFramework.Clients
 
         public Addendum GetAddendaByName(string id, string name)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/Api/{EntityPluralized}({id})/Addenda({name})");
+            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({id})/Addenda({name})");
             try
             {
                 response.Wait();
@@ -212,6 +242,21 @@ namespace Rhyous.WebFramework.Clients
                 readAsStringTask.Wait();
                 var result = readAsStringTask.Result;
                 return JsonConvert.DeserializeObject<Addendum>(result);
+            }
+            catch { return null; }
+        }
+
+        public List<Addendum> GetAddendaByEntityIds(List<string> ids)
+        {
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
+            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", postContent);
+            try
+            {
+                response.Wait();
+                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
+                readAsStringTask.Wait();
+                var result = readAsStringTask.Result;
+                return JsonConvert.DeserializeObject<List<Addendum>>(result);
             }
             catch { return null; }
         }

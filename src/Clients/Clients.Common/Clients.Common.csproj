@@ -43,6 +43,8 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,11 +59,20 @@
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Extensions\DictionaryExtensions.cs">
       <Link>Extensions\DictionaryExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Extensions\TypeExtensions.cs">
+      <Link>Extensions\TypeExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Interfaces\IDictionaryDefaultValueProvider.cs">
       <Link>Interfaces\IDictionaryDefaultValueProvider.cs</Link>
     </Compile>
     <Compile Include="..\..\Entities\Entities.Addendum\Addendum.cs">
       <Link>Models\Addendum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\Attributes\EntityAttribute.cs">
+      <Link>Attributes\EntityAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\Attributes\MappingEntityAttribute.cs">
+      <Link>Attributes\MappingEntityAttribute.cs</Link>
     </Compile>
     <Compile Include="..\..\Interfaces\Interfaces.Common\ConcreteConverter.cs">
       <Link>Extensions\ConcreteConverter.cs</Link>
@@ -96,20 +107,38 @@
     <Compile Include="..\..\Interfaces\Interfaces.Common\IId.cs">
       <Link>Interfaces\IId.cs</Link>
     </Compile>
+    <Compile Include="..\..\Interfaces\Interfaces.Common\IMappingEntity.cs">
+      <Link>Interfaces\IMappingEntity.cs</Link>
+    </Compile>
     <Compile Include="..\..\Services\Services.Common\Extensions\NameValueCollectionExtensions.cs">
       <Link>Extensions\NameValueCollectionExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Clients\ClientCommon.cs">
-      <Link>ClientCommon.cs</Link>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
+      <Link>EntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpContextProvider.cs">
+      <Link>Models\HttpContextProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClient.cs">
+      <Link>MappingEntityClient.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Extensions\HttpClientExtensions.cs">
       <Link>Extensions\HttpClientExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IClientCommon.cs">
-      <Link>Interfaces\IClientCommon.cs</Link>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityClient.cs">
+      <Link>Interfaces\IEntityClient.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IHttpContextProvider.cs">
+      <Link>Interfaces\IHttpContextProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityClient.cs">
+      <Link>Interfaces\IMappingEntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityWebService.cs">
+      <Link>Interfaces\IMappingEntityWebService.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Models\EntityMetadata.cs">
       <Link>Models\EntityMetadata.cs</Link>

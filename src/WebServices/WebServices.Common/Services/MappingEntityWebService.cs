@@ -1,12 +1,9 @@
-﻿using LinqKit;
-using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Behaviors;
+﻿using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -21,14 +18,14 @@ namespace Rhyous.WebFramework.WebServices
     {
         public List<OdataObject<T>> GetByE1Ids(List<E1Tid> ids)
         {
-            var propertyName = typeof(T).GetMappingEntity1Property();
+            var propertyName = typeof(T).GetMappedEntity1Property();
             var lambda = propertyName.ToLambda<Tinterface, E1Tid, bool>(ids);
             return Service.Get(lambda)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
         }
 
         public List<OdataObject<T>> GetByE2Ids(List<E2Tid> ids)
         {
-            var propertyName = typeof(T).GetMappingEntity2Property();
+            var propertyName = typeof(T).GetMappedEntity2Property();
             var lambda = propertyName.ToLambda<Tinterface, E2Tid, bool>(ids);
             return Service.Get(lambda)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
         }

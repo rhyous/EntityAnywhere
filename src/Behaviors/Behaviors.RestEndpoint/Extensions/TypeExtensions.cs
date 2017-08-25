@@ -23,37 +23,40 @@ namespace Rhyous.WebFramework.Behaviors
             return interfaces;
         }
 
-        public static string GetMappingEntity1Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
+        public static T GetAttribute<T>(this Type t)
+            where T : Attribute
         {
-            if (pluralizationDictionary == null)
-                pluralizationDictionary = PluralizationDictionary.Instance;
-            var attribute = t.GetCustomAttributes(true)
-                         .FirstOrDefault(a => (typeof(MappingEntityAttribute).IsAssignableFrom(a.GetType()))) as MappingEntityAttribute;
-            return pluralizationDictionary.GetValueOrDefault(attribute?.Entity1);
+            return t.GetCustomAttributes(true)?.FirstOrDefault(a => (typeof(T).IsAssignableFrom(a.GetType()))) as T;
         }
 
-        public static string GetMappingEntity2Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
+        public static string GetMappedEntity1(this Type t)
         {
-            if (pluralizationDictionary == null)
-                pluralizationDictionary = PluralizationDictionary.Instance;
-            var attribute = t.GetCustomAttributes(true)
-                             .FirstOrDefault(a => (typeof(MappingEntityAttribute).IsAssignableFrom(a.GetType()))) as MappingEntityAttribute;
-            return pluralizationDictionary.GetValueOrDefault(attribute?.Entity2);
+            return t.GetAttribute<MappingEntityAttribute>()?.Entity1;
         }
 
-
-        public static string GetMappingEntity1Property(this Type t)
+        public static string GetMappedEntity1Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
         {
-            var attribute = t.GetCustomAttributes(true)
-                         .FirstOrDefault(a => (typeof(MappingEntityAttribute).IsAssignableFrom(a.GetType()))) as MappingEntityAttribute;
-            return attribute?.Entity1MappingProperty;
+            return (pluralizationDictionary ?? PluralizationDictionary.Instance).GetValueOrDefault(t.GetMappedEntity1());
+        }
+        
+        public static string GetMappedEntity1Property(this Type t)
+        {
+            return t.GetAttribute<MappingEntityAttribute>().Entity1MappingProperty;
         }
 
-        public static string GetMappingEntity2Property(this Type t)
+        public static string GetMappedEntity2(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
         {
-            var attribute = t.GetCustomAttributes(true)
-                             .FirstOrDefault(a => (typeof(MappingEntityAttribute).IsAssignableFrom(a.GetType()))) as MappingEntityAttribute;
-            return attribute?.Entity2MappingProperty;
+            return t.GetAttribute<MappingEntityAttribute>()?.Entity2;
+        }
+
+        public static string GetMappedEntity2Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
+        {
+            return (pluralizationDictionary ?? PluralizationDictionary.Instance).GetValueOrDefault(t.GetMappedEntity2());
+        }
+
+        public static string GetMappedEntity2Property(this Type t)
+        {
+            return t.GetAttribute<MappingEntityAttribute>().Entity2MappingProperty;
         }
     }
 }

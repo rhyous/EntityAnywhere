@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ServiceModel.Channels;
 using Rhyous.WebFramework.Attributes;
 
-namespace Rhyous.WebFramework.WebServices
+namespace Rhyous.WebFramework.Behaviors
 {
     public abstract class ServiceBehaviorBase : IServiceBehavior
     {

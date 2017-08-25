@@ -31,12 +31,12 @@ namespace Rhyous.WebFramework.Behaviors
                         {
                             if (od.Name == "GetByE1Ids")
                             {
-                                var entity1Pluralized = entityType.GetMappingEntity1Pluralized();
+                                var entity1Pluralized = entityType.GetMappedEntity1Pluralized();
                                 webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity1Pluralized);
                             }
                             else if (od.Name == "GetByE2Ids")
                             {
-                                var entity2Pluralized = entityType.GetMappingEntity2Pluralized();
+                                var entity2Pluralized = entityType.GetMappedEntity2Pluralized();
                                 webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity2Pluralized);
                             }
                             else
