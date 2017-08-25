@@ -1,4 +1,6 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.WebFramework.Clients;
+using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System.Configuration;
 
@@ -20,7 +22,7 @@ namespace Rhyous.WebFramework.Authenticators
         public bool IsValid(ICredentials creds, out IToken token)
         {
             token = null;
-            var user = Service.Get(creds.User);
+            var user = Service.Get(creds.User).Object;
             if (user == null)
                 return false;
             if (user.ExternalAuth && ForceExternalUsersToAuthenticateExternally)
@@ -33,11 +35,11 @@ namespace Rhyous.WebFramework.Authenticators
         }
 
         #region Injectable
-        public UserService Service
+        public EntityClient<User,int> Service
         {
-            get { return _Service ?? (_Service = new UserService()); }
+            get { return _Service ?? (_Service = new EntityClient<User, int>()); }
             set { _Service = value; }
-        } private UserService _Service;
+        } private EntityClient<User, int> _Service;
 
         public TokenGenerator TokenGenerator
         {

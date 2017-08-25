@@ -73,9 +73,10 @@
       <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.User\Services.User.csproj">
-      <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
-      <Name>Services.User</Name>
+    <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
+      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
+      <Name>WebServices.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
