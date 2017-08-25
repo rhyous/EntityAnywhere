@@ -1,6 +1,6 @@
 ﻿namespace Rhyous.WebFramework.Behaviors
 {
-    public static class ServiceResonseExtensions
+    public static class ServiceResponseExtensions
     {
         public static string GetValue(this ServiceResponseSection section, string key, string defaultValue = "An unknown error occurred.")
         {
