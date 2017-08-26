@@ -1,8 +1,9 @@
 ﻿using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
 using System.Configuration;
+using TokenGenerator = Rhyous.WebFramework.Services.TokenGenerator;
+using Hash = Rhyous.WebFramework.Services.Hash;
 
 namespace Rhyous.WebFramework.Authenticators
 {
@@ -35,7 +36,7 @@ namespace Rhyous.WebFramework.Authenticators
         }
 
         #region Injectable
-        public EntityClient<User,int> Service
+        public EntityClient<User, int> Service
         {
             get { return _Service ?? (_Service = new EntityClient<User, int>()); }
             set { _Service = value; }

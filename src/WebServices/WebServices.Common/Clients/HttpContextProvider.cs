@@ -1,4 +1,8 @@
-﻿using Rhyous.WebFramework.Services;
+﻿#if Client
+using Rhyous.WebFramework.Clients;
+#else
+using Rhyous.WebFramework.Services;
+#endif
 using System;
 using System.Configuration;
 using System.ServiceModel.Web;

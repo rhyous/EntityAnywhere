@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Rhyous.WebFramework.Behaviors;
+#if !Client
 using Rhyous.WebFramework.Services;
+#endif
 using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;

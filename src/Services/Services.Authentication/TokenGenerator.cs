@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.WebFramework.Clients;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using System;
 
@@ -14,7 +15,7 @@ namespace Rhyous.WebFramework.Services
             IUser user = null;
             if (userId == 0)
             {
-                user = UserService.Get(creds.User);
+                user = UserService.Get(creds.User).Object;
                 if (user == null)
                     return null;
                 userId = user.Id;
@@ -30,11 +31,11 @@ namespace Rhyous.WebFramework.Services
         }
 
         #region injectables
-        public UserService UserService
+        public EntityClient<User, int> UserService
         {
-            get { return _UserService ?? (_UserService = new UserService()); }
+            get { return _UserService ?? (_UserService = new EntityClient<User, int>()); }
             set { _UserService = value; }
-        } private UserService _UserService;
+        } private EntityClient<User, int> _UserService;
 
         public ServiceCommonAlternateKey<Token, IToken, long> TokenService
         {

@@ -50,6 +50,10 @@
     <Compile Include="TokenGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
+      <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
+      <Name>Clients.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Entities\Entities.Token\Entities.Token.csproj">
       <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
       <Name>Entities.Token</Name>
@@ -83,11 +87,6 @@
     <ProjectReference Include="..\Services.Common\Services.Common.csproj">
       <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.User\Services.User.csproj">
-      <Project>{2977ed71-1e02-4c18-9648-6ffe33f06312}</Project>
-      <Name>Services.User</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

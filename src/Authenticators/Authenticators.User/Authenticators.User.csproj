@@ -45,6 +45,10 @@
     <Compile Include="UserCredentialsValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
+      <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
+      <Name>Clients.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
       <Name>Interfaces.Authentication</Name>
@@ -72,11 +76,6 @@
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
       <Name>Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
-      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
-      <Name>WebServices.Common</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
