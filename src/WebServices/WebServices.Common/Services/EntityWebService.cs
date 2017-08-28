@@ -134,6 +134,13 @@ namespace Rhyous.WebFramework.WebServices
                                  .ToConcrete<Addendum>().ToList();
         }
 
+        public virtual List<Addendum> GetAddendaByEntityIds(List<string> entityIds)
+        {
+            var entityName = typeof(T).Name;
+            return AddendaService.Get(x => x.Entity == entityName && entityIds.Contains(x.EntityId))
+                                 .ToConcrete<Addendum>().ToList();
+        }
+
         /// <summary>
         /// Gets and addendum value for the entity id by the addendum name.
         /// </summary>

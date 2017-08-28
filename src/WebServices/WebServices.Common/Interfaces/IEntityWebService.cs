@@ -56,6 +56,10 @@ namespace Rhyous.WebFramework.WebServices
         List<Addendum> GetAddenda(string id);
 
         [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
+        List<Addendum> GetAddendaByEntityIds(List<string> ids);
+
+        [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         Addendum GetAddendaByName(string id, string name);
     }

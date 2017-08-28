@@ -2,6 +2,7 @@
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Services
 {
@@ -23,10 +24,9 @@ namespace Rhyous.WebFramework.Services
             var token = new Token
             {
                 Text = tokenvalue,
-                CreateDate = DateTime.Now,
                 UserId = userId
             };
-            TokenService.Add(new[] { token });
+            TokenService.Post(new List<Token> { token });
             return token;
         }
 
@@ -37,11 +37,11 @@ namespace Rhyous.WebFramework.Services
             set { _UserService = value; }
         } private EntityClient<User, int> _UserService;
 
-        public ServiceCommonAlternateKey<Token, IToken, long> TokenService
+        public EntityClient<Token, long> TokenService
         {
-            get { return _TokenService ?? (_TokenService = new ServiceCommonAlternateKey<Token, IToken, long>(x => x.Text)); }
+            get { return _TokenService ?? (_TokenService = new EntityClient<Token, long>(true)); }
             set { _TokenService = value; }
-        } private ServiceCommonAlternateKey<Token, IToken, long> _TokenService;
+        } private EntityClient<Token, long> _TokenService;
         #endregion
     }
 }

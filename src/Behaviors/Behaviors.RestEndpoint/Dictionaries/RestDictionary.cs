@@ -76,6 +76,11 @@ namespace Rhyous.WebFramework.Behaviors
             // Returns: a list of Addenda for the specified entity.
             Add("GetAddenda", "{0}({{id}})/Addenda"); // {0} should be pluralized entity name
 
+            // https://<server>/<entity>Service.svc/<entities>/Ids/Addenda (Post)
+            // Gets the addenda for a specified entity
+            // Returns: a list of Addenda for the specified entity.
+            Add("GetAddendaByEntityIds", "{0}/Ids/Addenda"); // {0} should be pluralized entity name
+
             // https://<server>/<entity>Service.svc/<entities>(id)/Addenda(<name>) (GET)
             // Gets the addendum for a specified entity with the addendum name provided
             // Returns: the addendum with the exact name for the specified entity.

@@ -16,6 +16,21 @@ namespace Rhyous.WebFramework.Clients
         where T : class, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
+        public EntityClient()
+        {
+        }
+
+        public EntityClient(bool useMicrosoftDateFormat) : this(new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat })
+        {
+        }
+
+        public EntityClient(JsonSerializerSettings jsonSerializerSettings)
+        {
+            JsonSerializerSettings = jsonSerializerSettings;
+        }
+
+        public JsonSerializerSettings JsonSerializerSettings { get; set; }
+
         public HttpClient HttpClient
         {
             get { return _HttpClient ?? (_HttpClient = new HttpClient()); }
@@ -115,7 +130,7 @@ namespace Rhyous.WebFramework.Clients
         }
 
         public List<OdataObject<T>> GetByIds(IEnumerable<Tid> ids) {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids", postContent);
             try
             {
@@ -161,7 +176,7 @@ namespace Rhyous.WebFramework.Clients
         }
         public OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(patchedEntity), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(patchedEntity, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/{EntityPluralized}({id})", postContent);
             try
             {
@@ -174,10 +189,10 @@ namespace Rhyous.WebFramework.Clients
             catch { return null; }
         }
         
-        public List<OdataObject<T>> Post(List<T> entity)
+        public List<OdataObject<T>> Post(List<T> entities)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PatchAsync($"{ServiceUrl}/{EntityPluralized}", postContent);
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entities, JsonSerializerSettings), Encoding.UTF8, "application/json");
+            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}", postContent);
             try
             {
                 response.Wait();
@@ -191,7 +206,7 @@ namespace Rhyous.WebFramework.Clients
 
         public OdataObject<T> Put(string id, T entity)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PutAsync($"{ServiceUrl}/{EntityPluralized}({id})", postContent);
             try
             {
@@ -206,7 +221,7 @@ namespace Rhyous.WebFramework.Clients
 
         public string UpdateProperty(string id, string property, string value)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(value), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(value, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}({id})/{property}", postContent);
             try
             {
@@ -248,7 +263,7 @@ namespace Rhyous.WebFramework.Clients
 
         public List<Addendum> GetAddendaByEntityIds(List<string> ids)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", postContent);
             try
             {

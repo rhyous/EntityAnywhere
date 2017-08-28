@@ -16,7 +16,15 @@ namespace Rhyous.WebFramework.Clients
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
         where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
         where E2Tid : IComparable, IComparable<E2Tid>, IEquatable<E2Tid>
-    {      
+    {
+
+        #region Constructors
+        public MappingEntityClient() { }
+
+        public MappingEntityClient(bool useMicrosoftDateFormat) : base(useMicrosoftDateFormat) { }
+
+        public MappingEntityClient(JsonSerializerSettings jsonSerializerSettings) : base(jsonSerializerSettings) { }
+        #endregion
 
         public string Entity1 { get { return _Entity1 ?? (_Entity1 =  typeof(T).GetMappedEntity1()); } }
         private string _Entity1;
@@ -58,7 +66,7 @@ namespace Rhyous.WebFramework.Clients
 
         private List<OdataObject<T>> GetByMappedEntity<Eid>(string pluralizedEntityName, List<Eid> ids)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids), Encoding.UTF8, "application/json");
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
             Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", postContent);
             try
             {
