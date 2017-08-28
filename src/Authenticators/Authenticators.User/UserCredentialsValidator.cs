@@ -1,9 +1,8 @@
 ﻿using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.Services;
 using System.Configuration;
-using TokenGenerator = Rhyous.WebFramework.Services.TokenGenerator;
-using Hash = Rhyous.WebFramework.Services.Hash;
 
 namespace Rhyous.WebFramework.Authenticators
 {
