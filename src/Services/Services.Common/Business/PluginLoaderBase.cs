@@ -1,4 +1,5 @@
 ﻿using Rhyous.SimplePluginLoader;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

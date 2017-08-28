@@ -1,8 +1,4 @@
-﻿#if Client
-namespace Rhyous.WebFramework.Clients
-#else
-namespace Rhyous.WebFramework.Services
-#endif
+﻿namespace Rhyous.WebFramework.Interfaces
 {
     using System.Collections.Specialized;
     using System.ComponentModel;

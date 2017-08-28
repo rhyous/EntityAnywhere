@@ -1,18 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Rhyous.WebFramework.Behaviors;
-#if !Client
-using Rhyous.WebFramework.Services;
-#endif
+using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
-using System.Linq;
 
 namespace Rhyous.WebFramework.Clients
 {

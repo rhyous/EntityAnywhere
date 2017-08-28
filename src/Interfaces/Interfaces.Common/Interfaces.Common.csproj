@@ -40,6 +40,7 @@
     <Compile Include="Attributes\MappingEntityAttribute.cs" />
     <Compile Include="Attributes\RelatedEntityAttribute.cs" />
     <Compile Include="ConcreteConverter.cs" />
+    <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="IAddendum.cs" />
     <Compile Include="IAddendumExtensions.cs" />
     <Compile Include="IAdditionalTypes.cs" />

@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;Client</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -68,50 +68,8 @@
     <Compile Include="..\..\Entities\Entities.Addendum\Addendum.cs">
       <Link>Models\Addendum.cs</Link>
     </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\Attributes\EntityAttribute.cs">
-      <Link>Attributes\EntityAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\Attributes\MappingEntityAttribute.cs">
-      <Link>Attributes\MappingEntityAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\ConcreteConverter.cs">
-      <Link>Extensions\ConcreteConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAddendum.cs">
-      <Link>Interfaces\IAddendum.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditable.cs">
-      <Link>Interfaces\IAuditable.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableCreateDate.cs">
-      <Link>Interfaces\IAuditableCreateDate.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableCreatedBy.cs">
-      <Link>Interfaces\IAuditableCreatedBy.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableDates.cs">
-      <Link>Interfaces\IAuditableDates.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableLastUpdatedBy.cs">
-      <Link>Interfaces\IAuditableLastUpdatedBy.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableLastUpdatedDate.cs">
-      <Link>Interfaces\IAuditableLastUpdatedDate.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IAuditableUsers.cs">
-      <Link>Interfaces\IAuditableUsers.cs</Link>
-    </Compile>
     <Compile Include="..\..\Interfaces\Interfaces.Common\IEntity.cs">
       <Link>Interfaces\IEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IId.cs">
-      <Link>Interfaces\IId.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IMappingEntity.cs">
-      <Link>Interfaces\IMappingEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Services\Services.Common\Extensions\NameValueCollectionExtensions.cs">
-      <Link>Extensions\NameValueCollectionExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>EntityClient.cs</Link>
@@ -159,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
