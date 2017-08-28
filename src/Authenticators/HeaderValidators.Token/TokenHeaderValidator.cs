@@ -1,6 +1,6 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.WebFramework.Clients;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -19,7 +19,7 @@ namespace Rhyous.WebFramework.HeaderValidators
         public bool IsValid(NameValueCollection headers)
         {
             var tokenText = headers["Token"];
-            var token = Service.Get(tokenText);
+            var token = TokenService.Get(tokenText)?.Object;
             if (token == null || IsExpired(token))
                 return false;
             UserId = token.UserId;
@@ -32,11 +32,11 @@ namespace Rhyous.WebFramework.HeaderValidators
         }
 
         #region Injectable
-        public ServiceCommonAlternateKey<Token, IToken, long> Service
+        public EntityClient<Token, long> TokenService
         {
-            get { return _Service ?? (_Service = new ServiceCommonAlternateKey<Token, IToken, long>(x => x.Text)); }
-            set { _Service = value; }
-        } private ServiceCommonAlternateKey<Token, IToken, long> _Service;
+            get { return _TokenService ?? (_TokenService = new EntityClient<Token, long>(true)); }
+            set { _TokenService = value; }
+        } private EntityClient<Token, long> _TokenService;
         #endregion
     }
 }
