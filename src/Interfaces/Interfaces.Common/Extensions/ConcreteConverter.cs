@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
@@ -26,9 +27,9 @@ namespace Rhyous.WebFramework.Interfaces
             where T : class, Tinterface, new()
 
         {
-            var props = from prop in typeof(Tinterface).GetProperties()
-                        where prop.CanRead && prop.CanWrite
-                        select prop;
+            var itype = typeof(Tinterface);
+            var props = (new Type[] { itype }).Concat(itype.GetInterfaces())
+                                              .SelectMany(i => i.GetProperties());
             var concrete = new T();
             foreach (var prop in props)
             {
