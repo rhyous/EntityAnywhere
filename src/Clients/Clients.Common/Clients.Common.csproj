@@ -65,9 +65,6 @@
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Interfaces\IDictionaryDefaultValueProvider.cs">
       <Link>Interfaces\IDictionaryDefaultValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\..\Interfaces\Interfaces.Common\IEntity.cs">
-      <Link>Interfaces\IEntity.cs</Link>
-    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>EntityClient.cs</Link>
     </Compile>

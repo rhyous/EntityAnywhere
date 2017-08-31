@@ -1,17 +1,14 @@
 ﻿using Rhyous.WebFramework.Interfaces;
-using System;
 
 namespace Rhyous.WebFramework.Entities
 {
+    /// <summary>
+    /// The UserType entity. This stores the type of user: System, Internal, Partner, Customer, Organization, Group, etc.
+    /// </summary>
     [AlternateKey("Type")]
-    public partial class UserType : IUserType
+    public partial class UserType : AuditableEntityBase<int>, IUserType
     {
-        public int Id { get; set; }
+        /// <inheritdoc />
         public string Type { get; set; }
-
-        public DateTime CreateDate { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime? LastUpdated { get; set; }
-        public int? LastUpdatedBy { get; set; }        
     }
 }

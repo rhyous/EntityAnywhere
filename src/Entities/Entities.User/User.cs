@@ -1,22 +1,21 @@
-using System;
 using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
 {
     [AlternateKey("Username")]
-    public partial class User : IUser
+    public partial class User : AuditableEntityBase<long>, IUser
     {
-        public long Id { get; set; }
+        /// <inheritdoc />
         public string Username { get; set; }
+        /// <inheritdoc />
         public string Password { get; set; }
+        /// <inheritdoc />
         public string Salt { get; set; }
+        /// <inheritdoc />
         public bool IsHashed { get; set; }
+        /// <inheritdoc />
         public bool Enabled { get; set; }
+        /// <inheritdoc />
         public bool ExternalAuth { get; set; }
-
-        public DateTime CreateDate { get; set; }
-        public DateTime? LastUpdated { get; set; }
-        public int CreatedBy { get; set; }
-        public int? LastUpdatedBy { get; set; }
     }
 }

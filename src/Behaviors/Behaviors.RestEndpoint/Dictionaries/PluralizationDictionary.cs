@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Behaviors
 {
+    /// <summary>
+    /// This class is tool to pluralize entities. It is a singleton. 
+    /// It is currently naive and could use significant enhancements.
+    /// It implements IDictionaryDefaultValueProvider{string, string} so that it can use the GetValueOrDefault method.
+    /// </summary>
     public class PluralizationDictionary : Dictionary<string, string>, IDictionaryDefaultValueProvider<string, string>
     {
         #region Singleton

@@ -1,19 +1,16 @@
-using System;
 using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
 {
-    public partial class Addendum : IAddendum
+    public partial class Addendum : AuditableEntityBase<long>, IAddendum
     {
-        public long Id { get; set; }
+        /// <inheritdoc />
         public string Entity { get; set; }
+        /// <inheritdoc />
         public string EntityId { get; set; }
+        /// <inheritdoc />
         public string Property { get; set; }
+        /// <inheritdoc />
         public string Value { get; set; }
-
-        public DateTime CreateDate { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime? LastUpdated { get; set; }
-        public int? LastUpdatedBy { get; set; }
     }
 }

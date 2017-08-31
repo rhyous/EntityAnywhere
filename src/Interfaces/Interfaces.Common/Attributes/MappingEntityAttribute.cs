@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Interfaces
 {
@@ -10,7 +9,10 @@ namespace Rhyous.WebFramework.Interfaces
     [AttributeUsage(AttributeTargets.Class)]
     public class MappingEntityAttribute : EntityAttribute
     {
-
+        /// <summary>
+        /// Whichever entity will have less instances should be Entity1. If this mapping entity maps and entity to an entity group, then entity1 should be the group.
+        /// For example, for User, UserGroup, UserGroupMembership, Entity1 should be UserGroup.
+        /// </summary>
         public string Entity1 { get; set; }
 
         /// <summary>
@@ -22,6 +24,10 @@ namespace Rhyous.WebFramework.Interfaces
             set { _Entity1MappingProperty = value; }
         } internal string _Entity1MappingProperty;
 
+        /// <summary>
+        /// Whichever entity will have more instances should be Entity2. If this mapping entity maps and entity to an entity group, then entity2 should be the entity not the group.
+        /// For example, for User, UserGroup, UserGroupMembership, Entity2 should be User.
+        /// </summary>
         public string Entity2 { get; set; }
 
         /// <summary>

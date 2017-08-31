@@ -5,12 +5,23 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    public interface IServiceCommonAlternateKey<T, Tinterface, Tid> : IServiceCommon<T,Tinterface, Tid>
-        where Tinterface : IEntity<Tid>
-        where T : class, Tinterface
+    /// <summary>
+    /// This is the default service for an entity that has the AlternateKeyAttribute.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The type of the Id property. Usually int, long, guid, string, etc...</typeparam>
+    public interface IServiceCommonAlternateKey<TEntity, TInterface, TId> : IServiceCommon<TEntity,TInterface, TId>
+        where TInterface : IEntity<TId>
+        where TEntity : class, TInterface
     {
-        List<Tinterface> Search(string name);
-        Expression<Func<Tinterface, string>> PropertyExpression { get; }
-        Tinterface Get(string id);
+        /// <summary>
+        /// This method searches by name. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        List<TInterface> Search(string name);
+        Expression<Func<TInterface, string>> PropertyExpression { get; }
+        TInterface Get(string id);
     }
 }

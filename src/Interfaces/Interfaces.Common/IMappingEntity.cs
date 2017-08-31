@@ -3,13 +3,13 @@
 namespace Rhyous.WebFramework.Interfaces
 {
     /// <summary>
-    /// These properties should be explicitly implemented and hidden.
+    /// An interface that all mapping entities must use.
     /// </summary>
-    /// <typeparam name="E1Tid"></typeparam>
-    /// <typeparam name="E2Tid"></typeparam>
-    public interface IMappingEntity<E1Tid, E2Tid>
-        where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
-        where E2Tid : IComparable, IComparable<E2Tid>, IEquatable<E2Tid>
+    /// <typeparam name="TE1Id">The type of the Id property of the Entity1 type</typeparam>
+    /// <typeparam name="TE2Id">The type of the Id property of the Entity2 type.</typeparam>
+    public interface IMappingEntity<TE1Id, TE2Id>
+        where TE1Id : IComparable, IComparable<TE1Id>, IEquatable<TE1Id>
+        where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {
     }
 }

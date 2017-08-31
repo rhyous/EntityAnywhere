@@ -2,6 +2,9 @@
 
 namespace Rhyous.WebFramework.Interfaces.Attributes
 {
+    /// <summary>
+    /// Not implemented or used yet.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class RelatedEntityAttribute : Attribute
     {

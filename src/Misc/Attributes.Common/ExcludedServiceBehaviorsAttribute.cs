@@ -3,6 +3,7 @@
 namespace Rhyous.WebFramework.Attributes
 {
     /// <summary>
+    /// By default, all ServiceBehaviors plugins are applied to all Web Services. 
     /// If this attribute exists, all attributes are applied except behaviors in the list.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]

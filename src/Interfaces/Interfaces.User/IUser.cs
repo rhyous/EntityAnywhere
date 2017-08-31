@@ -1,5 +1,8 @@
 ﻿namespace Rhyous.WebFramework.Interfaces
 {
+    /// <summary>
+    /// The user entity.
+    /// </summary>
     public partial interface IUser : IEntity<long>, IAuditable, IEnabled
     {
         string Username { get; set; }
