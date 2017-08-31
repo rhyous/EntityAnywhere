@@ -12,10 +12,13 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class EntityClient<T, Tid> : IEntityClient<T, Tid>
+    public class EntityClient<T, Tid> : IEntityClient<T, Tid>, IEntityClientAsync<T, Tid>
         where T : class, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
     {
+        public const string EntitySuffix = "EntityUrl";
+        public const string ServiceSuffix = "Service.svc";
+
         public EntityClient()
         {
         }
@@ -45,7 +48,7 @@ namespace Rhyous.WebFramework.Clients
 
         public string ServiceUrl
         {
-            get { return _ServiceUrl ?? (_ServiceUrl = ConfigurationManager.AppSettings.Get($"{Entity}WebServiceUrl", $"{HttpContextProvider.WebHost}/{typeof(T).Name}Service.svc")); }
+            get { return _ServiceUrl ?? (_ServiceUrl = ConfigurationManager.AppSettings.Get($"{Entity}{EntitySuffix}", $"{HttpContextProvider.WebHost}/{typeof(T).Name}{ServiceSuffix}")); }
             set { _ServiceUrl = value; }
         } internal string _ServiceUrl;
 
@@ -54,44 +57,32 @@ namespace Rhyous.WebFramework.Clients
 
         public bool Delete(string id)
         {
-            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/{EntityPluralized}({id})");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return Convert.ToBoolean(result);
-            }
-            catch { return false; }            
+            return TaskRunner.RunSynchonously(DeleteAsync, id);
         }
-        
+
+        public async Task<bool> DeleteAsync(string id)
+        {
+            return await HttpClientRunner.RunAndDeserialize<bool>(HttpClient.DeleteAsync, $"{ServiceUrl}/{EntityPluralized}({id})");
+        }
+
         public OdataObject<T> Get(string idOrName)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({idOrName})");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<OdataObject<T>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetAsync, idOrName);
+        }
+
+        public async Task<OdataObject<T>> GetAsync(string idOrName)
+        {
+            return await HttpClientRunner.RunAndDeserialize<OdataObject<T>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({idOrName})");
         }
 
         public List<OdataObject<T>> GetAll()
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetAllAsync);
+        }
+
+        public async Task<List<OdataObject<T>>> GetAllAsync()
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<OdataObject<T>>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}");
         }
 
         /// <summary>
@@ -103,77 +94,64 @@ namespace Rhyous.WebFramework.Clients
         /// <returns></returns>
         public List<OdataObject<T>> GetByCustomUrl(string urlPart)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{urlPart}");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart);
+        }
+
+        public async Task<List<OdataObject<T>>> GetByCustomUrlAsync(string urlPart)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<OdataObject<T>>>(HttpClient.GetAsync, $"{ServiceUrl}/{urlPart}");
         }
 
         public List<OdataObject<T>> GetAll(string queryParameters)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetByCustomUrlAsync, queryParameters);
         }
 
-        public List<OdataObject<T>> GetByIds(IEnumerable<Tid> ids) {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+        public async Task<List<OdataObject<T>>> GetAllAsync(string queryParameters)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<OdataObject<T>>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}?{queryParameters}");
         }
+
+        public List<OdataObject<T>> GetByIds(IEnumerable<Tid> ids)
+        {
+            return TaskRunner.RunSynchonously(GetByIdsAsync, ids);
+        }
+
+        public async Task<List<OdataObject<T>>> GetByIdsAsync(IEnumerable<Tid> ids)
+        {
+            return await HttpClientRunner.RunAndDeserialize<IEnumerable<Tid>, List<OdataObject<T>>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids", ids);
+        }
+        
         public List<OdataObject<T>> GetByIds(List<Tid> ids)
         {
             return GetByIds((IEnumerable<Tid>)ids);
         }
 
+        public async Task<List<OdataObject<T>>> GetByIdsAsync(List<Tid> ids)
+        {
+            return await GetByIdsAsync((IEnumerable<Tid>)ids);
+        }
+
         public string GetProperty(string id, string property)
         {
-            Task<HttpResponseMessage> response = HttpClient.DeleteAsync($"{ServiceUrl}/{EntityPluralized}({id})/{property}");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return result;
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetPropertyAsync, id, property);
+        }
+
+        public async Task<string> GetPropertyAsync(string id, string property)
+        {
+            return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}");
         }
 
         public EntityMetadata<T> GetMetadata()
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}/$Metadata");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<EntityMetadata<T>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetMetadataAsync);
         }
+
+        public async Task<EntityMetadata<T>> GetMetadataAsync()
+        {
+            return await HttpClientRunner.RunAndDeserialize<EntityMetadata<T>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}/$Metadata");
+        }
+
         public OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity)
         {
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(patchedEntity, JsonSerializerSettings), Encoding.UTF8, "application/json");
@@ -188,92 +166,69 @@ namespace Rhyous.WebFramework.Clients
             }
             catch { return null; }
         }
-        
+
+        public async Task<OdataObject<T>> PatchAsync(string id, PatchedEntity<T> patchedEntity)
+        {
+            return await HttpClientRunner.RunAndDeserialize<PatchedEntity<T>, OdataObject<T>>(HttpClient.PatchAsync, $"{ServiceUrl}/{EntityPluralized}({id})", patchedEntity);
+        }
+
         public List<OdataObject<T>> Post(List<T> entities)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entities, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(PostAsync, entities);
+        }
+
+        public async Task<List<OdataObject<T>>> PostAsync(List<T> entities)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<T>, List<OdataObject<T>>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}", entities);
         }
 
         public OdataObject<T> Put(string id, T entity)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(entity, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PutAsync($"{ServiceUrl}/{EntityPluralized}({id})", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<OdataObject<T>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(PutAsync, id, entity);
         }
 
+        public async Task<OdataObject<T>> PutAsync(string id, T entity)
+        {
+            return await HttpClientRunner.RunAndDeserialize<T, OdataObject<T>>(HttpClient.PutAsync, $"{ServiceUrl}/{EntityPluralized}({id})", entity);
+        }
         public string UpdateProperty(string id, string property, string value)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(value, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}({id})/{property}", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                return readAsStringTask.Result;
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(UpdatePropertyAsync, id, property, value);
+        }
+
+        public async Task<string> UpdatePropertyAsync(string id, string property, string value)
+        {
+            return await HttpClientRunner.RunAndDeserialize<string, string>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}", value);
         }
 
         public List<Addendum> GetAddenda(string id)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({id})/Addenda");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<Addendum>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetAddendaAsync, id);
+        }
+
+        public async Task<List<Addendum>> GetAddendaAsync(string id)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<Addendum>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/Addenda");
         }
 
         public Addendum GetAddendaByName(string id, string name)
         {
-            Task<HttpResponseMessage> response = HttpClient.GetAsync($"{ServiceUrl}/{EntityPluralized}({id})/Addenda({name})");
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<Addendum>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetAddendaByNameAsync, id, name);
+        }
+
+        public async Task<Addendum> GetAddendaByNameAsync(string id, string name)
+        {
+            return await HttpClientRunner.RunAndDeserialize<Addendum>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/Addenda({name})");
         }
 
         public List<Addendum> GetAddendaByEntityIds(List<string> ids)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<Addendum>>(result);
-            }
-            catch { return null; }
+            return TaskRunner.RunSynchonously(GetAddendaByEntityIdsAsync, ids);
+        }
+
+        public async Task<List<Addendum>> GetAddendaByEntityIdsAsync(List<string> ids)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<string>, List<Addendum>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", ids);
         }
     }
 }

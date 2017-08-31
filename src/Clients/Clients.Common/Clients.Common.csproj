@@ -65,14 +65,14 @@
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Interfaces\IDictionaryDefaultValueProvider.cs">
       <Link>Interfaces\IDictionaryDefaultValueProvider.cs</Link>
     </Compile>
-    <Compile Include="..\..\Entities\Entities.Addendum\Addendum.cs">
-      <Link>Models\Addendum.cs</Link>
-    </Compile>
     <Compile Include="..\..\Interfaces\Interfaces.Common\IEntity.cs">
       <Link>Interfaces\IEntity.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>EntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpClientRunner.cs">
+      <Link>Extensions\HttpClientRunner.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpContextProvider.cs">
       <Link>Models\HttpContextProvider.cs</Link>
@@ -80,11 +80,17 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClient.cs">
       <Link>MappingEntityClient.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\TaskRunner.cs">
+      <Link>Extensions\TaskRunner.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Extensions\HttpClientExtensions.cs">
       <Link>Extensions\HttpClientExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityClient.cs">
       <Link>Interfaces\IEntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityClientAsync.cs">
+      <Link>Interfaces\IEntityClientAsync.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>
@@ -94,6 +100,9 @@
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityClient.cs">
       <Link>Interfaces\IMappingEntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityClientAsync.cs">
+      <Link>Interfaces\IMappingEntityClientAsync.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityWebService.cs">
       <Link>Interfaces\IMappingEntityWebService.cs</Link>
@@ -119,6 +128,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.Addendum\Entities.Addendum.csproj">
+      <Project>{3ddfe5b3-76e8-4503-9442-0d2a5179bbd4}</Project>
+      <Name>Entities.Addendum</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>

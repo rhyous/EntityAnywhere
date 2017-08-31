@@ -63,9 +63,13 @@
     <Compile Include="Business\EntityLoader.cs" />
     <Compile Include="Business\Starter.cs" />
     <Compile Include="Business\WebServiceLoader.cs" />
+    <Compile Include="Clients\HttpClientRunner.cs" />
     <Compile Include="Clients\MappingEntityClient.cs" />
     <Compile Include="Clients\EntityClient.cs" />
+    <Compile Include="Clients\TaskRunner.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
+    <Compile Include="Interfaces\IEntityClientAsync.cs" />
+    <Compile Include="Interfaces\IMappingEntityClientAsync.cs" />
     <Compile Include="Interfaces\IMappingEntityClient.cs" />
     <Compile Include="Interfaces\IEntityClient.cs" />
     <Compile Include="Interfaces\ICustomWebService.cs" />

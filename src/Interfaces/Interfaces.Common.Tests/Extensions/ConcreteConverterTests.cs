@@ -21,7 +21,7 @@ namespace Interfaces.Common.Tests
             // Assert
             Assert.AreEqual(expected1, b2.Prop1);
             Assert.AreEqual(expected2, b2.Prop2);
-        }f
+        }
     }
 
     public interface A { int Prop1 { get; set; } }

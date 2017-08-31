@@ -13,7 +13,7 @@ namespace Rhyous.WebFramework.Clients
         string Entity { get; }
 
         IHttpContextProvider HttpContextProvider { get; }
-
+        List<OdataObject<T>> GetAll(string queryParameters);
         List<OdataObject<T>> GetByIds(IEnumerable<Tid> ids);
         List<OdataObject<T>> GetByCustomUrl(string url);
     }

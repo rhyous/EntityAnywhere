@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class MappingEntityClient<T, Tid, E1Tid, E2Tid> : EntityClient<T,Tid>, IMappingEntityClient<T, Tid, E1Tid, E2Tid>
+    public class MappingEntityClient<T, Tid, E1Tid, E2Tid> : EntityClient<T,Tid>, IMappingEntityClientAsync<T, Tid, E1Tid, E2Tid>
         where T : class, IMappingEntity<E1Tid, E2Tid>, new()
         where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
         where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
@@ -51,9 +51,14 @@ namespace Rhyous.WebFramework.Clients
 
         public List<OdataObject<T>> GetByE1Ids(List<E1Tid> ids)
         {
-            return GetByMappedEntity(Entity1Pluralized, ids);
+            return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity1Pluralized, ids);
         }
         
+        public async Task<List<OdataObject<T>>> GetByE1IdsAsync(IEnumerable<E1Tid> ids)
+        {
+            return await GetByMappedEntityAsync(Entity1Pluralized, ids.ToList());
+        }
+
         public List<OdataObject<T>> GetByE2Ids(IEnumerable<E2Tid> ids)
         {
             return GetByE2Ids(ids.ToList());
@@ -61,22 +66,17 @@ namespace Rhyous.WebFramework.Clients
 
         public List<OdataObject<T>> GetByE2Ids(List<E2Tid> ids)
         {
-            return GetByMappedEntity(Entity2Pluralized, ids);
+            return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity2Pluralized, ids);
         }
 
-        private List<OdataObject<T>> GetByMappedEntity<Eid>(string pluralizedEntityName, List<Eid> ids)
+        public async Task<List<OdataObject<T>>> GetByE2IdsAsync(IEnumerable<E2Tid> ids)
         {
-            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(ids, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            Task<HttpResponseMessage> response = HttpClient.PostAsync($"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", postContent);
-            try
-            {
-                response.Wait();
-                var readAsStringTask = response.Result.Content.ReadAsStringAsync();
-                readAsStringTask.Wait();
-                var result = readAsStringTask.Result;
-                return JsonConvert.DeserializeObject<List<OdataObject<T>>>(result);
-            }
-            catch { return null; }
+            return await GetByMappedEntityAsync(Entity2Pluralized, ids.ToList());
+        }
+
+        private async Task<List<OdataObject<T>>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<T>>>(HttpClient.PostAsync, $"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
         }
     }
 }
