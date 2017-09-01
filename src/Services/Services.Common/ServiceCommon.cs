@@ -18,36 +18,43 @@ namespace Rhyous.WebFramework.Services
             set { _Repo = value; }
         } private IRepository<T, Tinterface, Tid> _Repo;
 
+        /// <inheritdoc />
         public virtual List<Tinterface> Get(List<Tid> ids)
         {
             return Repo.Get(ids).ToList();
         }
 
+        /// <inheritdoc />
         public virtual List<Tinterface> Get()
         {
             return Repo.Get().ToList();
         }
 
+        /// <inheritdoc />
         public virtual Tinterface Get(Tid Id)
         {
             return Repo.Get(Id);
         }
 
+        /// <inheritdoc />
         public virtual List<Tinterface> Get(NameValueCollection parameters)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc />
         public virtual List<Tinterface> Get(Expression<Func<Tinterface, bool>> expression)
         {
             return Repo.GetByExpression(expression).ToList();
         }
 
+        /// <inheritdoc />
         public virtual string GetProperty(Tid Id, string property)
         {
             return Repo.Get(Id)?.GetPropertyValue(property)?.ToString();
         }
 
+        /// <inheritdoc />
         public virtual string UpdateProperty(Tid id, string property, string value)
         {
             var entity = new T() { Id = id};
@@ -58,22 +65,26 @@ namespace Rhyous.WebFramework.Services
             return Update(id, entity, changedProperties).GetPropertyValue(property).ToString();
         }
 
+        /// <inheritdoc />
         public virtual List<Tinterface> Add(IList<Tinterface> entities)
         {
             return Repo.Create(entities);
         }
 
+        /// <inheritdoc />
         public virtual Tinterface Add(Tinterface entity)
         {
             return Repo.Create(new[] { entity }).FirstOrDefault();
         }
 
+        /// <inheritdoc />
         public virtual Tinterface Update(Tid id, Tinterface entity, List<string> changedProperties)
         {
             entity.Id = id;
             return Repo.Update(entity, changedProperties);
         }
 
+        /// <inheritdoc />
         public virtual Tinterface Replace(Tid Id, Tinterface entity)
         {
             var allProperties = from prop in typeof(Tinterface).GetProperties()
@@ -82,6 +93,7 @@ namespace Rhyous.WebFramework.Services
             return Repo.Update(entity, allProperties);
         }
 
+        /// <inheritdoc />
         public virtual bool Delete(Tid id)
         {
             return Repo.Delete(id);

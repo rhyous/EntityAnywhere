@@ -26,54 +26,68 @@ namespace Rhyous.WebFramework.Clients
         public MappingEntityClient(JsonSerializerSettings jsonSerializerSettings) : base(jsonSerializerSettings) { }
         #endregion
 
+
+        /// <inheritdoc />
         public string Entity1 { get { return _Entity1 ?? (_Entity1 =  typeof(T).GetMappedEntity1()); } }
         private string _Entity1;
 
+        /// <inheritdoc />
         public string Entity1Pluralized { get { return _Entity1Pluralized ?? (_Entity1Pluralized = typeof(T).GetMappedEntity1Pluralized()); } }
         private string _Entity1Pluralized;
 
+        /// <inheritdoc />
         public string Entity1Property { get { return _Entity1Property ?? (_Entity1Property = typeof(T).GetMappedEntity1Property()); } }
         private string _Entity1Property;
-        
+
+        /// <inheritdoc />
         public string Entity2 { get { return _Entity2 ?? (_Entity2 = typeof(T).GetMappedEntity2()); } }
         private string _Entity2;
 
+        /// <inheritdoc />
         public string Entity2Pluralized { get { return _Entity2Pluralized ?? (_Entity2Pluralized = typeof(T).GetMappedEntity2Pluralized()); } }
         private string _Entity2Pluralized;
 
+        /// <inheritdoc />
         public string Entity2Property { get { return _Entity2Property ?? (_Entity2Property = typeof(T).GetMappedEntity2Property()); } }
         private string _Entity2Property;
-        
+
+        /// <inheritdoc />
         public List<OdataObject<T>> GetByE1Ids(IEnumerable<E1Tid> ids)
         {
             return GetByE1Ids(ids.ToList());
         }
 
+        /// <inheritdoc />
         public List<OdataObject<T>> GetByE1Ids(List<E1Tid> ids)
         {
             return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity1Pluralized, ids);
         }
-        
+
+        /// <inheritdoc />
         public async Task<List<OdataObject<T>>> GetByE1IdsAsync(IEnumerable<E1Tid> ids)
         {
             return await GetByMappedEntityAsync(Entity1Pluralized, ids.ToList());
         }
 
+        /// <inheritdoc />
         public List<OdataObject<T>> GetByE2Ids(IEnumerable<E2Tid> ids)
         {
             return GetByE2Ids(ids.ToList());
         }
 
+        /// <inheritdoc />
         public List<OdataObject<T>> GetByE2Ids(List<E2Tid> ids)
         {
             return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity2Pluralized, ids);
         }
 
+        /// <inheritdoc />
         public async Task<List<OdataObject<T>>> GetByE2IdsAsync(IEnumerable<E2Tid> ids)
         {
             return await GetByMappedEntityAsync(Entity2Pluralized, ids.ToList());
         }
 
+        /// <inheritdoc />
         private async Task<List<OdataObject<T>>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
         {
             return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<T>>>(HttpClient.PostAsync, $"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);

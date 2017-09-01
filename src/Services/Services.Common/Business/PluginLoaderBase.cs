@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A base class for loading plugins from a default Plugins directory.
+    /// </summary>
+    /// <typeparam name="T">The type of the plugin to load.</typeparam>
     public abstract class PluginLoaderBase<T> : IPluginLoader<T>
         where T : class
     {
@@ -20,42 +24,53 @@ namespace Rhyous.WebFramework.Services
 
         public virtual bool ThrowExceptionIfNoPluginFound => true;
 
+        /// <summary>
+        /// The default parent directory for all plugins.
+        /// </summary>
         public string DefaultPluginDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Company, AppName, PluginFolder);
 
+        /// <summary>
+        /// The subfolder that groups plugins.
+        /// </summary>
         public abstract string PluginSubFolder { get; }
 
+        /// <summary>
+        /// A group name for the plugins in the subfolder. This is usually the same name as the PluginSubFolder.
+        /// </summary>
         public virtual string PluginGroup => PluginSubFolder;
 
-        public virtual PluginCollection<T> PluginCollection { get; internal set; } // Set exposed as internal for unit tests
+        /// <summary>
+        /// Instantiated instances of the plugins. If multiple dlls have plugins, there could be multiple collections. To get a flattened list, use PLugins.
+        /// </summary>
+        public virtual PluginCollection<T> PluginCollection
+        {
+            get { return _PluginCollection ?? (_PluginCollection = GetPluginLibraries()); }
+            internal set { _PluginCollection = value; } // Set exposed as internal for unit tests
+        } private PluginCollection<T> _PluginCollection;
 
         public virtual ILoadPlugins<T> PluginLoader
         {
             get { return _PluginLoader ?? new PluginLoader<T>(Path.Combine(ConfigurationManager.AppSettings.Get(PluginDirConfig, DefaultPluginDirectory), PluginSubFolder)); }
             internal set { _PluginLoader = value; } // Set exposed as internal for unit tests
-        } private ILoadPlugins<T> _PluginLoader;
+        }
+        private ILoadPlugins<T> _PluginLoader;
 
-        public virtual List<Type> PluginTypes
-        {
-            get
-            {
-                if (_PluginTypes != null)
-                    return _PluginTypes;
-                var pluginLibraries = PluginCollection ?? GetPluginLibraries();
-                return (_PluginTypes = pluginLibraries?.SelectMany(p => p.PluginTypes).ToList());
-            }
-        } private List<Type> _PluginTypes;
+        /// <summary>
+        /// Gets only the types of a plugin, not an actual instance.
+        /// </summary>
+        public virtual List<Type> PluginTypes { get { return _PluginTypes ?? (_PluginTypes = PluginCollection?.SelectMany(p => p.PluginTypes).ToList()); } }
+        private List<Type> _PluginTypes;
 
-        public virtual List<T> Plugins
-        {
-            get
-            {
-                if (_Plugins != null)
-                    return _Plugins;
-                var pluginLibraries = PluginCollection ?? GetPluginLibraries();
-                return (_Plugins = pluginLibraries?.SelectMany(p => p.PluginObjects).ToList());
-            }
-        } private List<T> _Plugins;
+        /// <summary>
+        /// Gets instantiated instances of the plugins. This is a flattened list of plugins.
+        /// </summary>
+        public virtual List<T> Plugins { get { return _Plugins ?? (_Plugins = PluginCollection?.SelectMany(p => p.PluginObjects).ToList()); } }
+        private List<T> _Plugins;
 
+        /// <summary>
+        /// This populates PluginCollection.
+        /// </summary>
+        /// <returns></returns>
         protected virtual PluginCollection<T> GetPluginLibraries()
         {
             var plugins = PluginLoader.LoadPlugins();

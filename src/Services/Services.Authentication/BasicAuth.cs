@@ -3,6 +3,9 @@ using System.Text;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A class that can create or extract credentials from a BasicAuth header.
+    /// </summary>
     public class BasicAuth
     {
         private readonly string _User;
@@ -41,12 +44,17 @@ namespace Rhyous.WebFramework.Services
         }
         #endregion
 
+        /// <summary>
+        /// The credentials. Either these were provided to the constructor or the constructor generated these from a BasicAuth header.
+        /// </summary>
         public Credentials Creds
         {
             get { return _Creds ?? (_Creds = new Credentials { User = _User, Password = _Password }); }
-        }
-        private Credentials _Creds;
+        } private Credentials _Creds;
 
+        /// <summary>
+        /// The BasicAuth header. Either this was provided to the constructor or the constructor generated this from a user name and password.
+        /// </summary>
         public string HeaderValue { get; }
     }
 }

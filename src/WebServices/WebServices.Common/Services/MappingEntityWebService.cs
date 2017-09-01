@@ -7,27 +7,29 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    public class MappingEntityWebService<T, Tinterface, Tid, TService, E1Tid, E2Tid>
-        : EntityWebService<T, Tinterface, Tid, TService>, IMappingEntityWebService<T, Tid, E1Tid, E2Tid>
-        where T : class, Tinterface, new()
-        where Tinterface : IEntity<Tid>, IMappingEntity<E1Tid, E2Tid>
-        where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
-        where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
-        where E2Tid : IComparable, IComparable<E2Tid>, IEquatable<E2Tid>
+    public class MappingEntityWebService<TEntity, TInterface, TId, TService, TE1Id, TE2Id>
+        : EntityWebService<TEntity, TInterface, TId, TService>, IMappingEntityWebService<TEntity, TId, TE1Id, TE2Id>
+        where TEntity : class, TInterface, new()
+        where TInterface : IEntity<TId>, IMappingEntity<TE1Id, TE2Id>
+        where TService : class, IServiceCommon<TEntity, TInterface, TId>, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        where TE1Id : IComparable, IComparable<TE1Id>, IEquatable<TE1Id>
+        where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {
-        public List<OdataObject<T>> GetByE1Ids(List<E1Tid> ids)
+        /// <inheritdoc />
+        public List<OdataObject<TEntity>> GetByE1Ids(List<TE1Id> ids)
         {
-            var propertyName = typeof(T).GetMappedEntity1Property();
-            var lambda = propertyName.ToLambda<Tinterface, E1Tid, bool>(ids);
-            return Service.Get(lambda)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
+            var propertyName = typeof(TEntity).GetMappedEntity1Property();
+            var lambda = propertyName.ToLambda<TInterface, TE1Id>(ids);
+            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 
-        public List<OdataObject<T>> GetByE2Ids(List<E2Tid> ids)
+        /// <inheritdoc />
+        public List<OdataObject<TEntity>> GetByE2Ids(List<TE2Id> ids)
         {
-            var propertyName = typeof(T).GetMappedEntity2Property();
-            var lambda = propertyName.ToLambda<Tinterface, E2Tid, bool>(ids);
-            return Service.Get(lambda)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
+            var propertyName = typeof(TEntity).GetMappedEntity2Property();
+            var lambda = propertyName.ToLambda<TInterface, TE2Id>(ids);
+            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
     }
 }

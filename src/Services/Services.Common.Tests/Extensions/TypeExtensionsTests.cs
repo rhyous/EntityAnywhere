@@ -31,7 +31,7 @@ namespace Services.Common.Tests
         {
             // Arrange - Done above
             // Act
-            var value = typeof(User).GetAlternateIdProperty();
+            var value = typeof(User).GetAlternateKeyProperty();
 
             // Assert
             Assert.AreEqual("Username", value);
@@ -49,7 +49,7 @@ namespace Services.Common.Tests
             watch.Start();
             for (int i = 0; i < 100000; i++)
             {
-                value = typeof(User).GetAlternateIdProperty();
+                value = typeof(User).GetAlternateKeyProperty();
             }
             watch.Stop();
             Assert.IsTrue(watch.ElapsedMilliseconds < 1000);

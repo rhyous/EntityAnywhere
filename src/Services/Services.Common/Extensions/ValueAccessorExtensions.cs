@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// This provides simple methods to get values of any object instance using reflection.
+    /// </summary>
     public static class ValueAccessorExtensions
     {
         public static StringComparison Comparison { get; set; } = StringComparison.InvariantCultureIgnoreCase;

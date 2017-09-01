@@ -4,6 +4,9 @@ using System;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// This loads the credential validator plugins.
+    /// </summary>
     public class PluginCredentialsValidator : PluginLoaderBase<ICredentialsValidator>, ICredentialsValidator
     {
         public override string PluginSubFolder => "Authenticators";

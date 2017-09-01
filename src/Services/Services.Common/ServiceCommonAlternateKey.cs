@@ -12,26 +12,30 @@ namespace Rhyous.WebFramework.Services
     {
         public ServiceCommonAlternateKey()
         {
-            PropertyExpression = typeof(T).GetAlternateIdProperty().ToLambda<Tinterface, string>();
-        }        
-
+            PropertyExpression = typeof(T).GetAlternateKeyProperty().ToLambda<Tinterface, string>();
+        }
+        
         public ServiceCommonAlternateKey(Expression<Func<Tinterface, string>> propertyExpression)
         {
             PropertyExpression = propertyExpression;
         }
 
+        /// <inheritdoc />
         public virtual Expression<Func<Tinterface, string>> PropertyExpression { get; set; }
 
+        /// <inheritdoc />
         public Tinterface Get(string stringProperty)
         {
             return Repo.Get(stringProperty, PropertyExpression);
         }
 
+        /// <inheritdoc />
         public List<Tinterface> Search(string stringProperty)
         {
             return Repo.Search(stringProperty, PropertyExpression);
         }
 
+        /// <inheritdoc />
         public override List<Tinterface> Add(IList<Tinterface> entities)
         {
             var duplicates = new List<string>();

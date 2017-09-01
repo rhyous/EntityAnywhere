@@ -6,10 +6,14 @@ using System.Net;
 
 namespace Rhyous.WebFramework.Authenticators
 {
+    /// <summary>
+    /// A service class used to communicate with Active Diretory
+    /// </summary>
     public class ActiveDirectoryService : IActiveDirectoryService
-    {
+    {        
         private const int ErrorLogonFailure = 0x31;
 
+        /// <inheritdoc />
         public bool ValidateCredentialsAgainstDomain(NetworkCredential credentials)
         {
             var id = new LdapDirectoryIdentifier(credentials.Domain);
@@ -33,6 +37,7 @@ namespace Rhyous.WebFramework.Authenticators
             return true;
         }
 
+        /// <inheritdoc />
         public bool IsUserInGroup(NetworkCredential credentials, string domain, string group)
         {
             using (var domainContext = new PrincipalContext(ContextType.Domain, domain))

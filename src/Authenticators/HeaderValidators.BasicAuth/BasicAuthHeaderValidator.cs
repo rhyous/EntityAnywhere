@@ -4,10 +4,15 @@ using System.Collections.Specialized;
 
 namespace Rhyous.WebFramework.HeaderValidators
 {
+    /// <summary>
+    /// This token validator will validate Basic Auth headers. With this header validator, you can authenticate and call the service in one call.
+    /// </summary>
     public class TokenValidator : IHeaderValidator
     {
+        /// <inheritdoc />
         public long UserId { get; set; }
-        
+
+        /// <inheritdoc />
         public bool IsValid(NameValueCollection headers)
         {
             var basicAuthHeader = headers["Authorization"];
@@ -21,7 +26,7 @@ namespace Rhyous.WebFramework.HeaderValidators
         }
 
         #region Injectable
-        public AuthenticationService AuthService
+        internal AuthenticationService AuthService
         {
             get { return _AuthService ?? (_AuthService = new AuthenticationService()); }
             set { _AuthService = value; }

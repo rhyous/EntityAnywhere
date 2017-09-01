@@ -5,18 +5,34 @@ using System.Runtime.Serialization;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// This object is used to return any entity and provide data about that entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
     [DataContract]
-    public class OdataObject<T>
+    public class OdataObject<TEntity>
     {
+        /// <summary>
+        /// The entity's web service uri.
+        /// </summary>
         [DataMember(Order = 0)]
         public Uri Uri { get; set; }
 
+        /// <summary>
+        /// The entity instance.
+        /// </summary>
         [DataMember(Order = 1)]
-        public T @Object { get; set; }
+        public TEntity @Object { get; set; }
 
+        /// <summary>
+        /// Any addenda for the entity.
+        /// </summary>
         [DataMember(Order = 1)]
         public List<Addendum> Addenda { get; set; }
 
+        /// <summary>
+        /// A list of uris that can manage each entity property individually.
+        /// </summary>
         [DataMember(Order = 3)]
         public List<ODataUri> PropertyUris { get; set; }
     }

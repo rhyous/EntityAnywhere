@@ -8,16 +8,24 @@ using ICredentials = Rhyous.WebFramework.Interfaces.ICredentials;
 
 namespace Rhyous.WebFramework.Authenticators
 {
+    /// <summary>
+    /// A credentials validator that takes in a username and password and connects to Active Directory to see if it is valid.
+    /// This requires some AppSettings in the web.config to work.
+    ///     &lt;add key="Domain" value="domain.tld" /&gt;
+    ///     &lt;add key="DomainGroup" value="AdGroup1" /&gt;
+    /// </summary>
     public class ActiveDirectoryCredentialsValidator : ICredentialsValidator, ITokenBuilder
     {
         const string Domain = "Domain";
         const string DomainGroup = "DomainGroup";
 
+        /// <inheritdoc />
         public IToken Build(ICredentials creds, long userId)
         {
             return TokenGenerator.Build(creds, userId);
         }
 
+        /// <inheritdoc />
         public bool IsValid(ICredentials creds, out IToken token)
         {
             token = null;
@@ -76,20 +84,20 @@ namespace Rhyous.WebFramework.Authenticators
             return username;
         }
 
-        #region Lazy Injectables for unit tests
-        public IActiveDirectoryService ADService
+        #region Lazy Injectables that can be mocked or replaced for unit tests
+        internal IActiveDirectoryService ADService
         {
             get { return _ADService ?? (_ADService = new ActiveDirectoryService()); }
             set { _ADService = value; }
         } private IActiveDirectoryService _ADService;
 
-        public UserService UserService
+        internal UserService UserService
         {
             get { return _UserService ?? (_UserService = new UserService()); }
             set { _UserService = value; }
         } private UserService _UserService;
 
-        public TokenGenerator TokenGenerator
+        internal TokenGenerator TokenGenerator
         {
             get { return _TokenGenerator ?? (_TokenGenerator = new TokenGenerator()); }
             set { _TokenGenerator = value; }

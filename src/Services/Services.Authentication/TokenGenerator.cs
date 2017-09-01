@@ -6,38 +6,36 @@ using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A class to generate an authentication token.
+    /// </summary>
     public class TokenGenerator : ITokenBuilder
     {
+        /// <summary>
+        /// The size of the token string.
+        /// </summary>
         public static int TokenSize = 100;
 
+        /// <inheritdoc />
         public IToken Build(ICredentials creds, long userId = 0)
         {
-            var tokenvalue = CryptoRandomString.GetCryptoRandomBase64String(TokenSize);
-            IUser user = null;
-            if (userId == 0)
+            if (userId < 1)
             {
-                user = UserService.Get(creds.User).Object;
-                if (user == null)
-                    return null;
-                userId = user.Id;
+                userId = UserService.Get(creds.User)?.Object?.Id ?? throw new Exception("User not found.");
             }
-            var token = new Token
-            {
-                Text = tokenvalue,
-                UserId = userId
-            };
+            var token = new Token { Text = CryptoRandomString.GetCryptoRandomBase64String(TokenSize), UserId = userId };
             TokenService.Post(new List<Token> { token });
             return token;
         }
 
         #region injectables
-        public EntityClient<User, int> UserService
+        internal EntityClient<User, int> UserService
         {
             get { return _UserService ?? (_UserService = new EntityClient<User, int>()); }
             set { _UserService = value; }
         } private EntityClient<User, int> _UserService;
 
-        public EntityClient<Token, long> TokenService
+        internal EntityClient<Token, long> TokenService
         {
             get { return _TokenService ?? (_TokenService = new EntityClient<Token, long>(true)); }
             set { _TokenService = value; }

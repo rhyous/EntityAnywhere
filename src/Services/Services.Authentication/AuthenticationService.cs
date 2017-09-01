@@ -4,8 +4,17 @@ using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A custom service that assists with authentication.
+    /// </summary>
     public partial class AuthenticationService
     {
+        /// <summary>
+        /// Loads the authenticator plugins and tries to authenticate to each of them.
+        /// </summary>
+        /// <param name="creds">The credentials, user name and password, to authenticate with.</param>
+        /// <returns>A token if authenticated.</returns>
+        /// <exception>AuthenticationException</exception>
         public IToken Authenticate(Credentials creds)
         {
             if (creds == null && WebOperationContext.Current != null)
@@ -22,10 +31,10 @@ namespace Rhyous.WebFramework.Services
         }
 
         #region Injectable
-        public ICredentialsValidator CredentialsValidator
+        internal ICredentialsValidator CredentialsValidator
         {
             get { return _CredentialsValidator ?? (_CredentialsValidator = new PluginCredentialsValidator()); }
-            internal set { _CredentialsValidator = value; }
+            set { _CredentialsValidator = value; }
         } private ICredentialsValidator _CredentialsValidator;
         #endregion
     }
