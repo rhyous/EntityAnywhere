@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Business\EntityEndPointBuilder.cs" />
     <Compile Include="Business\EntityServiceLoader.cs" />
+    <Compile Include="Business\ArrayMaker.cs" />
+    <Compile Include="Business\ListMaker.cs" />
     <Compile Include="Business\MappingEntityWebServiceLoader.cs" />
     <Compile Include="Business\EntityWebServiceLoader.cs" />
     <Compile Include="Business\EntityLoader.cs" />

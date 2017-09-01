@@ -11,6 +11,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// <summary>
         /// The additional generic types.
         /// </summary>
-        List<Type> Types { get; set; }
+        Type[] Types { get; set; }
     }
 }

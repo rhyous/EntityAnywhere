@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
 {
@@ -10,13 +8,9 @@ namespace Rhyous.WebFramework.Interfaces
     /// </summary>
     public class AdditionalWebServiceTypesAttribute : Attribute, IAdditionalTypes
     {
-        public AdditionalWebServiceTypesAttribute(params Type[] types) { _Types = types.ToList(); }
+        public AdditionalWebServiceTypesAttribute(params Type[] types) { Types = types; }
 
         /// <inheritdoc />
-        public List<Type> Types
-        {
-            get { return _Types ?? (_Types = new List<Type>()); }
-            set { _Types = value; }
-        } private List<Type> _Types;
+        public Type[] Types { get; set; }
     }
 }

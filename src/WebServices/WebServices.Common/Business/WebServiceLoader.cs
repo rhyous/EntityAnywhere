@@ -1,5 +1,4 @@
 ﻿using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Linq;

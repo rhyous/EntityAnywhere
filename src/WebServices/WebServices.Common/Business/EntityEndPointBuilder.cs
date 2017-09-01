@@ -3,7 +3,6 @@ using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -69,23 +68,19 @@ namespace Rhyous.WebFramework.WebServices
             }
         }
 
-        internal static Type BuildWebService(Type entityType, Type interfaceType, Type idType, Type serviceGenericType, Type webServiceGenericType, Type loaderType, List<Type> additionalServiceTypes, List<Type> additionalWebServiceTypes)
+        internal static Type BuildWebService(Type entityType, Type interfaceType, Type idType, Type serviceGenericType, Type webServiceGenericType, Type loaderType, Type[] additionalServiceTypes, Type[] additionalWebServiceTypes)
         {
-            var serviceTypes = new List<Type>() { entityType, interfaceType, idType };
-            if (additionalServiceTypes != null && additionalServiceTypes.Count > 0)
-                serviceTypes.AddRange(additionalServiceTypes);
-            var serviceType = serviceGenericType.MakeGenericType(serviceTypes.ToArray());
+            var serviceTypes = ArrayMaker.Make(entityType, interfaceType, idType, additionalServiceTypes);
+            var serviceType = serviceGenericType.MakeGenericType(serviceTypes);
 
-            var webServiceTypes = new List<Type>() { entityType, interfaceType, idType, serviceType };
-            if (additionalWebServiceTypes != null && additionalWebServiceTypes.Count > 0)
-                webServiceTypes.AddRange(additionalWebServiceTypes);
-            var webServiceBaseType = webServiceGenericType.MakeGenericType(webServiceTypes.ToArray());
+            var webServiceTypes = ArrayMaker.Make(entityType, interfaceType, idType, serviceType, additionalWebServiceTypes);
+            var webServiceBaseType = webServiceGenericType.MakeGenericType(webServiceTypes);
 
-            webServiceTypes.Insert(0, webServiceBaseType);
-            var entityWebServiceLoaderType = loaderType.MakeGenericType(webServiceTypes.ToArray());
+            var loaderTypes = ArrayMaker.Make(webServiceBaseType, webServiceTypes);
+            var entityWebServiceLoaderType = loaderType.MakeGenericType(loaderTypes);
+
             dynamic loader = Activator.CreateInstance(entityWebServiceLoaderType);
-            var plugins = loader.Plugins as IList;
-            return (plugins != null && plugins.Count > 0) ? plugins[0].GetType() : webServiceBaseType;
+            return (loader.PluginTypes as List<Type>)?.FirstOrDefault() ?? webServiceBaseType;
         }
 
         internal static Tuple<Type, Type, Type> GetServiceTypes(Type entityType)

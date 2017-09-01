@@ -1,6 +1,5 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Rhyous.WebFramework.Services
@@ -14,7 +13,7 @@ namespace Rhyous.WebFramework.Services
             return attribute?.KeyProperty;
         }
 
-        public static List<Type> GetAdditionalTypes<T>(this Type t)
+        public static Type[] GetAdditionalTypes<T>(this Type t)
             where T: IAdditionalTypes
         {
             var attribute = t.GetCustomAttributes(typeof(T), true).FirstOrDefault() as IAdditionalTypes;
