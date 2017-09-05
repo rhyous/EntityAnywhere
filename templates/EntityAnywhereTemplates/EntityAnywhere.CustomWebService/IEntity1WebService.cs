@@ -5,8 +5,8 @@ using System.ServiceModel.Web;
 
 namespace $safeprojectname$
 { 
-[ServiceContract]
-public interface IEntity1 : IEntityWebService<Entity1, int>
-{
-}
+    [ServiceContract]
+    public interface IEntity1 : IEntityWebService<Entity1, int>
+    {
+    }
 }
