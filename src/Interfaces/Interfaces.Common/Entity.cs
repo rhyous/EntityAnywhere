@@ -6,7 +6,7 @@ namespace Rhyous.WebFramework.Interfaces
     /// And abstract base class.
     /// </summary>
     /// <typeparam name="TId"></typeparam>
-    public abstract class EntityBase<TId> : IEntity<TId>
+    public abstract class Entity<TId> : IEntity<TId>
     {
         /// <inheritdoc />
         public TId Id { get; set; }

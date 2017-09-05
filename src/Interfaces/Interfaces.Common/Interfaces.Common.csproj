@@ -39,8 +39,8 @@
     <Compile Include="Attributes\EntityAttribute.cs" />
     <Compile Include="Attributes\MappingEntityAttribute.cs" />
     <Compile Include="Attributes\RelatedEntityAttribute.cs" />
-    <Compile Include="AuditableEntityBase.cs" />
-    <Compile Include="EntityBase.cs" />
+    <Compile Include="AuditableEntity.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="Extensions\ConcreteConverter.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="IAddendum.cs" />

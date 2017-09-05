@@ -6,7 +6,7 @@ namespace Rhyous.WebFramework.Entities
     /// The UserRole entity. This should be used to put users in Roles and assign UserRoles some authorization claims.
     /// </summary>
     [AlternateKey("Name")]
-    public partial class UserRole : AuditableEntityBase<int>, IUserRole
+    public partial class UserRole : AuditableEntity<int>, IUserRole
     {
         /// <inheritdoc />
         public string Name { get; set; }

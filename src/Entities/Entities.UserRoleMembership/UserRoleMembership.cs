@@ -10,7 +10,7 @@ namespace Rhyous.WebFramework.Entities
     /// </summary>
     [AdditionalWebServiceTypes(typeof(int), typeof(int))]
     [MappingEntity(Entity1 = "UserRole", Entity2 = "User")]
-    public partial class UserRoleMembership : EntityBase<long>, IUserRoleMembership, IMappingEntity<int, int>
+    public partial class UserRoleMembership : Entity<long>, IUserRoleMembership, IMappingEntity<int, int>
     {
         /// <inheritdoc />
         public int UserRoleId { get; set; }

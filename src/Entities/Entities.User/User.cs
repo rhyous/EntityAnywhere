@@ -3,7 +3,7 @@ using Rhyous.WebFramework.Interfaces;
 namespace Rhyous.WebFramework.Entities
 {
     [AlternateKey("Username")]
-    public partial class User : AuditableEntityBase<long>, IUser
+    public partial class User : AuditableEntity<long>, IUser
     {
         /// <inheritdoc />
         public string Username { get; set; }

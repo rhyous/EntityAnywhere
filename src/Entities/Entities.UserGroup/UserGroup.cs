@@ -3,7 +3,7 @@
 namespace Rhyous.WebFramework.Entities
 {
     [AlternateKey("Name")]
-    public partial class UserGroup : AuditableEntityBase<int>, IUserGroup
+    public partial class UserGroup : AuditableEntity<int>, IUserGroup
     {
         /// <inheritdoc />
         public string Name { get; set; }

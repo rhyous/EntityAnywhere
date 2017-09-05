@@ -2,7 +2,7 @@ using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
 {
-    public partial class Addendum : AuditableEntityBase<long>, IAddendum
+    public partial class Addendum : AuditableEntity<long>, IAddendum
     {
         /// <inheritdoc />
         public string Entity { get; set; }

@@ -10,7 +10,7 @@ namespace Rhyous.WebFramework.Entities
     /// </summary>
     [AdditionalWebServiceTypes(typeof(int), typeof(int))]
     [MappingEntity(Entity1 = "UserGroup", Entity2 = "User")]
-    public partial class UserGroupMembership : EntityBase<long>, IUserGroupMembership
+    public partial class UserGroupMembership : Entity<long>, IUserGroupMembership
     {
         /// <inheritdoc />
         public int UserId { get; set; }

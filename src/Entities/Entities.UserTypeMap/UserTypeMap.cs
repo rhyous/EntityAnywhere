@@ -10,7 +10,7 @@ namespace Rhyous.WebFramework.Services
     /// </summary>
     [AdditionalWebServiceTypes(typeof(int), typeof(int))]
     [MappingEntity(Entity1 = "UserType", Entity2 = "User")]
-    public partial class UserTypeMap : EntityBase<long>, IUserTypeMap, IMappingEntity<int, int>
+    public partial class UserTypeMap : Entity<long>, IUserTypeMap, IMappingEntity<int, int>
     {
         public int UserTypeId { get; set; }
 

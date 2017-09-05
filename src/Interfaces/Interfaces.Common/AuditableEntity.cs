@@ -6,7 +6,7 @@ namespace Rhyous.WebFramework.Interfaces
     /// An abstract base class for all entities.
     /// </summary>
     /// <typeparam name="TId"></typeparam>
-    public abstract class AuditableEntityBase<TId> : EntityBase<TId>, IAuditable
+    public abstract class AuditableEntity<TId> : Entity<TId>, IAuditable
     {
         /// <inheritdoc />
         public DateTime CreateDate { get; set; }
