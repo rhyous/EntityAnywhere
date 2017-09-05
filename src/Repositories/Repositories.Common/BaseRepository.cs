@@ -8,30 +8,38 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Repositories
 {
-    public class BaseRepository<T, Tinterface, Tid> : IRepository<T, Tinterface, Tid>
-        where Tinterface : IEntity<Tid>
-        where T : class, Tinterface, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
+    /// <summary>
+    /// This is a common repository for all entities that will go into an Microsoft SQL Database using Entity Framework.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The type of the Id property. Usually int, long, guid, string, etc...</typeparam>
+    public class BaseRepository<TEntity, TInterface, TId> : IRepository<TEntity, TInterface, TId>
+        where TInterface : IEntity<TId>
+        where TEntity : class, TInterface, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        protected virtual BaseDbContext<T> DbContext
+        protected virtual BaseDbContext<TEntity> DbContext
         {
-            get { return _DbContext ?? (DbContext = new BaseDbContext<T>()); }
+            get { return _DbContext ?? (DbContext = new BaseDbContext<TEntity>()); }
             set { _DbContext = value; }
-        } private BaseDbContext<T> _DbContext;
+        } private BaseDbContext<TEntity> _DbContext;
 
-        public virtual List<Tinterface> Create(IList<Tinterface> items)
+        /// <inheritdoc />
+        public virtual List<TInterface> Create(IList<TInterface> items)
         {
-            List<Tinterface> result = new List<Tinterface>();
+            List<TInterface> result = new List<TInterface>();
             if (items != null && items.Count > 0)
             {
-                var concrete = ConcreteConverter.ToConcrete<T, Tinterface>(items);
+                var concrete = ConcreteConverter.ToConcrete<TEntity, TInterface>(items);
                 result.AddRange(DbContext.Entities.AddRange(concrete));
                 DbContext.SaveChanges();
             }
             return result;
         }
 
-        public virtual bool Delete(Tid id)
+        /// <inheritdoc />
+        public virtual bool Delete(TId id)
         {
             var item = DbContext.Entities.FirstOrDefault(o => o.Id.Equals(id));
             if (item == null)
@@ -41,34 +49,40 @@ namespace Rhyous.WebFramework.Repositories
             return true;
         }
 
-        public virtual List<Tinterface> Get()
+        /// <inheritdoc />
+        public virtual List<TInterface> Get()
         {
-            return DbContext.Entities.ToList<Tinterface>();
+            return DbContext.Entities.ToList<TInterface>();
         }
 
-        public virtual List<Tinterface> Get(List<Tid> ids)
+        /// <inheritdoc />
+        public virtual List<TInterface> Get(List<TId> ids)
         {
-            return DbContext.Entities.Where(e => ids.Contains(e.Id)).ToList<Tinterface>();
+            return DbContext.Entities.Where(e => ids.Contains(e.Id)).ToList<TInterface>();
         }
 
-        public virtual Tinterface Get(Tid id)
+        /// <inheritdoc />
+        public virtual TInterface Get(TId id)
         {
             return DbContext.Entities.FirstOrDefault(e => e.Id.Equals(id));
         }
 
-        public virtual Tinterface Get(string name, Expression<Func<Tinterface, string>> propertyExpression)
+        /// <inheritdoc />
+        public virtual TInterface Get(string name, Expression<Func<TInterface, string>> propertyExpression)
         {
             return DbContext.Entities.AsExpandable().FirstOrDefault(e => propertyExpression.Invoke(e) == name);
         }
 
-        public virtual List<Tinterface> GetByExpression(Expression<Func<Tinterface, bool>> expression)
+        /// <inheritdoc />
+        public virtual List<TInterface> GetByExpression(Expression<Func<TInterface, bool>> expression)
         {
             return DbContext.Entities.AsExpandable().Where(expression).ToList();
         }
 
-        public virtual List<Tinterface> Search(string searchString, params Expression<Func<Tinterface, string>>[] propertyExpressions)
+        /// <inheritdoc />
+        public virtual List<TInterface> Search(string searchString, params Expression<Func<TInterface, string>>[] propertyExpressions)
         {
-            var predicate = PredicateBuilder.New<Tinterface>();
+            var predicate = PredicateBuilder.New<TInterface>();
             foreach (var expression in propertyExpressions)
             {
                 predicate.Or(e => expression.Invoke(e).Contains(searchString));
@@ -76,7 +90,8 @@ namespace Rhyous.WebFramework.Repositories
             return GetByExpression(predicate);
         }
 
-        public virtual Tinterface Update(Tinterface item, IEnumerable<string> changedProperties)
+        /// <inheritdoc />
+        public virtual TInterface Update(TInterface item, IEnumerable<string> changedProperties)
         {
             var existingItem = DbContext.Entities.FirstOrDefault(o => o.Id.Equals(item.Id));
             foreach (var prop in changedProperties)

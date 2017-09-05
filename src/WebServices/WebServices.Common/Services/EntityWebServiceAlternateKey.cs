@@ -4,6 +4,13 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// A common entity web service for entities that have the AlternateKey attribute, which indicates a second key field that is a string, such as Name.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The entity id type.</typeparam>
+    /// <typeparam name="TService">The entity service type.</typeparam>
     public class EntityWebServiceAlternateKey<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>

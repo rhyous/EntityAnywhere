@@ -76,7 +76,7 @@ namespace Rhyous.WebFramework.WebServices
             var webServiceTypes = ArrayMaker.Make(entityType, interfaceType, idType, serviceType, additionalWebServiceTypes);
             var webServiceBaseType = webServiceGenericType.MakeGenericType(webServiceTypes);
 
-            var loaderTypes = ArrayMaker.Make(webServiceBaseType, webServiceTypes);
+            var loaderTypes = new[] { entityType, webServiceBaseType };
             var entityWebServiceLoaderType = loaderType.MakeGenericType(loaderTypes);
 
             dynamic loader = Activator.CreateInstance(entityWebServiceLoaderType);

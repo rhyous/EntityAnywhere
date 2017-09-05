@@ -7,6 +7,15 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// A web service for a Mapping Entity. This inherits the service contract for a regular entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The entity id type.</typeparam>
+    /// <typeparam name="TService">The entity service type.</typeparam>
+    /// <typeparam name="TE1Id">The Entity1 id type. Entity1 should always be the entity with less instances.</typeparam>
+    /// <typeparam name="TE2Id">The Entity2 id type. Entity2 should always be the entity with more instances.</typeparam>
     public class MappingEntityWebService<TEntity, TInterface, TId, TService, TE1Id, TE2Id>
         : EntityWebService<TEntity, TInterface, TId, TService>, IMappingEntityWebService<TEntity, TId, TE1Id, TE2Id>
         where TEntity : class, TInterface, new()

@@ -7,6 +7,12 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A common service layer for all Entities.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The type of the Id property. Usually int, long, guid, string, etc...</typeparam>
     public class ServiceCommon<T, Tinterface, Tid> : IServiceCommon<T, Tinterface, Tid>
         where T: class, Tinterface, new()
         where Tinterface : IId<Tid>

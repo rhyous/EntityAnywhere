@@ -6,8 +6,12 @@ using System.Reflection;
 
 namespace Rhyous.WebFramework.Repositories
 {
-    public class BaseDbContext<T> : AuditableDbContext
-        where T : class
+    /// <summary>
+    /// A generic DBContext for any single entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    public class BaseDbContext<TEntity> : AuditableDbContext
+        where TEntity : class
     {
         #region Constructors
         public BaseDbContext()
@@ -33,15 +37,32 @@ namespace Rhyous.WebFramework.Repositories
         }
         #endregion
 
+        /// <summary>
+        /// The UserId of the logged in user. This is different than the user that may be in the connection string
+        /// </summary>
         public int UserId { get; set; }
 
+        /// <summary>
+        /// This method tries to get the UserId and if it is null, changes to the SystemUsers.Unknown user, id 2.
+        /// In the database: user Id 1 must be system, user Id 2 must be Unknown.
+        /// </summary>
+        /// <returns>The user id</returns>
         public override int GetCurrentUserId()
         {
             return UserId > 0 ? UserId : (int)SystemUsers.Unknown;
         }
 
-        public virtual DbSet<T> Entities { get; set; }
+        /// <summary>
+        /// This is the DbSet for the Entity.
+        /// </summary>
+        public virtual DbSet<TEntity> Entities { get; set; }
 
+        /// <summary>
+        /// This is a configuration setting option to enable or disable proxy creation, lazy loading, and no tracking.
+        /// </summary>
+        /// <param name="proxyCreationEnabled">bool</param>
+        /// <param name="lazyLoadingEnabled">bool</param>
+        /// <param name="asNoTracking">bool</param>
         public void SetConfig(bool proxyCreationEnabled = false, bool lazyLoadingEnabled = false, bool asNoTracking = true)
         {
             Configuration.ProxyCreationEnabled = proxyCreationEnabled;
@@ -50,6 +71,8 @@ namespace Rhyous.WebFramework.Repositories
                 GloballySetAsNoTracking();
         }
 
+        /// <inheritdoc />
+        /// <remarks>This override method makes the exception more useable by puttting the entity validation errors into the message.</remarks>
         public override int SaveChanges()
         {
             try
@@ -64,6 +87,10 @@ namespace Rhyous.WebFramework.Repositories
             }
         }
 
+        /// <summary>
+        /// This might not be doing anything. AsNoTracking may be per call, and so setting this might not actually do anything for subsquent calls.
+        /// This needs to be tested.
+        /// </summary>
         private void GloballySetAsNoTracking()
         {
             var dbSetProperties = GetType().GetProperties();
@@ -82,15 +109,15 @@ namespace Rhyous.WebFramework.Repositories
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            if (typeof(T).IsAssignableFrom(typeof(IAuditableCreateDate)))
+            if (typeof(TEntity).IsAssignableFrom(typeof(IAuditableCreateDate)))
             {
-                modelBuilder.Entity<T>()
+                modelBuilder.Entity<TEntity>()
                     .Property(f => (f as IAuditableCreateDate).CreateDate)
                     .HasColumnType("datetime2");
             }
-            if (typeof(T).IsAssignableFrom(typeof(IAuditableLastUpdatedDate)))
+            if (typeof(TEntity).IsAssignableFrom(typeof(IAuditableLastUpdatedDate)))
             {
-                modelBuilder.Entity<T>()
+                modelBuilder.Entity<TEntity>()
                     .Property(f => (f as IAuditableLastUpdatedDate).LastUpdated)
                     .HasColumnType("datetime2");
             }

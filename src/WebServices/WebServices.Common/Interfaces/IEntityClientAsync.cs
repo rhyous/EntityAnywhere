@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Rhyous.WebFramework.Clients
 {
     /// <summary>
-    /// A common class that any client can implement to talk to any entity.
-    /// It inherites from IEntityWebService so all the same methods that exist on the common webservice are available to all client implementations.
+    /// A common class that any client can implement to talk to any entity's web services asynchronously.
+    /// It inherits from IEntityWebService so all the same methods that exist on the common webservice are available to all client implementations.
     /// </summary>
     /// <typeparam name="TEntity">The entity type</typeparam>
     /// <typeparam name="TId">The entity id type</typeparam>

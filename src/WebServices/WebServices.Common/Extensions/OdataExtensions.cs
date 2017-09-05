@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// This extension class makes wrapping objects in Odata types easier.
+    /// </summary>
     public static class OdataExtensions
     {
         public const string ObjectUrl = "{0}({1})";

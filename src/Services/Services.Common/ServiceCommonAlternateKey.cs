@@ -5,6 +5,12 @@ using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
+    /// <summary>
+    /// A common service layer for all entities that have a string property as a second key, other than the Id property.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The type of the Id property. Usually int, long, guid, string, etc...</typeparam>
     public class ServiceCommonAlternateKey<T, Tinterface, Tid> : ServiceCommon<T, Tinterface, Tid>, IServiceCommonAlternateKey<T, Tinterface, Tid>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>

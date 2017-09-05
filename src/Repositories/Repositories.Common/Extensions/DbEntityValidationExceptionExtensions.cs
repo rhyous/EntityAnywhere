@@ -4,8 +4,16 @@ using System.Text;
 
 namespace Rhyous.WebFramework.Repositories
 {
+    /// <summary>
+    /// This extension takes a DbEntityValidationException and creates a more understandable error message by putting entity validation error data into a string.
+    /// </summary>
     public static class DbEntityValidationExceptionExtensions
     {
+        /// <summary>
+        /// Gets entity validation errors and puts them into a string.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public static string GetValidationResultErrorsAsString(this DbEntityValidationException e)
         {
             var errorMsg = new StringBuilder();

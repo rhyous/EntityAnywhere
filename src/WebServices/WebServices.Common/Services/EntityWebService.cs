@@ -9,6 +9,13 @@ using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// A common entity web service for all entities. If no custom entity web service is provided, this one is used.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TInterface">The entity interface type.</typeparam>
+    /// <typeparam name="TId">The entity id type.</typeparam>
+    /// <typeparam name="TService">The entity service type.</typeparam>
     public class EntityWebService<T, Tinterface, Tid, TService> : IEntityWebService<T, Tid>
         where T : class, Tinterface, new()
         where Tinterface : IEntity<Tid>

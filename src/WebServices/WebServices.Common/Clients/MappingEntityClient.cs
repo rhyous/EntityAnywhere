@@ -6,16 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class MappingEntityClient<T, Tid, E1Tid, E2Tid> : EntityClient<T,Tid>, IMappingEntityClientAsync<T, Tid, E1Tid, E2Tid>
-        where T : class, IMappingEntity<E1Tid, E2Tid>, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
-        where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
-        where E2Tid : IComparable, IComparable<E2Tid>, IEquatable<E2Tid>
+    /// <summary>
+    /// A common class that any client can implement to talk to a mapping entity's web services. This inherits EntityClient adding the ability to get mapping entities by either of the mapped entities' ids.
+    /// </summary>
+    /// <typeparam name="TEntity">The entity type.</typeparam>
+    /// <typeparam name="TId">The entity id type.</typeparam>
+    /// <typeparam name="TE1Id">The Entity1 id type. Entity1 should always be the entity with less instances.</typeparam>
+    /// <typeparam name="TE2Id">The Entity2 id type. Entity2 should always be the entity with more instances.</typeparam>
+    public class MappingEntityClient<TEntity, TId, TE1Id, TE2Id> : EntityClient<TEntity,TId>, IMappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id>
+        where TEntity : class, IMappingEntity<TE1Id, TE2Id>, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        where TE1Id : IComparable, IComparable<TE1Id>, IEquatable<TE1Id>
+        where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {
 
         #region Constructors
@@ -28,69 +34,69 @@ namespace Rhyous.WebFramework.Clients
 
 
         /// <inheritdoc />
-        public string Entity1 { get { return _Entity1 ?? (_Entity1 =  typeof(T).GetMappedEntity1()); } }
+        public string Entity1 { get { return _Entity1 ?? (_Entity1 =  typeof(TEntity).GetMappedEntity1()); } }
         private string _Entity1;
 
         /// <inheritdoc />
-        public string Entity1Pluralized { get { return _Entity1Pluralized ?? (_Entity1Pluralized = typeof(T).GetMappedEntity1Pluralized()); } }
+        public string Entity1Pluralized { get { return _Entity1Pluralized ?? (_Entity1Pluralized = typeof(TEntity).GetMappedEntity1Pluralized()); } }
         private string _Entity1Pluralized;
 
         /// <inheritdoc />
-        public string Entity1Property { get { return _Entity1Property ?? (_Entity1Property = typeof(T).GetMappedEntity1Property()); } }
+        public string Entity1Property { get { return _Entity1Property ?? (_Entity1Property = typeof(TEntity).GetMappedEntity1Property()); } }
         private string _Entity1Property;
 
         /// <inheritdoc />
-        public string Entity2 { get { return _Entity2 ?? (_Entity2 = typeof(T).GetMappedEntity2()); } }
+        public string Entity2 { get { return _Entity2 ?? (_Entity2 = typeof(TEntity).GetMappedEntity2()); } }
         private string _Entity2;
 
         /// <inheritdoc />
-        public string Entity2Pluralized { get { return _Entity2Pluralized ?? (_Entity2Pluralized = typeof(T).GetMappedEntity2Pluralized()); } }
+        public string Entity2Pluralized { get { return _Entity2Pluralized ?? (_Entity2Pluralized = typeof(TEntity).GetMappedEntity2Pluralized()); } }
         private string _Entity2Pluralized;
 
         /// <inheritdoc />
-        public string Entity2Property { get { return _Entity2Property ?? (_Entity2Property = typeof(T).GetMappedEntity2Property()); } }
+        public string Entity2Property { get { return _Entity2Property ?? (_Entity2Property = typeof(TEntity).GetMappedEntity2Property()); } }
         private string _Entity2Property;
 
         /// <inheritdoc />
-        public List<OdataObject<T>> GetByE1Ids(IEnumerable<E1Tid> ids)
+        public List<OdataObject<TEntity>> GetByE1Ids(IEnumerable<TE1Id> ids)
         {
             return GetByE1Ids(ids.ToList());
         }
 
         /// <inheritdoc />
-        public List<OdataObject<T>> GetByE1Ids(List<E1Tid> ids)
+        public List<OdataObject<TEntity>> GetByE1Ids(List<TE1Id> ids)
         {
             return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity1Pluralized, ids);
         }
 
         /// <inheritdoc />
-        public async Task<List<OdataObject<T>>> GetByE1IdsAsync(IEnumerable<E1Tid> ids)
+        public async Task<List<OdataObject<TEntity>>> GetByE1IdsAsync(IEnumerable<TE1Id> ids)
         {
             return await GetByMappedEntityAsync(Entity1Pluralized, ids.ToList());
         }
 
         /// <inheritdoc />
-        public List<OdataObject<T>> GetByE2Ids(IEnumerable<E2Tid> ids)
+        public List<OdataObject<TEntity>> GetByE2Ids(IEnumerable<TE2Id> ids)
         {
             return GetByE2Ids(ids.ToList());
         }
 
         /// <inheritdoc />
-        public List<OdataObject<T>> GetByE2Ids(List<E2Tid> ids)
+        public List<OdataObject<TEntity>> GetByE2Ids(List<TE2Id> ids)
         {
             return TaskRunner.RunSynchonously(GetByMappedEntityAsync, Entity2Pluralized, ids);
         }
 
         /// <inheritdoc />
-        public async Task<List<OdataObject<T>>> GetByE2IdsAsync(IEnumerable<E2Tid> ids)
+        public async Task<List<OdataObject<TEntity>>> GetByE2IdsAsync(IEnumerable<TE2Id> ids)
         {
             return await GetByMappedEntityAsync(Entity2Pluralized, ids.ToList());
         }
 
         /// <inheritdoc />
-        private async Task<List<OdataObject<T>>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
+        private async Task<List<OdataObject<TEntity>>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
         {
-            return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<T>>>(HttpClient.PostAsync, $"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
+            return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<TEntity>>>(HttpClient.PostAsync, $"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
         }
     }
 }

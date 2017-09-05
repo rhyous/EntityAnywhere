@@ -16,8 +16,8 @@ namespace Rhyous.WebFramework.WebServices
 
         internal AttributeToServiceDictionary()
         {
-            Add(typeof(AlternateKeyAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommonAlternateKey<,,>), typeof(EntityWebServiceAlternateKey<,,,>), typeof(EntityWebServiceLoader<,,,,>)));
-            Add(typeof(MappingEntityAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(MappingEntityWebService<,,,,,>), typeof(MappingEntityWebServiceLoader<,,,,,,>)));
+            Add(typeof(AlternateKeyAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommonAlternateKey<,,>), typeof(EntityWebServiceAlternateKey<,,,>), typeof(EntityWebServiceLoader<,>)));
+            Add(typeof(MappingEntityAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(MappingEntityWebService<,,,,,>), typeof(EntityWebServiceLoader<,>)));
         }
 
         #endregion
@@ -28,6 +28,6 @@ namespace Rhyous.WebFramework.WebServices
             return DefaultValue;
         }
 
-        public Tuple<Type, Type, Type> DefaultValue => new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(EntityWebService<,,,>), typeof(EntityWebServiceLoader<,,,,>));
+        public Tuple<Type, Type, Type> DefaultValue => new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(EntityWebService<,,,>), typeof(EntityWebServiceLoader<,>));
     }
 }

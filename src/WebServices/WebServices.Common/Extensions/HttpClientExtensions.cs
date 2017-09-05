@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
+    /// <summary>
+    /// This extension method adds the missing PatchAsync methods to HttpClient.
+    /// </summary>
     public static class HttpClientExtensions
     {
         /// <summary>
