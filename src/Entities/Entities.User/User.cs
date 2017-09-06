@@ -2,6 +2,9 @@ using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
 {
+    /// <summary>
+    /// The user entity. This is a user for logging in with an Authenticator plugin.
+    /// </summary>
     [AlternateKey("Username")]
     public partial class User : AuditableEntity<long>, IUser
     {

@@ -5,8 +5,8 @@ namespace Rhyous.WebFramework.Entities
     /// <summary>
     /// The UserGroupMembership mapping entity.
     /// Mapped entities:
-    ///  - Entity1: UserGroup
-    ///  - Entity2: User
+    ///  - Entity1: <see cref="UserGroup"/>
+    ///  - Entity2: <see cref="User"/>
     /// </summary>
     [AdditionalWebServiceTypes(typeof(int), typeof(int))]
     [MappingEntity(Entity1 = "UserGroup", Entity2 = "User")]

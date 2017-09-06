@@ -5,8 +5,8 @@ namespace Rhyous.WebFramework.Services
     /// <summary>
     /// The UserTypeMap mapping entity.
     /// Mapped entities:
-    ///  - Entity1: UserType
-    ///  - Entity2: User
+    ///  - Entity1: <see cref="UserType"/>
+    ///  - Entity2: <see cref="User"/>
     /// </summary>
     [AdditionalWebServiceTypes(typeof(int), typeof(int))]
     [MappingEntity(Entity1 = "UserType", Entity2 = "User")]

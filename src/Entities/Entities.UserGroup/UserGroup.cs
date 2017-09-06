@@ -2,6 +2,9 @@
 
 namespace Rhyous.WebFramework.Entities
 {
+    /// <summary>
+    /// The UserGroup entity.
+    /// </summary>
     [AlternateKey("Name")]
     public partial class UserGroup : AuditableEntity<int>, IUserGroup
     {

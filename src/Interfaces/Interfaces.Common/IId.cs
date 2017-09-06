@@ -11,7 +11,7 @@
         /// Ways to change the Property name to a custom value:
         /// 1. If the repository is Entity Framework, you can use the Column attribute to change the actual database column name if needed.
         /// Example: [Column("EntityId")]
-        /// 2. Implement the interface exclicitly so a new property has the correct name. However, this break uniformity.
+        /// 2. Implement the interface exclicitly so a new property has the correct name. However, this breaks suniformity.
         /// public int? IId.Id { get { return EntityId; } set { Date = EntityId; } }
         /// 3. Have a different concrete instance of the entity interface in the repository and only implement this in the repository's concrete instance.
         /// </summary>

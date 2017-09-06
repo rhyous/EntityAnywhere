@@ -11,7 +11,7 @@
         string Text { get; set; }
 
         /// <summary>
-        /// This is the id of the user that the token references.
+        /// This is the id of the <see cref="IUser"/> that the token references.
         /// </summary>
         long UserId { get; set; }
     }
