@@ -13,6 +13,8 @@ namespace Rhyous.WebFramework.Repositories
     public class BaseDbContext<TEntity> : AuditableDbContext
         where TEntity : class
     {
+        internal static string DefaultSqlConnectionStringName = "SqlRepository";
+
         #region Constructors
         public BaseDbContext()
             : this(0)
@@ -25,15 +27,19 @@ namespace Rhyous.WebFramework.Repositories
             UserId = userId;
         }
 
+        public BaseDbContext(bool proxyCreationEnabled, bool lazyLoadingEnabled = false, bool asNoTracking = true)
+            : this($"name={DefaultSqlConnectionStringName}")
+        {
+            SetConfig(proxyCreationEnabled, lazyLoadingEnabled, asNoTracking);
+        }
+
         protected BaseDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-        }
-
-        public BaseDbContext(bool proxyCreationEnabled, bool lazyLoadingEnabled = false, bool asNoTracking = true)
-            : base("name=SqlRepository")
-        {
-            SetConfig(proxyCreationEnabled, lazyLoadingEnabled, asNoTracking);
+            if (ConfigSettings.UseEntityFrameworkDatabaseManagement)
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<BaseDbContext<TEntity>, Configuration<TEntity>>(DefaultSqlConnectionStringName));
+            else
+                Database.SetInitializer<BaseDbContext<TEntity>>(null); 
         }
         #endregion
 
@@ -41,6 +47,12 @@ namespace Rhyous.WebFramework.Repositories
         /// The UserId of the logged in user. This is different than the user that may be in the connection string
         /// </summary>
         public int UserId { get; set; }
+
+        internal ISettings ConfigSettings
+        {
+            get { return _Settings ?? (_Settings = Settings.Instance); }
+            set { _Settings = value; }
+        } private ISettings _Settings;
 
         /// <summary>
         /// This method tries to get the UserId and if it is null, changes to the SystemUsers.Unknown user, id 2.

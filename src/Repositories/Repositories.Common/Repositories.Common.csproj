@@ -7,8 +7,8 @@
     <ProjectGuid>{4952293D-0EEC-4772-8854-4FE0F818CC92}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Repository</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Repository.Common</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.Repositories</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Repositories.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -57,9 +58,12 @@
     <Compile Include="AuditablesHandler.cs" />
     <Compile Include="BaseDbContext.cs" />
     <Compile Include="Extensions\DbEntityValidationExceptionExtensions.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\SystemUsers.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
