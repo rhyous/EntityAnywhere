@@ -38,20 +38,20 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="value">The string value the property expression must be equal to
         /// to find the item to return.</param>
         /// <returns></returns>
-        TInterface Get(string name, Expression<Func<TInterface, string>> propertyExpression);
+        TInterface Get(string name, Expression<Func<TEntity, string>> propertyExpression);
 
         /// <summary>
         /// List items that match the query expression.
         /// </summary>
         /// <param name="expression">A LINQ expression</param>
         /// <returns>A list of all items that match the expression</returns>
-        List<TInterface> GetByExpression(Expression<Func<TInterface, bool>> expression);
+        List<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
         /// List items that match the query string.
         /// </summary>
         /// <returns>A list of all items that match the query string</returns>
-        List<TInterface> Search(string searchString, params Expression<Func<TInterface, string>>[] propertyExpressions);
+        List<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions);
 
         /// <summary>
         /// A item(s) to add.

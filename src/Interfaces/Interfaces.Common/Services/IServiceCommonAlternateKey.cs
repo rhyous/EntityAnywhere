@@ -26,7 +26,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// <summary>
         /// The expression used to get the value of the alternate key property: x => x.Name
         /// </summary>
-        Expression<Func<TInterface, string>> PropertyExpression { get; }
+        Expression<Func<TEntity, string>> PropertyExpression { get; }
 
 
         TInterface Get(string id);

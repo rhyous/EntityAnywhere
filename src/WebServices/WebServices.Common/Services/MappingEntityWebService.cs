@@ -29,7 +29,7 @@ namespace Rhyous.WebFramework.WebServices
         public List<OdataObject<TEntity>> GetByE1Ids(List<TE1Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity1Property();
-            var lambda = propertyName.ToLambda<TInterface, TE1Id>(ids);
+            var lambda = propertyName.ToLambda<TEntity, TE1Id>(ids);
             return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 
@@ -37,7 +37,7 @@ namespace Rhyous.WebFramework.WebServices
         public List<OdataObject<TEntity>> GetByE2Ids(List<TE2Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity2Property();
-            var lambda = propertyName.ToLambda<TInterface, TE2Id>(ids);
+            var lambda = propertyName.ToLambda<TEntity, TE2Id>(ids);
             return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
     }

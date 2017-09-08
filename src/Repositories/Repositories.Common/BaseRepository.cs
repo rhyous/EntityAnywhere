@@ -68,21 +68,21 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual TInterface Get(string name, Expression<Func<TInterface, string>> propertyExpression)
+        public virtual TInterface Get(string name, Expression<Func<TEntity, string>> propertyExpression)
         {
             return DbContext.Entities.AsExpandable().FirstOrDefault(e => propertyExpression.Invoke(e) == name);
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> GetByExpression(Expression<Func<TInterface, bool>> expression)
+        public virtual List<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression)
         {
-            return DbContext.Entities.AsExpandable().Where(expression).ToList();
+            return DbContext.Entities.AsExpandable().Where(expression).ToList<TInterface>();
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Search(string searchString, params Expression<Func<TInterface, string>>[] propertyExpressions)
+        public virtual List<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions)
         {
-            var predicate = PredicateBuilder.New<TInterface>();
+            var predicate = PredicateBuilder.New<TEntity>();
             foreach (var expression in propertyExpressions)
             {
                 predicate.Or(e => expression.Invoke(e).Contains(searchString));
