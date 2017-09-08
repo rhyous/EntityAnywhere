@@ -48,19 +48,21 @@
 	</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-      SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
-      ECHO %25copyToDir%25
-      IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-      COPY /Y "$(TargetPath)" %25copyToDir%25
-      COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
+ECHO %copyToDir%
+IF NOT EXIST %copyToDir% MKDIR %copyToDir%
+COPY /Y "$(TargetPath)" %copyToDir%
+COPY /Y "$(TargetDir)$(TargetName).pdb" %copyToDir%
 
-      SET dllDir="%25copyToDir%25\bin"
-      ECHO %25dllDir%25
-      IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-      COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-      COPY /Y "$(Targetdir)*.pdb" %25dllDir%25
-    </PostBuildEvent>
+SET dllDir="%copyToDir%\bin"
+ECHO %dllDir%
+IF NOT EXIST %dllDir% MKDIR %dllDir%
+FOR %%X in ("$(Targetdir)*.dll") DO (
+   IF NOT "%%X"=="$(TargetPath)" COPY /Y "%%X" %dllDir%
+)
+FOR %%X in ("$(Targetdir)*.pdb") DO (
+   IF NOT "%%X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%%X" %dllDir%
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

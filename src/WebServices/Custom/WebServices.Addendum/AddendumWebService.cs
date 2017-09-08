@@ -17,7 +17,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <inheritdoc />
         public List<OdataObject<Addendum>> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
         {
-            var expression = PredicateBuilder.New<IAddendum>();
+            var expression = PredicateBuilder.New<Addendum>();
             foreach (var identifier in entityIdentifiers)
             {
                 expression.Or(e => e.Entity == identifier.Entity && e.EntityId == identifier.EntityId);

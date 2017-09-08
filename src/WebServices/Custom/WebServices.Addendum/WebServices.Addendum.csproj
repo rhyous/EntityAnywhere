@@ -63,10 +63,12 @@
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
@@ -75,6 +77,7 @@
     <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>
       <Name>WebServices.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +97,11 @@ COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 SET dllDir="%25copyToDir%25\bin"
 ECHO %25dllDir%25
 IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-COPY /Y "$(Targetdir)*.pdb" %25dllDir%25</PostBuildEvent>
+FOR %25%25X in ("$(Targetdir)*.dll") DO (
+   IF NOT "%25%25X"=="$(TargetPath)" COPY /Y "%25%25X" %25dllDir%25
+)
+FOR %25%25X in ("$(Targetdir)*.pdb") DO (
+   IF NOT "%25%25X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%25%25X" %25dllDir%25
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>
