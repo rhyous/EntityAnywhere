@@ -131,6 +131,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Common.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Common.Tests", "WebServices\WebServices.Common.Tests\WebServices.Common.Tests.csproj", "{23BFE438-5EC8-4422-BC46-178F1A69933B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices.Addendum", "WebServices\Custom\WebServices.Addendum\WebServices.Addendum.csproj", "{1637B5CC-7EAB-4C08-97E9-9B35F434525D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -483,6 +485,14 @@ Global
 		{23BFE438-5EC8-4422-BC46-178F1A69933B}.DEV2|Any CPU.Build.0 = Debug|Any CPU
 		{23BFE438-5EC8-4422-BC46-178F1A69933B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23BFE438-5EC8-4422-BC46-178F1A69933B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.DEV1|Any CPU.ActiveCfg = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.DEV1|Any CPU.Build.0 = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.DEV2|Any CPU.ActiveCfg = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.DEV2|Any CPU.Build.0 = Debug|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -550,5 +560,6 @@ Global
 		{678B3BA4-DFD6-4138-A87F-4A6084724EE8} = {F1563F88-3D1B-49AD-BF8E-3F5D189C6223}
 		{D00444C6-0F05-4B68-A048-BEC24A6DA41F} = {678B3BA4-DFD6-4138-A87F-4A6084724EE8}
 		{23BFE438-5EC8-4422-BC46-178F1A69933B} = {D5C56F8B-C9A0-4DF8-BFCA-7F5B618AAFD8}
+		{1637B5CC-7EAB-4C08-97E9-9B35F434525D} = {5103FF57-B68B-41C2-9FC3-7B475689067E}
 	EndGlobalSection
 EndGlobal
