@@ -104,8 +104,11 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityWebService.cs">
       <Link>Interfaces\IMappingEntityWebService.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Models\EntityMetadata.cs">
-      <Link>Models\EntityMetadata.cs</Link>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\CsdlEntity.cs">
+      <Link>Models\CsdlEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Models\CsdlProperty.cs">
+      <Link>Models\CsdlProperty.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Models\OdataObject.cs">
       <Link>Models\OdataObject.cs</Link>

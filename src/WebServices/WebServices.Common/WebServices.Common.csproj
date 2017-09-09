@@ -79,7 +79,8 @@
     <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
     <Compile Include="Interfaces\IMetadataService.cs" />
     <Compile Include="Models\AttributeToServiceDictionary.cs" />
-    <Compile Include="Models\EntityMetadata.cs" />
+    <Compile Include="Models\CsdlEntity.cs" />
+    <Compile Include="Models\CsdlProperty.cs" />
     <Compile Include="Extensions\OdataExtensions.cs" />
     <Compile Include="Interfaces\IHttpContextProvider.cs" />
     <Compile Include="Models\OdataObject.cs" />
