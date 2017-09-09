@@ -166,15 +166,15 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public EntityMetadata<TEntity> GetMetadata()
+        public CsdlEntity<TEntity> GetMetadata()
         {
             return TaskRunner.RunSynchonously(GetMetadataAsync);
         }
 
         /// <inheritdoc />
-        public async Task<EntityMetadata<TEntity>> GetMetadataAsync()
+        public async Task<CsdlEntity<TEntity>> GetMetadataAsync()
         {
-            return await HttpClientRunner.RunAndDeserialize<EntityMetadata<TEntity>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}/$Metadata");
+            return await HttpClientRunner.RunAndDeserialize<CsdlEntity<TEntity>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}/$Metadata");
         }
 
         /// <inheritdoc />

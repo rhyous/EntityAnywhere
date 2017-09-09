@@ -11,24 +11,24 @@ namespace Rhyous.WebFramework.WebServices
     /// <typeparam name="TInterface">The entity interface type.</typeparam>
     /// <typeparam name="TId">The entity id type.</typeparam>
     /// <typeparam name="TService">The entity service type.</typeparam>
-    public class EntityWebServiceAlternateKey<T, Tinterface, Tid, TService> : EntityWebService<T, Tinterface, Tid, TService>
-        where T : class, Tinterface, new()
-        where Tinterface : IEntity<Tid>
-        where TService : class, IServiceCommonAlternateKey<T, Tinterface, Tid>, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
+    public class EntityWebServiceAlternateKey<TEntity, TInterface, TId, TService> : EntityWebService<TEntity, TInterface, TId, TService>
+        where TEntity : class, TInterface, new()
+        where TInterface : IEntity<TId>
+        where TService : class, IServiceCommonAlternateKey<TEntity, TInterface, TId>, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        public override OdataObject<T> Get(string idOrName)
+        public override OdataObject<TEntity> Get(string idOrName)
         {
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return AltKeyService.Get(idOrName)?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(idOrName));
+                return AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(idOrName));
             return base.Get(idOrName);
         }
         
-        public virtual IServiceCommonAlternateKey<T, Tinterface, Tid> AltKeyService
+        public virtual IServiceCommonAlternateKey<TEntity, TInterface, TId> AltKeyService
         {
-            get { return Service as IServiceCommonAlternateKey<T, Tinterface, Tid>; }
+            get { return Service as IServiceCommonAlternateKey<TEntity, TInterface, TId>; }
         }
     }
 }

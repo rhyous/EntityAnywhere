@@ -1,4 +1,5 @@
 ﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
@@ -16,19 +17,32 @@ namespace Rhyous.WebFramework.WebServices
     /// <typeparam name="TInterface">The entity interface type.</typeparam>
     /// <typeparam name="TId">The entity id type.</typeparam>
     /// <typeparam name="TService">The entity service type.</typeparam>
-    public class EntityWebService<T, Tinterface, Tid, TService> : IEntityWebService<T, Tid>
-        where T : class, Tinterface, new()
-        where Tinterface : IEntity<Tid>
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
-        where TService : class, IServiceCommon<T, Tinterface, Tid>, new()
+    public class EntityWebService<TEntity, TInterface, TId, TService> : IEntityWebService<TEntity, TId>
+        where TEntity : class, TInterface, new()
+        where TInterface : IEntity<TId>
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        where TService : class, IServiceCommon<TEntity, TInterface, TId>, new()
     {
         /// <summary>
         /// This retuns metadata about the services.
         /// </summary>
         /// <returns>Schema of entity. Should be in CSDL (option for both json or xml should exist)</returns>
-        public virtual EntityMetadata<T> GetMetadata()
+        public virtual CsdlEntity<TEntity> GetMetadata()
         {
-            return new EntityMetadata<T>() { EntityName = typeof(T).Name, ExampleEntity = new T() };
+            var entity = new CsdlEntity<TEntity> { Keys = new List<string> { "Id" } };
+            foreach (var property in EntityType.GetProperties())
+            {
+                var isNullable = property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+                var propertyType = isNullable ? property.PropertyType.GetGenericArguments()[0] : property.PropertyType;
+                if (propertyType.FullName != null && CsdlTypeDictionary.Instance.ContainsKey(propertyType.FullName))
+                {
+                    var csdlTypes = new List<string> {CsdlTypeDictionary.Instance[propertyType.FullName]};
+                    if (isNullable)
+                        csdlTypes.Add("null");
+                    entity.Properties.Add(new CsdlProperty { Name = property.Name, CsdlType = csdlTypes, CsdlFormat = CsdlFormatDictionary.Instance[propertyType.FullName] });
+                }
+            }
+            return entity;
         }
 
         /// <summary>
@@ -36,11 +50,11 @@ namespace Rhyous.WebFramework.WebServices
         /// Note: Be careful using this on entities that are extremely large in quantity.
         /// </summary>
         /// <returns>List{OdataObject{T}} containing all entities</returns>
-        public virtual List<OdataObject<T>> GetAll()
+        public virtual List<OdataObject<TEntity>> GetAll()
         {
             if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
-            return Service.Get()?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
+                Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+            return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 
         /// <summary>
@@ -48,9 +62,9 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="ids"></param>
         /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
-        public virtual List<OdataObject<T>> GetByIds(List<Tid> ids)
+        public virtual List<OdataObject<TEntity>> GetByIds(List<TId> ids)
         {
-            return Service.Get(ids)?.ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
+            return Service.Get(ids)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 
         /// <summary>
@@ -58,9 +72,9 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="id">The entity id.</param>
         /// <returns>A OdataObject<T> object contain the single entity with the id provided.</returns>
-        public virtual OdataObject<T> Get(string id)
+        public virtual OdataObject<TEntity> Get(string id)
         {
-            return Service.Get(id.To<Tid>())?.ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
+            return Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
         /// <summary>
@@ -73,7 +87,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The value of the property.</returns>
         public virtual string GetProperty(string id, string property)
         {
-            return Service.GetProperty(id.To<Tid>(), property);
+            return Service.GetProperty(id.To<TId>(), property);
         }
 
         /// <summary>
@@ -85,7 +99,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns></returns>
         public string UpdateProperty(string id, string property, string value)
         {
-            return Service.UpdateProperty(id.To<Tid>(), property, value);
+            return Service.UpdateProperty(id.To<TId>(), property, value);
         }
 
         /// <summary>
@@ -93,9 +107,9 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="entities">The list of entities to create</param>
         /// <returns>The created entities.</returns>
-        public virtual List<OdataObject<T>> Post(List<T> entities)
+        public virtual List<OdataObject<TEntity>> Post(List<TEntity> entities)
         {
-            return Service.Add(entities.ToList<Tinterface>()).ToConcrete<T, Tinterface>().ToList().AsOdata(RequestUri);
+            return Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 
         /// <summary>
@@ -106,9 +120,9 @@ namespace Rhyous.WebFramework.WebServices
         /// the required properties for deserialization and changed properties.</param>
         /// <param name="changedProperties">the list of properties that are being changed.</param>
         /// <returns>The changed entity.</returns>
-        public virtual OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity)
+        public virtual OdataObject<TEntity> Patch(string id, PatchedEntity<TEntity> patchedEntity)
         {
-            return Service.Update(id.To<Tid>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
+            return Service.Update(id.To<TId>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
         /// <summary>
@@ -117,9 +131,9 @@ namespace Rhyous.WebFramework.WebServices
         /// <param name="id">The entity id to replace.</param>
         /// <param name="entity">The new entity.</param>
         /// <returns>The new entity.</returns>
-        public virtual OdataObject<T> Put(string id, T entity)
+        public virtual OdataObject<TEntity> Put(string id, TEntity entity)
         {
-            return Service.Replace(id.To<Tid>(), entity).ToConcrete<T, Tinterface>().AsOdata(RequestUri, GetAddenda(id));
+            return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
         }
 
 
@@ -130,19 +144,19 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>true if the entity could be deleted, false otherwise.</returns>
         public virtual bool Delete(string id)
         {
-            return Service.Delete(id.To<Tid>());
+            return Service.Delete(id.To<TId>());
         }
 
         public virtual List<Addendum> GetAddenda(string id)
         {
-            var entityName = typeof(T).Name;
+            var entityName = typeof(TEntity).Name;
             return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
                                  .ToConcrete<Addendum>().ToList();
         }
 
         public virtual List<Addendum> GetAddendaByEntityIds(List<string> entityIds)
         {
-            var entityName = typeof(T).Name;
+            var entityName = typeof(TEntity).Name;
             return AddendaService.Get(x => x.Entity == entityName && entityIds.Contains(x.EntityId))
                                  .ToConcrete<Addendum>().ToList();
         }
@@ -155,7 +169,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The value of the addendum.</returns>
         public virtual Addendum GetAddendaByName(string id, string name)
         {
-            var entityName = typeof(T).Name;
+            var entityName = typeof(TEntity).Name;
             return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString() && x.Property.Equals(name, StringComparison.InvariantCultureIgnoreCase))
                                  .OrderByDescending(x => x.CreateDate)
                                  .FirstOrDefault()
@@ -168,15 +182,15 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         #region Type property
-        public static Type EntityType => typeof(T);
+        public static Type EntityType => typeof(TEntity);
         #endregion
 
         #region Injectable Dependency
-        protected virtual IServiceCommon<T, Tinterface, Tid> Service
+        protected virtual IServiceCommon<TEntity, TInterface, TId> Service
         {
-            get { return _Service ?? (_Service = new EntityServiceLoader<T, TService>().LoadPluginOrCommon()); }
+            get { return _Service ?? (_Service = new EntityServiceLoader<TEntity, TService>().LoadPluginOrCommon()); }
             set { _Service = value; }
-        } protected IServiceCommon<T, Tinterface, Tid> _Service;
+        } protected IServiceCommon<TEntity, TInterface, TId> _Service;
 
         protected virtual IServiceCommon<Addendum, IAddendum, long> AddendaService
         {

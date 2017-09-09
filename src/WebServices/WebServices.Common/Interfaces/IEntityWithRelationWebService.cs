@@ -6,12 +6,12 @@ using System.ServiceModel.Web;
 namespace Rhyous.WebFramework.WebServices.Interfaces
 {
     [ServiceContract]
-    public interface IOneToManyEntityWebService<T, Tid> : IEntityWebService<T, Tid>
-        where T : class, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
+    public interface IOneToManyEntityWebService<TEntity, TId> : IEntityWebService<TEntity, TId>
+        where TEntity : class, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<T>> GetByRelatedEntityId(string id);
+        List<OdataObject<TEntity>> GetByRelatedEntityId(string id);
     }
 }

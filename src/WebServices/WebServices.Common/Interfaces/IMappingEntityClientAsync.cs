@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public interface IMappingEntityClientAsync<T, Tid, E1Tid, E2Tid> : IMappingEntityClient<T, Tid, E1Tid, E2Tid>, IEntityClient<T, Tid>
-        where T : class, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
-        where E1Tid : IComparable, IComparable<E1Tid>, IEquatable<E1Tid>
-        where E2Tid : IComparable, IComparable<E2Tid>, IEquatable<E2Tid>
+    public interface IMappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id> : IMappingEntityClient<TEntity, TId, TE1Id, TE2Id>, IEntityClient<TEntity, TId>
+        where TEntity : class, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        where TE1Id : IComparable, IComparable<TE1Id>, IEquatable<TE1Id>
+        where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {        /// <summary>
              /// Gets the mapped entity by a list of Entity1 ids. Call is asynchonous.
              /// </summary>
              /// <param name="ids">A list of Entity1 ids.</param>
              /// <returns>A list of mapped entities.</returns>
-        Task<List<OdataObject<T>>> GetByE1IdsAsync(IEnumerable<E1Tid> ids);
+        Task<List<OdataObject<TEntity>>> GetByE1IdsAsync(IEnumerable<TE1Id> ids);
         /// <summary>
         /// Gets the mapped entity by a list of Entity2 ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of Entity2 ids.</param>
         /// <returns>A list of mapped entities.</returns>
-        Task<List<OdataObject<T>>> GetByE2IdsAsync(IEnumerable<E2Tid> ids);
+        Task<List<OdataObject<TEntity>>> GetByE2IdsAsync(IEnumerable<TE2Id> ids);
     }
 }

@@ -7,9 +7,9 @@ using System.ServiceModel.Web;
 namespace Rhyous.WebFramework.WebServices
 {
     [ServiceContract]
-    public interface IEntityWebService<T, Tid>
-        where T : class, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
+    public interface IEntityWebService<TEntity, TId>
+        where TEntity : class, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
         /// <summary>
         /// Gets the metadata about the entity.
@@ -17,7 +17,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The metadata about the entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        EntityMetadata<T> GetMetadata();
+        CsdlEntity<TEntity> GetMetadata();
 
         /// <summary>
         /// Gets all entities.
@@ -25,7 +25,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>All Entities</returns>
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<T>> GetAll();
+        List<OdataObject<TEntity>> GetAll();
 
         /// <summary>
         /// Gets all entities with the provided ids.
@@ -34,7 +34,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>All entities with the provided ids.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<T>> GetByIds(List<Tid> ids);
+        List<OdataObject<TEntity>> GetByIds(List<TId> ids);
 
         /// <summary>
         /// Gets an entity be a specific id.
@@ -43,7 +43,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The entity with the specified id.</returns>
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<T> Get(string id);
+        OdataObject<TEntity> Get(string id);
         
         /// <summary>
         /// Gets an entity's property value by a specific id and property name.
@@ -73,7 +73,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The added entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<T>> Post(List<T> entity);
+        List<OdataObject<TEntity>> Post(List<TEntity> entity);
 
         /// <summary>
         /// Replaces an entity at the specified id.
@@ -83,7 +83,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The replaced entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<T> Put(string id, T entity);
+        OdataObject<TEntity> Put(string id, TEntity entity);
 
         /// <summary>
         /// Used to update multiple properties of an existing entity without first getting the entity.
@@ -93,7 +93,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The patched entity, fetched completely after update.</returns>
         [OperationContract]
         [WebInvoke(Method = "PATCH", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<T> Patch(string id, PatchedEntity<T> patchedEntity);
+        OdataObject<TEntity> Patch(string id, PatchedEntity<TEntity> patchedEntity);
 
         /// <summary>
         /// Deletes the entity by the specified id.

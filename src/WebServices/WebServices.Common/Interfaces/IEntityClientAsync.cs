@@ -12,50 +12,50 @@ namespace Rhyous.WebFramework.Clients
     /// </summary>
     /// <typeparam name="TEntity">The entity type</typeparam>
     /// <typeparam name="TId">The entity id type</typeparam>
-    public interface IEntityClientAsync<T, Tid> : IEntityClient<T, Tid>
-        where T : class, new()
-        where Tid : IComparable, IComparable<Tid>, IEquatable<Tid>
+    public interface IEntityClientAsync<TEntity, TId> : IEntityClient<TEntity, TId>
+        where TEntity : class, new()
+        where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
         #region Async
         /// <summary>
         /// Gets the metadata about the entity. Call is asynchonous.
         /// </summary>
         /// <returns>The metadata about the entity.</returns>
-        Task<EntityMetadata<T>> GetMetadataAsync();
+        Task<CsdlEntity<TEntity>> GetMetadataAsync();
 
         /// <summary>
         /// Gets all entities. Call is asynchonous.
         /// </summary>
         /// <returns>All Entities</returns>
-        Task<List<OdataObject<T>>> GetAllAsync();
+        Task<List<OdataObject<TEntity>>> GetAllAsync();
 
         /// <summary>
         /// This provides an additional option to make a get call with query parameters. Call is asynchonous.
         /// </summary>
         /// <param name="queryParameters">a string of query parameters that you would find left of the URL. Starts with a ?.</param>
         /// <returns>A list of entities that match the query parameters.</returns>
-        Task<List<OdataObject<T>>> GetByQueryParametersAsync(string queryParameters);
+        Task<List<OdataObject<TEntity>>> GetByQueryParametersAsync(string queryParameters);
 
         /// <summary>
         /// Gets all entities with the provided ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>
         /// <returns>All entities with the provided ids.</returns>
-        Task<List<OdataObject<T>>> GetByIdsAsync(List<Tid> ids);
+        Task<List<OdataObject<TEntity>>> GetByIdsAsync(List<TId> ids);
 
         /// <summary>
         /// Gets all entities with the provided ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>
         /// <returns>All entities with the provided ids.</returns>
-        Task<List<OdataObject<T>>> GetByIdsAsync(IEnumerable<Tid> ids);
+        Task<List<OdataObject<TEntity>>> GetByIdsAsync(IEnumerable<TId> ids);
 
         /// <summary>
         /// Gets an entity be a specific id. Call is asynchonous.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
         /// <returns>The entity with the specified id.</returns>
-        Task<OdataObject<T>> GetAsync(string id);
+        Task<OdataObject<TEntity>> GetAsync(string id);
 
         /// <summary>
         /// Gets an entity's property value by a specific id and property name. Call is asynchonous.
@@ -79,7 +79,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="entity">The entity to add.</param>
         /// <returns>The added entity.</returns>
-        Task<List<OdataObject<T>>> PostAsync(List<T> entity);
+        Task<List<OdataObject<TEntity>>> PostAsync(List<TEntity> entity);
 
         /// <summary>
         /// Replaces an entity at the specified id. Call is asynchonous.
@@ -87,7 +87,7 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="id">The id of the entity.</param>
         /// <param name="entity">The entity to add.</param>
         /// <returns>The replaced entity.</returns>
-        Task<OdataObject<T>> PutAsync(string id, T entity);
+        Task<OdataObject<TEntity>> PutAsync(string id, TEntity entity);
 
         /// <summary>
         /// Used to update multiple properties of an existing entity without first getting the entity. Call is asynchonous.
@@ -95,7 +95,7 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="id">The id of the entity.</param>
         /// <param name="patchedEntity">An object that contains a stub entity instance with the only properties set being the ones that will change. It also has a list of changed properties.</param>
         /// <returns>The patched entity, fetched completely after update.</returns>
-        Task<OdataObject<T>> PatchAsync(string id, PatchedEntity<T> patchedEntity);
+        Task<OdataObject<TEntity>> PatchAsync(string id, PatchedEntity<TEntity> patchedEntity);
 
         /// <summary>
         /// Deletes the entity by the specified id. Call is asynchonous.
@@ -131,7 +131,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hsotname/path/EntityService.svc/.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
-        Task<List<OdataObject<T>>> GetByCustomUrlAsync(string url);
+        Task<List<OdataObject<TEntity>>> GetByCustomUrlAsync(string url);
         #endregion
     }
 }

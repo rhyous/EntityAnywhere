@@ -3,9 +3,16 @@ using System.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {
+    /// <summary>
+    /// This class exists to do start EAF.
+    /// </summary>
     public class Global : HttpApplication
     {
-
+        /// <summary>
+        /// This method runs when the web site/application pool starts and runs Starter.Start().
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Application_Start(object sender, EventArgs e)
         {
             Starter.Start();
