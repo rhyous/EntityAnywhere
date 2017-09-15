@@ -5,6 +5,7 @@ using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Net.Http;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Rhyous.WebFramework.Clients
     {
         public const string EntitySuffix = "EntityUrl";
         public const string ServiceSuffix = "Service.svc";
+        public const string EntityHost = "EntityHost";
 
         public EntityClient()
         {
@@ -42,23 +44,29 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         public JsonSerializerSettings JsonSerializerSettings { get; set; }
 
-        internal HttpClient HttpClient
-        {
-            get { return _HttpClient ?? (_HttpClient = new HttpClient()); }
-            set { _HttpClient = value; }
-        } private HttpClient _HttpClient;
-
         /// <inheritdoc />
         public IHttpContextProvider HttpContextProvider
         {
             get { return _HttpContextProvider ?? (_HttpContextProvider = new HttpContextProvider()); }
             set { _HttpContextProvider = value; }
         } private IHttpContextProvider _HttpContextProvider;
+        
+        internal HttpClient HttpClient
+        {
+            get { return _HttpClient ?? (_HttpClient = new HttpClient()); }
+            set { _HttpClient = value; }
+        } private HttpClient _HttpClient;
+
+        internal NameValueCollection AppSettings
+        {
+            get { return _AppSettings ?? (_AppSettings = ConfigurationManager.AppSettings); }
+            set { _AppSettings = value; }
+        } public NameValueCollection _AppSettings;
 
         /// <inheritdoc />
         public string ServiceUrl
         {
-            get { return _ServiceUrl ?? (_ServiceUrl = ConfigurationManager.AppSettings.Get($"{Entity}{EntitySuffix}", $"{HttpContextProvider.WebHost}/{typeof(TEntity).Name}{ServiceSuffix}")); }
+            get { return _ServiceUrl ?? (_ServiceUrl = AppSettings.Get($"{Entity}{EntitySuffix}", $"{AppSettings.Get(EntityHost, HttpContextProvider.WebHost)}/{Entity}{ServiceSuffix}")); }
             set { _ServiceUrl = value; }
         } internal string _ServiceUrl;
 
