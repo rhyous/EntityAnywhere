@@ -46,7 +46,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// <returns>An instance of T, where all the Tinterface properties, including inherited properties, are copied to the instance of T. This is not a deep copy. A null source results in null.</returns>
         public static T ConcreteCopy<T, Tinterface>(this Tinterface source)
             where T : class, Tinterface, new()
-
         {
             if (source == null)
                 return null;
