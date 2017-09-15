@@ -105,6 +105,7 @@
     <Compile Include="Business\IPluginLoader.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />
+    <Compile Include="Extensions\QueryableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />

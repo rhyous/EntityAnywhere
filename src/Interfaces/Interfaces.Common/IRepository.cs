@@ -17,8 +17,16 @@ namespace Rhyous.WebFramework.Interfaces
         /// <summary>
         /// List all items of T.
         /// </summary>
+        /// <param name="orderBy">The name of the property to order by.</param>
         /// <returns>A list of all items of T</returns>
-        IQueryable<TInterface> Get();
+        IQueryable<TInterface> Get(bool order = false, string orderBy = "Id");
+
+        /// <summary>
+        /// List all items of T.
+        /// </summary>
+        /// <param name="orderExpression">The expression of the property to order by.</param>
+        /// <returns>A list of all items of T</returns>
+        IQueryable<TInterface> Get(Expression<Func<TEntity, TId>> orderExpression);
 
         /// <summary>
         /// List all items of T with the given ids.
@@ -45,8 +53,17 @@ namespace Rhyous.WebFramework.Interfaces
         /// List items that match the query expression.
         /// </summary>
         /// <param name="expression">A LINQ expression</param>
+        /// <param name="orderBy">The name of the property to order by.</param>
         /// <returns>A list of all items that match the expression</returns>
-        IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression);
+        IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression, string orderBy = "Id");
+
+        /// <summary>
+        /// List items that match the query expression.
+        /// </summary>
+        /// <param name="expression">A LINQ expression</param>
+        /// <param name="orderExpression">The expression of the property to order by.</param>
+        /// <returns>A list of all items that match the expression</returns>
+        IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, TId>> orderExpression);
 
         /// <summary>
         /// List items that match the query string.

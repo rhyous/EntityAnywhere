@@ -51,7 +51,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="expression">An expression that determines which entities to return.</param>
         /// <returns>A list of entities that match the expression.</returns>
-        List<TInterface> Get(Expression<Func<TEntity, bool>> expression);
+        List<TInterface> Get(Expression<Func<TEntity, bool>> expression, int take = -1, int skip = -1);
 
         /// <summary>
         /// Gets the value of a specific property of an entity of the specified id.

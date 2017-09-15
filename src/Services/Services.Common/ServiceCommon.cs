@@ -46,13 +46,14 @@ namespace Rhyous.WebFramework.Services
         /// <inheritdoc />
         public virtual List<TInterface> Get(NameValueCollection parameters)
         {
-            throw new NotImplementedException();
+            var expression = PredicateBuilder.New<TEntity>(true);
+            return Get(expression, parameters.Get("$top", -1), parameters.Get("$skip", -1));
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get(Expression<Func<TEntity, bool>> expression)
+        public virtual List<TInterface> Get(Expression<Func<TEntity, bool>> expression, int take = -1, int skip = -1)
         {
-            return Repo.GetByExpression(expression).ToList();
+            return Repo.GetByExpression(expression, e => e.Id).IfSkip(skip).IfTake(take).ToList();
         }
 
         /// <inheritdoc />

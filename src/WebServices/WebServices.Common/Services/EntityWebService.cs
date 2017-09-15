@@ -53,7 +53,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual List<OdataObject<TEntity>> GetAll()
         {
             if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+                return Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
             return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
         }
 

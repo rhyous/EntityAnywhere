@@ -50,9 +50,21 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual IQueryable<TInterface> Get()
+        public virtual IQueryable<TInterface> Get(bool order = false, string orderBy = "Id")
         {
-            return DbContext.Entities;
+            var query = DbContext.Entities.AsQueryable();
+            if (order && !string.IsNullOrWhiteSpace(orderBy))
+                query = query.OrderBy(orderBy.ToLambda<TEntity,TId>());
+            return query;
+        }
+
+        /// <inheritdoc />
+        public virtual IQueryable<TInterface> Get(Expression<Func<TEntity, TId>> orderExpression)
+        {
+            var query = DbContext.Entities.AsQueryable();
+            if (orderExpression != null)
+                query = query.OrderBy(orderExpression);
+            return query;
         }
 
         /// <inheritdoc />
@@ -74,9 +86,21 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression)
+        public virtual IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression, string orderBy = "Id")
         {
-            return DbContext.Entities.AsExpandable().Where(expression);                    
+            var query = DbContext.Entities.AsExpandable().Where(expression);
+            if (!string.IsNullOrWhiteSpace(orderBy))
+                query = query.OrderBy(orderBy.ToLambda<TEntity, TId>());
+            return query;
+        }
+
+        /// <inheritdoc />
+        public virtual IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression, Expression<Func<TEntity, TId>> orderExpression)
+        {
+            var query = DbContext.Entities.AsExpandable().Where(expression);
+            if (orderExpression != null)
+                query = query.OrderBy(orderExpression);
+            return query;
         }
 
         /// <inheritdoc />
