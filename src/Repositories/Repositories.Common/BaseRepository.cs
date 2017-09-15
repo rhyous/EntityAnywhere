@@ -50,15 +50,15 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get()
+        public virtual IQueryable<TInterface> Get()
         {
-            return DbContext.Entities.ToList<TInterface>();
+            return DbContext.Entities;
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get(List<TId> ids)
+        public virtual IQueryable<TInterface> Get(List<TId> ids)
         {
-            return DbContext.Entities.Where(e => ids.Contains(e.Id)).ToList<TInterface>();
+            return DbContext.Entities.Where(e => ids.Contains(e.Id));
         }
 
         /// <inheritdoc />
@@ -74,13 +74,13 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression)
+        public virtual IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression)
         {
-            return DbContext.Entities.AsExpandable().Where(expression).ToList<TInterface>();
+            return DbContext.Entities.AsExpandable().Where(expression);                    
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions)
+        public virtual IQueryable<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions)
         {
             var predicate = PredicateBuilder.New<TEntity>();
             foreach (var expression in propertyExpressions)

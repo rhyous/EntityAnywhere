@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Interfaces
@@ -17,13 +18,13 @@ namespace Rhyous.WebFramework.Interfaces
         /// List all items of T.
         /// </summary>
         /// <returns>A list of all items of T</returns>
-        List<TInterface> Get();
+        IQueryable<TInterface> Get();
 
         /// <summary>
         /// List all items of T with the given ids.
         /// </summary>
         /// <returns>A list of all items of T with the give ids</returns>
-        List<TInterface> Get(List<TId> ids);
+        IQueryable<TInterface> Get(List<TId> ids);
 
         /// <summary>
         /// Gets an item by Id
@@ -45,13 +46,13 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="expression">A LINQ expression</param>
         /// <returns>A list of all items that match the expression</returns>
-        List<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression);
+        IQueryable<TInterface> GetByExpression(Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
         /// List items that match the query string.
         /// </summary>
         /// <returns>A list of all items that match the query string</returns>
-        List<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions);
+        IQueryable<TInterface> Search(string searchString, params Expression<Func<TEntity, string>>[] propertyExpressions);
 
         /// <summary>
         /// A item(s) to add.

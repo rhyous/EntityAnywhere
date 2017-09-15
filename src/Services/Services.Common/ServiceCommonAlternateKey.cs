@@ -1,6 +1,7 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
@@ -38,7 +39,7 @@ namespace Rhyous.WebFramework.Services
         /// <inheritdoc />
         public List<TInterface> Search(string stringProperty)
         {
-            return Repo.Search(stringProperty, PropertyExpression);
+            return Repo.Search(stringProperty, PropertyExpression).ToList();
         }
 
         /// <inheritdoc />

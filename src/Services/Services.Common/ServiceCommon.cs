@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using LinqKit;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -51,7 +52,7 @@ namespace Rhyous.WebFramework.Services
         /// <inheritdoc />
         public virtual List<TInterface> Get(Expression<Func<TEntity, bool>> expression)
         {
-            return Repo.GetByExpression(expression);
+            return Repo.GetByExpression(expression).ToList();
         }
 
         /// <inheritdoc />
