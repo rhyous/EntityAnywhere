@@ -47,6 +47,9 @@ namespace Rhyous.WebFramework.Services
         public virtual List<TInterface> Get(NameValueCollection parameters)
         {
             var expression = PredicateBuilder.New<TEntity>(true);
+            var filterString = parameters.Get("$filter", string.Empty);
+            if (!string.IsNullOrWhiteSpace(filterString))
+                expression.Start(filterString.ToExpression<TEntity>());
             return Get(expression, parameters.Get("$top", -1), parameters.Get("$skip", -1));
         }
 

@@ -1,61 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Services
 {
     public static class StringExtensions
     {
-        /// <summary>
-        /// Creates a lambda out of a property name that when called should return the property value.
-        /// </summary>
-        /// <typeparam name="T">The type of teh object the lambda will run against.</typeparam>
-        /// <typeparam name="TResult">The value type that the lambda should return when processed.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <returns>An Expression that should return the property value when called.</returns>
-        public static Expression<Func<T, TResult>> ToLambda<T, TResult>(this string propertyName)
+        public static Expression<Func<T, bool>> ToExpression<T>(this string filterString, Type compareType)
         {
-            var param = Expression.Parameter(typeof(T));
-            var body = Expression.PropertyOrField(param, propertyName);
-            return Expression.Lambda<Func<T, TResult>>(body, param);
+            var method = typeof(StringExtensions).GetMethods().Where(m => m.Name == "ToExpression" && m.IsGenericMethod && m.GetParameters().Length == 1).FirstOrDefault();
+            method = method.MakeGenericMethod(typeof(T), compareType);
+            return method.Invoke(null, new[] { filterString }) as Expression<Func<T, bool>>;
         }
 
-
-        /// <summary>
-        /// Creates a lambda out of a property name and a value that should return true or false whether the property value equals the specified value.
-        /// </summary>
-        /// <typeparam name="T">The type of teh object the lambda will run against.</typeparam>
-        /// <typeparam name="TInput">The type of the specified input value.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="value">The value to compare.</param>
-        /// <param name="methodName">Equals is the default. Any valid method could be used. For example, if TInput is string, StartsWith or EndsWith, etc., would be options.</param>
-        /// <returns>An Expression that when called should return true or false whether the property value equals the specified value.</returns>
-        public static Expression<Func<T, bool>> ToLambda<T, TInput>(this string propertyName, TInput value, string methodName = "Equals")
+        public static Expression<Func<T, bool>> ToExpression<T>(this string filterString)
         {
-            ParameterExpression parameter = Expression.Parameter(typeof(T), "e");
-            Expression property = Expression.Property(parameter, propertyName);
-            Expression target = Expression.Constant(value);
-            Expression method = Expression.Call(property, methodName, null, target);
-            return Expression.Lambda<Func<T, bool>>(method, parameter);
-        }
-
-        /// <summary>
-        /// Creates a lambda out of a property name and a list of values that should return true or false whether the property value is contained in the specified value list.
-        /// </summary>
-        /// <typeparam name="T">The type of the object the lambda will run against.</typeparam>
-        /// <typeparam name="TInput">The type of the specified List of input values.</typeparam>
-        /// <param name="propertyName">The name of the property.</param>
-        /// <param name="values">A list of values.</param>
-        /// <param name="methodName">Contains is the default. Any valid method could be used. For example, if TInput is string, StartsWith or EndsWith, etc., would be options.</param>
-        /// <returns>An Expression that when called should return true or false whether the property value is contained in the list of specified value.</returns>
-        public static Expression<Func<T, bool>> ToLambda<T, TInput>(this string propertyName, List<TInput> values, string methodName = "Contains")
-        {
-            var methodInfo = typeof(List<TInput>).GetMethod(methodName,  new Type[] { typeof(TInput) });
-            var list = Expression.Constant(values);
-            var param = Expression.Parameter(typeof(T), "e");
-            var value = Expression.Property(param, propertyName);
-            var body = Expression.Call(list, methodInfo, value);            
-            return Expression.Lambda<Func<T, bool>>(body, param);
+            return new FilterExpressionBuilder<T>(filterString).Expression;
         }
     }
 }

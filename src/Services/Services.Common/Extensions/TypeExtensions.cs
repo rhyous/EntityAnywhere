@@ -6,7 +6,6 @@ namespace Rhyous.WebFramework.Services
 {
     public static class TypeExtensions
     {
-
         /// <summary>
         /// A quick method to get the AlternateKey of an Entity.
         /// </summary>

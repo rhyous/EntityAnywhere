@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;

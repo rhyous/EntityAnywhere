@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
