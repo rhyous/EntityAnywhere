@@ -37,8 +37,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.0.9\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

@@ -33,9 +33,11 @@
     <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Rhyous.Odata.Filter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.0\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.0.9\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -105,7 +107,6 @@
     <Compile Include="Business\CryptoRandomString.cs" />
     <Compile Include="Business\EntityRepositoryLoader.cs" />
     <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
-    <Compile Include="Business\FilterExpressionBuilder.cs" />
     <Compile Include="Business\Hash.cs" />
     <Compile Include="Business\IPluginLoader.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />

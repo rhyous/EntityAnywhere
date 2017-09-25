@@ -13,10 +13,5 @@ namespace Rhyous.WebFramework.Services
             method = method.MakeGenericMethod(typeof(T), compareType);
             return method.Invoke(null, new[] { filterString }) as Expression<Func<T, bool>>;
         }
-
-        public static Expression<Func<T, bool>> ToExpression<T>(this string filterString)
-        {
-            return new FilterExpressionBuilder<T>(filterString).Expression;
-        }
     }
 }

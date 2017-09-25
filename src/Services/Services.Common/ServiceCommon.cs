@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using Rhyous.Odata;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -46,11 +47,9 @@ namespace Rhyous.WebFramework.Services
         /// <inheritdoc />
         public virtual List<TInterface> Get(NameValueCollection parameters)
         {
-            var expression = PredicateBuilder.New<TEntity>(true);
             var filterString = parameters.Get("$filter", string.Empty);
-            if (!string.IsNullOrWhiteSpace(filterString))
-                expression.Start(filterString.ToExpression<TEntity>());
-            return Get(expression, parameters.Get("$top", -1), parameters.Get("$skip", -1));
+            var builder = new FilterExpressionBuilder<TEntity>(filterString, new FilterExpressionParser<TEntity>());
+            return Get(builder.Expression, parameters.Get("$top", -1), parameters.Get("$skip", -1));
         }
 
         /// <inheritdoc />

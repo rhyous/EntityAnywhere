@@ -42,6 +42,7 @@
     <Compile Include="AuditableEntity.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Extensions\ConcreteConverter.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="IAddendum.cs" />
     <Compile Include="Extensions\Extensions.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="IAuditableLastUpdatedDate.cs" />
     <Compile Include="IAuditableUsers.cs" />
     <Compile Include="IDescription.cs" />
+    <Compile Include="IDictionaryDefaultValueProvider.cs" />
     <Compile Include="IEnabled.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IMappingEntity.cs" />

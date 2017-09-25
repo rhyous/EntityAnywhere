@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhyous.WebFramework.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Rhyous.WebFramework.Behaviors

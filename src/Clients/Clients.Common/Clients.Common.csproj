@@ -34,7 +34,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.0.9\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -55,14 +55,8 @@
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Dictionaries\PluralizationDictionary.cs">
       <Link>Dictionaries\PluralizationDictionary.cs</Link>
     </Compile>
-    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Extensions\DictionaryExtensions.cs">
-      <Link>Extensions\DictionaryExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Extensions\TypeExtensions.cs">
       <Link>Extensions\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Interfaces\IDictionaryDefaultValueProvider.cs">
-      <Link>Interfaces\IDictionaryDefaultValueProvider.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>EntityClient.cs</Link>

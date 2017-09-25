@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Rhyous.WebFramework.Behaviors;
+using Rhyous.WebFramework.Common;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.WebServices;

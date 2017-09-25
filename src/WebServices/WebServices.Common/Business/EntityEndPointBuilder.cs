@@ -1,5 +1,6 @@
 ﻿using Rhyous.WebFramework.Attributes;
 using Rhyous.WebFramework.Behaviors;
+using Rhyous.WebFramework.Common;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;

@@ -49,10 +49,8 @@
     <Compile Include="Dictionaries\CsdlFormatDictionary.cs" />
     <Compile Include="Dictionaries\CsdlTypeDictionary.cs" />
     <Compile Include="Exceptions\ConflictingAttributesException.cs" />
-    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="ServiceBehaviorApplicator.cs" />
     <Compile Include="ServiceBehaviorLoader.cs" />
-    <Compile Include="Interfaces\IDictionaryDefaultValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Dictionaries\PluralizationDictionary.cs" />
     <Compile Include="Dictionaries\RestDictionary.cs" />
@@ -79,6 +77,9 @@
       <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
       <Name>Behaviors.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
