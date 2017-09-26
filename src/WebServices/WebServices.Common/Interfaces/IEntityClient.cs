@@ -1,6 +1,8 @@
 ﻿using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
@@ -30,6 +32,11 @@ namespace Rhyous.WebFramework.Clients
         string EntityPluralized { get; }
 
         /// <summary>
+        /// Returns the HttpClient this EntityClient will use.
+        /// </summary>
+        HttpClient HttpClient { get; }
+
+        /// <summary>
         /// This is used to find the first part of the url: http or https and hostname, etc.
         /// https://host/path/to/api
         /// </summary>
@@ -52,8 +59,28 @@ namespace Rhyous.WebFramework.Clients
         /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
         /// </summary>
-        /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hsotname/path/EntityService.svc/.</param>
+        /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
         List<OdataObject<TEntity>> GetByCustomUrl(string urlPart);
+
+        /// <summary>
+        /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
+        /// </summary>
+        /// <remarks>This overload specifically is used for HttpClient actions other than GET, such as POST, that has content.</remarks>
+        /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/.</param>
+        /// <param name="httpMethod"></param>
+        /// <param name="content">The HttpContent form. It must already be in the correct format.</param>
+        /// <returns>A list of entities returned by the custom service.</returns>
+        List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content);
+
+        /// <summary>
+        /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
+        /// </summary>
+        /// <remarks>This overload specifically is used for HttpClient actions other than GET, such as POST, that has content.</remarks>
+        /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/ part.</param>
+        /// <param name="httpMethod">The HttpClient method to call.</param>
+        /// <param name="content">The content in object form, it will be converted to JSON.</param>
+        /// <returns>A list of entities returned by the custom service.</returns>
+        List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content);
     }
 }

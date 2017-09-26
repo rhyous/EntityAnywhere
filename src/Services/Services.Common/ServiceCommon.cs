@@ -48,6 +48,8 @@ namespace Rhyous.WebFramework.Services
         public virtual List<TInterface> Get(NameValueCollection parameters)
         {
             var filterString = parameters.Get("$filter", string.Empty);
+            if (string.IsNullOrWhiteSpace(filterString))
+                return Get(null,  parameters.Get("$top", -1), parameters.Get("$skip", -1));
             var builder = new FilterExpressionBuilder<TEntity>(filterString, new FilterExpressionParser<TEntity>());
             return Get(builder.Expression, parameters.Get("$top", -1), parameters.Get("$skip", -1));
         }
@@ -55,7 +57,7 @@ namespace Rhyous.WebFramework.Services
         /// <inheritdoc />
         public virtual List<TInterface> Get(Expression<Func<TEntity, bool>> expression, int take = -1, int skip = -1)
         {
-            return Repo.GetByExpression(expression, e => e.Id).IfSkip(skip).IfTake(take).ToList();
+            return Repo.GetByExpression(expression ?? PredicateBuilder.New<TEntity>(true), e => e.Id).IfSkip(skip).IfTake(take).ToList();
         }
 
         /// <inheritdoc />

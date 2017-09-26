@@ -52,7 +52,8 @@ namespace Rhyous.WebFramework.Clients
             set { _HttpContextProvider = value; }
         } private IHttpContextProvider _HttpContextProvider;
         
-        internal HttpClient HttpClient
+        /// <inheritdoc />
+        public HttpClient HttpClient
         {
             get { return _HttpClient ?? (_HttpClient = new HttpClient()); }
             set { _HttpClient = value; }
@@ -113,7 +114,7 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.RunAndDeserialize<List<OdataObject<TEntity>>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}");
         }
 
-
+        #region Get by Custom Url
         /// <inheritdoc />
         public List<OdataObject<TEntity>> GetByCustomUrl(string urlPart)
         {
@@ -127,9 +128,35 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
+        public async Task<List<OdataObject<TEntity>>> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
+        {
+            return await HttpClientRunner.RunAndDeserialize<List<OdataObject<TEntity>>>(httpMethod, $"{ServiceUrl}/{urlPart}", content);
+        }
+
+        /// <inheritdoc />
+        public List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
+        {
+            return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart, httpMethod, content);
+        }
+        
+        /// <inheritdoc />
+        public async Task<List<OdataObject<TEntity>>> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
+        {
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(content, JsonSerializerSettings), Encoding.UTF8, "application/json");
+            return await HttpClientRunner.RunAndDeserialize<List<OdataObject<TEntity>>>(httpMethod, $"{ServiceUrl}/{urlPart}", postContent);
+        }
+
+        /// <inheritdoc />
+        public List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
+        {
+            return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart, httpMethod, content);
+        }
+        #endregion
+
+        /// <inheritdoc />
         public List<OdataObject<TEntity>> GetByQueryParameters(string queryParameters)
         {
-            return TaskRunner.RunSynchonously(GetByCustomUrlAsync, queryParameters);
+            return TaskRunner.RunSynchonously(GetByQueryParametersAsync, queryParameters);
         }
 
         /// <inheritdoc />

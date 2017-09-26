@@ -47,7 +47,7 @@ namespace Rhyous.WebFramework.Clients
         public static async Task<TResult> RunAndDeserialize<TResult>(Func<string, Task<HttpResponseMessage>> method, string url)
         {
             var jsonResult = await Run(method, url);
-            return JsonConvert.DeserializeObject<TResult>(jsonResult);
+            try { return JsonConvert.DeserializeObject<TResult>(jsonResult); } catch { return default(TResult); };
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Rhyous.WebFramework.Interfaces
 {
@@ -9,6 +10,7 @@ namespace Rhyous.WebFramework.Interfaces
     public abstract class Entity<TId> : IEntity<TId>
     {
         /// <inheritdoc />
+        [Key]
         public TId Id { get; set; }
     }
 }

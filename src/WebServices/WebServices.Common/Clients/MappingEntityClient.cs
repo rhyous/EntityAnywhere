@@ -96,7 +96,7 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         private async Task<List<OdataObject<TEntity>>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
         {
-            return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<TEntity>>>(HttpClient.PostAsync, $"{ServiceUrl}/Api/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
+            return await HttpClientRunner.RunAndDeserialize<List<Eid>, List<OdataObject<TEntity>>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
         }
     }
 }
