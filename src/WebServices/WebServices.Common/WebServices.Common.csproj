@@ -36,6 +36,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
       <Private>True</Private>
@@ -79,8 +82,6 @@
     <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
     <Compile Include="Interfaces\IMetadataService.cs" />
     <Compile Include="Models\AttributeToServiceDictionary.cs" />
-    <Compile Include="Models\CsdlEntity.cs" />
-    <Compile Include="Models\CsdlProperty.cs" />
     <Compile Include="Extensions\OdataExtensions.cs" />
     <Compile Include="Interfaces\IHttpContextProvider.cs" />
     <Compile Include="Models\OdataObject.cs" />

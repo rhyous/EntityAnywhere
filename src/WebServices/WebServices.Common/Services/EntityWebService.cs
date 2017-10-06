@@ -1,4 +1,5 @@
-﻿using Rhyous.StringLibrary;
+﻿using Rhyous.Odata.Csdl;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
@@ -29,20 +30,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>Schema of entity. Should be in CSDL (option for both json or xml should exist)</returns>
         public virtual CsdlEntity<TEntity> GetMetadata()
         {
-            var entity = new CsdlEntity<TEntity> { Keys = new List<string> { "Id" } };
-            foreach (var property in EntityType.GetProperties())
-            {
-                var isNullable = property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
-                var propertyType = isNullable ? property.PropertyType.GetGenericArguments()[0] : property.PropertyType;
-                if (propertyType.FullName != null && CsdlTypeDictionary.Instance.ContainsKey(propertyType.FullName))
-                {
-                    var csdlTypes = new List<string> {CsdlTypeDictionary.Instance[propertyType.FullName]};
-                    if (isNullable)
-                        csdlTypes.Add("null");
-                    entity.Properties.Add(new CsdlProperty { Name = property.Name, CsdlType = csdlTypes, CsdlFormat = CsdlFormatDictionary.Instance[propertyType.FullName] });
-                }
-            }
-            return entity;
+            return EntityType.ToCsdl<TEntity>();
         }
 
         /// <summary>

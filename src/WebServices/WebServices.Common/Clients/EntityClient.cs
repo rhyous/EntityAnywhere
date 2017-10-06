@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Rhyous.Odata.Csdl;
 using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;

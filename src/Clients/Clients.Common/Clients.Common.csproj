@@ -33,6 +33,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
     </Reference>
@@ -97,12 +100,6 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityWebService.cs">
       <Link>Interfaces\IMappingEntityWebService.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Models\CsdlEntity.cs">
-      <Link>Models\CsdlEntity.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Models\CsdlProperty.cs">
-      <Link>Models\CsdlProperty.cs</Link>
-    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Models\OdataObject.cs">
       <Link>Models\OdataObject.cs</Link>
     </Compile>
@@ -118,6 +115,7 @@
     <Content Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

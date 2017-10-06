@@ -46,8 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractConsolidator.cs" />
-    <Compile Include="Dictionaries\CsdlFormatDictionary.cs" />
-    <Compile Include="Dictionaries\CsdlTypeDictionary.cs" />
     <Compile Include="Exceptions\ConflictingAttributesException.cs" />
     <Compile Include="ServiceBehaviorApplicator.cs" />
     <Compile Include="ServiceBehaviorLoader.cs" />
