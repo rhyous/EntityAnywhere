@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhyous.WebFramework.Common
+namespace Rhyous.WebFramework.Interfaces
 {
     public static class DictionaryExtensions
     {

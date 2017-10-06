@@ -42,6 +42,7 @@
     <Compile Include="Attributes\RelatedEntityAttribute.cs" />
     <Compile Include="AuditableEntity.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="Extensions\AddendumExtensions.cs" />
     <Compile Include="Extensions\ConcreteConverter.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />

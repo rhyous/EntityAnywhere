@@ -21,6 +21,12 @@ namespace Rhyous.WebFramework.Interfaces
         IRepository<TEntity, TInterface, TId> Repo { get; set; }
 
         /// <summary>
+        /// Gets a count all entities
+        /// </summary>
+        /// <returns>The count of all entities</returns>
+        int GetCount();
+
+        /// <summary>
         /// Gets all entities
         /// </summary>
         /// <returns>All entities</returns>

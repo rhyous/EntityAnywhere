@@ -25,6 +25,11 @@ namespace Rhyous.WebFramework.Behaviors
             // Returns: Schema of entity. Should be in CSDL (option for both json or xml should exist)
             Add("GetMetadata", "$Metadata");
 
+            // https://<server>/<entity>Service.svc/<entities>?$count (GET)
+            // Gets the metadata or csdl of the entity.
+            // Returns: Schema of entity. Should be in CSDL (option for both json or xml should exist)
+            Add("GetCount", "{0}?$count");
+
             // https://<server>/<entity>Service.svc/<entities> (GET)
             // Gets all the entities
             // Returns: All entities

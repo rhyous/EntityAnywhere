@@ -82,6 +82,9 @@
       <Name>Services.User</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>REM SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Authenticators\ActiveDirectory"

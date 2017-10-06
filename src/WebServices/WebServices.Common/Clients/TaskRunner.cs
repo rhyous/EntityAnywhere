@@ -8,6 +8,16 @@ namespace Rhyous.WebFramework.Clients
     /// </summary>
     public class TaskRunner
     {
+        public static void RunSynchonously<TResult>(Func<Task> method)
+        {
+            try
+            {
+                var task = method();
+                task.Wait();
+            }
+            catch { return; }
+        }
+
         /// <summary>
         /// Runs an asynchronous task with no parameters synchronously.
         /// </summary>
@@ -43,6 +53,7 @@ namespace Rhyous.WebFramework.Clients
             }
             catch { return default(TResult); }
         }
+
         /// <summary>
         /// Runs an asynchronous task with two parameters synchronously.
         /// </summary>
@@ -62,6 +73,7 @@ namespace Rhyous.WebFramework.Clients
             }
             catch { return default(TResult); }
         }
+
         /// <summary>
         /// Runs an asynchronous task with two parameters synchronously.
         /// </summary>
@@ -83,6 +95,27 @@ namespace Rhyous.WebFramework.Clients
             catch { return default(TResult); }
         }
 
-        // If you need more parameters than three, just add another overload with a T4 generic here.
+        /// <summary>
+        /// Runs an asynchronous task with two parameters synchronously.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first input parameter.</typeparam>
+        /// <typeparam name="T2">The type of the second input parameter.</typeparam>
+        /// <typeparam name="T3">The type of the third input parameter.</typeparam>
+        /// <typeparam name="TResult">The return type of the asynchronous call. Not Task{T} but just T.</typeparam>
+        /// <param name="method">The asynchronous method.</param>
+        /// <param name="input">The input parameter value.</param>
+        /// <returns>The result of the asynchonous method.</returns>
+        public static TResult RunSynchonously<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> method, T1 input1, T2 input2, T3 input3, T4 input4)
+        {
+            try
+            {
+                var task = method(input1, input2, input3, input4);
+                task.Wait();
+                return task.Result;
+            }
+            catch { return default(TResult); }
+        }
+
+        // If you need more parameters than four, just add another overload with a T4 generic here.
     }
 }

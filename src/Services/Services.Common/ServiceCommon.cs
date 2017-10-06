@@ -27,6 +27,12 @@ namespace Rhyous.WebFramework.Services
         } private IRepository<TEntity, TInterface, TId> _Repo;
 
         /// <inheritdoc />
+        public virtual int GetCount()
+        {
+            return Repo.Get().Count();
+        }
+
+        /// <inheritdoc />
         public virtual List<TInterface> Get(List<TId> ids)
         {
             return Repo.Get(ids).ToList();

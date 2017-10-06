@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Rhyous.WebFramework.Common
+namespace Rhyous.WebFramework.Interfaces
 {
     public interface IDictionaryDefaultValueProvider<TKey, TValue> : IDictionary<TKey, TValue>
     {

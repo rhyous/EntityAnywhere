@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Rhyous.WebFramework.Behaviors;
-using Rhyous.WebFramework.Common;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.WebServices;
@@ -31,7 +30,14 @@ namespace Rhyous.WebFramework.Clients
         {
         }
 
-        public EntityClient(bool useMicrosoftDateFormat) : this(new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat })
+        public EntityClient(HttpClient httpClient, bool useMicrosoftDateFormat = false) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
+        {
+            _HttpClient = httpClient;
+        }
+
+        public EntityClient(bool useMicrosoftDateFormat) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
         {
         }
 
@@ -232,7 +238,7 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         public async Task<OdataObject<TEntity>> PatchAsync(string id, PatchedEntity<TEntity> patchedEntity)
         {
-            return await HttpClientRunner.RunAndDeserialize<PatchedEntity<TEntity>, OdataObject<TEntity>>(HttpClient.PatchAsync, $"{ServiceUrl}/{EntityPluralized}({id})", patchedEntity);
+            return await HttpClientRunner.RunAndDeserialize<PatchedEntity<TEntity>, OdataObject<TEntity>>(HttpClient.PatchAsync, $"{ServiceUrl}/{EntityPluralized}({id})", patchedEntity, JsonSerializerSettings);
         }
 
         /// <inheritdoc />
@@ -244,7 +250,7 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         public async Task<List<OdataObject<TEntity>>> PostAsync(List<TEntity> entities)
         {
-            return await HttpClientRunner.RunAndDeserialize<List<TEntity>, List<OdataObject<TEntity>>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}", entities);
+            return await HttpClientRunner.RunAndDeserialize<List<TEntity>, List<OdataObject<TEntity>>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}", entities, JsonSerializerSettings);
         }
 
         /// <inheritdoc />
@@ -256,7 +262,7 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         public async Task<OdataObject<TEntity>> PutAsync(string id, TEntity entity)
         {
-            return await HttpClientRunner.RunAndDeserialize<TEntity, OdataObject<TEntity>>(HttpClient.PutAsync, $"{ServiceUrl}/{EntityPluralized}({id})", entity);
+            return await HttpClientRunner.RunAndDeserialize<TEntity, OdataObject<TEntity>>(HttpClient.PutAsync, $"{ServiceUrl}/{EntityPluralized}({id})", entity, JsonSerializerSettings);
         }
 
         /// <inheritdoc />
@@ -267,7 +273,7 @@ namespace Rhyous.WebFramework.Clients
 
         public async Task<string> UpdatePropertyAsync(string id, string property, string value)
         {
-            return await HttpClientRunner.RunAndDeserialize<string, string>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}", value);
+            return await HttpClientRunner.RunAndDeserialize<string, string>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}", value, JsonSerializerSettings);
         }
 
         /// <inheritdoc />
@@ -304,6 +310,17 @@ namespace Rhyous.WebFramework.Clients
         public async Task<List<Addendum>> GetAddendaByEntityIdsAsync(List<string> ids)
         {
             return await HttpClientRunner.RunAndDeserialize<List<string>, List<Addendum>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", ids);
+        }
+
+        public int GetCount()
+        {
+            return TaskRunner.RunSynchonously(GetCountAsync);
+
+        }
+        public async Task<int> GetCountAsync()
+        {
+            return await HttpClientRunner.RunAndDeserialize<int>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}?$count");
+
         }
     }
 }

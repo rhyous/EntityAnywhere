@@ -25,6 +25,14 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>All Entities</returns>
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
+        int GetCount();
+
+        /// <summary>
+        /// Gets all entities.
+        /// </summary>
+        /// <returns>All Entities</returns>
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         List<OdataObject<TEntity>> GetAll();
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace Rhyous.WebFramework.Clients
     /// <summary>
     /// This class is used by EntityClient to run common HttpClient commands asynchronously. Whether calling GET, POST, PUT, PATCH, DELETE, etc, the way to make the call and get the response back is standardized.
     /// </summary>
-    internal class HttpClientRunner
+    public class HttpClientRunner
     {
         /// <summary>
         /// Runs any asynchonous method that takes in a url string and returns HttpResponseMessage. This was built for HttpClient methods such as HttpClient.GetAsync();

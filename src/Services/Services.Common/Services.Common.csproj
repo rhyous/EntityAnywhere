@@ -34,7 +34,7 @@
       <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Filter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.0\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.1\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
@@ -112,7 +112,6 @@
     <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\QueryableExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
     <Compile Include="ServiceCommon.cs" />

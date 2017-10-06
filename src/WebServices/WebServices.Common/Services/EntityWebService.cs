@@ -46,6 +46,15 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         /// <summary>
+        /// Gets the number of total entities
+        /// </summary>
+        /// <returns>The number of total entities.</returns>
+        public virtual int GetCount()
+        {
+            return Service.GetCount();
+        }
+
+        /// <summary>
         /// Gets all entities.
         /// Note: Be careful using this on entities that are extremely large in quantity.
         /// </summary>
