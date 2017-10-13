@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{DCDDC0C1-F67C-4A01-A354-2F62C5FD496D}"
 EndProject
@@ -94,6 +94,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clients.Common", "Clients\Clients.Common\Clients.Common.csproj", "{0F2DABD2-F7D9-4CF6-A488-06AAB3B4C585}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4E803CE7-7088-487D-AF69-BA2C63040527}"
+	ProjectSection(SolutionItems) = preProject
+		UnitTest.runsettings = UnitTest.runsettings
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServices.Wcf", "WebServices.Wcf", "{D5C56F8B-C9A0-4DF8-BFCA-7F5B618AAFD8}"
 EndProject
@@ -561,5 +564,8 @@ Global
 		{D00444C6-0F05-4B68-A048-BEC24A6DA41F} = {678B3BA4-DFD6-4138-A87F-4A6084724EE8}
 		{23BFE438-5EC8-4422-BC46-178F1A69933B} = {D5C56F8B-C9A0-4DF8-BFCA-7F5B618AAFD8}
 		{1637B5CC-7EAB-4C08-97E9-9B35F434525D} = {5103FF57-B68B-41C2-9FC3-7B475689067E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88EBD16F-8BC5-4E49-8FA9-4F6C467A3118}
 	EndGlobalSection
 EndGlobal

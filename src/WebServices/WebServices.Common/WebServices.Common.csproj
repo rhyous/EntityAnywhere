@@ -73,6 +73,7 @@
     <Compile Include="Clients\TaskRunner.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Interfaces\IEntityClientAsync.cs" />
+    <Compile Include="Interfaces\IEntityWebServiceAddenda.cs" />
     <Compile Include="Interfaces\IMappingEntityClientAsync.cs" />
     <Compile Include="Interfaces\IMappingEntityClient.cs" />
     <Compile Include="Interfaces\IEntityClient.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Interfaces\IEntityWebService.cs" />
     <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
     <Compile Include="Interfaces\IMetadataService.cs" />
+    <Compile Include="Interfaces\IEntityWebServiceReadOnly.cs" />
     <Compile Include="Models\AttributeToServiceDictionary.cs" />
     <Compile Include="Extensions\OdataExtensions.cs" />
     <Compile Include="Interfaces\IHttpContextProvider.cs" />
@@ -89,6 +91,9 @@
     <Compile Include="Models\PatchedEntity.cs" />
     <Compile Include="Clients\HttpContextProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EntityWebServiceAddenda.cs" />
+    <Compile Include="Services\EntityWebServiceReadOnly.cs" />
+    <Compile Include="Services\ExplicitServiceContractAttribute.cs" />
     <Compile Include="Services\MappingEntityWebService.cs" />
     <Compile Include="Services\EntityWebServiceAlternateKey.cs" />
     <Compile Include="Services\EntityWebService.cs" />

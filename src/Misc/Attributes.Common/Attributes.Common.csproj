@@ -43,6 +43,8 @@
     <Compile Include="CustomWebServiceAttribute.cs" />
     <Compile Include="ExcludedServiceBehaviorTypesAttribute.cs" />
     <Compile Include="ExcludedServiceBehaviorsAttribute.cs" />
+    <Compile Include="ExplicitServiceContractAttribute.cs" />
+    <Compile Include="IExplicitServiceContract.cs" />
     <Compile Include="IncludedServiceBehaviorTypesAttribute.cs" />
     <Compile Include="IncludedServiceBehaviorsAttribute.cs" />
     <Compile Include="PluralNameAttribute.cs" />

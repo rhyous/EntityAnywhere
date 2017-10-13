@@ -7,7 +7,7 @@ namespace Rhyous.WebFramework.Behaviors
 {
     internal class ContractConsolidator
     {
-        internal static void ConsolidateToSingleContract(CustomWebServiceAttribute attribute, IDictionary<string, ContractDescription> implementedContracts)
+        internal static void ConsolidateToSingleContract(IExplicitServiceContract attribute, IDictionary<string, ContractDescription> implementedContracts)
         {
             //var attribute = ;
             if (attribute != null && attribute.ServiceContract != null)
@@ -35,7 +35,7 @@ namespace Rhyous.WebFramework.Behaviors
             }
         }
 
-        internal static void ConsolidateByAttribute(CustomWebServiceAttribute attribute, IDictionary<string, ContractDescription> implementedContracts)
+        internal static void ConsolidateByAttribute(IExplicitServiceContract attribute, IDictionary<string, ContractDescription> implementedContracts)
         {
             var keysToRemove = implementedContracts.Keys.Where(k => k != attribute.ServiceContract.FullName).ToList();
             foreach (var key in keysToRemove)
