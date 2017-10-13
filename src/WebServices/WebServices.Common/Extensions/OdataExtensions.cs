@@ -12,7 +12,6 @@ namespace Rhyous.WebFramework.WebServices
     public static class OdataExtensions
     {
         public const string ObjectUrl = "{0}({1})";
-        public const string PropertyUrl = "{0}/{1}";
         public const string IdProperty = "Id";
 
         public static OdataObject<T> AsOdata<T>(this T t, string leftPartOfUrl, string idProperty, params string[] properties)
@@ -23,14 +22,14 @@ namespace Rhyous.WebFramework.WebServices
         public static OdataObject<T> AsOdata<T>(this T t, string leftPartOfUrl, string idProperty, bool addIdToUrl, params string[] properties)
         {
             var obj = new OdataObject<T> { Object = t, PropertyUris = new List<ODataUri>() };
-            obj.Uri = addIdToUrl ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, t.GetPropertyValue(idProperty))) : new Uri(leftPartOfUrl);
-            if (properties != null)
-            {
-                foreach (var prop in properties)
-                {
-                    obj.AddProperty(prop);
-                }
-            }
+            if (!string.IsNullOrWhiteSpace(leftPartOfUrl))
+                obj.Uri = addIdToUrl
+                        ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, t.GetPropertyValue(idProperty)))
+                        : new Uri(leftPartOfUrl);
+            // Uncomment below if we decide to publish all Entity properties
+            //if (properties == null || properties.Length == 0)
+            //    properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !p.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreDataMemberAttribute)))?.Select(p=>p.Name).ToArray();
+            AddPropertyUris(properties, obj);
             return obj;
         }
 
@@ -45,7 +44,7 @@ namespace Rhyous.WebFramework.WebServices
                 new ODataUri
                 {
                     PropertyName = prop,
-                    Uri = new Uri(string.Format(PropertyUrl, obj.Uri, prop))
+                    Uri = new Uri("/" + prop, UriKind.Relative)
                 }
             );
         }
@@ -64,7 +63,7 @@ namespace Rhyous.WebFramework.WebServices
 
         public static List<OdataObject<T>> AsOdata<T>(this List<T> ts, Uri uri,  params string[] properties)
         {
-            var leftPart = uri.GetLeftPart(UriPartial.Path);
+            var leftPart = uri?.GetLeftPart(UriPartial.Path);
             return ts.Select(t => t.AsOdata(leftPart, true, properties)).ToList();
         }
 
@@ -74,6 +73,15 @@ namespace Rhyous.WebFramework.WebServices
             var odata = t.AsOdata<T>(leftPart, false, properties);
             odata.Addenda = addenda;
             return odata;
+        }
+
+        private static void AddPropertyUris<T>(string[] properties, OdataObject<T> obj)
+        {
+            if (properties != null)
+            {
+                foreach (var prop in properties)
+                    obj.AddProperty(prop);
+            }
         }
     }
 }
