@@ -88,6 +88,12 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebServiceAddenda.cs">
+      <Link>Interfaces\IEntityWebServiceAddenda.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebServiceReadOnly.cs">
+      <Link>Interfaces\IEntityWebServiceReadOnly.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IHttpContextProvider.cs">
       <Link>Interfaces\IHttpContextProvider.cs</Link>
     </Compile>

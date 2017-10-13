@@ -16,7 +16,8 @@ namespace Rhyous.WebFramework.Behaviors
             var host = new RestWebServiceHost(serviceType, baseAddresses);
             if (host.ImplementedContracts.Count > 1)
             {
-                ContractConsolidator.ConsolidateToSingleContract(serviceType.GetCustomAttributes(true).FirstOrDefault(a => typeof(CustomWebServiceAttribute).IsAssignableFrom(a.GetType())) as CustomWebServiceAttribute, host.ImplementedContracts);
+                var attribute = serviceType.GetCustomAttributes(true).FirstOrDefault(a => typeof(CustomWebServiceAttribute).IsAssignableFrom(a.GetType())) as CustomWebServiceAttribute;
+                ContractConsolidator.ConsolidateToSingleContract(attribute, host.ImplementedContracts);
             }
             var pluginLoader = new PluginLoader<IDispatchMessageInspector>();
             var serviceBehaviorLoader = new ServiceBehaviorLoader();

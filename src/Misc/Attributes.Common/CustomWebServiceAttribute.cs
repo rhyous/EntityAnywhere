@@ -5,7 +5,7 @@ namespace Rhyous.WebFramework.Attributes
     /// <summary>
     /// The CustomWebServiceAttribute. This must be used by all custom web services plugin.
     /// </summary>
-    public class CustomWebServiceAttribute : Attribute
+    public class CustomWebServiceAttribute : Attribute, IExplicitServiceContract
     {
         public CustomWebServiceAttribute(string name = null, Type serviceContract = null, Type entity = null, string serviceRoute = null)
         {

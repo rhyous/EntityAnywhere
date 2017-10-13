@@ -17,6 +17,7 @@ namespace Rhyous.WebFramework.WebServices
         {
             Add(typeof(AlternateKeyAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommonAlternateKey<,,>), typeof(EntityWebServiceAlternateKey<,,,>), typeof(EntityWebServiceLoader<,>)));
             Add(typeof(MappingEntityAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(MappingEntityWebService<,,,,,>), typeof(EntityWebServiceLoader<,>)));
+            Add(typeof(ReadOnlyEntityAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(EntityWebServiceReadOnly<,,,>), typeof(EntityWebServiceLoader<,>)));
         }
 
         #endregion

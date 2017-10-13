@@ -1,13 +1,8 @@
-﻿using Rhyous.Odata.Csdl;
-using Rhyous.StringLibrary;
-using Rhyous.WebFramework.Behaviors;
-using Rhyous.WebFramework.Entities;
+﻿using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -18,75 +13,13 @@ namespace Rhyous.WebFramework.WebServices
     /// <typeparam name="TInterface">The entity interface type.</typeparam>
     /// <typeparam name="TId">The entity id type.</typeparam>
     /// <typeparam name="TService">The entity service type.</typeparam>
-    public class EntityWebService<TEntity, TInterface, TId, TService> : IEntityWebService<TEntity, TId>
+    public class EntityWebService<TEntity, TInterface, TId, TService>
+               : EntityWebServiceReadOnly<TEntity, TInterface, TId, TService>, IEntityWebService<TEntity, TId>
         where TEntity : class, TInterface, new()
         where TInterface : IEntity<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
         where TService : class, IServiceCommon<TEntity, TInterface, TId>, new()
     {
-        /// <summary>
-        /// This retuns metadata about the services.
-        /// </summary>
-        /// <returns>Schema of entity. Should be in CSDL (option for both json or xml should exist)</returns>
-        public virtual CsdlEntity<TEntity> GetMetadata()
-        {
-            return EntityType.ToCsdl<TEntity>();
-        }
-
-        /// <summary>
-        /// Gets the number of total entities
-        /// </summary>
-        /// <returns>The number of total entities.</returns>
-        public virtual int GetCount()
-        {
-            return Service.GetCount();
-        }
-
-        /// <summary>
-        /// Gets all entities.
-        /// Note: Be careful using this on entities that are extremely large in quantity.
-        /// </summary>
-        /// <returns>List{OdataObject{T}} containing all entities</returns>
-        public virtual List<OdataObject<TEntity>> GetAll()
-        {
-            if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                return Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
-            return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
-        }
-
-        /// <summary>
-        /// Get a list of Entities where the Entity id is in the list of ids provided.
-        /// </summary>
-        /// <param name="ids"></param>
-        /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
-        public virtual List<OdataObject<TEntity>> GetByIds(List<TId> ids)
-        {
-            return Service.Get(ids)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
-        }
-
-        /// <summary>
-        /// Get the exact entity with the id.
-        /// </summary>
-        /// <param name="id">The entity id.</param>
-        /// <returns>A OdataObject<T> object contain the single entity with the id provided.</returns>
-        public virtual OdataObject<TEntity> Get(string id)
-        {
-            return Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
-        }
-
-        /// <summary>
-        /// Gets the value of one of the entity properties. 
-        /// Example: if the entity is User and you want to get only the value of User.Username, not 
-        /// the whole entity.
-        /// </summary>
-        /// <param name="id">The Entity Id.</param>
-        /// <param name="property">A primitive property of the entity id.</param>
-        /// <returns>The value of the property.</returns>
-        public virtual string GetProperty(string id, string property)
-        {
-            return Service.GetProperty(id.To<TId>(), property);
-        }
-
         /// <summary>
         /// Updates a single properties value
         /// </summary>
@@ -143,58 +76,6 @@ namespace Rhyous.WebFramework.WebServices
         {
             return Service.Delete(id.To<TId>());
         }
-
-        public virtual List<Addendum> GetAddenda(string id)
-        {
-            var entityName = typeof(TEntity).Name;
-            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString())
-                                 .ToConcrete<Addendum>().ToList();
-        }
-
-        public virtual List<Addendum> GetAddendaByEntityIds(List<string> entityIds)
-        {
-            var entityName = typeof(TEntity).Name;
-            return AddendaService.Get(x => x.Entity == entityName && entityIds.Contains(x.EntityId))
-                                 .ToConcrete<Addendum>().ToList();
-        }
-
-        /// <summary>
-        /// Gets and addendum value for the entity id by the addendum name.
-        /// </summary>
-        /// <param name="id">The Entity Id.</param>
-        /// <param name="name">The property name of the addendum.</param>
-        /// <returns>The value of the addendum.</returns>
-        public virtual Addendum GetAddendaByName(string id, string name)
-        {
-            var entityName = typeof(TEntity).Name;
-            return AddendaService.Get(x => x.Entity == entityName && x.EntityId == id.ToString() && x.Property.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                                 .OrderByDescending(x => x.CreateDate)
-                                 .FirstOrDefault()
-                                 .ToConcrete<Addendum>();
-        }
-
-        protected internal virtual Uri RequestUri
-        {
-            get { return WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri; }
-        }
-
-        #region Type property
-        public static Type EntityType => typeof(TEntity);
-        #endregion
-
-        #region Injectable Dependency
-        protected virtual IServiceCommon<TEntity, TInterface, TId> Service
-        {
-            get { return _Service ?? (_Service = new EntityServiceLoader<TEntity, TService>().LoadPluginOrCommon()); }
-            set { _Service = value; }
-        } protected IServiceCommon<TEntity, TInterface, TId> _Service;
-
-        protected virtual IServiceCommon<Addendum, IAddendum, long> AddendaService
-        {
-            get { return _AddendaService ?? (_AddendaService = new ServiceCommon<Addendum, IAddendum, long>()); }
-            set { _AddendaService = value; }
-        } private IServiceCommon<Addendum, IAddendum, long> _AddendaService;
-        #endregion
 
     }
 }
