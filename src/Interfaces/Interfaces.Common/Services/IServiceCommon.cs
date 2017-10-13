@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Rhyous.WebFramework.Interfaces
@@ -58,6 +59,20 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="expression">An expression that determines which entities to return.</param>
         /// <returns>A list of entities that match the expression.</returns>
         List<TInterface> Get(Expression<Func<TEntity, bool>> expression, int take = -1, int skip = -1);
+
+        /// <summary>
+        /// Gets a list of entities based on the custom IQueryable<![CDATA[>]]> passed in.
+        /// </summary>
+        /// <param name="queryableModifier">A function that modifies and IQueryable<![CDATA[>]]></param>
+        /// <returns>A list of returned objects.</returns>
+        List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier);
+
+        /// <summary>
+        /// Gets a list of entities based on both an expression and a custom IQueryable<![CDATA[>]]> passed in.
+        /// </summary>
+        /// <param name="queryableModifier">A function that modifies and IQueryable<![CDATA[>]]></param>
+        /// <returns>A list of returned objects.</returns>
+        List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
         /// Gets the value of a specific property of an entity of the specified id.

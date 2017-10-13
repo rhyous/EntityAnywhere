@@ -67,6 +67,19 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
+        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier )
+        {
+            return queryableModifier(Repo.Get());
+        }
+
+        /// <inheritdoc />
+        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression)
+        {
+            var queryable = Repo.GetByExpression(expression ?? PredicateBuilder.New<TEntity>(true));
+            return queryableModifier(queryable);
+        }
+
+        /// <inheritdoc />
         public virtual string GetProperty(TId Id, string property)
         {
             return Repo.Get(Id)?.GetPropertyValue(property)?.ToString();
