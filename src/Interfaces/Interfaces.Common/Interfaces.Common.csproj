@@ -39,6 +39,7 @@
     <Compile Include="Attributes\AdditionalWebServiceTypesAttribute.cs" />
     <Compile Include="Attributes\EntityAttribute.cs" />
     <Compile Include="Attributes\MappingEntityAttribute.cs" />
+    <Compile Include="Attributes\ReadOnlyEntityAttribute.cs" />
     <Compile Include="Attributes\RelatedEntityAttribute.cs" />
     <Compile Include="AuditableEntity.cs" />
     <Compile Include="Entity.cs" />

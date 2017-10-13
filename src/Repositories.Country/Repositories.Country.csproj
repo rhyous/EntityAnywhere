@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4952293D-0EEC-4772-8854-4FE0F818CC92}</ProjectGuid>
+    <ProjectGuid>{2A745C3A-17EF-4E35-97DF-3A970D9E7D65}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Repositories</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Repositories.Common</AssemblyName>
+    <AssemblyName>Rhyous.WebFramework.Repositories.Country</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,25 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="LinqKit, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LinqKit.1.1.9.0\lib\net45\LinqKit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,31 +40,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditableDbContext.cs" />
-    <Compile Include="AuditablesHandler.cs" />
-    <Compile Include="BaseDbContext.cs" />
-    <Compile Include="Extensions\DbEntityValidationExceptionExtensions.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="CountryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\SystemUsers.cs" />
-    <Compile Include="BaseRepository.cs" />
-    <Compile Include="Settings\ISettings.cs" />
-    <Compile Include="Settings\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
+    <ProjectReference Include="..\Entities\Entities.Country\Entities.Country.csproj">
+      <Project>{12c4040d-03ba-42ea-9c55-58b5da02ca3e}</Project>
+      <Name>Entities.Country</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
-      <Name>Services.Common</Name>
-      <Private>False</Private>
+    <ProjectReference Include="..\Interfaces\Interfaces.Country\Interfaces.Country.csproj">
+      <Project>{7f4dbda0-a6c0-400b-9ca9-df272848e51a}</Project>
+      <Name>Interfaces.Country</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -106,11 +79,4 @@ FOR %25%25X in ("$(Targetdir)*.pdb") DO (
    IF NOT "%25%25X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%25%25X" %25dllDir%25
 )</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

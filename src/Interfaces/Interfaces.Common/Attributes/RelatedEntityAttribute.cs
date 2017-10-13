@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhyous.WebFramework.Interfaces.Attributes
+namespace Rhyous.WebFramework.Interfaces
 {
     /// <summary>
     /// Not implemented or used yet.

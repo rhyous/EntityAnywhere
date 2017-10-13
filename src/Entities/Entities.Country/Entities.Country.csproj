@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12C4040D-03BA-42EA-9C55-58B5DA02CA3E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Rhyous.WebFramework.Entities</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Entities.Country</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Country\Interfaces.Country.csproj">
+      <Project>{7f4dbda0-a6c0-400b-9ca9-df272848e51a}</Project>
+      <Name>Interfaces.Country</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Country.cs" />
+    <Compile Include="CountryComparer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
+ECHO %copyToDir%
+IF NOT EXIST %copyToDir% MKDIR %copyToDir%
+COPY /Y "$(TargetPath)" %copyToDir%
+COPY /Y "$(TargetDir)$(TargetName).pdb" %copyToDir%
+
+SET dllDir="%copyToDir%\bin"
+ECHO %dllDir%
+IF NOT EXIST %dllDir% MKDIR %dllDir%
+FOR %%X in ("$(Targetdir)*.dll") DO (
+   IF NOT "%%X"=="$(TargetPath)" COPY /Y "%%X" %dllDir%
+)
+FOR %%X in ("$(Targetdir)*.pdb") DO (
+   IF NOT "%%X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%%X" %dllDir%
+)</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
