@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,16 +47,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.Country\Entities.Country.csproj">
+    <ProjectReference Include="..\..\Entities\Entities.Country\Entities.Country.csproj">
       <Project>{12c4040d-03ba-42ea-9c55-58b5da02ca3e}</Project>
       <Name>Entities.Country</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Interfaces\Interfaces.Country\Interfaces.Country.csproj">
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Country\Interfaces.Country.csproj">
       <Project>{7f4dbda0-a6c0-400b-9ca9-df272848e51a}</Project>
       <Name>Interfaces.Country</Name>
     </ProjectReference>

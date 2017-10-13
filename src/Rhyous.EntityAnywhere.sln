@@ -142,7 +142,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.Country", "Entitie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces.Country", "Interfaces\Interfaces.Country\Interfaces.Country.csproj", "{7F4DBDA0-A6C0-400B-9CA9-DF272848E51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Country", "Repositories.Country\Repositories.Country.csproj", "{2A745C3A-17EF-4E35-97DF-3A970D9E7D65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories.Country", "Repositories\Repositories.Country\Repositories.Country.csproj", "{2A745C3A-17EF-4E35-97DF-3A970D9E7D65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
