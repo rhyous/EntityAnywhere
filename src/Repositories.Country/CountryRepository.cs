@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,55 +11,72 @@ namespace Rhyous.WebFramework.Repositories
 {
     public class CountryRepository : IRepository<Country, ICountry, int>
     {
-        public IQueryable<ICountry> Get(bool order = false, string orderBy = "Id")
+        internal IEnumerable<Country> GetCountries()
         {
-            var region = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.LCID));
-            return region.Select(r => new Country
+            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.LCID));
+            return regions.Select(r => new Country
             {
                 Id = r.GeoId,
                 Name = r.EnglishName,
                 ThreeLetterIsoCode = r.ThreeLetterISORegionName,
                 TwoLetterIsoCode = r.TwoLetterISORegionName
-            }).Distinct(new CountryComparer()).OrderBy(c => c.Name).AsQueryable();
+            }).Distinct(new CountryComparer());
+        }
+
+        internal ICountry GetCountry(int id)
+        {
+            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.LCID));
+            var region = regions.FirstOrDefault(r => r.GeoId == id);
+            return new Country
+            {
+                Id = region.GeoId,
+                Name = region.EnglishName,
+                ThreeLetterIsoCode = region.ThreeLetterISORegionName,
+                TwoLetterIsoCode = region.TwoLetterISORegionName
+            };
+        }
+
+        public IQueryable<ICountry> Get(bool order = false, string orderBy = "Id")
+        {
+            return GetCountries().AsQueryable().OrderBy(c => c.Name);
         }
 
         public IQueryable<ICountry> Get(Expression<Func<Country, int>> orderExpression)
         {
-            var region = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.LCID));
-            return region.Select(r => new Country { Id = r.GeoId, Name = r.Name }).AsQueryable();
+            return GetCountries().AsQueryable().OrderBy(orderExpression);
         }
 
         public IQueryable<ICountry> Get(List<int> ids)
         {
-            throw new NotImplementedException();
+            return GetCountries().Where(c => ids.Contains(c.Id)).AsQueryable();
         }
 
         public ICountry Get(int id)
         {
-            throw new NotImplementedException();
+            return GetCountry(id);
         }
 
-        public ICountry Get(string name, System.Linq.Expressions.Expression<Func<Country, string>> propertyExpression)
+        public ICountry Get(string name, Expression<Func<Country, string>> propertyExpression)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<ICountry> GetByExpression(System.Linq.Expressions.Expression<Func<Country, bool>> expression, string orderBy = "Id")
+        public IQueryable<ICountry> GetByExpression(Expression<Func<Country, bool>> expression, string orderBy = "Id")
         {
-            throw new NotImplementedException();
+            return GetCountries().AsQueryable().Where(expression).OrderBy(orderBy.ToLambda<Country, int>());
         }
 
-        public IQueryable<ICountry> GetByExpression(System.Linq.Expressions.Expression<Func<Country, bool>> expression, System.Linq.Expressions.Expression<Func<Country, int>> orderExpression)
+        public IQueryable<ICountry> GetByExpression(Expression<Func<Country, bool>> expression, Expression<Func<Country, int>> orderExpression)
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<ICountry> Search(string searchString, params System.Linq.Expressions.Expression<Func<Country, string>>[] propertyExpressions)
-        {
-            throw new NotImplementedException();
+            return GetCountries().AsQueryable().Where(expression).OrderBy(orderExpression);
         }
 
         #region Not implemented
+        public IQueryable<ICountry> Search(string searchString, params Expression<Func<Country, string>>[] propertyExpressions)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ICountry> Create(IList<ICountry> items)
         {
             throw new NotImplementedException();
