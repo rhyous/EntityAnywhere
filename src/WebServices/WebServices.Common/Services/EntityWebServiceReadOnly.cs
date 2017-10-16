@@ -53,7 +53,8 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
         public virtual List<OdataObject<TEntity>> GetByIds(List<TId> ids)
         {
-            return Service.Get(ids)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+            var addendumlist = GetAddendaByEntityIds(ids.Select(id => id.ToString()).ToList());
+            return Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);
         }
 
         /// <summary>

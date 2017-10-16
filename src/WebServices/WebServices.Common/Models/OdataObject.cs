@@ -1,6 +1,8 @@
 ﻿using Rhyous.WebFramework.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Runtime.Serialization;
 
 namespace Rhyous.WebFramework.WebServices
@@ -27,8 +29,14 @@ namespace Rhyous.WebFramework.WebServices
         /// <summary>
         /// Any addenda for the entity.
         /// </summary>
-        [DataMember(Order = 1)]
+        [DataMember(Order = 2)]
         public List<Addendum> Addenda { get; set; }
+
+        /// <summary>
+        /// Any related entity for the entity.
+        /// </summary>
+        [DataMember(Order = 2)]
+        public List<string> RelatedEntities { get; set; }
 
         /// <summary>
         /// A list of uris that can manage each entity property individually.

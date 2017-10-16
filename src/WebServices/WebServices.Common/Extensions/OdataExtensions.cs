@@ -1,4 +1,6 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ namespace Rhyous.WebFramework.WebServices
     /// <summary>
     /// This extension class makes wrapping objects in Odata types easier.
     /// </summary>
-    public static class OdataExtensions
+    public static class OdataExtensions        
     {
         public const string ObjectUrl = "{0}({1})";
         public const string IdProperty = "Id";
@@ -21,7 +23,7 @@ namespace Rhyous.WebFramework.WebServices
 
         public static OdataObject<T> AsOdata<T>(this T t, string leftPartOfUrl, string idProperty, bool addIdToUrl, params string[] properties)
         {
-            var obj = new OdataObject<T> { Object = t, PropertyUris = new List<ODataUri>() };
+            var obj = new OdataObject<T> { Object = t, PropertyUris = new List<ODataUri>(), RelatedEntities = new List<string> { "{ Name : \"MyName\" }" } };
             if (!string.IsNullOrWhiteSpace(leftPartOfUrl))
                 obj.Uri = addIdToUrl
                         ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, t.GetPropertyValue(idProperty)))
@@ -65,6 +67,16 @@ namespace Rhyous.WebFramework.WebServices
         {
             var leftPart = uri?.GetLeftPart(UriPartial.Path);
             return ts.Select(t => t.AsOdata(leftPart, true, properties)).ToList();
+        }
+
+        public static List<OdataObject<T>> AsOdata<T, TId>(this IEnumerable<T> list, Uri uri, List<Addendum> addenda, params string[] properties)
+            where T : IId<TId>
+        {
+            var entity = typeof(T).Name;
+            var odataList = new List<OdataObject<T>>();
+            foreach (T e in list)
+                odataList.Add(e.AsOdata<T>(uri, addenda.Where(a => a.Entity == entity && a.EntityId == e.Id.ToString()).ToList()));
+            return odataList;
         }
 
         public static OdataObject<T> AsOdata<T>(this T t, Uri uri, List<Addendum> addenda, params string[] properties)
