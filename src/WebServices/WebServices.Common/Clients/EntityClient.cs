@@ -19,14 +19,10 @@ namespace Rhyous.WebFramework.Clients
     /// </summary>
     /// <typeparam name="TEntity">The entity type</typeparam>
     /// <typeparam name="TId">The entity id type</typeparam>
-    public class EntityClient<TEntity, TId> : IEntityClient<TEntity, TId>, IEntityClientAsync<TEntity, TId>
+    public class EntityClient<TEntity, TId> : EntityClientBase, IEntityClient<TEntity, TId>, IEntityClientAsync<TEntity, TId>
         where TEntity : class, new()
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        public const string EntitySuffix = "EntityUrl";
-        public const string ServiceSuffix = "Service.svc";
-        public const string EntityHost = "EntityHost";
-
         public EntityClient()
         {
         }
@@ -47,44 +43,9 @@ namespace Rhyous.WebFramework.Clients
             JsonSerializerSettings = jsonSerializerSettings;
         }
 
-        /// <summary>
-        /// A JsonSerializerSettings object, that allows you to customize serialization settings.
-        /// </summary>
-        public JsonSerializerSettings JsonSerializerSettings { get; set; }
-
         /// <inheritdoc />
-        public IHttpContextProvider HttpContextProvider
-        {
-            get { return _HttpContextProvider ?? (_HttpContextProvider = new HttpContextProvider()); }
-            set { _HttpContextProvider = value; }
-        } private IHttpContextProvider _HttpContextProvider;
+        public override string Entity => typeof(TEntity).Name;
         
-        /// <inheritdoc />
-        public HttpClient HttpClient
-        {
-            get { return _HttpClient ?? (_HttpClient = new HttpClient()); }
-            set { _HttpClient = value; }
-        } private HttpClient _HttpClient;
-
-        internal NameValueCollection AppSettings
-        {
-            get { return _AppSettings ?? (_AppSettings = ConfigurationManager.AppSettings); }
-            set { _AppSettings = value; }
-        } public NameValueCollection _AppSettings;
-
-        /// <inheritdoc />
-        public string ServiceUrl
-        {
-            get { return _ServiceUrl ?? (_ServiceUrl = AppSettings.Get($"{Entity}{EntitySuffix}", $"{AppSettings.Get(EntityHost, HttpContextProvider.WebHost)}/{Entity}{ServiceSuffix}")); }
-            set { _ServiceUrl = value; }
-        } internal string _ServiceUrl;
-
-        /// <inheritdoc />
-        public string Entity => typeof(TEntity).Name;
-
-        /// <inheritdoc />
-        public string EntityPluralized => PluralizationDictionary.Instance.GetValueOrDefault(Entity);
-
         /// <inheritdoc />
         public bool Delete(string id)
         {
