@@ -84,7 +84,6 @@
     <Compile Include="Interfaces\ICustomWebService.cs" />
     <Compile Include="Interfaces\IMappingEntityWebService.cs" />
     <Compile Include="Interfaces\IEntityWebService.cs" />
-    <Compile Include="Interfaces\IEntityWithRelationWebService.cs" />
     <Compile Include="Interfaces\IMetadataService.cs" />
     <Compile Include="Interfaces\IEntityWebServiceReadOnly.cs" />
     <Compile Include="Models\AttributeToServiceDictionary.cs" />
