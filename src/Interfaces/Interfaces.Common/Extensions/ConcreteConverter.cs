@@ -16,7 +16,7 @@ namespace Rhyous.WebFramework.Interfaces
         public static IEnumerable<T> ToConcrete<T, TInterface>(this IEnumerable<TInterface> items)
             where T : class, TInterface, new()
         {
-            return items.Select(i => i.ToConcrete<T,TInterface>()).ToList();
+            return items.Select(i => i.ToConcrete<T, TInterface>()).ToList();
         }
 
         /// <summary>
@@ -58,6 +58,19 @@ namespace Rhyous.WebFramework.Interfaces
                 prop.SetValue(concrete, prop.GetValue(source, null), null);
             }
             return concrete;
+        }
+
+        /// <summary>
+        /// Takes a list of concrete classes of type T acting as the interface Tinterface and returns another concrete list of classes that implements the same interface.
+        /// </summary>
+        /// <typeparam name="T">The destination concrete type of Tinterface. It must be a class. It must implement Tinterface. It must have a generic constructor.</typeparam>
+        /// <typeparam name="Tinterface">The interface both the source and destination types must implement.</typeparam>
+        /// <param name="source">The original concrete instance of Tinterface</param>
+        /// <returns>An instance of List<T>, where all the Tinterface properties, including inherited properties, are copied to the instance of T. This is not a deep copy. A null source results in null.</returns>
+        public static List<T> ConcreteCopy<T, Tinterface>(this IEnumerable<Tinterface> sourceList)
+            where T : class, Tinterface, new()
+        {
+            return sourceList.Select(t => t.ConcreteCopy<T, Tinterface>()).ToList();
         }
     }
 }
