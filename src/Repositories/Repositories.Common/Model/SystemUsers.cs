@@ -5,7 +5,7 @@
     /// </summary>
     public enum SystemUsers
     {
-        System,
+        System = 1,
         Unknown
     }
 }
