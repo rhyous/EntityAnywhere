@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Clients
     /// It has all the same methods that exist on the common webservice are available to all client implementations.
     /// This interface expects all the returns to be streams of hte serialized object.
     /// </summary>
-    public interface IEntityClientAsync<TId>
+    public interface IEntityClientAsync
     {
         string Entity { get; }
 
@@ -42,7 +42,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>
         /// <returns>All entities with the provided ids.</returns>
-        Task<String> GetByIdsAsync(IEnumerable<TId> ids);
+        Task<String> GetByIdsAsync(IEnumerable<string> ids);
 
         /// <summary>
         /// Gets an entity be a specific id. Call is asynchonous.

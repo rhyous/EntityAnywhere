@@ -67,8 +67,8 @@
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientAsync.cs">
       <Link>Interfaces\IEntityClientAsync.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientAsyncStream.cs">
-      <Link>Interfaces\IEntityClientAsyncStream.cs</Link>
+    <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientAsyncJson.cs">
+      <Link>Interfaces\IEntityClientAsyncJson.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IMappingEntityClient.cs">
       <Link>Interfaces\IMappingEntityClient.cs</Link>
@@ -76,14 +76,20 @@
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IMappingEntityClientAsync.cs">
       <Link>Interfaces\IMappingEntityClientAsync.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityCache.cs">
+      <Link>EntityCache.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>EntityClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientAsync.cs">
+      <Link>EntityClientAsync.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientBase.cs">
       <Link>EntityClientBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientJson.cs">
-      <Link>EntityClientJson.cs</Link>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientAsyncJson.cs">
+      <Link>EntityClientAsyncJson.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpClientRunner.cs">
       <Link>Extensions\HttpClientRunner.cs</Link>
@@ -94,11 +100,17 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClient.cs">
       <Link>MappingEntityClient.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClientAsync.cs">
+      <Link>MappingEntityClientAsync.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\TaskRunner.cs">
       <Link>Extensions\TaskRunner.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Extensions\HttpClientExtensions.cs">
       <Link>Extensions\HttpClientExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityCache.cs">
+      <Link>Interfaces\IEntityCache.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>

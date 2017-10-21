@@ -50,12 +50,12 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="ids">A list of Entity1 ids.</param>
         /// <returns>A list of mapped entities.</returns>
-        List<OdataObject<TEntity>> GetByE1Ids(IEnumerable<TE1Id> ids);
+        List<OdataObject<TEntity, TId>> GetByE1Ids(IEnumerable<TE1Id> ids);
         /// <summary>
         /// Gets the mapped entity by a list of Entity2 ids.
         /// </summary>
         /// <param name="ids">A list of Entity2 ids.</param>
         /// <returns>A list of mapped entities.</returns>
-        List<OdataObject<TEntity>> GetByE2Ids(IEnumerable<TE2Id> ids);
+        List<OdataObject<TEntity, TId>> GetByE2Ids(IEnumerable<TE2Id> ids);
     }
 }

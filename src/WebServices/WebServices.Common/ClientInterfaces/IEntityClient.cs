@@ -47,21 +47,21 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="queryParameters">a string of query parameters that you would find left of the URL. Starts with a ?.</param>
         /// <returns>A list of entities that match the query parameters.</returns>
-        List<OdataObject<TEntity>> GetByQueryParameters(string queryParameters);
+        List<OdataObject<TEntity, TId>> GetByQueryParameters(string queryParameters);
 
         /// <summary>
         /// Gets all entities with the provided ids.
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>
         /// <returns>All entities with the provided ids.</returns>
-        List<OdataObject<TEntity>> GetByIds(IEnumerable<TId> ids);
+        List<OdataObject<TEntity, TId>> GetByIds(IEnumerable<TId> ids);
 
         /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
         /// </summary>
         /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
-        List<OdataObject<TEntity>> GetByCustomUrl(string urlPart);
+        List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart);
 
         /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
@@ -71,7 +71,7 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="httpMethod"></param>
         /// <param name="content">The HttpContent form. It must already be in the correct format.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
-        List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content);
+        List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content);
 
         /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
@@ -81,6 +81,6 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="httpMethod">The HttpClient method to call.</param>
         /// <param name="content">The content in object form, it will be converted to JSON.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
-        List<OdataObject<TEntity>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content);
+        List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content);
     }
 }

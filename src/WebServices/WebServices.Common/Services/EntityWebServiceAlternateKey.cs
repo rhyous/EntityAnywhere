@@ -17,12 +17,12 @@ namespace Rhyous.WebFramework.WebServices
         where TService : class, IServiceCommonAlternateKey<TEntity, TInterface, TId>, new()
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        public override OdataObject<TEntity> Get(string idOrName)
+        public override OdataObject<TEntity, TId> Get(string idOrName)
         {
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
             if (idOrName.Any(c => !char.IsDigit(c)))
-                return AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(idOrName));
+                return AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(idOrName));
             return base.Get(idOrName);
         }
         

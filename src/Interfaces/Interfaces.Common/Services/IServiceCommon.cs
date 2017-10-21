@@ -128,5 +128,21 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="id">The id of the entity.</param>
         /// <returns>True of deleted, false otherwise. If the entity doesn't exist, this should return true.</returns>
         bool Delete(TId id);
+
+        /// <summary>
+        /// Gets related entities for the type TEntity.
+        /// Related entities are specified on TEntity properties using the RelatedEntityAttribute.
+        /// </summary>
+        /// <param name="entity">The entity to get related entities for.</param>
+        /// <returns>Related entites as raw json strings.</returns>
+        List<string> GetRelatedEntities(TInterface entity);
+
+        /// <summary>
+        /// Gets related entities for the type TEntity given the passed in list of instances.
+        /// Related entities are specified on TEntity properties using the RelatedEntityAttribute.
+        /// </summary>
+        /// <param name="entities">A list of entities to get related entities for.</param>
+        /// <returns>Related entites as raw json strings.</returns>
+        List<string> GetRelatedEntities(IEnumerable<TInterface> entities);
     }
 }

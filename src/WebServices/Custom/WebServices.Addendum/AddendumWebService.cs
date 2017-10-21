@@ -15,14 +15,14 @@ namespace Rhyous.WebFramework.WebServices
     public class AddendumWebService : EntityWebService<Addendum, IAddendum, long, ServiceCommon<Addendum, IAddendum, long>>, IAddendumWebService, ICustomWebService
     {
         /// <inheritdoc />
-        public List<OdataObject<Addendum>> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
+        public List<OdataObject<Addendum, long>> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
         {
             var expression = PredicateBuilder.New<Addendum>();
             foreach (var identifier in entityIdentifiers)
             {
                 expression.Or(e => e.Entity == identifier.Entity && e.EntityId == identifier.EntityId);
             }
-            return Service.Get(expression).ToConcrete<Addendum>().ToList().AsOdata(RequestUri);
+            return Service.Get(expression).ToConcrete<Addendum>().ToList().AsOdata<Addendum, long>(RequestUri);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The added entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity>> Post(List<TEntity> entity);
+        List<OdataObject<TEntity, TId>> Post(List<TEntity> entity);
 
         /// <summary>
         /// Replaces an entity at the specified id.
@@ -38,7 +38,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The replaced entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<TEntity> Put(string id, TEntity entity);
+        OdataObject<TEntity, TId> Put(string id, TEntity entity);
 
         /// <summary>
         /// Used to update multiple properties of an existing entity without first getting the entity.
@@ -48,7 +48,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The patched entity, fetched completely after update.</returns>
         [OperationContract]
         [WebInvoke(Method = "PATCH", ResponseFormat = WebMessageFormat.Json)]
-        OdataObject<TEntity> Patch(string id, PatchedEntity<TEntity> patchedEntity);
+        OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity);
 
         /// <summary>
         /// Deletes the entity by the specified id.

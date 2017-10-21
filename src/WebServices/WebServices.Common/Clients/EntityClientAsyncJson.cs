@@ -1,20 +1,15 @@
 ﻿using Newtonsoft.Json;
-using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class EntityClientAsync<TId> : EntityClientBase, IEntityClientAsync<TId>
+    public class EntityClientAsync : EntityClientBase, IEntityClientAsync
     {
+        public EntityClientAsync() { }
+
         public EntityClientAsync(string entity) { Entity = entity; }
         
         public EntityClientAsync(string entity, HttpClient httpClient, bool useMicrosoftDateFormat = false) 
@@ -75,7 +70,7 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
         }
 
-        public async Task<String> GetByIdsAsync(IEnumerable<TId> ids)
+        public async Task<String> GetByIdsAsync(IEnumerable<string> ids)
         {
             return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids", ids);
         }

@@ -1,11 +1,14 @@
 ﻿using LinqKit;
 using Rhyous.Odata;
+using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
 {
@@ -128,6 +131,35 @@ namespace Rhyous.WebFramework.Services
         public virtual bool Delete(TId id)
         {
             return Repo.Delete(id);
-        }        
+        }
+
+        /// <inheritdoc />
+        public virtual List<string> GetRelatedEntities(TInterface entity)
+        {
+            return TaskRunner.RunSynchonously(GetRelatedEntitiesAsync, entity);
+        }
+
+        public async virtual Task<List<string>> GetRelatedEntitiesAsync(TInterface entity)
+        {
+            var type = typeof(TEntity);
+            var attributes = type.GetProperties()
+                                 .Select(p => p.GetCustomAttribute<RelatedEntityAttribute>(true))
+                                 .Where(a => a != null);
+            var list = new List<string>();
+            foreach (RelatedEntityAttribute a in attributes)
+            {
+                var client = new EntityClientAsync(a.Entity);
+                var relatedEntityKeyValue = entity.GetPropertyValue(a.ForeignKey).ToString();
+                var relatedEntity = await client.GetAsync(relatedEntityKeyValue);
+                list.Add(relatedEntity);
+            }
+            return list;
+        }
+
+        /// <inheritdoc />
+        public virtual List<string> GetRelatedEntities(IEnumerable<TInterface> entity)
+        {
+            return null;
+        }
     }
 }

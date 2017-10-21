@@ -26,7 +26,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A list of mapped entities.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity>> GetByE1Ids(List<TE1Id> ids);
+        List<OdataObject<TEntity, TId>> GetByE1Ids(List<TE1Id> ids);
 
         /// <summary>
         /// Gets the mapped entity by a list of Entity2 ids.
@@ -34,6 +34,6 @@ namespace Rhyous.WebFramework.WebServices
         /// <param name="ids">A list of Entity2 ids.</param>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity>> GetByE2Ids(List<TE2Id> ids);
+        List<OdataObject<TEntity, TId>> GetByE2Ids(List<TE2Id> ids);
     }
 }

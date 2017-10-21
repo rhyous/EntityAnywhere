@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContractConsolidator.cs" />
+    <Compile Include="Dictionaries\CustomRestDictionary.cs" />
     <Compile Include="Exceptions\ConflictingAttributesException.cs" />
     <Compile Include="ServiceBehaviorApplicator.cs" />
     <Compile Include="ServiceBehaviorLoader.cs" />
@@ -74,6 +75,10 @@
     <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
       <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
       <Name>Behaviors.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Behaviors.CustomDispatchMessageFormatter\Behaviors.CustomDispatchMessageFormatter.csproj">
+      <Project>{c9f6e53e-c115-4c4c-9d82-2aa750788e27}</Project>
+      <Name>Behaviors.CustomDispatchMessageFormatter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

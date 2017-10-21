@@ -1,6 +1,6 @@
-﻿using Rhyous.Odata.Csdl;
+﻿using Newtonsoft.Json.Linq;
+using Rhyous.Odata.Csdl;
 using Rhyous.StringLibrary;
-using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -39,11 +39,11 @@ namespace Rhyous.WebFramework.WebServices
         /// Note: Be careful using this on entities that are extremely large in quantity.
         /// </summary>
         /// <returns>List{OdataObject{T}} containing all entities</returns>
-        public virtual List<OdataObject<TEntity>> GetAll()
+        public virtual List<OdataObject<TEntity, TId>> GetAll()
         {
             if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                return Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
-            return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+                return Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
 
         /// <summary>
@@ -51,20 +51,26 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="ids"></param>
         /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
-        public virtual List<OdataObject<TEntity>> GetByIds(List<TId> ids)
+        public virtual List<OdataObject<TEntity, TId>> GetByIds(List<TId> ids)
         {
             var addendumlist = GetAddendaByEntityIds(ids.Select(id => id.ToString()).ToList());
-            return Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);
+            var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);
+            var relatedEntities = Service.GetRelatedEntities(entities.Select(o => o.Object));
+            return entities;
         }
 
         /// <summary>
         /// Get the exact entity with the id.
         /// </summary>
         /// <param name="id">The entity id.</param>
-        /// <returns>A OdataObject<T> object contain the single entity with the id provided.</returns>
-        public virtual OdataObject<TEntity> Get(string id)
+        /// <returns>A OdataObject<T, TId> object contain the single entity with the id provided.</returns>
+        public virtual OdataObject<TEntity, TId> Get(string id)
         {
-            return Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
+            var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
+            var relatedEntities = Service.GetRelatedEntities(entity.Object);
+            if (relatedEntities != null && relatedEntities.Count > 0)
+                entity.RelatedEntities.AddRange(relatedEntities.Select(re => new JRaw(re)));
+            return entity;
         }
 
         /// <summary>
@@ -94,7 +100,8 @@ namespace Rhyous.WebFramework.WebServices
         {
             get { return _Service ?? (_Service = new EntityServiceLoader<TEntity, TService>().LoadPluginOrCommon()); }
             set { _Service = value; }
-        } protected IServiceCommon<TEntity, TInterface, TId> _Service;        
+        }
+        protected IServiceCommon<TEntity, TInterface, TId> _Service;
         #endregion
 
     }

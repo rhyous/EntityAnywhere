@@ -18,6 +18,6 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A list of Addenda.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "Addenda/EntityIdentifiers", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Addendum>> GetByEntityIdentifiers(List<EntityIdentifier> EntityIdentifiers);
+        List<OdataObject<Addendum, long>> GetByEntityIdentifiers(List<EntityIdentifier> EntityIdentifiers);
     }
 }

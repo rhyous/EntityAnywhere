@@ -27,19 +27,19 @@ namespace Rhyous.WebFramework.WebServices
         where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {
         /// <inheritdoc />
-        public List<OdataObject<TEntity>> GetByE1Ids(List<TE1Id> ids)
+        public List<OdataObject<TEntity, TId>> GetByE1Ids(List<TE1Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity1Property();
             var lambda = propertyName.ToLambda<TEntity, TE1Id>(ids);
-            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity>> GetByE2Ids(List<TE2Id> ids)
+        public List<OdataObject<TEntity, TId>> GetByE2Ids(List<TE2Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity2Property();
             var lambda = propertyName.ToLambda<TEntity, TE2Id>(ids);
-            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+            return Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
     }
 }

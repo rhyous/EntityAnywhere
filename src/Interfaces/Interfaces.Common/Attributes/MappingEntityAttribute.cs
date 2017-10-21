@@ -25,6 +25,11 @@ namespace Rhyous.WebFramework.Interfaces
         } internal string _Entity1MappingProperty;
 
         /// <summary>
+        /// Consider not set if null, empty, or whitespace. This allows for renaming one entity when both mappings are for the same entity.
+        /// </summary>
+        public string Entity1UriTemplate { get; set; }
+
+        /// <summary>
         /// Whichever entity will have more instances should be Entity2. If this mapping entity maps and entity to an entity group, then entity2 should be the entity not the group.
         /// For example, for User, UserGroup, UserGroupMembership, Entity2 should be User.
         /// </summary>
@@ -38,5 +43,12 @@ namespace Rhyous.WebFramework.Interfaces
             get { return string.IsNullOrWhiteSpace(_Entity2MappingProperty) ? (_Entity2MappingProperty = $"{Entity2}Id") : _Entity2MappingProperty; }
             set { _Entity2MappingProperty = value; }
         } internal string _Entity2MappingProperty;
+
+        /// <summary>
+        /// Consider not set if null, empty, or whitespace. This allows for renaming one entity when both mappings are for the same entity.
+        /// </summary>
+        public string Entity2UriTemplate { get; set; }
+
+
     }
 }

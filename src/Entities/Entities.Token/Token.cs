@@ -9,7 +9,9 @@ namespace Rhyous.WebFramework.Entities
     {
         /// <inheritdoc />
         public string Text { get; set; }
+
         /// <inheritdoc />
+        [RelatedEntity("User")]
         public long UserId { get; set; }
     }
 }

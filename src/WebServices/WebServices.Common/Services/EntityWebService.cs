@@ -37,9 +37,9 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="entities">The list of entities to create</param>
         /// <returns>The created entities.</returns>
-        public virtual List<OdataObject<TEntity>> Post(List<TEntity> entities)
+        public virtual List<OdataObject<TEntity, TId>> Post(List<TEntity> entities)
         {
-            return Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata(RequestUri);
+            return Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace Rhyous.WebFramework.WebServices
         /// the required properties for deserialization and changed properties.</param>
         /// <param name="changedProperties">the list of properties that are being changed.</param>
         /// <returns>The changed entity.</returns>
-        public virtual OdataObject<TEntity> Patch(string id, PatchedEntity<TEntity> patchedEntity)
+        public virtual OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
         {
-            return Service.Update(id.To<TId>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
+            return Service.Update(id.To<TId>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace Rhyous.WebFramework.WebServices
         /// <param name="id">The entity id to replace.</param>
         /// <param name="entity">The new entity.</param>
         /// <returns>The new entity.</returns>
-        public virtual OdataObject<TEntity> Put(string id, TEntity entity)
+        public virtual OdataObject<TEntity, TId> Put(string id, TEntity entity)
         {
-            return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata(RequestUri, GetAddenda(id));
+            return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
         }
 
 

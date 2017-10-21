@@ -13,6 +13,7 @@ namespace Rhyous.WebFramework.Behaviors
         public RestEndpointBehavior()
         {
             HelpEnabled = true;
+            DefaultOutgoingRequestFormat = DefaultOutgoingResponseFormat = WebMessageFormat.Json;
         }
 
         public override void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
@@ -20,42 +21,27 @@ namespace Rhyous.WebFramework.Behaviors
             var entityType = GetEntityFromEndpoint(endpoint);
             if (entityType != null)
             {
-                string pluralEntityName = PluralizationDictionary.Instance.GetValueOrDefault(entityType.Name);
                 foreach (OperationDescription od in endpoint.Contract.Operations)
-                {
-                    var webInvokeAttribute = od.OperationBehaviors[typeof(WebInvokeAttribute)] as WebInvokeAttribute;
-                    if (string.IsNullOrWhiteSpace(webInvokeAttribute.UriTemplate))
-                    {
-                        if (entityType.ImplementsGenericInterface(typeof(IMappingEntity<,>)))
-                        {
-                            if (od.Name == "GetByE1Ids")
-                            {
-                                var entity1Pluralized = entityType.GetMappedEntity1Pluralized();
-                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity1Pluralized);
-                            }
-                            else if (od.Name == "GetByE2Ids")
-                            {
-                                var entity2Pluralized = entityType.GetMappedEntity2Pluralized();
-                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName, entity2Pluralized);
-                            }
-                            else
-                                webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
-                        }
-                        else
-                            webInvokeAttribute.UriTemplate = string.Format(RestDictionary.Instance[od.Name], pluralEntityName);
-                    }
-                }
+                    SetUriTemplate(entityType, od);
             }
             base.ApplyDispatchBehavior(endpoint, endpointDispatcher);
         }
 
-        public override bool HelpEnabled
+        public override WebMessageFormat DefaultOutgoingResponseFormat { get; set; }
+
+        public override WebMessageFormat DefaultOutgoingRequestFormat { get; set; }
+
+        internal void SetUriTemplate(Type entityType, OperationDescription od)
         {
-            get { return base.HelpEnabled; }
-            set { base.HelpEnabled = value; }
+            var webInvokeAttribute = od.OperationBehaviors[typeof(WebInvokeAttribute)] as WebInvokeAttribute;
+            if (string.IsNullOrWhiteSpace(webInvokeAttribute.UriTemplate)) // If the UriTemplate is specified, use it as is.
+            {
+                var uriMethod = CustomUriTemplateDictionary.GetValueOrDefault(od.Name);
+                webInvokeAttribute.UriTemplate = uriMethod.Invoke(entityType, od.Name);
+            }
         }
 
-        private Type GetEntityFromEndpoint(ServiceEndpoint endpoint)
+        internal Type GetEntityFromEndpoint(ServiceEndpoint endpoint)
         {
             // Get by Attribute
             var type = endpoint.Contract.ContractType;
@@ -71,5 +57,17 @@ namespace Rhyous.WebFramework.Behaviors
                 return inheritedInterfaces[0].GenericTypeArguments[0];
             return null;
         }
+
+        protected override IDispatchMessageFormatter GetReplyDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+        {
+            var parentFormatter = base.GetReplyDispatchFormatter(operationDescription, endpoint);
+            return new CustomDispatchMessageFormatter(this, operationDescription, parentFormatter);
+        }
+
+        internal IDictionaryDefaultValueProvider<string, Func<Type, string, string>> CustomUriTemplateDictionary
+        {
+            get { return _CustomUriTemplateDictionary ?? (_CustomUriTemplateDictionary = CustomRestDictionary.Instance); }
+            set { _CustomUriTemplateDictionary = value; }
+        } private IDictionaryDefaultValueProvider<string, Func<Type, string, string>> _CustomUriTemplateDictionary;
     }
 }
