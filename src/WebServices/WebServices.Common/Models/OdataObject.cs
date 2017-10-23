@@ -30,7 +30,16 @@ namespace Rhyous.WebFramework.WebServices
         /// The entity instance.
         /// </summary>
         [DataMember(Order = 2)]
-        public TEntity @Object { get; set; }
+        public TEntity @Object
+        {
+            get { return _Object; }
+            set
+            {
+                _Object = value;
+                if (value is IId<TId> obj)
+                    Id = obj.Id;
+            }
+        } private TEntity _Object;
 
         /// <summary>
         /// Any addenda for the entity.

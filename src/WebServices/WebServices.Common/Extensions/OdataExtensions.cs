@@ -13,33 +13,26 @@ namespace Rhyous.WebFramework.WebServices
     public static class OdataExtensions
     {
         public const string ObjectUrl = "{0}({1})";
-        public const string IdProperty = "Id";
 
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, string idProperty, params string[] properties)
+        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, params string[] properties)
             where T : IId<TId>
         {
-            return t.AsOdata<T, TId>(leftPartOfUrl, IdProperty, true, properties);
+            return t.AsOdata<T, TId>(leftPartOfUrl, true, properties);
         }
 
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, string idProperty, bool addIdToUrl, params string[] properties)
+        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, bool addIdToUrl, params string[] properties)
             where T : IId<TId>
         {
-            var obj = new OdataObject<T, TId> { Id = t.Id, Object = t, PropertyUris = new List<ODataUri>() };
+            var obj = new OdataObject<T, TId> { Object = t, PropertyUris = new List<ODataUri>() };
             if (!string.IsNullOrWhiteSpace(leftPartOfUrl))
                 obj.Uri = addIdToUrl
-                        ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, t.GetPropertyValue(idProperty)))
+                        ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, obj.Id))
                         : new Uri(leftPartOfUrl);
             // Uncomment below if we decide to publish all Entity properties
             //if (properties == null || properties.Length == 0)
             //    properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !p.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreDataMemberAttribute)))?.Select(p=>p.Name).ToArray();
             AddPropertyUris(properties, obj);
             return obj;
-        }
-
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, params string[] properties)
-            where T : IId<TId>
-        {
-            return t.AsOdata<T, TId>(leftPartOfUrl, IdProperty, properties);
         }
 
         private static void AddProperty<T, TId>(this OdataObject<T, TId> obj, string prop)
@@ -59,13 +52,6 @@ namespace Rhyous.WebFramework.WebServices
         {
             var leftPart = uri.GetLeftPart(UriPartial.Path);
             return t.AsOdata<T, TId>(leftPart, false, properties);
-        }
-
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPart, bool addIdToUrl, params string[] properties)
-            where T : IId<TId>
-        {
-            var id = t.GetPropertyValue(IdProperty);
-            return t.AsOdata<T, TId>(leftPart, IdProperty, addIdToUrl, properties);
         }
 
         public static List<OdataObject<T, TId>> AsOdata<T, TId>(this List<T> ts, Uri uri,  params string[] properties)
