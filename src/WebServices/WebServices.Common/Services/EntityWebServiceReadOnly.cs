@@ -68,8 +68,8 @@ namespace Rhyous.WebFramework.WebServices
         {
             var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
             var relatedEntities = Service.GetRelatedEntities(entity.Object);
-            if (relatedEntities != null && relatedEntities.Count > 0)
-                entity.RelatedEntities.AddRange(relatedEntities.Select(re => new JRaw(re)));
+            if (relatedEntities?.Entities?.Count > 0)
+                entity.RelatedEntities.Add(relatedEntities);
             return entity;
         }
 
@@ -85,8 +85,7 @@ namespace Rhyous.WebFramework.WebServices
         {
             return Service.GetProperty(id.To<TId>(), property);
         }
-
-
+        
         #region Properties
         public static Type EntityType => typeof(TEntity);
         protected internal virtual Uri RequestUri
@@ -100,9 +99,7 @@ namespace Rhyous.WebFramework.WebServices
         {
             get { return _Service ?? (_Service = new EntityServiceLoader<TEntity, TService>().LoadPluginOrCommon()); }
             set { _Service = value; }
-        }
-        protected IServiceCommon<TEntity, TInterface, TId> _Service;
+        } protected IServiceCommon<TEntity, TInterface, TId> _Service;
         #endregion
-
     }
 }

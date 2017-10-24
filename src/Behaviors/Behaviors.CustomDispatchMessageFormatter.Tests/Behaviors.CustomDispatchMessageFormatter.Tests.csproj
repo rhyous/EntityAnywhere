@@ -51,7 +51,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SerializerTests.cs" />
+    <Compile Include="Business\SerializerTests.cs" />
+    <Compile Include="Business\PreferentialComparerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +64,10 @@
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Misc\RelatedEntities\RelatedEntities.csproj">
+      <Project>{1EF4D834-AB67-4081-91E0-E58C85D88702}</Project>
+      <Name>RelatedEntities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
       <Name>WebServices.Common</Name>
@@ -73,6 +78,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

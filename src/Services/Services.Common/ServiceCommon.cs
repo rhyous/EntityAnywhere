@@ -2,6 +2,7 @@
 using Rhyous.Odata;
 using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.RelatedEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -28,6 +29,12 @@ namespace Rhyous.WebFramework.Services
             get { return _Repo ?? (_Repo = RepositoryLoader.Load<TEntity, TInterface, TId>()); }
             set { _Repo = value; }
         } private IRepository<TEntity, TInterface, TId> _Repo;
+
+        public IRelatedEntityManager<TEntity, TInterface, TId> RelatedEntityManager
+        {
+            get { return _RelatedEntityManager ?? (_RelatedEntityManager = new RelatedEntityManager<TEntity, TInterface, TId>()); }
+            set { _RelatedEntityManager = value; }
+        } private IRelatedEntityManager<TEntity, TInterface, TId> _RelatedEntityManager;
 
         /// <inheritdoc />
         public virtual int GetCount()
@@ -134,32 +141,15 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual List<string> GetRelatedEntities(TInterface entity)
+        public virtual RelatedEntityCollection GetRelatedEntities(TInterface entity)
         {
-            return TaskRunner.RunSynchonously(GetRelatedEntitiesAsync, entity);
-        }
-
-        public async virtual Task<List<string>> GetRelatedEntitiesAsync(TInterface entity)
-        {
-            var type = typeof(TEntity);
-            var attributes = type.GetProperties()
-                                 .Select(p => p.GetCustomAttribute<RelatedEntityAttribute>(true))
-                                 .Where(a => a != null);
-            var list = new List<string>();
-            foreach (RelatedEntityAttribute a in attributes)
-            {
-                var client = new EntityClientAsync(a.Entity);
-                var relatedEntityKeyValue = entity.GetPropertyValue(a.ForeignKey).ToString();
-                var relatedEntity = await client.GetAsync(relatedEntityKeyValue);
-                list.Add(relatedEntity);
-            }
-            return list;
+            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entity, new List<string>());
         }
 
         /// <inheritdoc />
-        public virtual List<string> GetRelatedEntities(IEnumerable<TInterface> entity)
+        public virtual List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities)
         {
-            return null;
+            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entities, new List<string>());
         }
     }
 }

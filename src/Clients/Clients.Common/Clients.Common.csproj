@@ -154,6 +154,10 @@
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Misc\RelatedEntities\RelatedEntities.csproj">
+      <Project>{1ef4d834-ab67-4081-91e0-e58c85d88702}</Project>
+      <Name>RelatedEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

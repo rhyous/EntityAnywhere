@@ -3,6 +3,8 @@ using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {

@@ -65,7 +65,6 @@
     <Compile Include="Business\ListMaker.cs" />
     <Compile Include="Business\EntityWebServiceLoader.cs" />
     <Compile Include="Business\EntityLoader.cs" />
-    <Compile Include="Business\RelatedEntityManager.cs" />
     <Compile Include="Business\Starter.cs" />
     <Compile Include="Business\CustomWebServiceLoader.cs" />
     <Compile Include="Clients\EntityCache.cs" />
@@ -128,12 +127,17 @@
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Misc\RelatedEntities\RelatedEntities.csproj">
+      <Project>{1EF4D834-AB67-4081-91E0-E58C85D88702}</Project>
+      <Name>RelatedEntities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

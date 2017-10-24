@@ -13,8 +13,10 @@ namespace Rhyous.WebFramework.Entities
     public partial class UserGroupMembership : Entity<long>, IUserGroupMembership
     {
         /// <inheritdoc />
-        public int UserId { get; set; }
-        /// <inheritdoc />
+        [RelatedEntity("UserGroup")]
         public int UserGroupId { get; set; }
+        /// <inheritdoc />
+        [RelatedEntity("User")]
+        public int UserId { get; set; }
     }
 }

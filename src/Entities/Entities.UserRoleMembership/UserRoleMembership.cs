@@ -13,8 +13,10 @@ namespace Rhyous.WebFramework.Entities
     public partial class UserRoleMembership : Entity<long>, IUserRoleMembership, IMappingEntity<int, int>
     {
         /// <inheritdoc />
+        [RelatedEntity("UserRole")]
         public int UserRoleId { get; set; }
         /// <inheritdoc />
+        [RelatedEntity("User")]
         public int UserId { get; set; }
     }
 }

@@ -12,8 +12,12 @@ namespace Rhyous.WebFramework.Services
     [MappingEntity(Entity1 = "UserType", Entity2 = "User")]
     public partial class UserTypeMap : Entity<long>, IUserTypeMap, IMappingEntity<int, int>
     {
+        /// <inheritdoc />
+        [RelatedEntity("UserType")]
         public int UserTypeId { get; set; }
 
+        /// <inheritdoc />
+        [RelatedEntity("User")]
         public int UserId { get; set; }
     }
 }

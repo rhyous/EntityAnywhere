@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Rhyous.WebFramework.Entities;
+﻿using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.RelatedEntities;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -55,11 +55,11 @@ namespace Rhyous.WebFramework.WebServices
         /// Any related entity for the entity.
         /// </summary>
         [DataMember(Order = 4)]
-        public List<JRaw> RelatedEntities
+        public List<RelatedEntityCollection> RelatedEntities
         {
-            get { return _RelatedEntities ?? (_RelatedEntities = new List<JRaw>()); }
+            get { return _RelatedEntities ?? (_RelatedEntities = new List<RelatedEntityCollection>()); }
             set { _RelatedEntities = value; }
-        }private List<JRaw> _RelatedEntities;
+        } private List<RelatedEntityCollection> _RelatedEntities;
 
         /// <summary>
         /// A list of uris that can manage each entity property individually.
