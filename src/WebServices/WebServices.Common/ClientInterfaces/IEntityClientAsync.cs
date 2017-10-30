@@ -53,11 +53,19 @@ namespace Rhyous.WebFramework.Clients
         Task<List<OdataObject<TEntity, TId>>> GetByIdsAsync(IEnumerable<TId> ids);
 
         /// <summary>
-        /// Gets an entity be a specific id. Call is asynchonous.
+        /// Gets an entity by a specific id. Call is asynchonous.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
         /// <returns>The entity with the specified id.</returns>
         Task<OdataObject<TEntity, TId>> GetAsync(string id);
+
+        /// <summary>
+        /// Gets an entity by the AlternateKey. This is only a valid call for Entities
+        /// with the AlternateKey attribute. Call is asynchonous.
+        /// </summary>
+        /// <param name="altKey"></param>
+        /// <returns>The entity with the specified alternate key.</returns>
+        Task<OdataObject<TEntity, TId>> GetByAlternateKeyAsync(string altKey);
 
         /// <summary>
         /// Gets an entity's property value by a specific id and property name. Call is asynchonous.

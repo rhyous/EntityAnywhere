@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.StringLibrary;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Linq;
 
@@ -21,7 +22,8 @@ namespace Rhyous.WebFramework.WebServices
         {
             if (string.IsNullOrWhiteSpace(idOrName))
                 return null;
-            if (idOrName.Any(c => !char.IsDigit(c)))
+            var id = idOrName.To<TId>();
+            if (id.Equals(default(TId)))
                 return AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(idOrName));
             return base.Get(idOrName);
         }

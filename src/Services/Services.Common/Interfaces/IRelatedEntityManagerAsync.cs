@@ -1,5 +1,6 @@
-﻿using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.RelatedEntities;
+﻿using Rhyous.Odata;
+using Rhyous.Odata.Expand;
+using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Rhyous.WebFramework.Services
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        Task<RelatedEntityCollection> GetRelatedEntitiesAsync(TInterface entity, IEnumerable<string> entitiesToExpand = null);
-        Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<string> entitiesToExpand = null);
+        Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(TInterface entity, IEnumerable<ExpandPath> expandPaths = null);
+        Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<ExpandPath> expandPaths = null);
     }
 }

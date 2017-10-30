@@ -36,6 +36,12 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.0\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.Odata.Expand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.0\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.Odata.Filter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.1\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
     </Reference>
@@ -139,11 +145,6 @@
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Misc\RelatedEntities\RelatedEntities.csproj">
-      <Project>{1ef4d834-ab67-4081-91e0-e58c85d88702}</Project>
-      <Name>RelatedEntities</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

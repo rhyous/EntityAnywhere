@@ -55,9 +55,11 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}");
         }
 
-        public async Task<String> GetAsync(string idOrName)
+        public async Task<String> GetAsync(string idOrName, string urlParameters = null)
         {
-            return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({idOrName})");
+            var url = $"{ServiceUrl}/{EntityPluralized}({idOrName})";
+            url = AppendUrlParameters(urlParameters, url);
+            return await HttpClientRunner.Run(HttpClient.GetAsync, url);
         }
 
         public async Task<String> GetByCustomUrlAsync(string urlPart)
@@ -70,9 +72,11 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
         }
 
-        public async Task<String> GetByIdsAsync(IEnumerable<string> ids)
+        public async Task<String> GetByIdsAsync(IEnumerable<string> ids, string urlParameters = null)
         {
-            return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids", ids);
+            var url = $"{ServiceUrl}/{EntityPluralized}/Ids";
+            url = AppendUrlParameters(urlParameters, url);
+            return await HttpClientRunner.Run(HttpClient.PostAsync, url, ids);
         }
 
         public async Task<String> GetByQueryParametersAsync(string queryParameters)
@@ -108,6 +112,13 @@ namespace Rhyous.WebFramework.Clients
         public async Task<string> UpdatePropertyAsync(string id, string property, string value)
         {
             return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}", value, JsonSerializerSettings);
+        }
+        
+        protected static string AppendUrlParameters(string urlParameters, string url)
+        {
+            if (!string.IsNullOrWhiteSpace(urlParameters))
+                url += urlParameters.StartsWith("?") ? urlParameters : $"?{urlParameters}";
+            return url;
         }
     }
 }

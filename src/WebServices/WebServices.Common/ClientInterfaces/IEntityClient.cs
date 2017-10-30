@@ -57,6 +57,14 @@ namespace Rhyous.WebFramework.Clients
         List<OdataObject<TEntity, TId>> GetByIds(IEnumerable<TId> ids);
 
         /// <summary>
+        /// Gets an entity by the AlternateKey. This is only a valid call for Entities
+        /// with the AlternateKey attribute.
+        /// </summary>
+        /// <param name="altKey"></param>
+        /// <returns>The entity with the specified alternate key.</returns>
+        OdataObject<TEntity, TId> GetByAlternateKey(string altKey);
+
+        /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
         /// </summary>
         /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/.</param>

@@ -5,12 +5,11 @@ using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class MappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id> : EntityClient<TEntity, TId>, IMappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id>
+    public class MappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id> : EntityClientAsync<TEntity, TId>, IMappingEntityClientAsync<TEntity, TId, TE1Id, TE2Id>
         where TEntity : class, IMappingEntity<TE1Id, TE2Id>, new()
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
         where TE1Id : IComparable, IComparable<TE1Id>, IEquatable<TE1Id>

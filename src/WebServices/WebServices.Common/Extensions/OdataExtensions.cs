@@ -1,5 +1,5 @@
-﻿using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
@@ -8,80 +8,56 @@ using System.Linq;
 namespace Rhyous.WebFramework.WebServices
 {
     /// <summary>
-    /// This extension class makes wrapping objects in Odata types easier.
+    /// This extension class makes wrapping objects in Odata types easier. This is a copy of the one in Rhyous.Odata,
+    /// only it returns the local inherited version of OdataObject<![CDATA[<T,TId>]]>.
     /// </summary>
     public static class OdataExtensions
     {
         public const string ObjectUrl = "{0}({1})";
 
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, params string[] properties)
-            where T : IId<TId>
+        #region single entity
+        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, bool addIdToUrl, UriKind uriKind = UriKind.Relative, params string[] properties)
         {
-            return t.AsOdata<T, TId>(leftPartOfUrl, true, properties);
-        }
-
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, string leftPartOfUrl, bool addIdToUrl, params string[] properties)
-            where T : IId<TId>
-        {
-            var obj = new OdataObject<T, TId> { Object = t, PropertyUris = new List<ODataUri>() };
-            if (!string.IsNullOrWhiteSpace(leftPartOfUrl))
-                obj.Uri = addIdToUrl
-                        ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, obj.Id))
-                        : new Uri(leftPartOfUrl);
-            // Uncomment below if we decide to publish all Entity properties
+            var obj = new OdataObject<T, TId> { Object = t, PropertyUris = new List<OdataUri>() };
+            obj.SetUri(leftPartOfUrl, uriKind, addIdToUrl);
+            // Uncomment below if we decide to publish all Entity property uris
             //if (properties == null || properties.Length == 0)
             //    properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !p.CustomAttributes.Any(a => a.AttributeType == typeof(IgnoreDataMemberAttribute)))?.Select(p=>p.Name).ToArray();
-            AddPropertyUris(properties, obj);
+            obj.AddPropertyUris(properties);
             return obj;
         }
 
-        private static void AddProperty<T, TId>(this OdataObject<T, TId> obj, string prop)
-            where T : IId<TId>
-        {
-            obj.PropertyUris.Add(
-                new ODataUri
-                {
-                    PropertyName = prop,
-                    Uri = new Uri("/" + prop, UriKind.Relative)
-                }
-            );
-        }
-
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, Uri uri, params string[] properties)
-            where T : IId<TId>
+        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, Uri uri, List<Addendum> addenda = null, params string[] properties)
         {
             var leftPart = uri.GetLeftPart(UriPartial.Path);
-            return t.AsOdata<T, TId>(leftPart, false, properties);
+            var uriKind = uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative;
+            var odata = t.AsOdata<T, TId>(leftPart, false, uriKind, properties);
+            odata.Addenda = addenda;
+            return odata;
         }
+        #endregion
 
-        public static List<OdataObject<T, TId>> AsOdata<T, TId>(this List<T> ts, Uri uri,  params string[] properties)
-            where T : IId<TId>
-        {
-            var leftPart = uri?.GetLeftPart(UriPartial.Path);
-            return ts.Select(t => t.AsOdata<T, TId>(leftPart, true, properties)).ToList();
-        }
-
-        public static List<OdataObject<T, TId>> AsOdata<T, TId>(this IEnumerable<T> list, Uri uri, List<Addendum> addenda, params string[] properties)
-            where T : IId<TId>
+        #region multiple entities
+        public static List<OdataObject<T, TId>> AsOdata<T, TId>(this IEnumerable<T> list, Uri uri, List<Addendum> addenda = null, params string[] properties)
         {
             var entity = typeof(T).Name;
             var odataList = new List<OdataObject<T, TId>>();
             foreach (T e in list)
-                odataList.Add(e.AsOdata<T, TId>(uri, addenda.Where(a => a.Entity == entity && a.EntityId == e.Id.ToString()).ToList()));
+                odataList.Add(e.AsOdata<T, TId>(uri, addenda?.Where(a => a.Entity == entity && a.EntityId == e.GetPropertyValue("Id").ToString()).ToList()));
             return odataList;
         }
+        #endregion
 
-        public static OdataObject<T, TId> AsOdata<T, TId>(this T t, Uri uri, List<Addendum> addenda, params string[] properties)
-            where T : IId<TId>
+        #region internal
+        private static void SetUri<T, TId>(this OdataObject<T, TId> obj, string leftPartOfUrl, UriKind uriKind, bool addIdToUrl)
         {
-            var leftPart = uri.GetLeftPart(UriPartial.Path);            
-            var odata = t.AsOdata<T, TId>(leftPart, false, properties);
-            odata.Addenda = addenda;
-            return odata;
+            if (!string.IsNullOrWhiteSpace(leftPartOfUrl))
+                obj.Uri = addIdToUrl
+                        ? new Uri(string.Format(ObjectUrl, leftPartOfUrl, obj.Id), uriKind)
+                        : new Uri(leftPartOfUrl, uriKind);
         }
 
-        private static void AddPropertyUris<T, TId>(string[] properties, OdataObject<T, TId> obj)
-            where T : IId<TId>
+        internal static void AddPropertyUris<T, TId>(this OdataObject<T, TId> obj, string[] properties)
         {
             if (properties != null)
             {
@@ -89,5 +65,17 @@ namespace Rhyous.WebFramework.WebServices
                     obj.AddProperty(prop);
             }
         }
+
+        internal static void AddProperty<T, TId>(this OdataObject<T, TId> obj, string prop)
+        {
+            obj.PropertyUris.Add(
+                new OdataUri
+                {
+                    PropertyName = prop,
+                    Uri = new Uri("/" + prop, UriKind.Relative)
+                }
+            );
+        }
+        #endregion
     }
 }

@@ -57,7 +57,13 @@ namespace Rhyous.WebFramework.Clients
         {
             return await EntityCache.GetWithCache(idOrName.To<TId>(), HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({idOrName})");
         }
-        
+
+        /// <inheritdoc />
+        public async Task<OdataObject<TEntity, TId>> GetByAlternateKeyAsync(string altKey)
+        {
+            return await HttpClientRunner.RunAndDeserialize<OdataObject<TEntity, TId>>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({altKey})");
+        }
+
         /// <inheritdoc />
         public async Task<List<OdataObject<TEntity, TId>>> GetAllAsync()
         {

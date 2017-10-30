@@ -1,8 +1,8 @@
 ﻿using LinqKit;
 using Rhyous.Odata;
+using Rhyous.Odata.Expand;
 using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.RelatedEntities;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -141,15 +141,34 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual RelatedEntityCollection GetRelatedEntities(TInterface entity)
+        public virtual List<RelatedEntityCollection> GetRelatedEntities(TInterface entity, NameValueCollection parameters = null)
         {
-            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entity, new List<string>());
+            var expandPaths = new ExpandParser().Parse(parameters);
+            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entity, expandPaths);
+        }
+
+        public async virtual Task<List<string>> GetRelatedEntitiesAsync(TInterface entity)
+        {
+            var type = typeof(TEntity);
+            var attributes = type.GetProperties()
+                                 .Select(p => p.GetCustomAttribute<RelatedEntityAttribute>(true))
+                                 .Where(a => a != null);
+            var list = new List<string>();
+            foreach (RelatedEntityAttribute a in attributes)
+            {
+                var client = new EntityClientAsync(a.RelatedEntity);
+                var relatedEntityKeyValue = entity.GetPropertyValue(a.ForeignKey).ToString();
+                var relatedEntity = await client.GetAsync(relatedEntityKeyValue);
+                list.Add(relatedEntity);
+            }
+            return list;
         }
 
         /// <inheritdoc />
-        public virtual List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities)
+        public virtual List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities, NameValueCollection parameters = null)
         {
-            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entities, new List<string>());
+            var expandPaths = new ExpandParser().Parse(parameters);
+            return TaskRunner.RunSynchonously(RelatedEntityManager.GetRelatedEntitiesAsync, entities, expandPaths);
         }
     }
 }

@@ -8,13 +8,13 @@ namespace Rhyous.WebFramework.Interfaces
     /// Not implemented or used yet.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class RelatedEntityAttribute : Attribute
+    public class RelatedEntityAttribute : Attribute, IRelatedEntity
     {
         public const string DefaultForeignKey = "Id";
 
         public RelatedEntityAttribute(string entity, [Optional] string foreignKey, [Optional] Type foreignKeyType, [Optional] bool autoExpand, [CallerMemberName]string property = null)
         {
-            Entity = entity;
+            RelatedEntity = entity;
             ForeignKey = string.IsNullOrWhiteSpace(foreignKey) ? DefaultForeignKey : foreignKey;
             foreignKeyType = foreignKeyType ?? typeof(int);
             AutoExpand = autoExpand;
@@ -24,7 +24,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// <summary>
         /// The name of the related entity.
         /// </summary>
-        public string Entity { get; set; }
+        public string RelatedEntity { get; set; }
 
         /// <summary>
         /// The name of the property identifier on the related entity.

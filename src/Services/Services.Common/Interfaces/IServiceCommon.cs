@@ -1,4 +1,4 @@
-﻿using Rhyous.WebFramework.RelatedEntities;
+﻿using Rhyous.Odata;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -136,7 +136,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="entity">The entity to get related entities for.</param>
         /// <returns>Related entites as raw json strings.</returns>
-        RelatedEntityCollection GetRelatedEntities(TInterface entity);
+        List<RelatedEntityCollection> GetRelatedEntities(TInterface entity, NameValueCollection parameters = null);
 
         /// <summary>
         /// Gets related entities for the type TEntity given the passed in list of instances.
@@ -144,6 +144,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="entities">A list of entities to get related entities for.</param>
         /// <returns>Related entites as raw json strings.</returns>
-        List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities);
+        List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities, NameValueCollection parameters = null);
     }
 }

@@ -27,7 +27,7 @@ namespace Rhyous.WebFramework.Authenticators
         public bool IsValid(ICredentials creds, out IToken token)
         {
             token = null;
-            var user = Service.Get(creds.User)?.Object;
+            var user = Service.GetByAlternateKey(creds.User)?.Object;
             if (user == null)
                 return false;
             if (user.ExternalAuth && ForceExternalUsersToAuthenticateExternally)

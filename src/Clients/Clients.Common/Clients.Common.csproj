@@ -33,6 +33,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.0\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
     <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
     </Reference>
@@ -76,20 +79,23 @@
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IMappingEntityClientAsync.cs">
       <Link>Interfaces\IMappingEntityClientAsync.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IMappingEntityClientAsyncJson.cs">
+      <Link>Interfaces\IMappingEntityClientAsyncJson.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityCache.cs">
-      <Link>EntityCache.cs</Link>
+      <Link>Clients\EntityCache.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
-      <Link>EntityClient.cs</Link>
+      <Link>Clients\EntityClient.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientAsync.cs">
-      <Link>EntityClientAsync.cs</Link>
+      <Link>Clients\EntityClientAsync.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientBase.cs">
-      <Link>EntityClientBase.cs</Link>
+      <Link>Clients\EntityClientBase.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientAsyncJson.cs">
-      <Link>EntityClientAsyncJson.cs</Link>
+      <Link>Clients\EntityClientAsyncJson.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpClientRunner.cs">
       <Link>Extensions\HttpClientRunner.cs</Link>
@@ -98,10 +104,13 @@
       <Link>Models\HttpContextProvider.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClient.cs">
-      <Link>MappingEntityClient.cs</Link>
+      <Link>Clients\MappingEntityClient.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClientAsync.cs">
-      <Link>MappingEntityClientAsync.cs</Link>
+      <Link>Clients\MappingEntityClientAsync.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\MappingEntityClientAsyncJson.cs">
+      <Link>Clients\MappingEntityClientAsyncJson.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\TaskRunner.cs">
       <Link>Extensions\TaskRunner.cs</Link>
@@ -130,9 +139,6 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Models\OdataObject.cs">
       <Link>Models\OdataObject.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Models\ODataUri.cs">
-      <Link>Models\ODataUri.cs</Link>
-    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Models\PatchedEntity.cs">
       <Link>Models\PatchedEntity.cs</Link>
     </Compile>
@@ -153,10 +159,6 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Misc\RelatedEntities\RelatedEntities.csproj">
-      <Project>{1ef4d834-ab67-4081-91e0-e58c85d88702}</Project>
-      <Name>RelatedEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

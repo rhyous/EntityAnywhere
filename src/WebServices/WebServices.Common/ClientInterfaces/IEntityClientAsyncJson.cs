@@ -42,14 +42,14 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>
         /// <returns>All entities with the provided ids.</returns>
-        Task<String> GetByIdsAsync(IEnumerable<string> ids);
+        Task<String> GetByIdsAsync(IEnumerable<string> ids, string urlParameters = null);
 
         /// <summary>
         /// Gets an entity be a specific id. Call is asynchonous.
         /// </summary>
         /// <param name="id">The id of the entity.</param>
         /// <returns>The entity with the specified id.</returns>
-        Task<String> GetAsync(string id);
+        Task<String> GetAsync(string id, string urlParameters = null);
 
         /// <summary>
         /// Gets an entity's property value by a specific id and property name. Call is asynchonous.

@@ -12,6 +12,7 @@ namespace Rhyous.WebFramework.Clients
     /// <summary>
     /// A common class that any client can implement to talk to any entity's web services.
     /// </summary>
+    /// <remarks>This inherits EntityClientAsync<![CDATA[<TEntity, TId>]]> and adds method to run the asnyc method synchronously.</remarks>
     /// <typeparam name="TEntity">The entity type</typeparam>
     /// <typeparam name="TId">The entity id type</typeparam>
     public class EntityClient<TEntity, TId> : EntityClientAsync<TEntity, TId>, IEntityClient<TEntity, TId>
@@ -53,7 +54,18 @@ namespace Rhyous.WebFramework.Clients
         {
             return TaskRunner.RunSynchonously(GetAsync, idOrName);
         }
-        
+
+        /// <summary>
+        /// Gets an entity by the AlternateKey. This is only a valid call for Entities
+        /// with the AlternateKey attribute. Call is asynchonous.
+        /// </summary>
+        /// <param name="altKey"></param>
+        /// <returns>The entity with the specified alternate key.</returns>
+        public OdataObject<TEntity, TId> GetByAlternateKey(string altKey)
+        {
+            return TaskRunner.RunSynchonously(GetByAlternateKeyAsync, altKey);
+        }
+
         /// <inheritdoc />
         public List<OdataObject<TEntity, TId>> GetAll()
         {

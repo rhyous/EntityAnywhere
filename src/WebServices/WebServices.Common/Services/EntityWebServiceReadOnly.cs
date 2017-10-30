@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Rhyous.Odata;
 using Rhyous.Odata.Csdl;
 using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.ServiceModel.Web;
 
@@ -41,8 +42,8 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>List{OdataObject{T}} containing all entities</returns>
         public virtual List<OdataObject<TEntity, TId>> GetAll()
         {
-            if (WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters.Count > 0)
-                return Service.Get(WebOperationContext.Current.IncomingRequest.UriTemplateMatch.QueryParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            if (UrlParameters.Count > 0)
+                return Service.Get(UrlParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
             return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
 
@@ -55,7 +56,8 @@ namespace Rhyous.WebFramework.WebServices
         {
             var addendumlist = GetAddendaByEntityIds(ids.Select(id => id.ToString()).ToList());
             var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);
-            var relatedEntities = Service.GetRelatedEntities(entities.Select(o => o.Object));
+            var relatedEntities = Service.GetRelatedEntities(entities.Select(o => o.Object), UrlParameters);
+            Sorter.Collate(entities, relatedEntities);
             return entities;
         }
 
@@ -67,9 +69,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObject<TEntity, TId> Get(string id)
         {
             var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
-            var relatedEntities = Service.GetRelatedEntities(entity.Object);
-            if (relatedEntities?.Entities?.Count > 0)
-                entity.RelatedEntities.Add(relatedEntities);
+            entity.RelatedEntities = Service.GetRelatedEntities(entity.Object, UrlParameters);
             return entity;
         }
 
@@ -88,10 +88,8 @@ namespace Rhyous.WebFramework.WebServices
         
         #region Properties
         public static Type EntityType => typeof(TEntity);
-        protected internal virtual Uri RequestUri
-        {
-            get { return WebOperationContext.Current.IncomingRequest.UriTemplateMatch.RequestUri; }
-        }
+        protected internal virtual Uri RequestUri => WebOperationContext.Current?.IncomingRequest?.UriTemplateMatch?.RequestUri;
+        protected internal virtual NameValueCollection UrlParameters => WebOperationContext.Current?.IncomingRequest?.UriTemplateMatch?.QueryParameters;
         #endregion
 
         #region Injectable Dependency
@@ -100,6 +98,13 @@ namespace Rhyous.WebFramework.WebServices
             get { return _Service ?? (_Service = new EntityServiceLoader<TEntity, TService>().LoadPluginOrCommon()); }
             set { _Service = value; }
         } protected IServiceCommon<TEntity, TInterface, TId> _Service;
+
+        public IRelatedEntitySorter<TEntity, TId> Sorter
+        {
+            get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TEntity, TId>()); }
+            set { _Sorter = value; }
+        } private IRelatedEntitySorter<TEntity, TId> _Sorter;
+
         #endregion
     }
 }

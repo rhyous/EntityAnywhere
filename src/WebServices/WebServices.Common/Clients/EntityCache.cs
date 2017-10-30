@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Clients
 {
+    /// <summary>
+    /// This object exists to help eliminate make the same web service call multiple times.
+    /// </summary>
+    /// <typeparam name="T">The Type to cache.</typeparam>
+    /// <typeparam name="TId">The type of the Id property of the type T to cache.</typeparam>
     public class EntityCache<T, TId> : IEntityCache<T, TId>
         where T : IId<TId>
     {

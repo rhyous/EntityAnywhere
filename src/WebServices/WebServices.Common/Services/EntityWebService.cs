@@ -3,8 +3,6 @@ using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -68,7 +66,6 @@ namespace Rhyous.WebFramework.WebServices
             return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
         }
 
-
         /// <summary>
         /// Deletes the entity at the given id.
         /// </summary>
@@ -78,6 +75,5 @@ namespace Rhyous.WebFramework.WebServices
         {
             return Service.Delete(id.To<TId>());
         }
-
     }
 }
