@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Behaviors\Behaviors.InstanceContext\WcfInstanceContext.cs">
+      <Link>Models\WcfInstanceContext.cs</Link>
+    </Compile>
     <Compile Include="..\..\Behaviors\Behaviors.RestEndpoint\Dictionaries\PluralizationDictionary.cs">
       <Link>Dictionaries\PluralizationDictionary.cs</Link>
     </Compile>

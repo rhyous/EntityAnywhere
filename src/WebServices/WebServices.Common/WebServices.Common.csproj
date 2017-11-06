@@ -118,6 +118,10 @@
       <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
       <Name>Behaviors.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Behaviors\Behaviors.InstanceContext\Behaviors.InstanceContext.csproj">
+      <Project>{7e6d99c2-2a33-4557-857e-f58d78ae8ac3}</Project>
+      <Name>Behaviors.InstanceContext</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
       <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
       <Name>Behaviors.RestEndpoint</Name>

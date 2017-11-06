@@ -18,14 +18,6 @@ namespace Rhyous.WebFramework.WebServices
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
         where TService : class, IServiceCommon<TEntity, TInterface, TId>, new()
     {
-        public EntityWebServiceReadOnly()
-        {
-            if (CallContext.LogicalGetData("WebOperationContext") == null)
-            {
-                CallContext.LogicalSetData("WebOperationContext", WebOperationContext.Current);
-            }
-        }
-
         /// <summary>
         /// This retuns metadata about the services.
         /// </summary>

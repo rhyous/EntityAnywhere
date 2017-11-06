@@ -15,14 +15,6 @@ namespace Rhyous.WebFramework.WebServices
     [CustomWebService("AuthenticationWebService", typeof(IAuthenticationWebService), null, "AuthenticationService.svc")]
     public class AuthenticationWebService : IAuthenticationWebService, ICustomWebService
     {
-        public AuthenticationWebService()
-        {
-            if (CallContext.LogicalGetData("WebOperationContext") == null)
-            {
-                CallContext.LogicalSetData("WebOperationContext", WebOperationContext.Current);
-            }
-        }
-
         /// <inheritdoc />
         public Token Authenticate(Credentials creds)
         {

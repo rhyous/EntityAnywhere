@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Rhyous.WebFramework.Clients
+namespace Rhyous.WebFramework.Interfaces
 {
     /// <summary>
     /// This class wraps a dictionary, but if a key that does not exist is provided to the indexer,
