@@ -1,6 +1,7 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Configuration;
+using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Web;
@@ -23,7 +24,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <inheritdoc />
         public WebOperationContext CurrentWebOperationContext
         {
-            get { return _CurrentWebOperationContext ?? WebOperationContext.Current; } // Don't store current
+            get { return _CurrentWebOperationContext ?? WebOperationContext.Current ?? FindContext(); } // Don't store current
             set { _CurrentWebOperationContext = value; }
         } internal WebOperationContext _CurrentWebOperationContext;
 
@@ -36,6 +37,11 @@ namespace Rhyous.WebFramework.WebServices
 
         /// <inheritdoc />
         public Uri Uri => CurrentHttpContext?.Request?.Url ?? CurrentWebOperationContext?.IncomingRequest?.UriTemplateMatch?.RequestUri;
+
+        internal WebOperationContext FindContext()
+        {
+            return CallContext.LogicalGetData("WebOperationContext") as WebOperationContext;
+        }
 
         internal string BuildWebHost(Uri uri)
         {

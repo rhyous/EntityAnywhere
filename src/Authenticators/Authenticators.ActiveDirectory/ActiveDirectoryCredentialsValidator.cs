@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
-using System.ServiceModel.Web;
 using System.Threading.Tasks;
 using ICredentials = Rhyous.WebFramework.Interfaces.ICredentials;
 
@@ -25,13 +24,13 @@ namespace Rhyous.WebFramework.Authenticators
         const string DomainGroup = "DomainGroup";
 
         /// <inheritdoc />
-        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections, WebOperationContext context)
+        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections)
         {
-            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections, context);
+            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections);
         }
 
         /// <inheritdoc />
-        public async Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context)
+        public async Task<IToken> IsValidAsync(ICredentials creds)
         {
             var domain = ConfigurationManager.AppSettings.Get<string>("Domain", null);
             if (string.IsNullOrWhiteSpace(domain))
@@ -45,12 +44,12 @@ namespace Rhyous.WebFramework.Authenticators
             var netCreds = new NetworkCredential(GetUserName(creds.User), creds.Password, userDomain);
             if (ADService.ValidateCredentialsAgainstDomain(netCreds) && ADService.IsUserInGroup(netCreds, domain, group))
             {
-                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>, WebOperationContext> (typeof(User).Name, context);
+                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
                 var odataUser = await userClient.GetAsync(creds.User);
                 IUser user = odataUser?.Object;
                 if (user == null)
                     user = await StoreUser(creds);
-                return await BuildAsync(creds, user, odataUser.RelatedEntities, context);
+                return await BuildAsync(creds, user, odataUser.RelatedEntities);
             }
             return null;
         }

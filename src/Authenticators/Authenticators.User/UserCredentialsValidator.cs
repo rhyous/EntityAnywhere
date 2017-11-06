@@ -22,15 +22,15 @@ namespace Rhyous.WebFramework.Authenticators
         public static bool ForceExternalUsersToAuthenticateExternally { get { return ConfigurationManager.AppSettings.Get("ForceExternalUsersToAuthenticateExternally", true); } }
 
         /// <inheritdoc />
-        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections, WebOperationContext context)
+        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections)
         {
-            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections, context);
+            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections);
         }
 
         /// <inheritdoc />
-        public async Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context)
+        public async Task<IToken> IsValidAsync(ICredentials creds)
         {
-            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>, WebOperationContext>(typeof(User).Name, context);
+            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
             var odataUser = await userClient.GetByAlternateKeyAsync(creds.User);
             var user = odataUser?.Object;
             if (user == null)
@@ -40,7 +40,7 @@ namespace Rhyous.WebFramework.Authenticators
             bool result = (user.IsHashed) ? Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding)
                                           : creds.Password == user.Password;
 
-            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntities, context) : null;
+            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntities) : null;
             return token;
         }
 

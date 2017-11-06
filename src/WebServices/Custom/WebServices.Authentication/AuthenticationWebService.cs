@@ -2,6 +2,8 @@
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
+using System.Runtime.Remoting.Messaging;
+using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -13,6 +15,14 @@ namespace Rhyous.WebFramework.WebServices
     [CustomWebService("AuthenticationWebService", typeof(IAuthenticationWebService), null, "AuthenticationService.svc")]
     public class AuthenticationWebService : IAuthenticationWebService, ICustomWebService
     {
+        public AuthenticationWebService()
+        {
+            if (CallContext.LogicalGetData("WebOperationContext") == null)
+            {
+                CallContext.LogicalSetData("WebOperationContext", WebOperationContext.Current);
+            }
+        }
+
         /// <inheritdoc />
         public Token Authenticate(Credentials creds)
         {

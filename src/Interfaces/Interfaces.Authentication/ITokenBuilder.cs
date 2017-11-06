@@ -1,6 +1,5 @@
 ﻿using Rhyous.Odata;
 using System.Collections.Generic;
-using System.ServiceModel.Web;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Interfaces
@@ -17,6 +16,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="creds">The credentials (username and password) that the token is being built for.</param>
         /// <param name="userId">The id of the user that is requesting the token.</param>
         /// <returns>An IToken implementation. The Token and UserId properties must be set.</returns>
-        Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections, WebOperationContext context);
+        Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections);
     }
 }

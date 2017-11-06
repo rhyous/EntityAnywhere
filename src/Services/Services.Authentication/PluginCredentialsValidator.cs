@@ -1,6 +1,5 @@
 ﻿using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
-using System.ServiceModel.Web;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
@@ -14,15 +13,15 @@ namespace Rhyous.WebFramework.Services
 
         public bool IsValid(ICredentials creds, out IToken token)
         {
-            token = TaskRunner.RunSynchonously(IsValidAsync, creds, WebOperationContext.Current);
+            token = TaskRunner.RunSynchonously(IsValidAsync, creds);
             return token != null;
         }
 
-        internal async Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context)
+        internal async Task<IToken> IsValidAsync(ICredentials creds)
         {
             foreach (var plugin in Plugins)
             {
-                var token = await plugin.IsValidAsync(creds, context);
+                var token = await plugin.IsValidAsync(creds);
                 if (token != null)
                     return token;
             }

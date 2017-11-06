@@ -14,6 +14,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="creds">An ICredentials object containing the username and password.</param>
         /// <param name="token">A token that can be used for subsequent communication after authentication.</param>
         /// <returns>A token</returns>
-        Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context);
+        Task<IToken> IsValidAsync(ICredentials creds);
     }
 }

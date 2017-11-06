@@ -21,25 +21,20 @@ namespace Rhyous.WebFramework.Clients
         {
         }
 
-        public EntityClientAsync(WebOperationContext context) : this(null, context)
-        {
-        }
-
-        public EntityClientAsync(HttpClient httpClient, bool useMicrosoftDateFormat = false, WebOperationContext context = null) 
-            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null, context)
+        public EntityClientAsync(HttpClient httpClient, bool useMicrosoftDateFormat = false) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
         {
             _HttpClient = httpClient;
         }
 
-        public EntityClientAsync(bool useMicrosoftDateFormat, WebOperationContext context = null) 
-            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null, context)
+        public EntityClientAsync(bool useMicrosoftDateFormat) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
         {
         }
 
-        public EntityClientAsync(JsonSerializerSettings jsonSerializerSettings, WebOperationContext context = null)
+        public EntityClientAsync(JsonSerializerSettings jsonSerializerSettings)
         {
             JsonSerializerSettings = jsonSerializerSettings;
-            HttpContextProvider.CurrentWebOperationContext = context;
         }
         #endregion
 
