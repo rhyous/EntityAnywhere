@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Rhyous.Odata;
 using Rhyous.Odata.Expand;
 using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
@@ -126,7 +127,7 @@ namespace Rhyous.WebFramework.Services.Common.Tests.Business
             var manager = new RelatedEntityManager<User, IUser, int>();
             var mockClient = new Mock<IEntityClientAsync>();
             mockClient.Setup(c => c.GetByIdsAsync(It.IsAny<IEnumerable<string>>(),It.IsAny<string>())).ReturnsAsync(UserTypeJson);
-            RelatedEntityManager<User, IUser, int>.ClientsCache.Add("UserType", mockClient.Object);
+            manager.ClientsCache.Json.Add("UserType", mockClient.Object);
             var user = new User { Id = 1, UserTypeId = 2 };
             var attributes = manager.GetAttributesToExpand(new[] { "UserType" });
             var expandPaths = new List<ExpandPath>();

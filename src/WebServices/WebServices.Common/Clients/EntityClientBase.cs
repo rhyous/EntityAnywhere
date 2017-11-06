@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace Rhyous.WebFramework.Clients
 {
-    public class EntityClientBase
+    public class EntityClientBase : IEntityClientBase
     {
         public const string EntitySuffix = "EntityUrl";
         public const string ServiceSuffix = "Service.svc";

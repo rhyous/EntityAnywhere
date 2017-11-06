@@ -30,11 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.0\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
+      <Project>{0F2DABD2-F7D9-4CF6-A488-06AAB3B4C585}</Project>
+      <Name>Clients.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj">
       <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
       <Name>Entities.User</Name>
@@ -84,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

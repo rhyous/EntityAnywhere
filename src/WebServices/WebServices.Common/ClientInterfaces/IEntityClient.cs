@@ -12,20 +12,10 @@ namespace Rhyous.WebFramework.Clients
     /// </summary>
     /// <typeparam name="TEntity">The entity type</typeparam>
     /// <typeparam name="TId">The entity id type</typeparam>
-    public interface IEntityClient<TEntity, TId> : IEntityWebService<TEntity, TId>
+    public interface IEntityClient<TEntity, TId> : IEntityWebService<TEntity, TId>, IEntityClientBase
         where TEntity : class, new()
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        /// <summary>
-        /// This is the url to the entity service. For example: https://host/path/to/api/Entity1Service.svc
-        /// </summary>
-        string ServiceUrl { get; set; }
-
-        /// <summary>
-        /// The entity name.
-        /// </summary>
-        string Entity { get; }
-
         /// <summary>
         /// The entity name pluralized.
         /// </summary>

@@ -30,10 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Claim.cs" />
+    <Compile Include="Model\ClaimDomain.cs" />
+    <Compile Include="Model\ClaimsList.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -43,6 +50,9 @@
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

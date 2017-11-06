@@ -75,7 +75,10 @@
     <Compile Include="Clients\EntityClientAsync.cs" />
     <Compile Include="Clients\EntityClientBase.cs" />
     <Compile Include="Clients\EntityClientAsyncJson.cs" />
+    <Compile Include="Clients\EntityClientCache.cs" />
     <Compile Include="Clients\HttpClientRunner.cs" />
+    <Compile Include="ClientInterfaces\IEntityClientBase.cs" />
+    <Compile Include="ClientInterfaces\IEntityClientCache.cs" />
     <Compile Include="Clients\MappingEntityClientAsyncJson.cs" />
     <Compile Include="Clients\MappingEntityClientAsync.cs" />
     <Compile Include="Interfaces\IMappingEntityCache.cs" />
@@ -137,7 +140,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

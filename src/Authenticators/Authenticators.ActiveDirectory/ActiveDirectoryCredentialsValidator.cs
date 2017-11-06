@@ -1,9 +1,14 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.Clients;
+using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net;
+using System.ServiceModel.Web;
+using System.Threading.Tasks;
 using ICredentials = Rhyous.WebFramework.Interfaces.ICredentials;
 
 namespace Rhyous.WebFramework.Authenticators
@@ -14,21 +19,20 @@ namespace Rhyous.WebFramework.Authenticators
     ///     &lt;add key="Domain" value="domain.tld" /&gt;
     ///     &lt;add key="DomainGroup" value="AdGroup1" /&gt;
     /// </summary>
-    public class ActiveDirectoryCredentialsValidator : ICredentialsValidator, ITokenBuilder
+    public class ActiveDirectoryCredentialsValidator : ICredentialsValidatorAsync, ITokenBuilder
     {
         const string Domain = "Domain";
         const string DomainGroup = "DomainGroup";
 
         /// <inheritdoc />
-        public IToken Build(ICredentials creds, long userId)
+        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections, WebOperationContext context)
         {
-            return TokenGenerator.Build(creds, userId);
+            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections, context);
         }
 
         /// <inheritdoc />
-        public bool IsValid(ICredentials creds, out IToken token)
+        public async Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context)
         {
-            token = null;
             var domain = ConfigurationManager.AppSettings.Get<string>("Domain", null);
             if (string.IsNullOrWhiteSpace(domain))
                 throw new Exception("The 'Domain' appsetting value in the web.config must be populated.");
@@ -41,20 +45,22 @@ namespace Rhyous.WebFramework.Authenticators
             var netCreds = new NetworkCredential(GetUserName(creds.User), creds.Password, userDomain);
             if (ADService.ValidateCredentialsAgainstDomain(netCreds) && ADService.IsUserInGroup(netCreds, domain, group))
             {
-                var user = UserService.Get(creds.User);
+                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>, WebOperationContext> (typeof(User).Name, context);
+                var odataUser = await userClient.GetAsync(creds.User);
+                IUser user = odataUser?.Object;
                 if (user == null)
-                    user = StoreUser(creds);
-                token = Build(creds, user.Id);
-                return true;
+                    user = await StoreUser(creds);
+                return await BuildAsync(creds, user, odataUser.RelatedEntities, context);
             }
-            return false;
+            return null;
         }
 
-        private IUser StoreUser(ICredentials creds)
+        internal async Task<IUser> StoreUser(ICredentials creds)
         {
             IUser user = null;
-            var users = UserService.Add(
-                new[] {
+            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
+            var users = await userClient.PostAsync(
+                new List<User> {
                     new User {
                         Username = creds.User,
                         Password = creds.Password,
@@ -64,7 +70,7 @@ namespace Rhyous.WebFramework.Authenticators
                 }
             );
             if (users?.Count > 0)
-                user = users[0];
+                user = users[0].Object;
             return user;
         }
 
@@ -90,19 +96,21 @@ namespace Rhyous.WebFramework.Authenticators
             get { return _ADService ?? (_ADService = new ActiveDirectoryService()); }
             set { _ADService = value; }
         } private IActiveDirectoryService _ADService;
-
-        internal UserService UserService
+        
+        /// <summary>
+        /// Used for both caching and reusing existing clients and is also used for dependency injection, for example, mocking in unit tests.
+        /// </summary>
+        internal IEntityClientCache ClientsCache
         {
-            get { return _UserService ?? (_UserService = new UserService()); }
-            set { _UserService = value; }
-        } private UserService _UserService;
+            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
+            set { _ClientsCache = value; }
+        } private IEntityClientCache _ClientsCache;
 
-        internal TokenGenerator TokenGenerator
+        internal ITokenBuilder TokenGenerator
         {
             get { return _TokenGenerator ?? (_TokenGenerator = new TokenGenerator()); }
             set { _TokenGenerator = value; }
-        } private TokenGenerator _TokenGenerator;
-
+        } private ITokenBuilder _TokenGenerator;
         #endregion
     }
 }

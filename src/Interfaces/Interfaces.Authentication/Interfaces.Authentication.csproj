@@ -30,12 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.0\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICredentials.cs" />
     <Compile Include="ICredentialsValidator.cs" />
+    <Compile Include="ICredentialsValidatorAsync.cs" />
     <Compile Include="ITokenBuilder.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IHeaderValidator.cs" />
@@ -50,6 +55,13 @@
       <Project>{F5AC20A5-7B44-4E70-8ADE-1FCBD0B2DF70}</Project>
       <Name>Interfaces.Token</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Interfaces.User\Interfaces.User.csproj">
+      <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
+      <Name>Interfaces.User</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

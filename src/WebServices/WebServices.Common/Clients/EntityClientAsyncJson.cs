@@ -50,9 +50,11 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/Addenda({name})");
         }
 
-        public async Task<String> GetAllAsync()
+        public async Task<String> GetAllAsync(string urlParameters = null)
         {
-            return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}");
+            var url = $"{ServiceUrl}/{EntityPluralized}";
+            url = AppendUrlParameters(urlParameters, url);
+            return await HttpClientRunner.Run(HttpClient.GetAsync, url);
         }
 
         public async Task<String> GetAsync(string idOrName, string urlParameters = null)

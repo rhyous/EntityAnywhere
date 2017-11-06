@@ -1,4 +1,7 @@
+using Rhyous.Odata;
 using Rhyous.WebFramework.Interfaces;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Rhyous.WebFramework.Entities
 {
@@ -14,5 +17,13 @@ namespace Rhyous.WebFramework.Entities
         /// <inheritdoc />
         [RelatedEntity("User", AutoExpand = true)]
         public long UserId { get; set; }
+        
+        /// <inheritdoc />
+        [NotMapped]
+        public List<ClaimDomain> ClaimDomains
+        {
+            get { return _ClaimDomains ?? (_ClaimDomains = new List<ClaimDomain>()); }
+            set { _ClaimDomains = value; }
+        } private List<ClaimDomain> _ClaimDomains;
     }
 }

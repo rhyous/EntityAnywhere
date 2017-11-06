@@ -35,16 +35,15 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttributeInterfaces\IRelatedEntity.cs" />
+    <Compile Include="Collections\ParentedList.cs" />
     <Compile Include="Attributes\AdditionalServiceTypesAttribute.cs" />
     <Compile Include="Attributes\AdditionalWebServiceTypesAttribute.cs" />
     <Compile Include="Attributes\EntityAttribute.cs" />
     <Compile Include="Attributes\MappingEntityAttribute.cs" />
     <Compile Include="Attributes\ReadOnlyEntityAttribute.cs" />
-    <Compile Include="Attributes\RelatedEntityMappingAttribute.cs" />
-    <Compile Include="Attributes\RelatedEntityAttribute.cs" />
     <Compile Include="Abstracts\AuditableEntity.cs" />
     <Compile Include="Abstracts\Entity.cs" />
+    <Compile Include="Dictionaries\ISharedInterfaceDictionary.cs" />
     <Compile Include="Extensions\AddendumExtensions.cs" />
     <Compile Include="Extensions\ConcreteConverter.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
@@ -60,7 +59,7 @@
     <Compile Include="IAuditableLastUpdatedDate.cs" />
     <Compile Include="IAuditableUsers.cs" />
     <Compile Include="IDescription.cs" />
-    <Compile Include="IDictionaryDefaultValueProvider.cs" />
+    <Compile Include="Dictionaries\IDictionaryDefaultValueProvider.cs" />
     <Compile Include="IEnabled.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="IMappingEntity.cs" />
@@ -68,9 +67,12 @@
     <Compile Include="IId.cs" />
     <Compile Include="IParent.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Collections\ParentedCollection.cs" />
+    <Compile Include="Dictionaries\NullSafeDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\AlternateKeyAttribute.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

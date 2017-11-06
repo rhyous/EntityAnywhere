@@ -73,6 +73,12 @@
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientAsyncJson.cs">
       <Link>Interfaces\IEntityClientAsyncJson.cs</Link>
     </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientBase.cs">
+      <Link>Interfaces\IEntityClientBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IEntityClientCache.cs">
+      <Link>CacheInterfaces\IEntityClientCache.cs</Link>
+    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\ClientInterfaces\IMappingEntityClient.cs">
       <Link>Interfaces\IMappingEntityClient.cs</Link>
     </Compile>
@@ -83,7 +89,7 @@
       <Link>Interfaces\IMappingEntityClientAsyncJson.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityCache.cs">
-      <Link>Clients\EntityCache.cs</Link>
+      <Link>Cache\EntityCache.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClient.cs">
       <Link>Clients\EntityClient.cs</Link>
@@ -96,6 +102,9 @@
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientAsyncJson.cs">
       <Link>Clients\EntityClientAsyncJson.cs</Link>
+    </Compile>
+    <Compile Include="..\..\WebServices\WebServices.Common\Clients\EntityClientCache.cs">
+      <Link>Cache\EntityClientCache.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Clients\HttpClientRunner.cs">
       <Link>Extensions\HttpClientRunner.cs</Link>
@@ -119,7 +128,7 @@
       <Link>Extensions\HttpClientExtensions.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityCache.cs">
-      <Link>Interfaces\IEntityCache.cs</Link>
+      <Link>CacheInterfaces\IEntityCache.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>

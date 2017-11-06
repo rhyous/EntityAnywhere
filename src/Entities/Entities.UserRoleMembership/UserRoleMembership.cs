@@ -1,3 +1,4 @@
+using Rhyous.Odata;
 using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities

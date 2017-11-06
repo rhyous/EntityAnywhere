@@ -12,12 +12,12 @@ namespace Rhyous.WebFramework.WebServices
         /// <summary>
         /// The HttpContext.Current object, if it exists and can be accessed.
         /// </summary>
-        HttpContext CurrentHttpContext { get; }
+        HttpContext CurrentHttpContext { get; set; }
 
         /// <summary>
         /// The WebOperationContext.Current object, if it exists and can be accessed.
         /// </summary>
-        WebOperationContext CurrentWebOperationContext { get; }
+        WebOperationContext CurrentWebOperationContext { get; set; }
 
         /// <summary>
         /// The 

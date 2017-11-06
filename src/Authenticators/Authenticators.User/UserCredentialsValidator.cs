@@ -1,15 +1,19 @@
-﻿using Rhyous.WebFramework.Clients;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
+using System.Collections.Generic;
 using System.Configuration;
+using System.ServiceModel.Web;
+using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Authenticators
 {
     /// <summary>
     /// This is the primary login method as part of Entity Anywhere framework. This logs in using the User entity.
     /// </summary>
-    public class UserCredentialsValidator : ICredentialsValidator, ITokenBuilder
+    public class UserCredentialsValidator : ICredentialsValidatorAsync, ITokenBuilder
     {
         /// <summary>
         /// If this is true, external users cannot login using this plugin.
@@ -18,39 +22,43 @@ namespace Rhyous.WebFramework.Authenticators
         public static bool ForceExternalUsersToAuthenticateExternally { get { return ConfigurationManager.AppSettings.Get("ForceExternalUsersToAuthenticateExternally", true); } }
 
         /// <inheritdoc />
-        public IToken Build(ICredentials creds, long userId)
+        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections, WebOperationContext context)
         {
-            return TokenGenerator.Build(creds, userId);
+            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections, context);
         }
 
         /// <inheritdoc />
-        public bool IsValid(ICredentials creds, out IToken token)
+        public async Task<IToken> IsValidAsync(ICredentials creds, WebOperationContext context)
         {
-            token = null;
-            var user = Service.GetByAlternateKey(creds.User)?.Object;
+            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>, WebOperationContext>(typeof(User).Name, context);
+            var odataUser = await userClient.GetByAlternateKeyAsync(creds.User);
+            var user = odataUser?.Object;
             if (user == null)
-                return false;
+                return null;
             if (user.ExternalAuth && ForceExternalUsersToAuthenticateExternally)
-                return false; // This will allow a different authenticator plugin to attempt authentication
+                return null; // This will allow a different authenticator plugin to attempt authentication
             bool result = (user.IsHashed) ? Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding)
                                           : creds.Password == user.Password;
 
-            token = result ? Build(creds, user.Id) : null;
-            return result;
+            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntities, context) : null;
+            return token;
         }
 
         #region Injectable
-        public EntityClient<User, int> Service
+        /// <summary>
+        /// Used for both caching and reusing existing clients and is also used for dependency injection, for example, mocking in unit tests.
+        /// </summary>
+        internal IEntityClientCache ClientsCache
         {
-            get { return _Service ?? (_Service = new EntityClient<User, int>()); }
-            set { _Service = value; }
-        } private EntityClient<User, int> _Service;
+            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
+            set { _ClientsCache = value; }
+        } private IEntityClientCache _ClientsCache;
 
-        public TokenGenerator TokenGenerator
+        public ITokenBuilder TokenGenerator
         {
             get { return _TokenGenerator ?? (_TokenGenerator = new TokenGenerator()); }
             set { _TokenGenerator = value; }
-        } private TokenGenerator _TokenGenerator;
+        } private ITokenBuilder _TokenGenerator;
 
         #endregion
     }

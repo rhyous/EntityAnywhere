@@ -38,11 +38,12 @@ namespace Rhyous.WebFramework.Services
         /// <summary>
         /// Used for both caching and reusing existing clients and is also used for dependency injection, for example, mocking in unit tests.
         /// </summary>
-        internal static Dictionary<string, IEntityClientAsync> ClientsCache
+        internal IEntityClientCache ClientsCache
         {
-            get { return _ClientsCache ?? (_ClientsCache = new Dictionary<string, IEntityClientAsync>()); }
+            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
             set { _ClientsCache = value; }
-        } private static Dictionary<string, IEntityClientAsync> _ClientsCache;
+        } private IEntityClientCache _ClientsCache;
+
         /// <summary>
         /// Used for both caching and reusing existing mapping clients and is also used for dependency injection, for example, mocking in unit tests.
         /// </summary>
@@ -93,12 +94,7 @@ namespace Rhyous.WebFramework.Services
 
         internal async Task<List<RelatedEntity>> GetRelatedEntitiesByAttribute(IEnumerable<TInterface> entities, RelatedEntityAttribute a)
         {
-            IEntityClientAsync client;
-            if (!ClientsCache.TryGetValue(a.RelatedEntity, out client))
-            {
-                client = new EntityClientAsync(a.RelatedEntity);
-                ClientsCache.Add(a.RelatedEntity, client);
-            }
+            var client = ClientsCache.Json[a.RelatedEntity];
             var relatedEntityIds = entities.Select(e => e.GetPropertyValue(a.Property).ToString());
             var json = await client.GetByIdsAsync(relatedEntityIds);
             var relatedEntities = JsonConvert.DeserializeObject<List<RelatedEntity>>(json);

@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Services.Common.Tests
 {

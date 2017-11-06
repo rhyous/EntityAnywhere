@@ -6,6 +6,7 @@ using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,20 +21,25 @@ namespace Rhyous.WebFramework.Clients
         {
         }
 
-        public EntityClientAsync(HttpClient httpClient, bool useMicrosoftDateFormat = false) 
-            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
+        public EntityClientAsync(WebOperationContext context) : this(null, context)
+        {
+        }
+
+        public EntityClientAsync(HttpClient httpClient, bool useMicrosoftDateFormat = false, WebOperationContext context = null) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null, context)
         {
             _HttpClient = httpClient;
         }
 
-        public EntityClientAsync(bool useMicrosoftDateFormat) 
-            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null)
+        public EntityClientAsync(bool useMicrosoftDateFormat, WebOperationContext context = null) 
+            : this(useMicrosoftDateFormat ? new JsonSerializerSettings { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat } : null, context)
         {
         }
 
-        public EntityClientAsync(JsonSerializerSettings jsonSerializerSettings)
+        public EntityClientAsync(JsonSerializerSettings jsonSerializerSettings, WebOperationContext context = null)
         {
             JsonSerializerSettings = jsonSerializerSettings;
+            HttpContextProvider.CurrentWebOperationContext = context;
         }
         #endregion
 

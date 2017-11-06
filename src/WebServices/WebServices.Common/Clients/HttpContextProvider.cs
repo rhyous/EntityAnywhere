@@ -1,6 +1,7 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Configuration;
+using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Web;
 
@@ -14,9 +15,20 @@ namespace Rhyous.WebFramework.WebServices
     public class HttpContextProvider : IHttpContextProvider
     {
         /// <inheritdoc />
-        public HttpContext CurrentHttpContext => HttpContext.Current;
+        public HttpContext CurrentHttpContext {
+            get { return _CurrentHttpContext ?? HttpContext.Current; } // Don't store current
+            set { _CurrentHttpContext = value; }
+        } private HttpContext _CurrentHttpContext;
+
         /// <inheritdoc />
-        public WebOperationContext CurrentWebOperationContext => WebOperationContext.Current;
+        public WebOperationContext CurrentWebOperationContext
+        {
+            get { return _CurrentWebOperationContext ?? WebOperationContext.Current; } // Don't store current
+            set { _CurrentWebOperationContext = value; }
+        } internal WebOperationContext _CurrentWebOperationContext;
+
+        /// <inheritdoc />
+        public OperationContext CurrentOperationContext => OperationContext.Current;
 
         /// <inheritdoc />
         public string WebHost => _WebHost ?? (_WebHost = BuildWebHost(Uri));

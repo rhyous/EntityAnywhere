@@ -11,12 +11,8 @@ namespace Rhyous.WebFramework.Clients
     /// It has all the same methods that exist on the common webservice are available to all client implementations.
     /// This interface expects all the returns to be streams of hte serialized object.
     /// </summary>
-    public interface IEntityClientAsync
+    public interface IEntityClientAsync : IEntityClientBase
     {
-        string Entity { get; }
-
-        string ServiceUrl { get; set; }
-
         #region Async
         /// <summary>
         /// Gets the metadata about the entity. Call is asynchonous.
@@ -28,7 +24,7 @@ namespace Rhyous.WebFramework.Clients
         /// Gets all entities. Call is asynchonous.
         /// </summary>
         /// <returns>All Entities</returns>
-        Task<String> GetAllAsync();
+        Task<String> GetAllAsync(string urlParameters = null);
 
         /// <summary>
         /// This provides an additional option to make a get call with query parameters. Call is asynchonous.
