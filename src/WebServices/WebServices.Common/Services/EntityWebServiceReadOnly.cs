@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices

@@ -54,7 +54,7 @@ namespace Rhyous.WebFramework.Services
 
         public IClaimsBuilderAsync ClaimsBuilder
         {
-            get { return _ClaimsBuilder ?? (_ClaimsBuilder = new ClaimsBuilderAsync()); }
+            get { return _ClaimsBuilder ?? (_ClaimsBuilder = new ClaimsBuilderAsync(ClientsCache)); }
             set { _ClaimsBuilder = value; }
         } private IClaimsBuilderAsync _ClaimsBuilder;
         #endregion

@@ -2,8 +2,6 @@
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
-using System.Runtime.Remoting.Messaging;
-using System.ServiceModel.Web;
 
 namespace Rhyous.WebFramework.WebServices
 {

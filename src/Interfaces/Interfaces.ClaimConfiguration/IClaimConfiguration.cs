@@ -9,7 +9,13 @@ namespace Rhyous.WebFramework.Interfaces
     public interface IClaimConfiguration : IEntity<int>, IName, IAuditable
     {
         /// <summary>
-        /// The entity this claim is for. This becomes the Subject of the ClaimDomain. This entity
+        /// The name of the claims domain this claim is for. This becomes the Subject of the ClaimDomain. This entity
+        /// must be eitherUser, a RelatedEntity to User.
+        /// </summary>
+        /// <remarks>Future: Support a RelatedEntity of a User's RelatedEntity recursively.</remarks>
+        string Domain { get; set; }
+        /// <summary>
+        /// The entity this claim is for. If Domain is null, this becomes the Subject of the ClaimDomain. This entity
         /// must be eitherUser, a RelatedEntity to User.
         /// </summary>
         /// <remarks>Future: Support a RelatedEntity of a User's RelatedEntity recursively.</remarks>
@@ -19,8 +25,12 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         string EntityProperty { get; set; }
         /// <summary>
-        /// The Property on either User or the first RelatedEntity that hold the User.Id.
+        /// The Property on either User or the first RelatedEntity that hold the Id.
         /// </summary>
-        string UserIdProperty { get; set; }
+        string EntityIdProperty { get; set; }
+        /// <summary>
+        /// The Property on the User entity that relates to a RelatedEntity.
+        /// </summary>
+        string RelatedEntityIdProperty { get; set; }
     }
 }

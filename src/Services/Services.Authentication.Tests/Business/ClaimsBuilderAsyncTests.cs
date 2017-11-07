@@ -26,7 +26,7 @@ namespace Services.Authentication.Tests
             IUser user = new User { Id = 1, Username = "TestUser1" };
             var claimConfigurations = new List<ClaimConfiguration>
             {
-                new ClaimConfiguration { Name = "Username", Entity = "User", EntityProperty = "Username", UserIdProperty = "Id" }
+                new ClaimConfiguration { Name = "Username", Entity = "User", EntityProperty = "Username", EntityIdProperty = "Id" }
             };
 
             // Act

@@ -9,12 +9,16 @@ namespace Rhyous.WebFramework.Entities
     public class ClaimConfiguration : AuditableEntity<int>, IClaimConfiguration
     {
         /// <inheritdoc />
+        public string Domain { get; set; }
+        /// <inheritdoc />
         public string Name { get; set; }
         /// <inheritdoc />
         public string Entity { get; set; }
         /// <inheritdoc />
         public string EntityProperty { get; set; }
         /// <inheritdoc />
-        public string UserIdProperty { get; set; }
+        public string EntityIdProperty { get; set; }
+        /// <inheritdoc />
+        public string RelatedEntityIdProperty { get; set; }
     }
 }
