@@ -38,13 +38,15 @@ namespace Rhyous.WebFramework.WebServices
         #endregion
 
         #region multiple entities
-        public static List<OdataObject<T, TId>> AsOdata<T, TId>(this IEnumerable<T> list, Uri uri, List<Addendum> addenda = null, params string[] properties)
+        public static OdataObjectCollection<T, TId> AsOdata<T, TId>(this IEnumerable<T> list, Uri uri, List<Addendum> addenda = null, params string[] properties)
         {
             var entity = typeof(T).Name;
-            var odataList = new List<OdataObject<T, TId>>();
-            foreach (T e in list)
-                odataList.Add(e.AsOdata<T, TId>(uri, addenda?.Where(a => a.Entity == entity && a.EntityId == e.GetPropertyValue("Id").ToString()).ToList()));
-            return odataList;
+            var leftPart = uri?.GetLeftPart(UriPartial.Path);
+            var uriKind = uri != null && uri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative;
+            var entities = list.Select(t => t.AsOdata<T, TId>(uri, addenda?.Where(a => a.Entity == entity && a.EntityId == t.GetPropertyValue("Id").ToString()).ToList()));
+            var collection = new OdataObjectCollection<T, TId>();
+            collection.AddRange(entities);
+            return collection;
         }
         #endregion
 

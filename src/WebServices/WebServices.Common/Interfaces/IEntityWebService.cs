@@ -28,7 +28,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The added entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity, TId>> Post(List<TEntity> entity);
+        Odata.OdataObjectCollection<TEntity, TId> Post(List<TEntity> entity);
 
         /// <summary>
         /// Replaces an entity at the specified id.

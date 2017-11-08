@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Rhyous.Odata;
 using Rhyous.Odata.Csdl;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.WebServices;
@@ -50,7 +51,7 @@ namespace Rhyous.WebFramework.Clients
         }
         
         /// <inheritdoc />
-        public OdataObject<TEntity, TId> Get(string idOrName)
+        public WebServices.OdataObject<TEntity, TId> Get(string idOrName)
         {
             return TaskRunner.RunSynchonously(GetAsync, idOrName);
         }
@@ -61,49 +62,49 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="altKey"></param>
         /// <returns>The entity with the specified alternate key.</returns>
-        public OdataObject<TEntity, TId> GetByAlternateKey(string altKey)
+        public WebServices.OdataObject<TEntity, TId> GetByAlternateKey(string altKey)
         {
             return TaskRunner.RunSynchonously(GetByAlternateKeyAsync, altKey);
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetAll()
+        public OdataObjectCollection<TEntity, TId> GetAll()
         {
             return TaskRunner.RunSynchonously(GetAllAsync);
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart)
+        public OdataObjectCollection<TEntity, TId> GetByCustomUrl(string urlPart)
         {
             return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart);
         }
         
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
+        public OdataObjectCollection<TEntity, TId> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
         {
             return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart, httpMethod, content);
         }
         
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
+        public OdataObjectCollection<TEntity, TId> GetByCustomUrl(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
         {
             return TaskRunner.RunSynchonously(GetByCustomUrlAsync, urlPart, httpMethod, content);
         }
         
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByQueryParameters(string queryParameters)
+        public OdataObjectCollection<TEntity, TId> GetByQueryParameters(string queryParameters)
         {
             return TaskRunner.RunSynchonously(GetByQueryParametersAsync, queryParameters);
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByIds(IEnumerable<TId> ids)
+        public OdataObjectCollection<TEntity, TId> GetByIds(IEnumerable<TId> ids)
         {
             return TaskRunner.RunSynchonously(GetByIdsAsync, ids);
         }
         
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByIds(List<TId> ids)
+        public OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids)
         {
             return GetByIds((IEnumerable<TId>)ids);
         }
@@ -121,19 +122,19 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
+        public WebServices.OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
         {
             return TaskRunner.RunSynchonously(PatchAsync, id, patchedEntity);
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> Post(List<TEntity> entities)
+        public OdataObjectCollection<TEntity, TId> Post(List<TEntity> entities)
         {
             return TaskRunner.RunSynchonously(PostAsync, entities);
         }
 
         /// <inheritdoc />
-        public OdataObject<TEntity, TId> Put(string id, TEntity entity)
+        public WebServices.OdataObject<TEntity, TId> Put(string id, TEntity entity)
         {
             return TaskRunner.RunSynchonously(PutAsync, id, entity);
         }

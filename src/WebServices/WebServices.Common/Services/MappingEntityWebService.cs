@@ -1,4 +1,5 @@
-﻿using Rhyous.StringLibrary;
+﻿using Rhyous.Odata;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
@@ -27,7 +28,7 @@ namespace Rhyous.WebFramework.WebServices
         where TE2Id : IComparable, IComparable<TE2Id>, IEquatable<TE2Id>
     {
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByE1Ids(List<TE1Id> ids)
+        public OdataObjectCollection<TEntity, TId> GetByE1Ids(List<TE1Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity1Property();
             var lambda = propertyName.ToLambda<TEntity, TE1Id>(ids);
@@ -38,7 +39,7 @@ namespace Rhyous.WebFramework.WebServices
         }
 
         /// <inheritdoc />
-        public List<OdataObject<TEntity, TId>> GetByE2Ids(List<TE2Id> ids)
+        public OdataObjectCollection<TEntity, TId> GetByE2Ids(List<TE2Id> ids)
         {
             var propertyName = typeof(TEntity).GetMappedEntity2Property();
             var lambda = propertyName.ToLambda<TEntity, TE2Id>(ids);

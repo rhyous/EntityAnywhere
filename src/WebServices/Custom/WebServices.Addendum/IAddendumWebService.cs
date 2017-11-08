@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.Entities;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.Entities;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -18,6 +19,6 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A list of Addenda.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "Addenda/EntityIdentifiers", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<Addendum, long>> GetByEntityIdentifiers(List<EntityIdentifier> EntityIdentifiers);
+        OdataObjectCollection<Addendum, long> GetByEntityIdentifiers(List<EntityIdentifier> EntityIdentifiers);
     }
 }

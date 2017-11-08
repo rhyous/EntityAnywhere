@@ -1,4 +1,5 @@
 ﻿using LinqKit;
+using Rhyous.Odata;
 using Rhyous.WebFramework.Attributes;
 using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
@@ -15,7 +16,7 @@ namespace Rhyous.WebFramework.WebServices
     public class AddendumWebService : EntityWebService<Addendum, IAddendum, long, ServiceCommon<Addendum, IAddendum, long>>, IAddendumWebService, ICustomWebService
     {
         /// <inheritdoc />
-        public List<OdataObject<Addendum, long>> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
+        public OdataObjectCollection<Addendum, long> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
         {
             var expression = PredicateBuilder.New<Addendum>();
             foreach (var identifier in entityIdentifiers)

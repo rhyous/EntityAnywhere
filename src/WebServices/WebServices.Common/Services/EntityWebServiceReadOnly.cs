@@ -40,7 +40,7 @@ namespace Rhyous.WebFramework.WebServices
         /// Note: Be careful using this on entities that are extremely large in quantity.
         /// </summary>
         /// <returns>List{OdataObject{T}} containing all entities</returns>
-        public virtual List<OdataObject<TEntity, TId>> GetAll()
+        public virtual OdataObjectCollection<TEntity, TId> GetAll()
         {
             if (UrlParameters.Count > 0)
                 return Service.Get(UrlParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
@@ -52,7 +52,7 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="ids"></param>
         /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
-        public virtual List<OdataObject<TEntity, TId>> GetByIds(List<TId> ids)
+        public virtual OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids)
         {
             var addendumlist = GetAddendaByEntityIds(ids.Select(id => id.ToString()).ToList());
             var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);

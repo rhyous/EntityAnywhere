@@ -1,4 +1,5 @@
-﻿using Rhyous.Odata.Csdl;
+﻿using Rhyous.Odata;
+using Rhyous.Odata.Csdl;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -33,7 +34,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>All Entities</returns>
         [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity, TId>> GetAll();
+        OdataObjectCollection<TEntity, TId> GetAll();
 
         /// <summary>
         /// Gets all entities with the provided ids.
@@ -42,7 +43,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>All entities with the provided ids.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        List<OdataObject<TEntity, TId>> GetByIds(List<TId> ids);
+        OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids);
 
         /// <summary>
         /// Gets an entity be a specific id.

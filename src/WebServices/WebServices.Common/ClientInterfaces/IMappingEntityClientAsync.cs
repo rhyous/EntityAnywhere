@@ -1,4 +1,5 @@
-﻿using Rhyous.WebFramework.WebServices;
+﻿using Rhyous.Odata;
+using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,12 +17,12 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="ids">A list of Entity1 ids.</param>
         /// <returns>A list of mapped entities.</returns>
-        Task<List<OdataObject<TEntity, TId>>> GetByE1IdsAsync(IEnumerable<TE1Id> ids);
+        Task<OdataObjectCollection<TEntity, TId>> GetByE1IdsAsync(IEnumerable<TE1Id> ids);
         /// <summary>
         /// Gets the mapped entity by a list of Entity2 ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of Entity2 ids.</param>
         /// <returns>A list of mapped entities.</returns>
-        Task<List<OdataObject<TEntity, TId>>> GetByE2IdsAsync(IEnumerable<TE2Id> ids);
+        Task<OdataObjectCollection<TEntity, TId>> GetByE2IdsAsync(IEnumerable<TE2Id> ids);
     }
 }

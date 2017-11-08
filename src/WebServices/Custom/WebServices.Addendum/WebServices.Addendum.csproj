@@ -34,6 +34,9 @@
       <HintPath>..\..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Rhyous.Odata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Rhyous.Odata.1.0.1\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
