@@ -62,7 +62,7 @@ namespace Rhyous.WebFramework.Authenticators
                 new List<User> {
                     new User {
                         Username = creds.User,
-                        Password = creds.Password,
+                        // Do not store the password at all.
                         ExternalAuth = true,
                         Enabled = true
                     }
