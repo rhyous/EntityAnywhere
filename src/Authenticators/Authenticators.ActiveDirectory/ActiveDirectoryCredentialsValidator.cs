@@ -59,15 +59,8 @@ namespace Rhyous.WebFramework.Authenticators
             IUser user = null;
             var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
             var users = await userClient.PostAsync(
-                new List<User> {
-                    new User {
-                        Username = creds.User,
-                        // Do not store the password at all.
-                        ExternalAuth = true,
-                        Enabled = true
-                    }
-                }
-            );
+            // Do not store the password at all.            
+            new List<User> { new User { Username = creds.User, ExternalAuth = true, Enabled = true } });
             if (users?.Count > 0)
                 user = users[0].Object;
             return user;
