@@ -61,7 +61,7 @@ namespace Rhyous.WebFramework.Services.Common.Tests.Business
             // Assert
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual("User", actual[0].Entity);
-            Assert.AreEqual("2", actual[0].EntityId);
+            Assert.AreEqual("1", actual[0].EntityId);
             Assert.AreEqual("UserType", actual[0].RelatedEntity);
             Assert.AreEqual(UserTypeJsonObject, actual[0][0].Object.ToString());
         }

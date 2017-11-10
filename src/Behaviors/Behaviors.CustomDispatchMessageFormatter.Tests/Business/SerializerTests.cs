@@ -14,7 +14,7 @@ namespace Behaviors.CustomDispatchMessageFormatter.Tests
         public void SerializeOdataOjectAsJsonTest()
         {
             // Arrange
-            var expected = "﻿{\"Id\":10,\"Object\":{\"Id\":10,\"CreateDate\":\"0001-01-01T00:00:00\",\"CreatedBy\":0,\"Entity\":null,\"EntityId\":null,\"LastUpdated\":null,\"LastUpdatedBy\":null,\"Property\":\"A\",\"Value\":\"B\"},\"PropertyUris\":null,\"RelatedEntities\":[{\"RelatedEntity\":\"Fake\",\"Entities\":[{\"Id\":\"1\",\"Object\":{ \"Id\" : \"1\" },\"PropertyUris\":null,\"RelatedEntities\":[],\"Uri\":null},{\"Id\":\"2\",\"Object\":{ \"Id\" : \"2\" },\"PropertyUris\":null,\"RelatedEntities\":[],\"Uri\":null}]}],\"Uri\":null}";
+            var expected = "﻿{\"Id\":10,\"Object\":{\"Id\":10,\"CreateDate\":\"0001-01-01T00:00:00\",\"CreatedBy\":0,\"Entity\":null,\"EntityId\":null,\"LastUpdated\":null,\"LastUpdatedBy\":null,\"Property\":\"A\",\"Value\":\"B\"},\"PropertyUris\":null,\"RelatedEntities\":[{\"Count\":2,\"RelatedEntity\":\"Fake\",\"Entities\":[{\"Id\":\"1\",\"Object\":{ \"Id\" : \"1\" },\"PropertyUris\":null,\"RelatedEntities\":[],\"Uri\":null},{\"Id\":\"2\",\"Object\":{ \"Id\" : \"2\" },\"PropertyUris\":null,\"RelatedEntities\":[],\"Uri\":null}]}],\"Uri\":null}";
             var relatedEntityCollection = new RelatedEntityCollection { Entity = "Addendum", EntityId = "10", RelatedEntity = "Fake" };
             var json1 = "{ \"Id\" : \"1\" }";
             var jObject1 = JObject.Parse(json1);
