@@ -1,4 +1,6 @@
-﻿namespace Rhyous.WebFramework.Clients
+﻿using System.Net.Http;
+
+namespace Rhyous.WebFramework.Clients
 {
     public interface IEntityClientBase
     {
@@ -11,5 +13,13 @@
         /// The entity name.
         /// </summary>
         string Entity { get; }
+
+
+        /// <summary>
+        /// The entity name pluralized.
+        /// </summary>
+        string EntityPluralized { get; }
+
+        HttpClient HttpClient { get; set; }
     }
 }

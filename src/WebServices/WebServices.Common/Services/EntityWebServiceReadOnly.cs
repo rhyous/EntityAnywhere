@@ -11,7 +11,7 @@ using System.ServiceModel.Web;
 namespace Rhyous.WebFramework.WebServices
 {
     public class EntityWebServiceReadOnly<TEntity, TInterface, TId, TService>
-               : EntityWebServiceAddenda<TEntity>, IEntityWebServiceReadOnly<TEntity, TId>
+               : IEntityWebServiceReadOnly<TEntity, TId>
         where TEntity : class, TInterface, new()
         where TInterface : IEntity<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
@@ -54,8 +54,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
         public virtual OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids)
         {
-            var addendumlist = GetAddendaByEntityIds(ids.Select(id => id.ToString()).ToList());
-            var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, addendumlist);
+            var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
             var relatedEntities = Service.GetRelatedEntities(entities.Select(o => o.Object), UrlParameters);
             Sorter.Collate(entities, relatedEntities);
             return entities;
@@ -68,7 +67,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>A OdataObject<T, TId> object contain the single entity with the id provided.</returns>
         public virtual OdataObject<TEntity, TId> Get(string id)
         {
-            var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
+            var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
             entity.RelatedEntities = Service.GetRelatedEntities(entity.Object, UrlParameters);
             return entity;
         }

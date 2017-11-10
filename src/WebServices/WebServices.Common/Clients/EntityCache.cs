@@ -1,5 +1,4 @@
-﻿using Rhyous.WebFramework.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,8 +12,9 @@ namespace Rhyous.WebFramework.Clients
     /// <typeparam name="T">The Type to cache.</typeparam>
     /// <typeparam name="TId">The type of the Id property of the type T to cache.</typeparam>
     public class EntityCache<T, TId> : IEntityCache<T, TId>
-        where T : IId<TId>
+        where T : class
     {
+        public static string Id = "Id";
         public Dictionary<TId, T> Cache { get; set; }
         public bool UseCache { get; set; }
         public HttpClient HttpClient { get; set; }
@@ -42,7 +42,11 @@ namespace Rhyous.WebFramework.Clients
         {
             var e = await HttpClientRunner.RunAndDeserialize<T>(methodIfNotCached, url);
             if (e != null)
-                Cache[e.Id] = e;
+            {
+                
+                var key = (TId)e.GetType().GetProperty(Id).GetValue(e);
+                Cache[key] = e;
+            }
             return e;
         }
 
@@ -52,7 +56,13 @@ namespace Rhyous.WebFramework.Clients
                 return null;
             var list = await HttpClientRunner.RunAndDeserialize<IEnumerable<TId>, List<T>>(methodIfNotCached, url, ids);
             if (list != null && list.Count > 0)
-                list.ForEach(e => Cache[e.Id] = e);
+            {
+                foreach (var e in list)
+                {
+                    var key = (TId)e.GetType().GetProperty(Id).GetValue(e);
+                    Cache[key] = e;
+                }
+            }
             return list;
         }
     }

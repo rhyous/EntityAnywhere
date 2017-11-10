@@ -58,7 +58,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="id">The id of the entity.</param>
         /// <returns>The entity with the specified id.</returns>
-        Task<WebServices.OdataObject<TEntity, TId>> GetAsync(string id);
+        Task<OdataObject<TEntity, TId>> GetAsync(string id);
 
         /// <summary>
         /// Gets an entity by the AlternateKey. This is only a valid call for Entities
@@ -66,7 +66,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="altKey"></param>
         /// <returns>The entity with the specified alternate key.</returns>
-        Task<WebServices.OdataObject<TEntity, TId>> GetByAlternateKeyAsync(string altKey);
+        Task<OdataObject<TEntity, TId>> GetByAlternateKeyAsync(string altKey);
 
         /// <summary>
         /// Gets an entity's property value by a specific id and property name. Call is asynchonous.
@@ -98,7 +98,7 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="id">The id of the entity.</param>
         /// <param name="entity">The entity to add.</param>
         /// <returns>The replaced entity.</returns>
-        Task<WebServices.OdataObject<TEntity, TId>> PutAsync(string id, TEntity entity);
+        Task<OdataObject<TEntity, TId>> PutAsync(string id, TEntity entity);
 
         /// <summary>
         /// Used to update multiple properties of an existing entity without first getting the entity. Call is asynchonous.
@@ -106,7 +106,7 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="id">The id of the entity.</param>
         /// <param name="patchedEntity">An object that contains a stub entity instance with the only properties set being the ones that will change. It also has a list of changed properties.</param>
         /// <returns>The patched entity, fetched completely after update.</returns>
-        Task<WebServices.OdataObject<TEntity, TId>> PatchAsync(string id, PatchedEntity<TEntity> patchedEntity);
+        Task<OdataObject<TEntity, TId>> PatchAsync(string id, PatchedEntity<TEntity> patchedEntity);
 
         /// <summary>
         /// Deletes the entity by the specified id. Call is asynchonous.
@@ -120,14 +120,14 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="id">The id of the entity to get addenda for. This is not the addendum entity id.</param>
         /// <returns>The addenda for an entity instance.</returns>
-        Task<List<Addendum>> GetAddendaAsync(string id);
+        Task<OdataObjectCollection<Addendum, long>> GetAddendaAsync(string id);
 
         /// <summary>
         /// Gets addenda from the entity using the specified entity ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of entity ids. These are not addendum entity ids.</param>
         /// <returns>The addenda for an entity instances.</returns>
-        Task<List<Addendum>> GetAddendaByEntityIdsAsync(List<string> ids);
+        Task<OdataObjectCollection<Addendum, long>> GetAddendaByEntityIdsAsync(List<string> ids);
 
         /// <summary>
         /// Gets a specific addendum for a specific entity. Call is asynchonous.

@@ -1,5 +1,6 @@
 ﻿using Rhyous.Odata;
 using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;

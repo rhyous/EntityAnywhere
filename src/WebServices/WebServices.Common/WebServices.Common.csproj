@@ -36,8 +36,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.1\lib\net461\Rhyous.Odata.dll</HintPath>
+    <Reference Include="Rhyous.Odata, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.2\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
@@ -90,7 +90,6 @@
     <Compile Include="Extensions\WebOperationContextExtensions.cs" />
     <Compile Include="ClientInterfaces\IEntityClientAsyncJson.cs" />
     <Compile Include="ClientInterfaces\IEntityClientAsync.cs" />
-    <Compile Include="Interfaces\IEntityWebServiceAddenda.cs" />
     <Compile Include="ClientInterfaces\IMappingEntityClientAsync.cs" />
     <Compile Include="ClientInterfaces\IMappingEntityClient.cs" />
     <Compile Include="ClientInterfaces\IEntityClient.cs" />
@@ -100,13 +99,10 @@
     <Compile Include="Interfaces\IMetadataService.cs" />
     <Compile Include="Interfaces\IEntityWebServiceReadOnly.cs" />
     <Compile Include="Models\AttributeToServiceDictionary.cs" />
-    <Compile Include="Extensions\OdataExtensions.cs" />
     <Compile Include="Interfaces\IHttpContextProvider.cs" />
-    <Compile Include="Models\OdataObject.cs" />
     <Compile Include="Models\PatchedEntity.cs" />
     <Compile Include="Clients\HttpContextProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EntityWebServiceAddenda.cs" />
     <Compile Include="Services\EntityWebServiceReadOnly.cs" />
     <Compile Include="Services\MappingEntityWebService.cs" />
     <Compile Include="Services\EntityWebServiceAlternateKey.cs" />

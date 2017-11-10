@@ -132,6 +132,16 @@ namespace Rhyous.WebFramework.Clients
         /// <param name="content">The HttpContent form. It must already be in the correct format.</param>
         /// <returns>A list of entities returned by the custom service.</returns>
         Task<String> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content);
+        
+        /// <summary>
+        /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.
+        /// </summary>
+        /// <remarks>This overload specifically is used for HttpClient actions other than GET, such as POST, that has content.</remarks>
+        /// <param name="urlPart">The url part to the right of the service. Include only the part of the url after the https://hostname/path/EntityService.svc/.</param>
+        /// <param name="httpMethod">The HttpClient method to call.</param>
+        /// <param name="content">The content in object form, it will be converted to JSON.</param>
+        /// <returns>A list of entities returned by the custom service.</returns>
+        Task<string> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content);
         #endregion
     }
 }

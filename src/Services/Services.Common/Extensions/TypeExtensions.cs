@@ -1,11 +1,19 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rhyous.WebFramework.Services
 {
     public static class TypeExtensions
     {
+        internal static IDictionary<Type, AlternateKeyAttribute> AlternateKeyCache
+        {
+            get { return _AlternateKeyCache ?? (_AlternateKeyCache = new Dictionary<Type, AlternateKeyAttribute>()); }
+            set { _AlternateKeyCache = value; }
+        } private static IDictionary<Type, AlternateKeyAttribute> _AlternateKeyCache;
+
+
         /// <summary>
         /// A quick method to get the AlternateKey of an Entity.
         /// </summary>
@@ -13,7 +21,12 @@ namespace Rhyous.WebFramework.Services
         /// <returns>The name of the AlternateKey property.</returns>
         public static string GetAlternateKeyProperty(this Type t)
         {
-            var attribute = t.GetCustomAttributes(true).FirstOrDefault(a => (typeof(AlternateKeyAttribute).IsAssignableFrom(a.GetType()))) as AlternateKeyAttribute;
+            AlternateKeyAttribute attribute;
+            if (!AlternateKeyCache.TryGetValue(t, out attribute))
+            {
+                attribute = t.GetCustomAttributes(typeof(AlternateKeyAttribute), true).FirstOrDefault() as AlternateKeyAttribute;
+                AlternateKeyCache[t] = attribute;
+            }
             return attribute?.KeyProperty;
         }
 

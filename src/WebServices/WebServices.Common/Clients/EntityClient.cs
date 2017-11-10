@@ -51,7 +51,7 @@ namespace Rhyous.WebFramework.Clients
         }
         
         /// <inheritdoc />
-        public WebServices.OdataObject<TEntity, TId> Get(string idOrName)
+        public OdataObject<TEntity, TId> Get(string idOrName)
         {
             return TaskRunner.RunSynchonously(GetAsync, idOrName);
         }
@@ -62,7 +62,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="altKey"></param>
         /// <returns>The entity with the specified alternate key.</returns>
-        public WebServices.OdataObject<TEntity, TId> GetByAlternateKey(string altKey)
+        public OdataObject<TEntity, TId> GetByAlternateKey(string altKey)
         {
             return TaskRunner.RunSynchonously(GetByAlternateKeyAsync, altKey);
         }
@@ -122,7 +122,7 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public WebServices.OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
+        public OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
         {
             return TaskRunner.RunSynchonously(PatchAsync, id, patchedEntity);
         }
@@ -134,7 +134,7 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public WebServices.OdataObject<TEntity, TId> Put(string id, TEntity entity)
+        public OdataObject<TEntity, TId> Put(string id, TEntity entity)
         {
             return TaskRunner.RunSynchonously(PutAsync, id, entity);
         }
@@ -146,7 +146,7 @@ namespace Rhyous.WebFramework.Clients
         }
                 
         /// <inheritdoc />
-        public List<Addendum> GetAddenda(string id)
+        public OdataObjectCollection<Addendum, long> GetAddenda(string id)
         {
             return TaskRunner.RunSynchonously(GetAddendaAsync, id);
         }
@@ -158,7 +158,7 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public List<Addendum> GetAddendaByEntityIds(List<string> ids)
+        public OdataObjectCollection<Addendum, long> GetAddendaByEntityIds(List<string> ids)
         {
             return TaskRunner.RunSynchonously(GetAddendaByEntityIdsAsync, ids);
         }

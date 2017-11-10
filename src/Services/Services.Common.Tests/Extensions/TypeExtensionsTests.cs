@@ -52,7 +52,7 @@ namespace Services.Common.Tests
                 value = typeof(User).GetAlternateKeyProperty();
             }
             watch.Stop();
-            Assert.IsTrue(watch.ElapsedMilliseconds < 1000);
+            Assert.IsTrue(watch.ElapsedMilliseconds < 100);
 
             // Assert
             Assert.AreEqual("Username", value);

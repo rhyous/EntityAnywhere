@@ -6,7 +6,6 @@ using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
@@ -16,8 +15,6 @@ namespace Rhyous.WebFramework.Services
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
-        public const string WildCard = "*";
-
         public async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(TInterface entity, IEnumerable<ExpandPath> expandPaths = null)
         {
             return await GetRelatedEntitiesAsync(new[] { entity }, expandPaths);
@@ -25,10 +22,21 @@ namespace Rhyous.WebFramework.Services
 
         public async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<ExpandPath> expandPaths = null)
         {
-            var attributes = GetAttributesToExpand(expandPaths?.Select(ep => ep.Entity));
-            var list = await GetRelatedEntitiesAsync(entities, attributes, expandPaths);
+            var list = new List<RelatedEntityCollection>();
+            // ExtensionEntities (Addendum, AlternateId)
+            var extensionEntitiesToExpand = GetExtensionEntitiesToExpand(expandPaths?.Select(ep => ep.Entity));
+            var relatedExtensionEntities = await GetRelatedExtensionEntitiesAsync(entities, extensionEntitiesToExpand);
+            if (relatedExtensionEntities != null && relatedExtensionEntities.Any())
+                list.AddRange(relatedExtensionEntities);
+
+            // Related entities
+            var attributes = AttributeEvaluator.GetAttributesToExpand(typeof(TEntity), expandPaths?.Select(ep => ep.Entity));
+            var relatedEntities = await GetRelatedEntitiesAsync(entities, attributes, expandPaths);
+            if (relatedEntities != null && relatedEntities.Any())
+                list.AddRange(relatedEntities);
             
-            var mappingAttributes = GetMappingAttributesToExpand(expandPaths?.Select(ep => ep.Entity));
+            // Related mapping entities
+            var mappingAttributes = AttributeEvaluator.GetMappingAttributesToExpand(typeof(TEntity), expandPaths?.Select(ep => ep.Entity));
             var mapList = await GetRelatedMappingEntitiesAsync(entities, mappingAttributes);
             if (mapList != null && mapList.Count > 0)
                 list.AddRange(mapList); return list;
@@ -58,9 +66,35 @@ namespace Rhyous.WebFramework.Services
             get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TInterface, TId>()); }
             set { _Sorter = value; }
         } private IRelatedEntitySorter<TInterface, TId> _Sorter;
+        
+        public AttributeEvaluator AttributeEvaluator
+        {
+            get { return _AttributeEvaluator ?? (_AttributeEvaluator = new AttributeEvaluator()); }
+            set { _AttributeEvaluator = value; }
+        } private AttributeEvaluator _AttributeEvaluator;
         #endregion
 
-        #region internals
+        #region internals        
+        internal async Task<List<RelatedEntityCollection>> GetRelatedExtensionEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<string> extensionEntitiesToExpand)
+        {
+            if (entities == null || !entities.Any())
+                return null;
+            var list = new List<RelatedEntityCollection>();
+            var entity = typeof(TEntity).Name;
+            foreach (var extensionEntity in extensionEntitiesToExpand)
+            {
+                var client = ClientsCache.Json[extensionEntity];
+                var entityIdentifiers = entities.Select(e => new EntityIdentifier { Entity = entity, EntityId = e.Id.ToString() }).ToList();
+                var json = await client.GetByCustomUrlAsync($"{client.EntityPluralized}/EntityIdentifiers", client.HttpClient.PostAsync, entityIdentifiers);
+                var extensionEntities = JsonConvert.DeserializeObject<OdataObjectCollection>(json);
+                var sortDetails = new SortDetails(entity, extensionEntity, RelatedEntity.Type.OneToMany) { EntityToRelatedEntityProperty = "RelatedId" };
+                var relatedEntities = extensionEntities.Select(e => new RelatedEntityOneToMany("EntityId", e));
+                var collections = Sorter.Sort(entities, relatedEntities, sortDetails);
+                list.AddRange(collections);
+            }
+            return list;
+        }
+
         internal async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<RelatedEntityAttribute> attributes, IEnumerable<ExpandPath> expandPaths)
         {
             if (entities == null || !entities.Any())
@@ -68,7 +102,7 @@ namespace Rhyous.WebFramework.Services
             var list = new List<RelatedEntityCollection>();
             foreach (RelatedEntityAttribute a in attributes)
             {
-                List<RelatedEntity> relatedEntities = await GetRelatedEntitiesByAttribute(entities, a);
+                List<RelatedEntity> relatedEntities = await GetRelatedEntities(entities, a.RelatedEntity, a.Property);
                 var sortDetails = new SortDetails(typeof(TEntity).Name, a.RelatedEntity, RelatedEntity.Type.OneToOne) { EntityToRelatedEntityProperty = a.Property };
                 var collections = Sorter.Sort(entities, relatedEntities, sortDetails);
                 list.AddRange(collections);
@@ -92,10 +126,10 @@ namespace Rhyous.WebFramework.Services
             return list;
         }
 
-        internal async Task<List<RelatedEntity>> GetRelatedEntitiesByAttribute(IEnumerable<TInterface> entities, RelatedEntityAttribute a)
+        internal async Task<List<RelatedEntity>> GetRelatedEntities(IEnumerable<TInterface> entities, string entity, string entityIdProperty)
         {
-            var client = ClientsCache.Json[a.RelatedEntity];
-            var relatedEntityIds = entities.Select(e => e.GetPropertyValue(a.Property).ToString());
+            var client = ClientsCache.Json[entity];
+            var relatedEntityIds = entities.Select(e => e.GetPropertyValue(entityIdProperty).ToString());
             var json = await client.GetByIdsAsync(relatedEntityIds);
             var relatedEntities = JsonConvert.DeserializeObject<List<RelatedEntity>>(json);
             return relatedEntities;
@@ -116,26 +150,14 @@ namespace Rhyous.WebFramework.Services
             return mappingsList;
         }
 
-        internal IEnumerable<RelatedEntityAttribute> GetAttributesToExpand(IEnumerable<string> entitiesToExpand = null)
+        internal static IEnumerable<string> GetExtensionEntitiesToExpand(IEnumerable<string> entitiesToExpand)
         {
-            var attribs = typeof(TEntity).GetProperties().Select(p => p.GetCustomAttribute<RelatedEntityAttribute>(true));
-            return GetAttributesToExpand(entitiesToExpand, attribs);
-        }
-
-        internal IEnumerable<RelatedEntityMappingAttribute> GetMappingAttributesToExpand(IEnumerable<string> entitiesToExpand = null)
-        {
-            var attribs = typeof(TEntity).GetCustomAttributes<RelatedEntityMappingAttribute>();
-            return GetAttributesToExpand(entitiesToExpand, attribs);
-        }
-
-        internal static IEnumerable<T> GetAttributesToExpand<T>(IEnumerable<string> entitiesToExpand, IEnumerable<T> attribs)
-            where T : IRelatedEntity
-        {
-            var safeAttribs = attribs.Where(a => a != null);
+            var extensionEntities = new List<string> { "Addendum" /* , "AlternateId" */ };
             if (entitiesToExpand == null || !entitiesToExpand.Any())
-                return safeAttribs.Where(a => a != null && a.AutoExpand);
-            else 
-                return safeAttribs.Where(a => entitiesToExpand.Contains(a.RelatedEntity) || entitiesToExpand.Contains(WildCard));
+                return extensionEntities;
+            else
+                return extensionEntities.Where(ex => entitiesToExpand.Contains(ex) || entitiesToExpand.Contains(ExpandConstants.WildCard));
+
         }
         #endregion
     }

@@ -74,6 +74,11 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
         }
 
+        public async Task<String> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
+        {
+            return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
+        }
+
         public async Task<String> GetByIdsAsync(IEnumerable<string> ids, string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}/Ids";

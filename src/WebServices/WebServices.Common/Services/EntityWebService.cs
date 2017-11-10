@@ -1,4 +1,5 @@
-﻿using Rhyous.StringLibrary;
+﻿using Rhyous.Odata;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The changed entity.</returns>
         public virtual OdataObject<TEntity, TId> Patch(string id, PatchedEntity<TEntity> patchedEntity)
         {
-            return Service.Update(id.To<TId>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
+            return Service.Update(id.To<TId>(), patchedEntity.Entity, patchedEntity.ChangedProperties).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The new entity.</returns>
         public virtual OdataObject<TEntity, TId> Put(string id, TEntity entity)
         {
-            return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(id));
+            return Service.Replace(id.To<TId>(), entity).ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
         }
 
         /// <summary>

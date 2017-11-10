@@ -23,7 +23,7 @@ namespace Rhyous.WebFramework.Behaviors
             var serviceBehaviorLoader = new ServiceBehaviorLoader();
             if (serviceBehaviorLoader.Plugins?.Count > 0)
             {
-                var entityType = serviceType.GetStaticPropertyValue("EntityType") as Type ?? serviceType;
+                var entityType = serviceType.GetStaticPropertyValue("EntityType", serviceType) as Type;
                 var attributes = entityType.GetCustomAttributes(true).Select(o => o as Attribute).ToList();
                 ServiceBehaviorApplicator.AddServiceBehavior(attributes, host.Description.Behaviors, serviceBehaviorLoader.Plugins);
             }

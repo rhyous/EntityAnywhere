@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rhyous.Odata;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -6,7 +7,7 @@ using System.ServiceModel.Web;
 namespace Rhyous.WebFramework.WebServices
 {
     [ServiceContract]
-    public interface IEntityWebService<TEntity, TId> : IEntityWebServiceReadOnly<TEntity, TId>, IEntityWebServiceAddenda
+    public interface IEntityWebService<TEntity, TId> : IEntityWebServiceReadOnly<TEntity, TId>
         where TEntity : class, new()
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
@@ -28,7 +29,7 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The added entity.</returns>
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
-        Odata.OdataObjectCollection<TEntity, TId> Post(List<TEntity> entity);
+        OdataObjectCollection<TEntity, TId> Post(List<TEntity> entity);
 
         /// <summary>
         /// Replaces an entity at the specified id.

@@ -53,7 +53,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="altKey"></param>
         /// <returns>The entity with the specified alternate key.</returns>
-        WebServices.OdataObject<TEntity, TId> GetByAlternateKey(string altKey);
+        OdataObject<TEntity, TId> GetByAlternateKey(string altKey);
 
         /// <summary>
         /// This method allows for this common entity client to work with custom entities. A custom web service path can be called with this method.

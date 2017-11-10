@@ -1,4 +1,5 @@
-﻿using Rhyous.StringLibrary;
+﻿using Rhyous.Odata;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Linq;
@@ -24,7 +25,11 @@ namespace Rhyous.WebFramework.WebServices
                 return null;
             var id = idOrName.To<TId>();
             if (id.Equals(default(TId)))
-                return AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri, GetAddenda(idOrName));
+            {
+                var entity = AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
+                Service.GetRelatedEntities(entity.Object);
+                return entity;
+            }
             return base.Get(idOrName);
         }
         

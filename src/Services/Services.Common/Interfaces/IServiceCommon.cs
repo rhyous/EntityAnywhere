@@ -135,6 +135,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// Related entities are specified on TEntity properties using the RelatedEntityAttribute.
         /// </summary>
         /// <param name="entity">The entity to get related entities for.</param>
+        /// <param name="parameters"></param>
         /// <returns>Related entites as raw json strings.</returns>
         List<RelatedEntityCollection> GetRelatedEntities(TInterface entity, NameValueCollection parameters = null);
 
@@ -143,7 +144,9 @@ namespace Rhyous.WebFramework.Interfaces
         /// Related entities are specified on TEntity properties using the RelatedEntityAttribute.
         /// </summary>
         /// <param name="entities">A list of entities to get related entities for.</param>
+        /// <param name="parameters"></param>
         /// <returns>Related entites as raw json strings.</returns>
+
         List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities, NameValueCollection parameters = null);
     }
 }

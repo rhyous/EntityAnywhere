@@ -13,7 +13,9 @@ namespace Rhyous.WebFramework.WebServices
     /// A custom Addendum web service that adds a method to get Addenda by an EntityIdentifier, which includes Entity name and the Entity's id.
     /// </summary>
     [CustomWebService("AddendumWebService", typeof(IAddendumWebService), typeof(Addendum))]
-    public class AddendumWebService : EntityWebService<Addendum, IAddendum, long, ServiceCommon<Addendum, IAddendum, long>>, IAddendumWebService, ICustomWebService
+    public class AddendumWebService 
+        : EntityWebService<Addendum, IAddendum, long, ServiceCommon<Addendum, IAddendum, long>>,
+          IAddendumWebService, ICustomWebService
     {
         /// <inheritdoc />
         public OdataObjectCollection<Addendum, long> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)

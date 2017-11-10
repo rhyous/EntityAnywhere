@@ -33,8 +33,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.1\lib\net461\Rhyous.Odata.dll</HintPath>
+    <Reference Include="Rhyous.Odata, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.2\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
@@ -136,9 +136,6 @@
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebService.cs">
       <Link>Interfaces\IEntityWebService.cs</Link>
     </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebServiceAddenda.cs">
-      <Link>Interfaces\IEntityWebServiceAddenda.cs</Link>
-    </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IEntityWebServiceReadOnly.cs">
       <Link>Interfaces\IEntityWebServiceReadOnly.cs</Link>
     </Compile>
@@ -147,9 +144,6 @@
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Interfaces\IMappingEntityWebService.cs">
       <Link>Interfaces\IMappingEntityWebService.cs</Link>
-    </Compile>
-    <Compile Include="..\..\WebServices\WebServices.Common\Models\OdataObject.cs">
-      <Link>Models\OdataObject.cs</Link>
     </Compile>
     <Compile Include="..\..\WebServices\WebServices.Common\Models\PatchedEntity.cs">
       <Link>Models\PatchedEntity.cs</Link>

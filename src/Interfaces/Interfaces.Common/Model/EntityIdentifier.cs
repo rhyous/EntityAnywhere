@@ -1,4 +1,4 @@
-﻿namespace Rhyous.WebFramework.WebServices
+﻿namespace Rhyous.WebFramework.Interfaces
 {
     /// <summary>
     /// This class is used by the custom Addendum Web Service to identify which addendums to fetch. An addendum is mapped to an entity and an id.

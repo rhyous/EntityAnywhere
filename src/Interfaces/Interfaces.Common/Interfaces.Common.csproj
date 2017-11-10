@@ -69,6 +69,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="Collections\ParentedCollection.cs" />
     <Compile Include="Dictionaries\NullSafeDictionary.cs" />
+    <Compile Include="Model\EntityIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\AlternateKeyAttribute.cs" />
   </ItemGroup>
