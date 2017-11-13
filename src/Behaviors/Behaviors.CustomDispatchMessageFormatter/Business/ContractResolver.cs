@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Rhyous.Odata;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,14 @@ using System.Reflection;
 
 namespace Rhyous.WebFramework.Behaviors
 {
-    public class ContractResolver : DefaultContractResolver
+    public sealed class ContractResolver : ExcludeEmptyEnumerablesContractResolver
     {
         #region Singleton
         private static readonly Lazy<ContractResolver> Lazy = new Lazy<ContractResolver>(() => new ContractResolver());
-        public static ContractResolver Instance { get { return Lazy.Value; } }
+        new public static ContractResolver Instance { get { return Lazy.Value; } }
         internal ContractResolver() { }
         #endregion
-        
+
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
             var properties = base.CreateProperties(type, memberSerialization);
@@ -24,8 +25,9 @@ namespace Rhyous.WebFramework.Behaviors
             if (type.GetProperties().Any(p => p.GetCustomAttribute<JsonPropertyAttribute>()?.Order > 0))
                 return properties;
             // If JsonPropertyAttribute is not used, use alphabetical order, except put preferential properties at the front
-            // Json order doens't matter for functionality. However, this is a much better human readability experience.
-            return GetPreferentialOrder(type, properties);
+            // Json order doesn't matter for functionality. However, this is a much better human readability experience.
+            var orderedProperties = GetPreferentialOrder(type, properties);
+            return orderedProperties;
         }
 
         internal static List<JsonProperty> GetPreferentialOrder(Type type, IList<JsonProperty> properties)
