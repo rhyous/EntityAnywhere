@@ -30,11 +30,11 @@ namespace Rhyous.WebFramework.Services
             set { _Repo = value; }
         } private IRepository<TEntity, TInterface, TId> _Repo;
 
-        public IRelatedEntityManager<TEntity, TInterface, TId> RelatedEntityManager
+        public IGetRelatedEntities<TEntity, TInterface, TId> RelatedEntityManager
         {
             get { return _RelatedEntityManager ?? (_RelatedEntityManager = new RelatedEntityManager<TEntity, TInterface, TId>()); }
             set { _RelatedEntityManager = value; }
-        } private IRelatedEntityManager<TEntity, TInterface, TId> _RelatedEntityManager;
+        } private IGetRelatedEntities<TEntity, TInterface, TId> _RelatedEntityManager;
 
         /// <inheritdoc />
         public virtual int GetCount()

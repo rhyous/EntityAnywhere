@@ -119,7 +119,10 @@
     <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
     <Compile Include="Business\Hash.cs" />
     <Compile Include="Business\IPluginLoader.cs" />
-    <Compile Include="Interfaces\IRelatedEntityManagerAsync.cs" />
+    <Compile Include="Business\RelatedEntityManyToMany.cs" />
+    <Compile Include="Business\RelatedEntityOneToMany.cs" />
+    <Compile Include="Business\RelatedEntityExtensions.cs" />
+    <Compile Include="Interfaces\IGetRelatedEntitiesAsync.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RelatedEntityManagerAsync.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />

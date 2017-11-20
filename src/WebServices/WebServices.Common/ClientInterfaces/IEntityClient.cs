@@ -18,16 +18,6 @@ namespace Rhyous.WebFramework.Clients
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
     {
         /// <summary>
-        /// The entity name pluralized.
-        /// </summary>
-        string EntityPluralized { get; }
-
-        /// <summary>
-        /// Returns the HttpClient this EntityClient will use.
-        /// </summary>
-        HttpClient HttpClient { get; }
-
-        /// <summary>
         /// This is used to find the first part of the url: http or https and hostname, etc.
         /// https://host/path/to/api
         /// </summary>
