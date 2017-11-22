@@ -7,7 +7,6 @@ using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -107,6 +106,13 @@ namespace Rhyous.WebFramework.Clients
         }
         
         /// <inheritdoc />
+        public async Task<OdataObjectCollection<TEntity, TId>> GetByPropertyValuesAsync(string property, List<string> values)
+        {
+            HttpContent postContent = new StringContent(JsonConvert.SerializeObject(values, JsonSerializerSettings), Encoding.UTF8, "application/json");
+            return await HttpClientRunner.RunAndDeserialize<OdataObjectCollection<TEntity, TId>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/{property}/Values", postContent);
+        }
+
+        /// <inheritdoc />
         public async Task<OdataObjectCollection<TEntity, TId>> GetByIdsAsync(List<TId> ids)
         {
             return await GetByIdsAsync((IEnumerable<TId>)ids);
@@ -168,7 +174,6 @@ namespace Rhyous.WebFramework.Clients
         public async Task<int> GetCountAsync()
         {
             return await HttpClientRunner.RunAndDeserialize<int>(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}?$count");
-
         }
     }
 }

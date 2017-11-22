@@ -2,23 +2,18 @@
 using Moq;
 using Rhyous.Odata.Expand;
 using Rhyous.WebFramework.Clients;
-using Rhyous.WebFramework.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services.Common.Tests.Business
 {
     [TestClass]
-    public class RelatedEntityOneToManyTests
+    public class RelatedEntityManyToOneTests
     {
         [TestMethod]
         public void GetRelatedEntitiesTest()
         {
             // Arrange
-            var manager = new RelatedEntityOneToMany<User, IUser, int>();
+            var manager = new RelatedEntityManyToOne<User, IUser, int>();
             var evaluator = new AttributeEvaluator();
             var mockClient = new Mock<IEntityClientAsync>();
             mockClient.Setup(c => c.GetByIdsAsync(It.IsAny<IEnumerable<string>>(),It.IsAny<string>())).ReturnsAsync(UserTypeJson);
@@ -38,7 +33,7 @@ namespace Rhyous.WebFramework.Services.Common.Tests.Business
             Assert.AreEqual(UserTypeJsonObject, actual[0][0].Object.ToString());
         }
 
-        private string UserTypeJson = "[{\"Id\":2,\"Object\":{\"Id\":2,\"Type\":\"Internal\",\"CreateDate\":\"2017 - 08 - 08T10: 18:00\",\"CreatedBy\":1,\"LastUpdated\":null,\"LastUpdatedBy\":null},\"PropertyUris\":[],\"RelatedEntities\":[],\"Uri\":\"http://localhost:3896/UserTypeService.svc/UserTypes(8)\"}]";
+        private string UserTypeJson = "{\"Count\":1,\"Entities\":[{\"Id\":2,\"Object\":{\"Id\":2,\"Type\":\"Internal\",\"CreateDate\":\"2017 - 08 - 08T10: 18:00\",\"CreatedBy\":1,\"LastUpdated\":null,\"LastUpdatedBy\":null},\"Uri\":\"http://localhost:3896/UserTypeService.svc/UserTypes(8)\"}],\"Entity\":\"UserType\"}";
         private string UserTypeJsonObject = "{\"Id\":2,\"Type\":\"Internal\",\"CreateDate\":\"2017 - 08 - 08T10: 18:00\",\"CreatedBy\":1,\"LastUpdated\":null,\"LastUpdatedBy\":null}";
     }
 }

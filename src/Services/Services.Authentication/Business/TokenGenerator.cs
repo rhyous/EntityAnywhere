@@ -31,7 +31,7 @@ namespace Rhyous.WebFramework.Services
                 var odataUser = await userClient.GetAsync(creds.User) ?? throw new Exception("User not found.");
                 user = odataUser.Object;
                 relatedEntityCollections = relatedEntityCollections ?? new List<RelatedEntityCollection>();
-                relatedEntityCollections.AddRange(odataUser.RelatedEntities);
+                relatedEntityCollections.AddRange(odataUser.RelatedEntityCollection);
             }
             var tokenClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<Token, long>, bool>(typeof(Token).Name, true);
             var token = new Token { Text = CryptoRandomString.GetCryptoRandomBase64String(TokenSize), UserId = user.Id };

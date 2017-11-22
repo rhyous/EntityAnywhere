@@ -48,6 +48,14 @@ namespace Rhyous.WebFramework.Interfaces
         List<TInterface> Get(List<TId> ids);
 
         /// <summary>
+        /// Gets a list of entities based on the property values.
+        /// </summary>
+        /// <param name="property">The property name of a valid property of TEntity.</param>
+        /// <param name="values">The list of values to match against a property.</param>
+        /// <returns>All entities where the property value is in the list of values provided</returns>
+        List<TInterface> Get(string property, IEnumerable<string> values);
+
+        /// <summary>
         /// Gets an entity based on its id.
         /// </summary>
         /// <param name="id">the id of the entity to get.</param>

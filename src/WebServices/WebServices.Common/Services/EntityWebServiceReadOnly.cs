@@ -55,8 +55,28 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids)
         {
             var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-            var relatedEntities = Service.GetRelatedEntities(entities.Select(o => o.Object), UrlParameters);
-            Sorter.Collate(entities, relatedEntities);
+            GetRelatedEntities(entities);
+            return entities;
+        }
+
+        /// <summary>
+        /// Get a list of Entities where the value of the property of a given Entity is in the list of values provided.
+        /// </summary>
+        /// <param name="collection">A ValueCollection that has the property name and the values as strings.</param>
+        /// <returns>A List{OdataObject{T}} of entities where each is wrapped in an Odata object.</returns>
+        public virtual OdataObjectCollection<TEntity, TId> GetByPropertyValues(string property, List<string> values)
+        {
+            #region parameter validation
+            if (string.IsNullOrWhiteSpace(property))
+                throw new ArgumentException($"The property section of the Url must be a valid property of {typeof(TEntity).FullName}", "property");
+            if (values == null || !values.Any())
+                return null;
+            var propInfo = typeof(TEntity).GetProperty(property);
+            if (propInfo == null)
+                throw new ArgumentException($"ValueCollection.Property must be a valid property of {typeof(TEntity).FullName}");
+            #endregion
+            var entities = Service.Get(property, values)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
+            GetRelatedEntities(entities);
             return entities;
         }
 
@@ -68,7 +88,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObject<TEntity, TId> Get(string id)
         {
             var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-            entity.RelatedEntities = Service.GetRelatedEntities(entity.Object, UrlParameters);
+            GetRelatedEntities(new[] { entity });
             return entity;
         }
 
@@ -85,6 +105,16 @@ namespace Rhyous.WebFramework.WebServices
             return Service.GetProperty(id.To<TId>(), property);
         }
         
+        private void GetRelatedEntities(IEnumerable<OdataObject<TEntity, TId>> entities)
+        {
+            if (entities != null && entities.Any())
+            {
+                var relatedEntityCollection = Service.GetRelatedEntities(entities.Select(o => o.Object), UrlParameters);
+                if (relatedEntityCollection != null && relatedEntityCollection.Any())
+                    Collater.Collate(entities, relatedEntityCollection);
+            }
+        }
+
         #region Properties
         public static Type EntityType => typeof(TEntity);
         protected internal virtual Uri RequestUri => WebOperationContext.Current?.IncomingRequest?.UriTemplateMatch?.RequestUri;
@@ -98,11 +128,17 @@ namespace Rhyous.WebFramework.WebServices
             set { _Service = value; }
         } protected IServiceCommon<TEntity, TInterface, TId> _Service;
 
-        public IRelatedEntitySorter<TEntity, TId> Sorter
+        public IRelatedEntitySorter<TEntity> Sorter
         {
             get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TEntity, TId>()); }
             set { _Sorter = value; }
-        } private IRelatedEntitySorter<TEntity, TId> _Sorter;
+        } private IRelatedEntitySorter<TEntity> _Sorter;
+        
+        public IRelatedEntityCollater<TEntity, TId> Collater
+        {
+            get { return _Collater ?? (_Collater = Sorter as IRelatedEntityCollater<TEntity, TId> ?? new RelatedEntitySorter<TEntity, TId>()); }
+            set { _Collater = value; }
+        } private IRelatedEntityCollater<TEntity, TId> _Collater;
 
         #endregion
     }

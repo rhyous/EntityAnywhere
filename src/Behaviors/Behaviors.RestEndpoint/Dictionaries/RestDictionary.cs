@@ -40,6 +40,12 @@ namespace Rhyous.WebFramework.Behaviors
             // Returns: all the entities for the Ids posted
             Add("GetByIds", "{0}/Ids"); // {0} should be pluralized entity name
 
+
+            // https://<server>/<entity>Service.svc/<entities> (Post of List<Tid>)
+            // Takes in a list of entity ids and gets all the entities for the Ids posted.
+            // Returns: all the entities for the Ids posted
+            Add("GetByPropertyValues", "{0}/{{property}}/Values"); // {0} should be pluralized entity name
+            
             // https://<server>/<entity>Service.svc/<entities>(id) (GET)
             // Gets the entity for the id provided.
             // Returns: The etity for the id provided.

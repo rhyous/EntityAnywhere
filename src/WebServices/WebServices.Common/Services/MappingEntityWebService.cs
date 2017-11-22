@@ -2,7 +2,6 @@
 using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Behaviors;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace Rhyous.WebFramework.WebServices
             var lambda = propertyName.ToLambda<TEntity, TE1Id>(ids);
             var entities = Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
             var relatedEntities = Service.GetRelatedEntities(entities.Select(e => e.Object), UrlParameters);
-            Sorter.Collate(entities, relatedEntities);
+            Collater.Collate(entities, relatedEntities);
             return entities;
         }
 
@@ -45,7 +44,7 @@ namespace Rhyous.WebFramework.WebServices
             var lambda = propertyName.ToLambda<TEntity, TE2Id>(ids);
             var entities = Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
             var relatedEntities = Service.GetRelatedEntities(entities.Select(e => e.Object), UrlParameters);
-            Sorter.Collate(entities, relatedEntities);
+            Collater.Collate(entities, relatedEntities);
             return entities;
         }
     }

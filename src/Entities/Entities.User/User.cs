@@ -7,9 +7,9 @@ namespace Rhyous.WebFramework.Entities
     /// The user entity. This is a user for logging in with an Authenticator plugin.
     /// </summary>
     [AlternateKey("Username")]
-    [RelatedEntityMapping("UserGroup", "UserGroupMembership", "User")]
-    [RelatedEntityMapping("UserRole", "UserRoleMembership", "User")]
-    [RelatedEntityMapping("UserType", "UserTypeMap", "User")]
+    [RelatedEntityForeign("UserGroupMembership", "User")]
+    [RelatedEntityForeign("UserRoleMembership", "User")]
+    [RelatedEntityForeign("UserTypeMap", "User")]
     public partial class User : AuditableEntity<long>, IUser
     {
         /// <inheritdoc />

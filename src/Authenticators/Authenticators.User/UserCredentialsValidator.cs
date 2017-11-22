@@ -40,7 +40,7 @@ namespace Rhyous.WebFramework.Authenticators
             bool result = (user.IsHashed) ? Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding)
                                           : creds.Password == user.Password;
 
-            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntities) : null;
+            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntityCollection) : null;
             return token;
         }
 

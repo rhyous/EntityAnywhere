@@ -11,7 +11,7 @@ using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class RelatedEntityExtensions<TEntity, TInterface, TId> : IGetRelatedEntities<TEntity, TInterface, TId>
+    public class RelatedEntityExtensions<TEntity, TInterface, TId> : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>
         where TEntity : class, TInterface, new()
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
@@ -52,10 +52,11 @@ namespace Rhyous.WebFramework.Services
                 var entityIdentifiers = entities.Select(e => new EntityIdentifier { Entity = entity, EntityId = e.Id.ToString() }).ToList();
                 var json = await client.GetByCustomUrlAsync($"{client.EntityPluralized}/EntityIdentifiers", client.HttpClient.PostAsync, entityIdentifiers);
                 var extensionEntities = JsonConvert.DeserializeObject<OdataObjectCollection>(json);
-                var sortDetails = new SortDetails(entity, extensionEntity, RelatedEntity.Type.OneToMany) { EntityToRelatedEntityProperty = "RelatedId" };
-                var relatedEntities = extensionEntities.Select(e => new RelatedEntityOneToMany("EntityId", e));
-                var collections = Sorter.Sort(entities, relatedEntities, sortDetails);
-                list.AddRange(collections);
+                var sortDetails = new SortDetails(entity, extensionEntity, RelatedEntity.Type.OneToMany) { EntityToRelatedEntityProperty = "EntityId" };
+                RelatedEntityCollection collection = extensionEntities;
+                var collections = Sorter.Sort(entities, collection, sortDetails);
+                if (collections != null && collections.Any())
+                    list.AddRange(collections);
             }
             return list;
         }
@@ -69,10 +70,10 @@ namespace Rhyous.WebFramework.Services
             set { _ClientsCache = value; }
         } private IEntityClientCache _ClientsCache;
 
-        public IRelatedEntitySorter<TInterface, TId> Sorter
+        public IRelatedEntitySorter<TInterface> Sorter
         {
             get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TInterface, TId>()); }
             set { _Sorter = value; }
-        } private IRelatedEntitySorter<TInterface, TId> _Sorter;
+        } private IRelatedEntitySorter<TInterface> _Sorter;
     }
 }

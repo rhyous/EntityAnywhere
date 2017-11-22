@@ -46,6 +46,15 @@ namespace Rhyous.WebFramework.WebServices
         OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids);
 
         /// <summary>
+        /// Gets all entities with the provided values of a given property.
+        /// </summary>
+        /// <param name="collection">A list of values.</param>
+        /// <returns>All entities with the provided values of a given property.</returns>
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
+        OdataObjectCollection<TEntity, TId> GetByPropertyValues(string property, List<string> values);
+
+        /// <summary>
         /// Gets an entity be a specific id.
         /// </summary>
         /// <param name="id">The id of the entity.</param>

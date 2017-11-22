@@ -37,10 +37,10 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.4\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.5\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Expand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.3\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.4\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Filter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.3\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
@@ -119,16 +119,17 @@
     <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
     <Compile Include="Business\Hash.cs" />
     <Compile Include="Business\IPluginLoader.cs" />
-    <Compile Include="Business\RelatedEntityManyToMany.cs" />
     <Compile Include="Business\RelatedEntityOneToMany.cs" />
+    <Compile Include="Business\RelatedEntityManyToMany.cs" />
+    <Compile Include="Business\RelatedEntityManyToOne.cs" />
     <Compile Include="Business\RelatedEntityExtensions.cs" />
-    <Compile Include="Interfaces\IGetRelatedEntitiesAsync.cs" />
     <Compile Include="Business\PluginLoaderBase.cs" />
     <Compile Include="Business\RelatedEntityManagerAsync.cs" />
     <Compile Include="Business\RepositoryLoader.cs" />
     <Compile Include="Extensions\QueryableExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
+    <Compile Include="Interfaces\IGetRelatedEntitiesAsync.cs" />
     <Compile Include="Interfaces\IServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommonAlternateKey.cs" />
     <Compile Include="ServiceCommon.cs" />

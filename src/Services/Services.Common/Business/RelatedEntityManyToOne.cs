@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Rhyous.Odata;
 using Rhyous.Odata.Expand;
 using Rhyous.WebFramework.Clients;
+using Newtonsoft.Json;
 using Rhyous.WebFramework.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class RelatedEntityOneToMany<TEntity, TInterface, TId> : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>
+    public class RelatedEntityManyToOne<TEntity, TInterface, TId> : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>
         where TEntity : class, TInterface, new()
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
@@ -23,33 +24,33 @@ namespace Rhyous.WebFramework.Services
         public async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<ExpandPath> expandPaths = null)
         {
             var list = new List<RelatedEntityCollection>();
-            var attributes = AttributeEvaluator.GetForeignAttributesToExpand(typeof(TEntity), expandPaths?.Select(ep => ep.Entity));
+            var attributes = AttributeEvaluator.GetAttributesToExpand(typeof(TEntity), expandPaths?.Select(ep => ep.Entity));
             var relatedEntities = await GetRelatedEntitiesAsync(entities, attributes, expandPaths);
             if (relatedEntities != null && relatedEntities.Any())
                 list.AddRange(relatedEntities);
             return list;
         }
-
-        internal async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<RelatedEntityForeignAttribute> attributes, IEnumerable<ExpandPath> expandPaths)
+        
+        internal async Task<List<RelatedEntityCollection>> GetRelatedEntitiesAsync(IEnumerable<TInterface> entities, IEnumerable<RelatedEntityAttribute> attributes, IEnumerable<ExpandPath> expandPaths)
         {
             if (entities == null || !entities.Any())
                 return null;
             var list = new List<RelatedEntityCollection>();
-            foreach (RelatedEntityForeignAttribute a in attributes)
+            foreach (RelatedEntityAttribute a in attributes)
             {
-                RelatedEntityCollection relatedEntities = await GetRelatedEntities(entities, a.RelatedEntity, a.EntityKeyProperty, a.ForeignKeyProperty); // Cast is intentional
-                var sortDetails = new SortDetails(typeof(TEntity).Name, a.RelatedEntity, RelatedEntity.Type.OneToMany) { EntityToRelatedEntityProperty = a.ForeignKeyProperty };
+                RelatedEntityCollection relatedEntities = await GetRelatedEntities(entities, a.RelatedEntity, a.Property); // Cast is intentional
+                var sortDetails = new SortDetails(typeof(TEntity).Name, a.RelatedEntity, RelatedEntity.Type.ManyToOne) { EntityToRelatedEntityProperty = a.Property };
                 var collections = Sorter.Sort(entities, relatedEntities, sortDetails);
                 list.AddRange(collections);
             }
             return list;
         }
-
-        internal async Task<OdataObjectCollection> GetRelatedEntities(IEnumerable<TInterface> entities, string entity, string entityKeyProperty, string foreignKeyProperty)
+        
+        internal async Task<OdataObjectCollection> GetRelatedEntities(IEnumerable<TInterface> entities, string entity, string entityIdProperty)
         {
             var client = ClientsCache.Json[entity];
-            var relatedEntityValues = entities.Select(e => e.GetPropertyValue(entityKeyProperty).ToString()).ToList();
-            var json = await client.GetByPropertyValuesAsync(foreignKeyProperty, relatedEntityValues);
+            var relatedEntityIds = entities.Select(e => e.GetPropertyValue(entityIdProperty).ToString());
+            var json = await client.GetByIdsAsync(relatedEntityIds);
             var relatedEntityCollection = JsonConvert.DeserializeObject<OdataObjectCollection>(json);
             return relatedEntityCollection;
         }
@@ -68,7 +69,7 @@ namespace Rhyous.WebFramework.Services
             get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TInterface, TId>()); }
             set { _Sorter = value; }
         } private IRelatedEntitySorter<TInterface> _Sorter;
-
+        
         public AttributeEvaluator AttributeEvaluator
         {
             get { return _AttributeEvaluator ?? (_AttributeEvaluator = new AttributeEvaluator()); }

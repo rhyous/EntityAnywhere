@@ -1,9 +1,11 @@
 ﻿using LinqKit;
 using Rhyous.Odata;
 using Rhyous.Odata.Expand;
+using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -30,11 +32,11 @@ namespace Rhyous.WebFramework.Services
             set { _Repo = value; }
         } private IRepository<TEntity, TInterface, TId> _Repo;
 
-        public IGetRelatedEntities<TEntity, TInterface, TId> RelatedEntityManager
+        public IGetRelatedEntitiesAsync<TEntity, TInterface, TId> RelatedEntityManager
         {
             get { return _RelatedEntityManager ?? (_RelatedEntityManager = new RelatedEntityManager<TEntity, TInterface, TId>()); }
             set { _RelatedEntityManager = value; }
-        } private IGetRelatedEntities<TEntity, TInterface, TId> _RelatedEntityManager;
+        } private IGetRelatedEntitiesAsync<TEntity, TInterface, TId> _RelatedEntityManager;
 
         /// <inheritdoc />
         public virtual int GetCount()
@@ -46,6 +48,30 @@ namespace Rhyous.WebFramework.Services
         public virtual List<TInterface> Get(List<TId> ids)
         {
             return Repo.Get(ids).ToList();
+        }
+
+        /// <inheritdoc />
+        public List<TInterface> Get(string property, IEnumerable<string> values)
+        {            
+            if (string.IsNullOrWhiteSpace(property) || values == null || !values.Any())
+                return null;
+            var propInfo = typeof(TEntity).GetProperty(property);
+            if (propInfo == null)
+                throw new ArgumentException($"The property paramter must be a valid property of {typeof(TEntity).FullName}", "property");
+            MethodInfo method = GetType().GetMethod("GetByPropertyValues", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo generic = method.MakeGenericMethod(propInfo.PropertyType);
+            var typedList = values.Select(v => v.ToType(propInfo.PropertyType));
+            var parameters = new object[] { propInfo.Name, typedList };
+            return generic.Invoke(this, parameters) as List<TInterface>;
+        }
+
+        internal List<TInterface> GetByPropertyValues<T>(string property, IEnumerable<object> values)
+        {
+            // Cast values to type of propertyType
+            var typedValues = values.Cast<T>().ToList();
+            // Create Expression
+            var expression = property.ToLambda<TEntity, T>(typedValues);
+            return Repo.GetByExpression(expression).ToList();
         }
 
         /// <inheritdoc />
@@ -157,7 +183,7 @@ namespace Rhyous.WebFramework.Services
             foreach (RelatedEntityAttribute a in attributes)
             {
                 var client = new EntityClientAsync(a.RelatedEntity);
-                var relatedEntityKeyValue = entity.GetPropertyValue(a.ForeignKey).ToString();
+                var relatedEntityKeyValue = entity.GetPropertyValue(a.ForeignKeyProperty).ToString();
                 var relatedEntity = await client.GetAsync(relatedEntityKeyValue);
                 list.Add(relatedEntity);
             }

@@ -47,6 +47,13 @@ namespace Rhyous.WebFramework.Clients
         Task<OdataObjectCollection<TEntity, TId>> GetByIdsAsync(List<TId> ids);
 
         /// <summary>
+        /// Gets all entities with the provided values of a given property.
+        /// </summary>
+        /// <param name="values">A list of values.</param>
+        /// <returns>All entities with the provided values of a given property.</returns>
+        Task<OdataObjectCollection<TEntity, TId>> GetByPropertyValuesAsync(string property, List<string> values);
+
+        /// <summary>
         /// Gets all entities with the provided ids. Call is asynchonous.
         /// </summary>
         /// <param name="ids">A list of entity ids.</param>

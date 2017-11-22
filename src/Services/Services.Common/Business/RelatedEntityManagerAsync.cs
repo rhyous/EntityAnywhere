@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class RelatedEntityManager<TEntity, TInterface, TId> : IGetRelatedEntities<TEntity, TInterface, TId>
+    public class RelatedEntityManager<TEntity, TInterface, TId> : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>
         where TEntity : class, TInterface, new()
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
@@ -24,9 +24,9 @@ namespace Rhyous.WebFramework.Services
             var list = new List<RelatedEntityCollection>();
             foreach (var accessor in RelatedEntityAccessors)
             {
-                var relatedExtensionEntities = await accessor.GetRelatedEntitiesAsync(entities, expandPaths);
-                if (relatedExtensionEntities != null && relatedExtensionEntities.Any())
-                    list.AddRange(relatedExtensionEntities);
+                var relatedEntities = await accessor.GetRelatedEntitiesAsync(entities, expandPaths);
+                if (relatedEntities != null && relatedEntities.Any())
+                    list.AddRange(relatedEntities);
             }
             return list;
         }
@@ -50,11 +50,11 @@ namespace Rhyous.WebFramework.Services
             set { _MappingClientsCache = value; }
         } private Dictionary<string, IMappingEntityClientAsync> _MappingClientsCache;
 
-        internal IRelatedEntitySorter<TInterface, TId> Sorter
+        internal IRelatedEntitySorter<TInterface> Sorter
         {
             get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TInterface, TId>()); }
             set { _Sorter = value; }
-        } private IRelatedEntitySorter<TInterface, TId> _Sorter;
+        } private IRelatedEntitySorter<TInterface> _Sorter;
         
         internal AttributeEvaluator AttributeEvaluator
         {
@@ -62,20 +62,22 @@ namespace Rhyous.WebFramework.Services
             set { _AttributeEvaluator = value; }
         } private AttributeEvaluator _AttributeEvaluator;
 
-        internal List<IGetRelatedEntities<TEntity, TInterface, TId>> RelatedEntityAccessors
+        internal List<IGetRelatedEntitiesAsync<TEntity, TInterface, TId>> RelatedEntityAccessors
         {
             get
             {
                 return _RelatedEntityAccessors ??
-                      (_RelatedEntityAccessors = new List<IGetRelatedEntities<TEntity, TInterface, TId>>
+                      (_RelatedEntityAccessors = new List<IGetRelatedEntitiesAsync<TEntity, TInterface, TId>>
                         {
                             new RelatedEntityExtensions<TEntity, TInterface, TId>() { ClientsCache = ClientsCache, Sorter = Sorter },
+                            new RelatedEntityManyToOne<TEntity, TInterface, TId>() { ClientsCache = ClientsCache, Sorter = Sorter, AttributeEvaluator = AttributeEvaluator },
                             new RelatedEntityOneToMany<TEntity, TInterface, TId>() { ClientsCache = ClientsCache, Sorter = Sorter, AttributeEvaluator = AttributeEvaluator },
-                            new RelatedEntityManyToMany<TEntity, TInterface, TId>() { MappingClientsCache = MappingClientsCache, Sorter = Sorter, AttributeEvaluator = AttributeEvaluator },
+                            //new RelatedEntityManyToMany<TEntity, TInterface, TId>() { MappingClientsCache = MappingClientsCache, Sorter = Sorter, AttributeEvaluator = AttributeEvaluator },
                         });
             }
             set { _RelatedEntityAccessors = value; }
-        } private List<IGetRelatedEntities<TEntity, TInterface, TId>> _RelatedEntityAccessors;
+        }
+        private List<IGetRelatedEntitiesAsync<TEntity, TInterface, TId>> _RelatedEntityAccessors;
 
         #endregion
     }

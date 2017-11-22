@@ -49,7 +49,7 @@ namespace Rhyous.WebFramework.Authenticators
                 IUser user = odataUser?.Object;
                 if (user == null)
                     user = await StoreUser(creds);
-                return await BuildAsync(creds, user, odataUser.RelatedEntities);
+                return await BuildAsync(creds, user, odataUser.RelatedEntityCollection);
             }
             return null;
         }

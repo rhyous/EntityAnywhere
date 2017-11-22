@@ -38,7 +38,7 @@ namespace Rhyous.WebFramework.WebServices
         /// </summary>
         /// <param name="entities">The list of entities to create</param>
         /// <returns>The created entities.</returns>
-        public virtual Odata.OdataObjectCollection<TEntity, TId> Post(List<TEntity> entities)
+        public virtual OdataObjectCollection<TEntity, TId> Post(List<TEntity> entities)
         {
             return Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }

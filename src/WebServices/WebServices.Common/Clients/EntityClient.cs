@@ -108,7 +108,13 @@ namespace Rhyous.WebFramework.Clients
         {
             return GetByIds((IEnumerable<TId>)ids);
         }
-        
+
+        /// <inheritdoc />
+        public OdataObjectCollection<TEntity, TId> GetByPropertyValues(string property, List<string> values)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public string GetProperty(string id, string property)
         {
