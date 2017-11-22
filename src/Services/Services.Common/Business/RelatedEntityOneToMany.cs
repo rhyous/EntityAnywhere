@@ -37,7 +37,8 @@ namespace Rhyous.WebFramework.Services
             var list = new List<RelatedEntityCollection>();
             foreach (RelatedEntityForeignAttribute a in attributes)
             {
-                RelatedEntityCollection relatedEntities = await GetRelatedEntities(entities, a.RelatedEntity, a.EntityKeyProperty, a.ForeignKeyProperty); // Cast is intentional
+                var expandPath = expandPaths.FirstOrDefault(ep=> a.RelatedEntity == ep.Entity);
+                RelatedEntityCollection relatedEntities = await GetRelatedEntities(entities, a.RelatedEntity, a.EntityKeyProperty, a.ForeignKeyProperty, expandPath?.Parenthesis); // Cast is intentional
                 var sortDetails = new SortDetails(typeof(TEntity).Name, a.RelatedEntity, RelatedEntity.Type.OneToMany) { EntityToRelatedEntityProperty = a.ForeignKeyProperty };
                 var collections = Sorter.Sort(entities, relatedEntities, sortDetails);
                 list.AddRange(collections);
@@ -45,11 +46,11 @@ namespace Rhyous.WebFramework.Services
             return list;
         }
 
-        internal async Task<OdataObjectCollection> GetRelatedEntities(IEnumerable<TInterface> entities, string entity, string entityKeyProperty, string foreignKeyProperty)
+        internal async Task<OdataObjectCollection> GetRelatedEntities(IEnumerable<TInterface> entities, string entity, string entityKeyProperty, string foreignKeyProperty, string urlParams = null)
         {
             var client = ClientsCache.Json[entity];
             var relatedEntityValues = entities.Select(e => e.GetPropertyValue(entityKeyProperty).ToString()).ToList();
-            var json = await client.GetByPropertyValuesAsync(foreignKeyProperty, relatedEntityValues);
+            var json = await client.GetByPropertyValuesAsync(foreignKeyProperty, relatedEntityValues, urlParams);
             var relatedEntityCollection = JsonConvert.DeserializeObject<OdataObjectCollection>(json);
             return relatedEntityCollection;
         }

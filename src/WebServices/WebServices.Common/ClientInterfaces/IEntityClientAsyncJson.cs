@@ -46,7 +46,7 @@ namespace Rhyous.WebFramework.Clients
         /// </summary>
         /// <param name="values">A list of values.</param>
         /// <returns>All entities with the provided values of a given property.</returns>
-        Task<string> GetByPropertyValuesAsync(string property, List<string> values);
+        Task<string> GetByPropertyValuesAsync(string property, List<string> values, string urlParameters = null);
 
         /// <summary>
         /// Gets an entity be a specific id. Call is asynchonous.

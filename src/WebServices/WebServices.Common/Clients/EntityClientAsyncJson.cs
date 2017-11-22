@@ -89,10 +89,12 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public async Task<string> GetByPropertyValuesAsync(string property, List<string> values)
+        public async Task<string> GetByPropertyValuesAsync(string property, List<string> values, string urlParameters = null)
         {
+            var url = $"{ServiceUrl}/{EntityPluralized}/{property}/Values";
+            url = AppendUrlParameters(urlParameters, url);
             HttpContent postContent = new StringContent(JsonConvert.SerializeObject(values, JsonSerializerSettings), Encoding.UTF8, "application/json");
-            return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/{property}/Values", postContent);
+            return await HttpClientRunner.Run(HttpClient.PostAsync, url, postContent);
         }
 
         public async Task<string> GetByQueryParametersAsync(string queryParameters)
