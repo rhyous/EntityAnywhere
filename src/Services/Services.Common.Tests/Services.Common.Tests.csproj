@@ -57,7 +57,7 @@
       <HintPath>..\..\packages\Rhyous.Odata.1.0.6\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Expand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.4\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.5\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
