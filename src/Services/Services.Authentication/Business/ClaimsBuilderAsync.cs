@@ -38,7 +38,9 @@ namespace Rhyous.WebFramework.Services
             }
             else
             {
-                domain.Claims.AddRange((await BuildClaimFromEntityAsync(user, claimConfig)));
+                var claims = await BuildClaimFromEntityAsync(user, claimConfig);
+                if (claims != null && claims.Any())
+                    domain.Claims.AddRange(claims);
             }
         }
 
@@ -57,13 +59,13 @@ namespace Rhyous.WebFramework.Services
             return claims;
         }
 
-        internal async Task<List<RelatedEntity>> GetEntities(string entity, string relatedIdProperty, string id)
+        internal async Task<RelatedEntityCollection> GetEntities(string entity, string relatedIdProperty, string id)
         {
             var client = ClientsCache.Json[entity];
             var entitiesJson = await client.GetAllAsync($"?$filter={relatedIdProperty} eq {id}");
             if (string.IsNullOrWhiteSpace(entitiesJson))
                 return null;
-            var entities = JsonConvert.DeserializeObject<List<RelatedEntity>>(entitiesJson);
+            var entities = JsonConvert.DeserializeObject<RelatedEntityCollection>(entitiesJson);
             return entities;
         }
 
