@@ -27,7 +27,7 @@ namespace Rhyous.WebFramework.WebServices
             if (id.Equals(default(TId)))
             {
                 var entity = AltKeyService.Get(idOrName)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-                Service.GetRelatedEntities(entity.Object);
+                RelatedEntityFetcher.Fetch(new[] { entity }, UrlParameters);
                 return entity;
             }
             return base.Get(idOrName);

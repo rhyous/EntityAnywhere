@@ -32,8 +32,7 @@ namespace Rhyous.WebFramework.WebServices
             var propertyName = typeof(TEntity).GetMappedEntity1Property();
             var lambda = propertyName.ToLambda<TEntity, TE1Id>(ids);
             var entities = Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
-            var relatedEntities = Service.GetRelatedEntities(entities.Select(e => e.Object), UrlParameters);
-            Collater.Collate(entities, relatedEntities);
+            RelatedEntityFetcher.Fetch(entities, UrlParameters);
             return entities;
         }
 
@@ -43,8 +42,7 @@ namespace Rhyous.WebFramework.WebServices
             var propertyName = typeof(TEntity).GetMappedEntity2Property();
             var lambda = propertyName.ToLambda<TEntity, TE2Id>(ids);
             var entities = Service.Get(lambda)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
-            var relatedEntities = Service.GetRelatedEntities(entities.Select(e => e.Object), UrlParameters);
-            Collater.Collate(entities, relatedEntities);
+            RelatedEntityFetcher.Fetch(entities, UrlParameters);
             return entities;
         }
     }

@@ -36,6 +36,9 @@ namespace Rhyous.WebFramework.Behaviors
 
         public static string GetMappedEntity1Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
         {
+            var uriTemplate = t.GetAttribute<MappingEntityAttribute>()?.Entity1UriTemplate;
+            if (!string.IsNullOrWhiteSpace(uriTemplate))
+                return uriTemplate;
             return (pluralizationDictionary ?? PluralizationDictionary.Instance).GetValueOrDefault(t.GetMappedEntity1());
         }
         
@@ -51,6 +54,9 @@ namespace Rhyous.WebFramework.Behaviors
 
         public static string GetMappedEntity2Pluralized(this Type t, IDictionaryDefaultValueProvider<string, string> pluralizationDictionary = null)
         {
+            var uriTemplate = t.GetAttribute<MappingEntityAttribute>()?.Entity2UriTemplate;
+            if (!string.IsNullOrWhiteSpace(uriTemplate))
+                return uriTemplate;
             return (pluralizationDictionary ?? PluralizationDictionary.Instance).GetValueOrDefault(t.GetMappedEntity2());
         }
 

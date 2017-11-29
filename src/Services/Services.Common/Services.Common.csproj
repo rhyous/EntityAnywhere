@@ -37,7 +37,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.6\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.7\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Expand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.5\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
@@ -129,6 +129,7 @@
     <Compile Include="Extensions\QueryableExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Extensions\ValueAccessorExtensions.cs" />
+    <Compile Include="Interfaces\IGetRelatedEntities.cs" />
     <Compile Include="Interfaces\IGetRelatedEntitiesAsync.cs" />
     <Compile Include="Interfaces\IServiceCommon.cs" />
     <Compile Include="Interfaces\IServiceCommonAlternateKey.cs" />
@@ -148,6 +149,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

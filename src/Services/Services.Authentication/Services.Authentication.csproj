@@ -34,7 +34,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.6\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.7\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -63,10 +63,12 @@
     <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
       <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
       <Name>Clients.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Entities\Entities.ClaimConfiguration\Entities.ClaimConfiguration.csproj">
       <Project>{02876A74-8A39-4323-9C65-56ED1A458A3F}</Project>
       <Name>Entities.ClaimConfiguration</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Entities\Entities.Token\Entities.Token.csproj">
       <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
@@ -81,6 +83,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.ClaimConfiguration\Interfaces.ClaimConfiguration.csproj">
       <Project>{4448973b-0ba9-40ad-8715-9e076f8b252f}</Project>
       <Name>Interfaces.ClaimConfiguration</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>

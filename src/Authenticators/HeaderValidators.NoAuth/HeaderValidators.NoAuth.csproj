@@ -7,8 +7,8 @@
     <ProjectGuid>{AACAF14A-A9B6-4806-BF13-CB0F1AACAFCB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HeaderValidators.NoAuth</RootNamespace>
-    <AssemblyName>HeaderValidators.NoAuth</AssemblyName>
+    <RootNamespace>Rhyous.WebFramework.HeaderValidators.NoAuth</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.HeaderValidators.NoAuth</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Rhyous.Odata;
 
 namespace Rhyous.WebFramework.Clients
 {
@@ -14,33 +15,41 @@ namespace Rhyous.WebFramework.Clients
     public class EntityCache<T, TId> : IEntityCache<T, TId>
         where T : class
     {
-        public static string Id = "Id";
-        public Dictionary<TId, T> Cache { get; set; }
+        public static string Id = "Id";        
         public bool UseCache { get; set; }
         public HttpClient HttpClient { get; set; }
-        public async Task<T> GetWithCache(TId id, Func<string, Task<HttpResponseMessage>> methodIfNotCached, string url)
+
+        public Dictionary<TId, OdataObject<T, TId>> Cache
         {
-            if (UseCache && Cache.TryGetValue(id, out T e))
+            get { return _Cache ?? (_Cache = new Dictionary<TId, OdataObject<T, TId>>()); }
+            set { _Cache = value; }
+        } private Dictionary<TId, OdataObject<T, TId>> _Cache;
+
+        public async Task<OdataObject<T, TId>> GetWithCache(TId id, Func<string, Task<HttpResponseMessage>> methodIfNotCached, string url)
+        {
+            if (UseCache && Cache.TryGetValue(id, out OdataObject<T, TId> e))
                 return e;
             else
                 return await UpdateCache(methodIfNotCached, url);
         }
 
-        public async Task<List<T>> GetWithCache(IEnumerable<TId> ids, Func<string, HttpContent, Task<HttpResponseMessage>> methodIfNotCached, string url)
+        public async Task<OdataObjectCollection<T, TId>> GetWithCache(IEnumerable<TId> ids, Func<string, HttpContent, Task<HttpResponseMessage>> methodIfNotCached, string url)
         {
             if (UseCache)
             {
                 if (Cache.Keys.Except(ids).Any())
                     return await UpdateCache(ids, methodIfNotCached, url);
-                return ids.Where(Cache.ContainsKey).Select(id => Cache[id]).ToList();
+                var collection = new OdataObjectCollection<T, TId>();
+                collection.AddRange(ids.Where(Cache.ContainsKey).Select(id => Cache[id]));
+                return collection;
             }
             else
                 return await UpdateCache(ids, methodIfNotCached, url);
         }
 
-        internal async Task<T> UpdateCache(Func<string, Task<HttpResponseMessage>> methodIfNotCached, string url)
+        internal async Task<OdataObject<T, TId>> UpdateCache(Func<string, Task<HttpResponseMessage>> methodIfNotCached, string url)
         {
-            var e = await HttpClientRunner.RunAndDeserialize<T>(methodIfNotCached, url);
+            OdataObject<T, TId> e = await HttpClientRunner.RunAndDeserialize<OdataObject<T,TId>>(methodIfNotCached, url);
             if (e != null)
             {
                 
@@ -50,11 +59,11 @@ namespace Rhyous.WebFramework.Clients
             return e;
         }
 
-        internal async Task<List<T>> UpdateCache(IEnumerable<TId> ids, Func<string, HttpContent, Task<HttpResponseMessage>> methodIfNotCached, string url)
+        internal async Task<OdataObjectCollection<T, TId>> UpdateCache(IEnumerable<TId> ids, Func<string, HttpContent, Task<HttpResponseMessage>> methodIfNotCached, string url)
         {
             if (ids == null && !ids.Any())
                 return null;
-            var list = await HttpClientRunner.RunAndDeserialize<IEnumerable<TId>, List<T>>(methodIfNotCached, url, ids);
+            var list = await HttpClientRunner.RunAndDeserialize<IEnumerable<TId>, OdataObjectCollection<T, TId>>(methodIfNotCached, url, ids);
             if (list != null && list.Count > 0)
             {
                 foreach (var e in list)

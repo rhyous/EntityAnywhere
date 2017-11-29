@@ -10,6 +10,8 @@
         /// </summary>
         public static void Start()
         {
+            var loader = new EntityLoader();
+            var types = loader.PluginTypes;
             CustomWebServiceLoader.LoadEntities();
             EntityLoader.LoadEntities();
         }

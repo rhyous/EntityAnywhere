@@ -2,6 +2,7 @@
 using Rhyous.Odata.Csdl;
 using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -43,7 +44,11 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObjectCollection<TEntity, TId> GetAll()
         {
             if (UrlParameters.Count > 0)
-                return Service.Get(UrlParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            {
+                var entities = Service.Get(UrlParameters)?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+                RelatedEntityFetcher.Fetch(entities, UrlParameters);
+                return entities;
+            }
             return Service.Get()?.ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
         }
 
@@ -55,7 +60,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObjectCollection<TEntity, TId> GetByIds(List<TId> ids)
         {
             var entities = Service.Get(ids)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-            GetRelatedEntities(entities);
+            RelatedEntityFetcher.Fetch(entities, UrlParameters);
             return entities;
         }
 
@@ -76,7 +81,7 @@ namespace Rhyous.WebFramework.WebServices
                 throw new ArgumentException($"ValueCollection.Property must be a valid property of {typeof(TEntity).FullName}");
             #endregion
             var entities = Service.Get(property, values)?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-            GetRelatedEntities(entities);
+            RelatedEntityFetcher.Fetch(entities, UrlParameters);
             return entities;
         }
 
@@ -88,7 +93,7 @@ namespace Rhyous.WebFramework.WebServices
         public virtual OdataObject<TEntity, TId> Get(string id)
         {
             var entity = Service.Get(id.To<TId>())?.ToConcrete<TEntity, TInterface>().AsOdata<TEntity, TId>(RequestUri);
-            GetRelatedEntities(new[] { entity });
+            RelatedEntityFetcher.Fetch(new[] { entity }, UrlParameters);
             return entity;
         }
 
@@ -104,16 +109,6 @@ namespace Rhyous.WebFramework.WebServices
         {
             return Service.GetProperty(id.To<TId>(), property);
         }
-        
-        private void GetRelatedEntities(IEnumerable<OdataObject<TEntity, TId>> entities)
-        {
-            if (entities != null && entities.Any())
-            {
-                var relatedEntityCollection = Service.GetRelatedEntities(entities.Select(o => o.Object), UrlParameters);
-                if (relatedEntityCollection != null && relatedEntityCollection.Any())
-                    Collater.Collate(entities, relatedEntityCollection);
-            }
-        }
 
         #region Properties
         public static Type EntityType => typeof(TEntity);
@@ -128,17 +123,11 @@ namespace Rhyous.WebFramework.WebServices
             set { _Service = value; }
         } protected IServiceCommon<TEntity, TInterface, TId> _Service;
 
-        public IRelatedEntitySorter<TEntity> Sorter
+        public IRelatedEntityFetcher<TEntity, TId> RelatedEntityFetcher
         {
-            get { return _Sorter ?? (_Sorter = new RelatedEntitySorter<TEntity, TId>()); }
-            set { _Sorter = value; }
-        } private IRelatedEntitySorter<TEntity> _Sorter;
-        
-        public IRelatedEntityCollater<TEntity, TId> Collater
-        {
-            get { return _Collater ?? (_Collater = Sorter as IRelatedEntityCollater<TEntity, TId> ?? new RelatedEntitySorter<TEntity, TId>()); }
-            set { _Collater = value; }
-        } private IRelatedEntityCollater<TEntity, TId> _Collater;
+            get { return _RelatedEntityFetcher ?? (_RelatedEntityFetcher = new RelatedEntityFetcher<TEntity, TInterface, TId>()); }
+            set { _RelatedEntityFetcher = value; }
+        } private IRelatedEntityFetcher<TEntity, TId> _RelatedEntityFetcher;
 
         #endregion
     }

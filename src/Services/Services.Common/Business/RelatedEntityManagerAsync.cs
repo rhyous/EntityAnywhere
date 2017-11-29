@@ -4,12 +4,14 @@ using Rhyous.WebFramework.Clients;
 using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.Services
 {
-    public class RelatedEntityManager<TEntity, TInterface, TId> : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>
+    public class RelatedEntityManager<TEntity, TInterface, TId> 
+        : IGetRelatedEntitiesAsync<TEntity, TInterface, TId>, IGetRelatedEntities<TInterface>
         where TEntity : class, TInterface, new()
         where TInterface : IId<TId>
         where TId : IComparable, IComparable<TId>, IEquatable<TId>
@@ -29,6 +31,20 @@ namespace Rhyous.WebFramework.Services
                     list.AddRange(relatedEntities);
             }
             return list;
+        }
+
+        /// <inheritdoc />
+        public virtual List<RelatedEntityCollection> GetRelatedEntities(TInterface entity, NameValueCollection parameters)
+        {
+            var expandPaths = new ExpandParser().Parse(parameters);
+            return TaskRunner.RunSynchonously(GetRelatedEntitiesAsync, entity, expandPaths);
+        }
+
+        /// <inheritdoc />
+        public virtual List<RelatedEntityCollection> GetRelatedEntities(IEnumerable<TInterface> entities, NameValueCollection parameters)
+        {
+            var expandPaths = new ExpandParser().Parse(parameters);
+            return TaskRunner.RunSynchonously(GetRelatedEntitiesAsync, entities, expandPaths);
         }
 
         #region injectables

@@ -50,11 +50,12 @@
     <ProjectReference Include="..\..\..\Entities\Entities.Token\Entities.Token.csproj">
       <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
       <Name>Entities.Token</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
       <Name>Interfaces.Authentication</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
@@ -64,19 +65,22 @@
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
       <Project>{50CB75A3-E903-40A9-BADC-BE6A836FDA90}</Project>
       <Name>Interfaces.Token</Name>
-      <Private>True</Private>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Services\Services.Authentication\Services.Authentication.csproj">
       <Project>{4F1824E2-427D-40EF-960C-4286203275DD}</Project>
       <Name>Services.Authentication</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>
       <Name>WebServices.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

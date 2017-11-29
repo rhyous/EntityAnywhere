@@ -41,11 +41,11 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         public override string Entity => typeof(TEntity).Name;
 
-        public IEntityCache<OdataObject<TEntity, TId>, TId> EntityCache
+        public IEntityCache<TEntity, TId> EntityCache
         {
-            get { return _EntityCache ?? (_EntityCache = new EntityCache<OdataObject<TEntity, TId>, TId>()); }
+            get { return _EntityCache ?? (_EntityCache = new EntityCache<TEntity, TId>()); }
             set { _EntityCache = value; }
-        } private IEntityCache<OdataObject<TEntity, TId>, TId> _EntityCache;
+        } private IEntityCache<TEntity, TId> _EntityCache;
 
         /// <inheritdoc />
         public async Task<bool> DeleteAsync(string id)
@@ -99,10 +99,7 @@ namespace Rhyous.WebFramework.Clients
         /// <inheritdoc />
         public async Task<OdataObjectCollection<TEntity, TId>> GetByIdsAsync(IEnumerable<TId> ids)
         {
-            var entities = await EntityCache.GetWithCache(ids, HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids");
-            var collection = new OdataObjectCollection<TEntity, TId>();
-            collection.AddRange(entities);
-            return collection;
+            return await EntityCache.GetWithCache(ids, HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids");
         }
         
         /// <inheritdoc />
