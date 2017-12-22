@@ -27,10 +27,10 @@ namespace Rhyous.WebFramework.Repositories
         } private BaseDbContext<TEntity> _DbContext;
 
         /// <inheritdoc />
-        public virtual List<TInterface> Create(IList<TInterface> items)
+        public virtual List<TInterface> Create(IEnumerable<TInterface> items)
         {
             List<TInterface> result = new List<TInterface>();
-            if (items != null && items.Count > 0)
+            if (items != null && items.Any())
             {
                 var concrete = ConcreteConverter.ToConcrete<TEntity, TInterface>(items);
                 result.AddRange(DbContext.Entities.AddRange(concrete));
@@ -69,7 +69,7 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual IQueryable<TInterface> Get(List<TId> ids)
+        public virtual IQueryable<TInterface> Get(IEnumerable<TId> ids)
         {
             return DbContext.Entities.Where(e => ids.Contains(e.Id));
         }
@@ -116,7 +116,7 @@ namespace Rhyous.WebFramework.Repositories
         }
 
         /// <inheritdoc />
-        public virtual TInterface Update(TInterface item, IEnumerable<string> changedProperties)
+        public virtual TInterface Update(TInterface item, IEnumerable<string> changedProperties, bool stage = false)
         {
             var existingItem = DbContext.Entities.FirstOrDefault(o => o.Id.Equals(item.Id));
             foreach (var prop in changedProperties)
@@ -124,7 +124,8 @@ namespace Rhyous.WebFramework.Repositories
                 var value = item.GetPropertyValue(prop);
                 existingItem.GetPropertyInfo(prop).SetValue(existingItem, value);
             }
-            DbContext.SaveChanges();
+            if (!stage)
+                DbContext.SaveChanges();
             return existingItem;
         }
     }

@@ -64,7 +64,7 @@ namespace Rhyous.WebFramework.Services
         /// <summary>
         /// Gets instantiated instances of the plugins. This is a flattened list of plugins.
         /// </summary>
-        public virtual List<T> Plugins { get { return _Plugins ?? (_Plugins = PluginCollection?.SelectMany(p => p.PluginObjects).ToList()); } }
+        public virtual List<T> Plugins { get { return _Plugins ?? (_Plugins = PluginCollection?.Where(p=>p.PluginObjects != null && p.PluginObjects.Any()).SelectMany(p => p?.PluginObjects)?.ToList()); } }
         private List<T> _Plugins;
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Rhyous.WebFramework.Services
         protected virtual PluginCollection<T> GetPluginLibraries()
         {
             var plugins = PluginLoader.LoadPlugins();
-            if (plugins == null || plugins.Count == 0)
+            if (plugins == null || !plugins.Any())
             {
                 if (ThrowExceptionIfNoPluginFound)
                     throw new Exception($"No {PluginSubFolder} plugin found.");

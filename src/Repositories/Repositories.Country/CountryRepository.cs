@@ -46,7 +46,7 @@ namespace Rhyous.WebFramework.Repositories
             return GetCountries().AsQueryable().OrderBy(orderExpression);
         }
 
-        public IQueryable<ICountry> Get(List<int> ids)
+        public IQueryable<ICountry> Get(IEnumerable<int> ids)
         {
             return GetCountries().Where(c => ids.Contains(c.Id)).AsQueryable();
         }
@@ -77,7 +77,7 @@ namespace Rhyous.WebFramework.Repositories
             throw new NotImplementedException();
         }
 
-        public List<ICountry> Create(IList<ICountry> items)
+        public List<ICountry> Create(IEnumerable<ICountry> items)
         {
             throw new NotImplementedException();
         }
@@ -87,7 +87,7 @@ namespace Rhyous.WebFramework.Repositories
             throw new NotImplementedException();
         }
 
-        public ICountry Update(ICountry item, IEnumerable<string> changedProperties)
+        public ICountry Update(ICountry item, IEnumerable<string> changedProperties, bool stage = false)
         {
             throw new NotImplementedException();
         }

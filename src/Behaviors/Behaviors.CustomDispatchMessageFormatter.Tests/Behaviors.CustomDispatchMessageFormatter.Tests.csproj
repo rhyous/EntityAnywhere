@@ -48,7 +48,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.7\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -71,6 +71,10 @@
     <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
       <Name>WebServices.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
+      <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
+      <Name>Behaviors.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Behaviors.CustomDispatchMessageFormatter\Behaviors.CustomDispatchMessageFormatter.csproj">
       <Project>{c9f6e53e-c115-4c4c-9d82-2aa750788e27}</Project>

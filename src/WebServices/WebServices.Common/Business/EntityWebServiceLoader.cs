@@ -2,6 +2,7 @@ using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.Services;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Rhyous.WebFramework.WebServices
 {
@@ -25,7 +26,13 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The custom or common web service.</returns>
         public TWebService LoadPluginOrCommon()
         {
-            return (Plugins != null && Plugins.Count > 0) ? Plugins[0] : new TWebService();
+            if (PluginCollection != null && PluginCollection.Any())
+            {
+                if (Plugins == null || !Plugins.Any())
+                    throw new Exception("Custom entity web service plugin found but failed to load.");
+                return Plugins[0];
+            }
+            return new TWebService();
         }
     }
 

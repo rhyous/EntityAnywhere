@@ -48,7 +48,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionaries\NullSafeDictionaryTests.cs" />
     <Compile Include="Extensions\ConcreteConverterTests.cs" />
+    <Compile Include="Extensions\IEnumerableExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

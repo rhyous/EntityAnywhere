@@ -14,8 +14,12 @@ namespace Rhyous.WebFramework.Clients
         public const string ServiceSuffix = "Service.svc";
         public const string EntityHost = "EntityHost";
 
+        internal const string HeaderToken = "Token";
+        internal const string HeaderAdminToken = "EntityAdminToken";
+
         public EntityClientBase()
         {
+            Init();
         }
 
         public EntityClientBase(HttpClient httpClient, bool useMicrosoftDateFormat = false) 
@@ -32,6 +36,19 @@ namespace Rhyous.WebFramework.Clients
         public EntityClientBase(JsonSerializerSettings jsonSerializerSettings)
         {
             JsonSerializerSettings = jsonSerializerSettings;
+            Init();
+        }
+
+        protected internal virtual void Init()
+        {
+            foreach (var key in new[] { HeaderToken, HeaderAdminToken })
+            {
+                var token = HttpContextProvider.CurrentWebOperationContext?.IncomingRequest?.Headers?.Get(key);
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    HttpClient.DefaultRequestHeaders.Add(key, token);
+                }
+            }
         }
 
         /// <summary>

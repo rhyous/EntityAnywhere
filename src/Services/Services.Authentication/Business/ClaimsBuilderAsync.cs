@@ -59,13 +59,13 @@ namespace Rhyous.WebFramework.Services
             return claims;
         }
 
-        internal async Task<RelatedEntityCollection> GetEntities(string entity, string relatedIdProperty, string id)
+        internal async Task<OdataObjectCollection> GetEntities(string entity, string relatedIdProperty, string id)
         {
             var client = ClientsCache.Json[entity];
             var entitiesJson = await client.GetAllAsync($"?$filter={relatedIdProperty} eq {id}");
             if (string.IsNullOrWhiteSpace(entitiesJson))
                 return null;
-            var entities = JsonConvert.DeserializeObject<RelatedEntityCollection>(entitiesJson);
+            var entities = JsonConvert.DeserializeObject<OdataObjectCollection>(entitiesJson);
             return entities;
         }
 
@@ -74,7 +74,7 @@ namespace Rhyous.WebFramework.Services
         /// </summary>
         internal IEntityClientCache ClientsCache
         {
-            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
+            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache(true)); }
             set { _ClientsCache = value; }
         } private IEntityClientCache _ClientsCache;
     }

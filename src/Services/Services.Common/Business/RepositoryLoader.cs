@@ -1,4 +1,5 @@
 ﻿using Rhyous.WebFramework.Interfaces;
+using System;
 using System.Linq;
 
 namespace Rhyous.WebFramework.Services
@@ -20,9 +21,14 @@ namespace Rhyous.WebFramework.Services
             where TEntity : class, TInterface
             where TInterface : IId<TId>
         {
-            var repo =  new EntityRepositoryLoader<TEntity, TInterface, TId>().Plugins?.FirstOrDefault()
-                ?? new EntityRepositoryLoaderCommon<TEntity, TInterface, TId>().Plugins?.FirstOrDefault();
-            return repo;
+            var customLoader = new EntityRepositoryLoader<TEntity, TInterface, TId>();
+            if (customLoader.PluginCollection != null && customLoader.PluginCollection.Any())
+            {
+                if (customLoader.Plugins == null || !customLoader.Plugins.Any())
+                    throw new Exception("A Custom entity repository plugin was found but failed to load.");
+                return customLoader.Plugins[0];
+            }
+            return new EntityRepositoryLoaderCommon<TEntity, TInterface, TId>().Plugins?.FirstOrDefault();            
         }
     }
 }

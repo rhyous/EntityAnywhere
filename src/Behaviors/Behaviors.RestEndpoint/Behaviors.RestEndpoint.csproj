@@ -62,18 +62,22 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
+      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
       <Name>Services.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
       <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
       <Name>Behaviors.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Behaviors.CustomDispatchMessageFormatter\Behaviors.CustomDispatchMessageFormatter.csproj">
       <Project>{c9f6e53e-c115-4c4c-9d82-2aa750788e27}</Project>

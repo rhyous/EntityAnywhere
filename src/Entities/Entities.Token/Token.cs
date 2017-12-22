@@ -9,13 +9,14 @@ namespace Rhyous.WebFramework.Entities
     /// The token entity. This is used by the Authentication service to provide a token that can be included in the header of subsequent web calls.
     /// </summary>
     [AlternateKey("Text")]
+    [RelatedEntityExclusions("Addendum", "AlternateId")]
     public partial class Token : AuditableEntity<long>, IToken
     {
         /// <inheritdoc />
         public string Text { get; set; }
 
         /// <inheritdoc />
-        [RelatedEntity("User", AutoExpand = true)]
+        [RelatedEntity("User")]
         public long UserId { get; set; }
         
         /// <inheritdoc />

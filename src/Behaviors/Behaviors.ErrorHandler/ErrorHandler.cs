@@ -1,4 +1,5 @@
-﻿using Rhyous.BusinessRules;
+﻿using Newtonsoft.Json;
+using Rhyous.BusinessRules;
 using System;
 using System.Configuration;
 using System.Net;
@@ -31,9 +32,10 @@ namespace Rhyous.WebFramework.Behaviors
         private static Message CreateResponse(Exception error, MessageVersion version, HttpStatusCode statusCode, string messageOverride = null)
         {
             var errorResponse = new ServiceErrorResponse(error, messageOverride);
-            var serializer = new DataContractJsonSerializer(typeof(ServiceErrorResponse), new[] { typeof(BusinessRuleResult) });
-            var fault = Message.CreateMessage(version, "", errorResponse, serializer);
-            fault.Properties.Add(WebBodyFormatMessageProperty.Name, new WebBodyFormatMessageProperty(WebContentFormat.Json));
+            var json = new Serializer().Json(errorResponse);
+            var body = new RawBodyWriter(json);
+            var fault = Message.CreateMessage(version, "", body);
+            fault.Properties.Add(WebBodyFormatMessageProperty.Name, new WebBodyFormatMessageProperty(WebContentFormat.Raw));
             fault.Properties.Add(HttpResponseMessageProperty.Name, new HttpResponseMessageProperty
             {
                 StatusCode = statusCode,

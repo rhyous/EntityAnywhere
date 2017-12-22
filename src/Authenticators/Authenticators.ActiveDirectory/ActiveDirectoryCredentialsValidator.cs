@@ -44,12 +44,12 @@ namespace Rhyous.WebFramework.Authenticators
             var netCreds = new NetworkCredential(GetUserName(creds.User), creds.Password, userDomain);
             if (ADService.ValidateCredentialsAgainstDomain(netCreds) && ADService.IsUserInGroup(netCreds, domain, group))
             {
-                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
+                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>, bool>(typeof(User).Name, true);
                 var odataUser = await userClient.GetAsync(creds.User);
                 IUser user = odataUser?.Object;
                 if (user == null)
                     user = await StoreUser(creds);
-                return await BuildAsync(creds, user, odataUser.RelatedEntityCollection);
+                return await BuildAsync(creds, user, odataUser?.RelatedEntityCollection);
             }
             return null;
         }
@@ -57,10 +57,10 @@ namespace Rhyous.WebFramework.Authenticators
         internal async Task<IUser> StoreUser(ICredentials creds)
         {
             IUser user = null;
-            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
-            var users = await userClient.PostAsync(
-            // Do not store the password at all.            
-            new List<User> { new User { Username = creds.User, ExternalAuth = true, Enabled = true } });
+            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>, bool>(typeof(User).Name, true);
+            // Do not store the password.  
+            var tmpUser = new User { Username = creds.User, ExternalAuth = true, Enabled = true, IsHashed = false };
+            var users = await userClient.PostAsync(new List<User> { tmpUser });
             if (users?.Count > 0)
                 user = users[0].Object;
             return user;

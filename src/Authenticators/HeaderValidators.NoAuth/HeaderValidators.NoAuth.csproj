@@ -42,6 +42,7 @@
     <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
       <Project>{D8895FC7-868C-4C01-B5CF-66C2F1BA0D60}</Project>
       <Name>Interfaces.Authentication</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,6 +1,7 @@
 ﻿using Rhyous.WebFramework.Interfaces;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -50,6 +51,16 @@ namespace Rhyous.WebFramework.WebServices
             var url = uri.Scheme + Uri.SchemeDelimiter + uri.Host;
             if ((uri.Scheme.Equals("http") && uri.Port != 80) || uri.Scheme.Equals("https") && uri.Port != 443)
                 url += ":" + uri.Port;
+            var subDirs = uri.LocalPath.Split("/".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            if (subDirs != null && subDirs.Any())
+            {
+                foreach (var dir in subDirs)
+                {
+                    if (dir.EndsWith(".svc"))
+                        break;
+                    url += $"/{dir}";
+                }
+            }
             return url;
         }
     }

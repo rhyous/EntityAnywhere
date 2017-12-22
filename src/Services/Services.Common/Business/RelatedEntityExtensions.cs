@@ -25,6 +25,8 @@ namespace Rhyous.WebFramework.Services
         {
             var list = new List<RelatedEntityCollection>();
             var extensionEntitiesToExpand = GetExtensionEntitiesToExpand(expandPaths?.Select(ep => ep.Entity));
+            if (extensionEntitiesToExpand == null || !extensionEntitiesToExpand.Any())
+                return list;
             var relatedExtensionEntities = await GetRelatedExtensionEntitiesAsync(entities, extensionEntitiesToExpand);
             if (relatedExtensionEntities != null && relatedExtensionEntities.Any())
                 list.AddRange(relatedExtensionEntities);
@@ -34,6 +36,12 @@ namespace Rhyous.WebFramework.Services
         internal static IEnumerable<string> GetExtensionEntitiesToExpand(IEnumerable<string> entitiesToExpand)
         {
             var extensionEntities = new List<string> { "Addendum" /* , "AlternateId" */ };
+            var exclusionsAttribute = typeof(TEntity).GetCustomAttributes(typeof(RelatedEntityExclusionsAttribute), false).FirstOrDefault() as RelatedEntityExclusionsAttribute;
+            if (exclusionsAttribute != null && exclusionsAttribute.Exclusions != null && exclusionsAttribute.Exclusions.Any())
+            {
+                foreach (var exclusion in exclusionsAttribute.Exclusions)
+                    extensionEntities.Remove(exclusion);
+            }
             if (entitiesToExpand == null || !entitiesToExpand.Any())
                 return extensionEntities;
             else

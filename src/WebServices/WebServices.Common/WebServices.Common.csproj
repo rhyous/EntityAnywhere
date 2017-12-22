@@ -37,7 +37,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.7\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
     </Reference>
     <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
@@ -73,6 +73,8 @@
     <Compile Include="Business\CustomWebServiceLoader.cs" />
     <Compile Include="ClientInterfaces\IMappingEntityClientAsyncJson.cs" />
     <Compile Include="Clients\EntityCache.cs" />
+    <Compile Include="Clients\EntityClientAdminJsonAsync.cs" />
+    <Compile Include="Clients\EntityClientAdminAsync.cs" />
     <Compile Include="Clients\EntityClientAsync.cs" />
     <Compile Include="Clients\EntityClientBase.cs" />
     <Compile Include="Clients\EntityClientAsyncJson.cs" />

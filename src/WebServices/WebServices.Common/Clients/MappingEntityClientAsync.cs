@@ -48,19 +48,19 @@ namespace Rhyous.WebFramework.Clients
         private string _Entity2Property;
 
         /// <inheritdoc />
-        public async Task<OdataObjectCollection<TEntity, TId>> GetByE1IdsAsync(IEnumerable<TE1Id> ids)
+        public virtual async Task<OdataObjectCollection<TEntity, TId>> GetByE1IdsAsync(IEnumerable<TE1Id> ids)
         {
             return await GetByMappedEntityAsync(Entity1Pluralized, ids.ToList());
         }
 
         /// <inheritdoc />
-        public async Task<OdataObjectCollection<TEntity, TId>> GetByE2IdsAsync(IEnumerable<TE2Id> ids)
+        public virtual async Task<OdataObjectCollection<TEntity, TId>> GetByE2IdsAsync(IEnumerable<TE2Id> ids)
         {
             return await GetByMappedEntityAsync(Entity2Pluralized, ids.ToList());
         }
 
         /// <inheritdoc />
-        internal async Task<OdataObjectCollection<TEntity, TId>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
+        internal virtual async Task<OdataObjectCollection<TEntity, TId>> GetByMappedEntityAsync<Eid>(string pluralizedEntityName, List<Eid> ids)
         {
             return await HttpClientRunner.RunAndDeserialize<List<Eid>, OdataObjectCollection<TEntity, TId>>(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/{pluralizedEntityName}/Ids", ids);
         }

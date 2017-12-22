@@ -32,7 +32,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// List all items of T with the given ids.
         /// </summary>
         /// <returns>A list of all items of T with the give ids</returns>
-        IQueryable<TInterface> Get(List<TId> ids);
+        IQueryable<TInterface> Get(IEnumerable<TId> ids);
 
         /// <summary>
         /// Gets an item by Id
@@ -76,15 +76,16 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="item">One or more items.</param>
         /// <returns></returns>
-        List<TInterface> Create(IList<TInterface> items);
+        List<TInterface> Create(IEnumerable<TInterface> items);
 
         /// <summary>
         /// The item to change. The item Id must be specific in the item object.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="changedProperties">The properties of the item object to change. If null or empty list, all properties will be changed.</param>
+        /// <param name="stage">If false, the entity must be updated in the repo. If false, update the entity without updating the repo.</param>
         /// <returns></returns>
-        TInterface Update(TInterface item, IEnumerable<string> changedProperties);
+        TInterface Update(TInterface item, IEnumerable<string> changedProperties, bool stage = false);
 
         /// <summary>
         /// Delete the item.

@@ -9,6 +9,11 @@ namespace Rhyous.WebFramework.Clients
     /// </summary>
     public class EntityClientCache : IEntityClientCache
     {
+        public EntityClientCache() { UseAdminClient = false; }
+        public EntityClientCache(bool useAdminClient) { UseAdminClient = useAdminClient;  }
+
+        public bool UseAdminClient { get; set; }
+
         public ISharedInterfaceDictionary<string, IEntityClientBase> Generic
         {
             get { return _Generic ?? (_Generic = new EntityClientCacheGeneric()); }
@@ -17,15 +22,22 @@ namespace Rhyous.WebFramework.Clients
 
         public IDictionaryDefaultValueProvider<string, IEntityClientAsync> Json
         {
-            get { return _Json ?? (_Json = new EntityClientCacheJson()); }
+            get { return _Json ?? (_Json = new EntityClientCacheJson(UseAdminClient)); }
             set { _Json = value; }
         } private IDictionaryDefaultValueProvider<string, IEntityClientAsync> _Json;
 
         #region subclasses
         public class EntityClientCacheJson : NullSafeDictionary<string, IEntityClientAsync>
         {
+            public EntityClientCacheJson() { UseAdminClient = false; }
+            public EntityClientCacheJson(bool useAdminClient) { UseAdminClient = useAdminClient; }
+
+            public bool UseAdminClient { get; set; }
+
             public override IEntityClientAsync DefaultValueProvider(string key)
             {
+                if (UseAdminClient)
+                    return this[key] = new EntityClientAdminAsync(key);
                 return this[key] = new EntityClientAsync(key);
             }
         }

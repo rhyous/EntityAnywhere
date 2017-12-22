@@ -1,3 +1,4 @@
+using Rhyous.Odata;
 using Rhyous.WebFramework.Interfaces;
 
 namespace Rhyous.WebFramework.Entities
@@ -6,6 +7,7 @@ namespace Rhyous.WebFramework.Entities
     /// This entity is used for extending any entity without creating a new property for that entity.
     /// Every entity has the ability to have Addenda, which is a custom property value list.
     /// </summary>
+    [RelatedEntityExclusions("Addendum", "AlternateId")]
     public partial class Addendum : AuditableEntity<long>, IAddendum
     {
         /// <inheritdoc />

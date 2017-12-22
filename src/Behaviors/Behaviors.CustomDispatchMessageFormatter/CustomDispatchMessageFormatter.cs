@@ -30,7 +30,7 @@ namespace Rhyous.WebFramework.Behaviors
 
         public Message SerializeReply(MessageVersion messageVersion, object[] parameters, object result)
         {
-            var json = Serializer.Json(result);
+            var json = Serializer.Json(result, ContractResolver.Instance);
             var body = new RawBodyWriter(json);
             return MessageBuilder.Build(messageVersion, OperationDescription.Messages[1].Action, body);
         }

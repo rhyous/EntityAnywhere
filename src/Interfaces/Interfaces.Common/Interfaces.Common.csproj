@@ -47,9 +47,9 @@
     <Compile Include="Extensions\AddendumExtensions.cs" />
     <Compile Include="Extensions\ConcreteConverter.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="IAddendum.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="AttributeInterfaces\IAdditionalTypes.cs" />
     <Compile Include="IAuditable.cs" />
     <Compile Include="IAuditableCreateDate.cs" />

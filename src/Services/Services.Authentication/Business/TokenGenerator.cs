@@ -27,16 +27,16 @@ namespace Rhyous.WebFramework.Services
         {
             if (user == null)
             {
-                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
+                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>>(typeof(User).Name);
                 var odataUser = await userClient.GetAsync(creds.User) ?? throw new Exception("User not found.");
                 user = odataUser.Object;
                 relatedEntityCollections = relatedEntityCollections ?? new List<RelatedEntityCollection>();
                 relatedEntityCollections.AddRange(odataUser.RelatedEntityCollection);
             }
-            var tokenClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<Token, long>, bool>(typeof(Token).Name, true);
-            var token = new Token { Text = CryptoRandomString.GetCryptoRandomBase64String(TokenSize), UserId = user.Id };
+            var tokenClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<Token, long>, bool>(typeof(Token).Name, true);
+            var token = new Token { Text = CryptoRandomString.GetCryptoRandomAlphaNumericString(TokenSize), UserId = user.Id };
             var odataToken = await tokenClient.PostAsync(new List<Token> { token });
-            var claimConfigClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<ClaimConfiguration, int>>(typeof(ClaimConfiguration).Name);
+            var claimConfigClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<ClaimConfiguration, int>>(typeof(ClaimConfiguration).Name);
             var claimConfigs = await claimConfigClient.GetAllAsync();
             var claims = await ClaimsBuilder.BuildAsync(user, claimConfigs?.Select(c=>c.Object));
             if (claims != null && claims.Count > 0)
@@ -48,7 +48,7 @@ namespace Rhyous.WebFramework.Services
         #region injectables
         internal IEntityClientCache ClientsCache
         {
-            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
+            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache(true)); }
             set { _ClientsCache = value; }
         } private IEntityClientCache _ClientsCache;
 

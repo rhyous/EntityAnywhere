@@ -27,7 +27,7 @@ namespace Rhyous.BusinessRules
             {
                 Results[rule] = rule.IsMet();
             }
-            return new BusinessRuleResult { Result = Results.All(r => r.Value.Result), FailedObjects = Results.Select(o => o as object).ToList() };
+            return new BusinessRuleResult { Result = Results.All(r => r.Value?.Result ?? false), FailedObjects = Results.Select(o => o as object).ToList() };
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Rhyous.WebFramework.WebServices;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -32,56 +31,56 @@ namespace Rhyous.WebFramework.Clients
             Entity = entity;
         }
         
-        public async Task<bool> DeleteAsync(string id)
+        public virtual async Task<bool> DeleteAsync(string id)
         {
             return await HttpClientRunner.RunAndDeserialize<bool>(HttpClient.DeleteAsync, $"{ServiceUrl}/{EntityPluralized}({id})");
         }
 
-        public async Task<string> GetAddendaAsync(string id)
+        public virtual async Task<string> GetAddendaAsync(string id)
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/Addenda");
         }
 
-        public async Task<string> GetAddendaByEntityIdsAsync(List<string> ids)
+        public virtual async Task<string> GetAddendaByEntityIdsAsync(List<string> ids)
         {
             return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}/Ids/Addenda", ids);
         }
 
-        public async Task<string> GetAddendaByNameAsync(string id, string name)
+        public virtual async Task<string> GetAddendaByNameAsync(string id, string name)
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/Addenda({name})");
         }
 
-        public async Task<string> GetAllAsync(string urlParameters = null)
+        public virtual async Task<string> GetAllAsync(string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}";
             url = AppendUrlParameters(urlParameters, url);
             return await HttpClientRunner.Run(HttpClient.GetAsync, url);
         }
 
-        public async Task<string> GetAsync(string idOrName, string urlParameters = null)
+        public virtual async Task<string> GetAsync(string idOrName, string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}({idOrName})";
             url = AppendUrlParameters(urlParameters, url);
             return await HttpClientRunner.Run(HttpClient.GetAsync, url);
         }
 
-        public async Task<string> GetByCustomUrlAsync(string urlPart)
+        public virtual async Task<string> GetByCustomUrlAsync(string urlPart)
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{urlPart}");
         }
 
-        public async Task<string> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
+        public virtual async Task<string> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, HttpContent content)
         {
             return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
         }
 
-        public async Task<string> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
+        public virtual async Task<string> GetByCustomUrlAsync(string urlPart, Func<string, HttpContent, Task<HttpResponseMessage>> httpMethod, object content)
         {
             return await HttpClientRunner.Run(httpMethod, $"{ServiceUrl}/{urlPart}", content);
         }
 
-        public async Task<string> GetByIdsAsync(IEnumerable<string> ids, string urlParameters = null)
+        public virtual async Task<string> GetByIdsAsync(IEnumerable<string> ids, string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}/Ids";
             url = AppendUrlParameters(urlParameters, url);
@@ -89,7 +88,7 @@ namespace Rhyous.WebFramework.Clients
         }
 
         /// <inheritdoc />
-        public async Task<string> GetByPropertyValuesAsync(string property, List<string> values, string urlParameters = null)
+        public virtual async Task<string> GetByPropertyValuesAsync(string property, List<string> values, string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}/{property}/Values";
             url = AppendUrlParameters(urlParameters, url);
@@ -97,37 +96,37 @@ namespace Rhyous.WebFramework.Clients
             return await HttpClientRunner.Run(HttpClient.PostAsync, url, postContent);
         }
 
-        public async Task<string> GetByQueryParametersAsync(string queryParameters)
+        public virtual async Task<string> GetByQueryParametersAsync(string queryParameters)
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}?{queryParameters}");
         }
 
-        public async Task<string> GetMetadataAsync()
+        public virtual async Task<string> GetMetadataAsync()
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}/$Metadata");
         }
 
-        public async Task<string> GetPropertyAsync(string id, string property)
+        public virtual async Task<string> GetPropertyAsync(string id, string property)
         {
             return await HttpClientRunner.Run(HttpClient.GetAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}");
         }
 
-        public async Task<string> PatchAsync(string id, HttpContent content)
+        public virtual async Task<string> PatchAsync(string id, HttpContent content)
         {
             return await HttpClientRunner.Run(HttpClient.PatchAsync, $"{ServiceUrl}/{EntityPluralized}({id})", content, JsonSerializerSettings);
         }
 
-        public async Task<string> PostAsync(HttpContent content)
+        public virtual async Task<string> PostAsync(HttpContent content)
         {
             return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}", content, JsonSerializerSettings);
         }
 
-        public async Task<string> PutAsync(string id, HttpContent content)
+        public virtual async Task<string> PutAsync(string id, HttpContent content)
         {
             return await HttpClientRunner.Run(HttpClient.PutAsync, $"{ServiceUrl}/{EntityPluralized}({id})", content, JsonSerializerSettings);
         }
 
-        public async Task<string> UpdatePropertyAsync(string id, string property, string value)
+        public virtual async Task<string> UpdatePropertyAsync(string id, string property, string value)
         {
             return await HttpClientRunner.Run(HttpClient.PostAsync, $"{ServiceUrl}/{EntityPluralized}({id})/{property}", value, JsonSerializerSettings);
         }

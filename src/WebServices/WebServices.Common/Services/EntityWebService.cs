@@ -40,7 +40,9 @@ namespace Rhyous.WebFramework.WebServices
         /// <returns>The created entities.</returns>
         public virtual OdataObjectCollection<TEntity, TId> Post(List<TEntity> entities)
         {
-            return Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            var createdEntities = Service.Add(entities.ToList<TInterface>()).ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            RelatedEntityFetcher.Fetch(createdEntities, UrlParameters);
+            return createdEntities;
         }
 
         /// <summary>

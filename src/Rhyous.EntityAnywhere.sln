@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{DCDDC0C1-F67C-4A01-A354-2F62C5FD496D}"
 EndProject
@@ -155,6 +155,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities.ClaimConfiguration", "Entities\Entities.ClaimConfiguration\Entities.ClaimConfiguration.csproj", "{02876A74-8A39-4323-9C65-56ED1A458A3F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.InstanceContext", "Behaviors\Behaviors.InstanceContext\Behaviors.InstanceContext.csproj", "{7E6D99C2-2A33-4557-857E-F58D78AE8AC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderValidators.Admin", "Authenticators\HeaderValidators.Admin\HeaderValidators.Admin.csproj", "{59B784C0-46F0-49FC-AC44-E6621A54B60F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -588,6 +590,14 @@ Global
 		{7E6D99C2-2A33-4557-857E-F58D78AE8AC3}.DEV2|Any CPU.Build.0 = Debug|Any CPU
 		{7E6D99C2-2A33-4557-857E-F58D78AE8AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E6D99C2-2A33-4557-857E-F58D78AE8AC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.DEV1|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.DEV1|Any CPU.Build.0 = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.DEV2|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.DEV2|Any CPU.Build.0 = Debug|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -666,6 +676,7 @@ Global
 		{4448973B-0BA9-40AD-8715-9E076F8B252F} = {DCDDC0C1-F67C-4A01-A354-2F62C5FD496D}
 		{02876A74-8A39-4323-9C65-56ED1A458A3F} = {7D3F3E32-B76A-4FA9-B535-943A9603C3E7}
 		{7E6D99C2-2A33-4557-857E-F58D78AE8AC3} = {7E78B03F-7CBF-497C-8A9F-88C1EC0CD180}
+		{59B784C0-46F0-49FC-AC44-E6621A54B60F} = {A41DC669-99DE-4351-A273-03A1D11E97B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88EBD16F-8BC5-4E49-8FA9-4F6C467A3118}

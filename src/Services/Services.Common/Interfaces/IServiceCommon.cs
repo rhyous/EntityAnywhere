@@ -1,5 +1,4 @@
-﻿using Rhyous.Odata;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -45,7 +44,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="ids">The list of ids to return.</param>
         /// <returns>All entities where the entity id is contained in the list of ids provided</returns>
-        List<TInterface> Get(List<TId> ids);
+        List<TInterface> Get(IEnumerable<TId> ids);
 
         /// <summary>
         /// Gets a list of entities based on the property values.
@@ -74,14 +73,14 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="queryableModifier">A function that modifies and IQueryable<![CDATA[>]]></param>
         /// <returns>A list of returned objects.</returns>
-        List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier);
+        List<TInterface> Get(Func<IQueryable<TInterface>, IEnumerable<TInterface>> queryableModifier);
 
         /// <summary>
         /// Gets a list of entities based on both an expression and a custom IQueryable<![CDATA[>]]> passed in.
         /// </summary>
         /// <param name="queryableModifier">A function that modifies and IQueryable<![CDATA[>]]></param>
         /// <returns>A list of returned objects.</returns>
-        List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression);
+        List<TInterface> Get(Func<IQueryable<TInterface>, IEnumerable<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
         /// Gets the value of a specific property of an entity of the specified id.
@@ -107,7 +106,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// <param name="entity">An instance of the entity with the new values. It can be a stub entity where all unchanged properties are null.</param>
         /// <param name="changedProperties">A list of changed properties.</param>
         /// <returns></returns>
-        TInterface Update(TId id, TInterface entity, List<string> changedProperties);
+        TInterface Update(TId id, TInterface entity, IEnumerable<string> changedProperties);
 
         /// <summary>
         /// Adds the entity.
@@ -121,7 +120,7 @@ namespace Rhyous.WebFramework.Interfaces
         /// </summary>
         /// <param name="entities">A list of entities to add.</param>
         /// <returns>The list of added entities.</returns>
-        List<TInterface> Add(IList<TInterface> entities);
+        List<TInterface> Add(IEnumerable<TInterface> entities);
 
         /// <summary>
         /// Replaces an entity at the given Id with the supplied entity. This is different than update in that update only changes certain properties. This would change all properties.

@@ -30,7 +30,7 @@ namespace Rhyous.WebFramework.Authenticators
         /// <inheritdoc />
         public async Task<IToken> IsValidAsync(ICredentials creds)
         {
-            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAsync<User, long>>(typeof(User).Name);
+            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>>(typeof(User).Name);
             var odataUser = await userClient.GetByAlternateKeyAsync(creds.User);
             var user = odataUser?.Object;
             if (user == null)

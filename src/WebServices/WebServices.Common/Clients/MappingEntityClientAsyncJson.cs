@@ -57,19 +57,19 @@ namespace Rhyous.WebFramework.Clients
         private string _Entity2Property;
 
         /// <inheritdoc />
-        public async Task<string> GetByE1IdsAsync(IEnumerable<string> ids, string urlParameters = null)
+        public virtual async Task<string> GetByE1IdsAsync(IEnumerable<string> ids, string urlParameters = null)
         {
             return await GetByMappedEntityAsync(Entity1Pluralized, ids.ToList(), urlParameters);
         }
 
         /// <inheritdoc />
-        public async Task<string> GetByE2IdsAsync(IEnumerable<string> ids, string urlParameters = null)
+        public virtual async Task<string> GetByE2IdsAsync(IEnumerable<string> ids, string urlParameters = null)
         {
             return await GetByMappedEntityAsync(Entity2Pluralized, ids.ToList(), urlParameters);
         }
 
         /// <inheritdoc />
-        internal async Task<string> GetByMappedEntityAsync(string pluralizedEntityName, List<string> ids, string urlParameters = null)
+        internal virtual async Task<string> GetByMappedEntityAsync(string pluralizedEntityName, List<string> ids, string urlParameters = null)
         {
             var url = $"{ServiceUrl}/{EntityPluralized}/{pluralizedEntityName}/Ids";
             url = AppendUrlParameters(urlParameters, url);

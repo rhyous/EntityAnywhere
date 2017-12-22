@@ -18,7 +18,7 @@ namespace Behaviors.CustomDispatchMessageFormatter.Tests
             var odata = new OdataObject<Addendum, long>() { Object = new Addendum { Id = 10, Property = "A", Value = "B" } };
 
             // Act
-            var actual = new Serializer().Json(odata);
+            var actual = new Serializer().Json(odata, ContractResolver.Instance);
 
             // Assert
             Assert.AreEqual(expected, Encoding.UTF8.GetString(actual));
@@ -42,7 +42,7 @@ namespace Behaviors.CustomDispatchMessageFormatter.Tests
             odata.RelatedEntityCollection.Add(relatedEntityCollection);
 
             // Act
-            var actual = new Serializer().Json(odata);
+            var actual = new Serializer().Json(odata, ContractResolver.Instance);
 
             // Assert
             Assert.AreEqual(expected, Encoding.UTF8.GetString(actual));

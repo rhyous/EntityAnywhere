@@ -10,6 +10,6 @@ namespace Rhyous.WebFramework.Interfaces
     {
         /// <inheritdoc />
         [Key]
-        public TId Id { get; set; }
+        public virtual TId Id { get; set; }
     }
 }

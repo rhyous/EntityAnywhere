@@ -2,7 +2,6 @@
 using Rhyous.Odata.Csdl;
 using Rhyous.StringLibrary;
 using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

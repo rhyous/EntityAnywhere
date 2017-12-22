@@ -45,7 +45,7 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get(List<TId> ids)
+        public virtual List<TInterface> Get(IEnumerable<TId> ids)
         {
             return Repo.Get(ids).ToList();
         }
@@ -103,16 +103,16 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier )
+        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, IEnumerable<TInterface>> queryableModifier )
         {
-            return queryableModifier(Repo.Get());
+            return queryableModifier(Repo.Get()).ToList();
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, List<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression)
+        public virtual List<TInterface> Get(Func<IQueryable<TInterface>, IEnumerable<TInterface>> queryableModifier, Expression<Func<TEntity, bool>> expression)
         {
             var queryable = Repo.GetByExpression(expression ?? PredicateBuilder.New<TEntity>(true));
-            return queryableModifier(queryable);
+            return queryableModifier(queryable).ToList();
         }
 
         /// <inheritdoc />
@@ -133,7 +133,7 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual List<TInterface> Add(IList<TInterface> entities)
+        public virtual List<TInterface> Add(IEnumerable<TInterface> entities)
         {
             return Repo.Create(entities);
         }
@@ -145,7 +145,7 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public virtual TInterface Update(TId id, TInterface entity, List<string> changedProperties)
+        public virtual TInterface Update(TId id, TInterface entity, IEnumerable<string> changedProperties)
         {
             entity.Id = id;
             return Repo.Update(entity, changedProperties);

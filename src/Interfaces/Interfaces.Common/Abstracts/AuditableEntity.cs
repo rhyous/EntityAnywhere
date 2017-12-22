@@ -9,12 +9,12 @@ namespace Rhyous.WebFramework.Interfaces
     public abstract class AuditableEntity<TId> : Entity<TId>, IAuditable
     {
         /// <inheritdoc />
-        public DateTime CreateDate { get; set; }
+        public virtual DateTime CreateDate { get; set; }
         /// <inheritdoc />
-        public DateTime? LastUpdated { get; set; }
+        public virtual DateTime? LastUpdated { get; set; }
         /// <inheritdoc />
-        public int CreatedBy { get; set; }
+        public virtual int CreatedBy { get; set; }
         /// <inheritdoc />
-        public int? LastUpdatedBy { get; set; }
+        public virtual int? LastUpdatedBy { get; set; }
     }
 }

@@ -19,19 +19,28 @@ namespace Rhyous.WebFramework.HeaderValidators
 
         internal static long OneWeekInSeconds = 604800L;
 
+        internal static TokenCache Cache = new TokenCache();
+
         /// <summary>
         /// Time to live of the token in seconds.
         /// Default token TimeToLive value: 1 week
         /// </summary>
-        internal long TimeToLive { get { return ConfigurationManager.AppSettings.Get("TokenTimeToLive", OneWeekInSeconds); } }
+        internal static long TimeToLive { get { return ConfigurationManager.AppSettings.Get("TokenTimeToLive", OneWeekInSeconds); } }
 
         /// <inheritdoc />
         public bool IsValid(NameValueCollection headers)
         {
             var tokenText = headers["Token"];
-            var token = TokenService.Get(tokenText)?.Object;
-            if (token == null || IsExpired(token))
+            if (string.IsNullOrWhiteSpace(tokenText))
                 return false;
+            Token token;
+            if (!Cache.TryGetValue(tokenText, out token))            
+            {
+                token = TaskRunner.RunSynchonously(TokenService.GetAsync, tokenText)?.Object;
+                if (token == null || IsExpired(token))
+                    return false;
+                Cache.Add(tokenText, token);
+            }
             UserId = token.UserId;
             return true;
         }
@@ -43,11 +52,11 @@ namespace Rhyous.WebFramework.HeaderValidators
         }
 
         #region Injectable
-        internal EntityClient<Token, long> TokenService
+        internal EntityClientAsync<Token, long> TokenService
         {
-            get { return _TokenService ?? (_TokenService = new EntityClient<Token, long>(true)); }
+            get { return _TokenService ?? (_TokenService = new EntityClientAdminAsync<Token, long>(true)); }
             set { _TokenService = value; }
-        } private EntityClient<Token, long> _TokenService;
+        } private EntityClientAsync<Token, long> _TokenService;
         #endregion
     }
 }

@@ -17,17 +17,17 @@ namespace Rhyous.WebFramework.WebServices
         {
             if (entities != null && entities.Any())
             {
-                var relatedEntityCollection = Service.GetRelatedEntities(entities.Select(o => o.Object), urlParameters);
+                var relatedEntityCollection = RelatedEntityManager.GetRelatedEntities(entities.Select(o => o.Object), urlParameters);
                 if (relatedEntityCollection != null && relatedEntityCollection.Any())
                     Collater.Collate(entities, relatedEntityCollection);
             }
         }
 
-        internal virtual IGetRelatedEntities<TInterface> Service
+        internal virtual IGetRelatedEntities<TInterface> RelatedEntityManager
         {
-            get { return _Service ?? (_Service = new RelatedEntityManager<TEntity, TInterface, TId>()); }
-            set { _Service = value; }
-        } private IGetRelatedEntities<TInterface> _Service;
+            get { return _RelatedEntityManager ?? (_RelatedEntityManager = new RelatedEntityManager<TEntity, TInterface, TId>()); }
+            set { _RelatedEntityManager = value; }
+        } private IGetRelatedEntities<TInterface> _RelatedEntityManager;
 
         public IRelatedEntityCollater<TEntity, TId> Collater
         {

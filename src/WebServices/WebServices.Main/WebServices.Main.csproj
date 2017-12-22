@@ -94,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\DebugProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\EAF.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -161,5 +163,13 @@
       <FilesToDelete Include="Plugins\**\*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
+  </Target>
+  <Target Name="CustomCollectFiles">
+    <ItemGroup>
+      <_CustomFiles Include=".\Plugins\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>.\Plugins\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
   </Target>
 </Project>

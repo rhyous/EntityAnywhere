@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -62,11 +66,16 @@
     <ProjectReference Include="..\..\Misc\BusinessRules\BusinessRules.csproj">
       <Project>{2cf2d0c5-b4ce-40a3-a1fa-e3be27e2339d}</Project>
       <Name>BusinessRules</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Behaviors.Common\Behaviors.Common.csproj">
       <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
       <Name>Behaviors.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

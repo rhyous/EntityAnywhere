@@ -36,9 +36,11 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Rhyous.Odata.1.0.7\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -62,6 +64,7 @@
     <ProjectReference Include="..\..\..\Entities\Entities.Addendum\Entities.Addendum.csproj">
       <Project>{3ddfe5b3-76e8-4503-9442-0d2a5179bbd4}</Project>
       <Name>Entities.Addendum</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
@@ -76,6 +79,7 @@
     <ProjectReference Include="..\..\..\Services\Services.Common\Services.Common.csproj">
       <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
       <Name>Services.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>

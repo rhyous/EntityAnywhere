@@ -10,7 +10,7 @@ namespace Rhyous.WebFramework.Services
     {
         public override Expression<Func<User, string>> PropertyExpression => e => e.Username;
 
-        public override List<IUser> Add(IList<IUser> users)
+        public override List<IUser> Add(IEnumerable<IUser> users)
         {
             var duplicateUsernames = new List<string>();
             foreach (User user in users)
@@ -20,6 +20,8 @@ namespace Rhyous.WebFramework.Services
                     duplicateUsernames.Add(user.Username);
                     continue;
                 }
+                if (!user.IsHashed)
+                    continue;
                 if (string.IsNullOrWhiteSpace(user.Salt))
                 {
                     user.Salt = Hash.Get(user.Username);

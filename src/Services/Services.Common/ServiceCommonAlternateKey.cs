@@ -44,7 +44,7 @@ namespace Rhyous.WebFramework.Services
         }
 
         /// <inheritdoc />
-        public override List<TInterface> Add(IList<TInterface> entities)
+        public override List<TInterface> Add(IEnumerable<TInterface> entities)
         {
             var duplicates = new List<string>();
             foreach (var entity in entities)
