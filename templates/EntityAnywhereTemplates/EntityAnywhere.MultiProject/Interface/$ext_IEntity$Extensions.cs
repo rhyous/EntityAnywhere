@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Rhyous.WebFramework.Interfaces
 {
-    using EntityInterface = IEntity1;
+    using EntityInterface = I$ext_Entity$;
 
-    public static class I$EntityNameHere$Extensions
+    public static class I$ext_Entity$Extensions
     {
         /// <summary>
         /// Takes a concrete class acting as the EntityInterface and converts it to act as type T.

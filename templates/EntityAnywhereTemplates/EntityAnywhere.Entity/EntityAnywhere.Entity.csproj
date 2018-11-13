@@ -54,16 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="%24Entity%24.cs" />
+    <None Include="AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AssemblyInfo.cs" />
-    <None Include="Entity1.cs" />
-    <None Include="ProjectTemplate.csproj" />
+    <None Include="Entity.csproj" />
+    <VSTemplate Include="Entity.vstemplate" />
     <None Include="EntityAnywhere.Entity.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <VSTemplate Include="EntityAnywhere.Entity.vstemplate" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

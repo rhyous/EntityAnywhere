@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
-    <Name>EntityAnywhere.Interface</Name>
-    <Description>EntityAnywhere.Interface</Description>
-    <Icon>EntityAnywhere.Interface.ico</Icon>
+    <Name>EntityAnywhere.Entity</Name>
+    <Description>EntityAnywhere.Entity</Description>
     <ProjectType>CSharp</ProjectType>
-    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
     <SortOrder>1000</SortOrder>
-    <TemplateID>a15b0a5f-eddc-4d23-b7d5-5b0c8b1a5d4c</TemplateID>
+    <TemplateID>0f511cb0-cd49-4104-9681-382785f554ce</TemplateID>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Interfaces.Entity</DefaultName>
+    <DefaultName>Entities.Entity</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
   </TemplateData>
   <TemplateContent>
-    <Project File="ProjectTemplate.csproj" ReplaceParameters="true">
+    <Project File="Entity.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$Extensions.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$.cs</ProjectItem>
     </Project>
   </TemplateContent>
   <WizardExtension>

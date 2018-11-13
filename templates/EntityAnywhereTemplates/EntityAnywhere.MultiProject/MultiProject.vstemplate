@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>New EntityAnywhere Entity</Name>
+    <Description>EntityAnywhere Entity and Interface.</Description>
+    <Icon>EntityAnywhere.Entity.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>0cb0f511-49cd-1044-6819-82785f554cf3</TemplateID>
+    <DefaultName>Entities.Entity</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <CreateInPlace>False</CreateInPlace>
+    <CreateNewFolder>false</CreateNewFolder>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectCollection>
+      <SolutionFolder Name="Entities" CreateOnDisk="true">
+        <ProjectTemplateLink ProjectName="Entities.$Entity$" CopyParameters="true">Entity\Entity.vstemplate</ProjectTemplateLink>
+      </SolutionFolder>
+      <SolutionFolder Name="Interfaces" CreateOnDisk="true">
+        <ProjectTemplateLink ProjectName="Interfaces.$Entity$" CopyParameters="true">Interface\Interface.vstemplate</ProjectTemplateLink>
+      </SolutionFolder>
+    </ProjectCollection>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>EntityAnywhere.EntityWizard, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=566fe0d84f491d6f</Assembly>
+    <FullClassName>EntityAnywhere.EntityWizard.Wizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

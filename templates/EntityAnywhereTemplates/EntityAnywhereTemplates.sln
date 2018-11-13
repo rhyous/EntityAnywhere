@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.Interface", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.CustomWebService", "EntityAnywhere.CustomWebService\EntityAnywhere.CustomWebService.csproj", "{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.EntityWizard", "EntityAnywhere.EntityWizard\EntityAnywhere.EntityWizard.csproj", "{B696C079-6ECB-4704-AB2C-3D703A6D5D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.MultiProject", "EntityAnywhere.MultiProject\EntityAnywhere.MultiProject.csproj", "{00143442-9DDE-4CB6-B55D-0872918B6839}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,19 @@ Global
 		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B696C079-6ECB-4704-AB2C-3D703A6D5D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B696C079-6ECB-4704-AB2C-3D703A6D5D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B696C079-6ECB-4704-AB2C-3D703A6D5D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B696C079-6ECB-4704-AB2C-3D703A6D5D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00143442-9DDE-4CB6-B55D-0872918B6839}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00143442-9DDE-4CB6-B55D-0872918B6839}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00143442-9DDE-4CB6-B55D-0872918B6839}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00143442-9DDE-4CB6-B55D-0872918B6839}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D72E72EE-514E-4FAD-BFC4-CF86564572E5}
 	EndGlobalSection
 EndGlobal
