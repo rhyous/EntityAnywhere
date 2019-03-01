@@ -1,0 +1,55 @@
+How to add seed data
+1. Locate the Visual Studio project for the entity that needs seed data.
+   It is usually called Entities.<EntityName>.
+   
+2. Create a new class called <EntityName>SeedDataAttribute.cs. 
+   For example, if the Entity was UserType, you would name your class file:
+
+   UserTypeSeedDataAttribute.cs
+
+3. Make the class inherit from EntitySeedDataAttribute.
+
+4. Override the Objects property.
+
+5. Add Concrete entities to the Object property.
+   The class file will look as follows:
+
+	using Rhyous.WebFramework.Interfaces;
+	using System.Collections.Generic;
+	using System.Linq;
+
+	namespace Rhyous.WebFramework.Entities
+	{
+		public class UserTypeSeedDataAttribute : EntitySeedDataAttribute
+		{
+			public override List<object> Objects => new List<UserType>()
+			{
+				new UserType { Id = 1, Type = "System" },
+				new UserType { Id = 2, Type = "Internal" },
+				new UserType { Id = 4, Type = "Customer" }
+			}.ToList<object>();
+		}
+	}
+
+6. Add the [UserTypeSeedData] to the UserType entity.
+   The UserType entity looks as follows:
+      
+	using Rhyous.WebFramework.Interfaces;
+	using System.ComponentModel.DataAnnotations;
+
+	namespace Rhyous.WebFramework.Entities
+	{
+		/// <summary>
+		/// The UserType entity. This stores the type of user: System, Internal, Partner, Customer, Organization, Group, etc.
+		/// </summary>
+		[AlternateKey("Type")]
+		[UserTypeSeedData]
+		public partial class UserType : AuditableEntity<int>, IUserType
+		{
+			/// <inheritdoc />
+			[Required]
+			public string Type { get; set; }
+		}
+	}
+
+   

@@ -1,0 +1,20 @@
+EAF Rules
+1. Everything that can be a plugin, is a plugin.
+2. Start with a customization for 1 entity. 
+   If it becomes common, make it common to all entities.
+3. Common features should work for all entities
+4. Common features can be overridden easily.
+5. A customizaton can inherit from common, to add one feature or endpoint.
+6. Generic Extensions Entities, such as Addendum, are not used in Core Features, however, specific Extension Entities, such as AlternateIds, can be.
+7. No duplicate data.
+8. Don't load as a plugin something that must be referenced directly:
+   Example: Custom Web Service to Custom Service.
+9. Entities do not reference each other.
+   - Each entity is in its own project and each entity interface is in its own project.
+   - A consumer should be able to consume the interface without the Entity.
+
+Code Best Practices
+1. S.O.L.I.D.
+2. 10/100 principle. No classes over 100 lines, no methods over 10 lines.
+3. Use the existing style.
+4. Trend toward the Odata spec.
