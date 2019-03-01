@@ -52,4 +52,5 @@ How to add seed data
 		}
 	}
 
-   
+7. Call the web method:
+https://your.domain.tld/Api/UserTypeService.svc/$SeedRepository
