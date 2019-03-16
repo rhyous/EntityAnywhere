@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.MultiProject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.EntityWizard.Tests", "EntityAnywhere.EntityWizard.Tests\EntityAnywhere.EntityWizard.Tests.csproj", "{9BF09D4D-FE0A-409E-B8ED-CF025472B28F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAnywhere.Service", "EntityAnywhere.Service\EntityAnywhere.Service.csproj", "{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9BF09D4D-FE0A-409E-B8ED-CF025472B28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF09D4D-FE0A-409E-B8ED-CF025472B28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BF09D4D-FE0A-409E-B8ED-CF025472B28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

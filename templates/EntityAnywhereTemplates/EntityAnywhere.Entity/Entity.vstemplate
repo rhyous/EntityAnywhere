@@ -16,6 +16,9 @@
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$.cs</ProjectItem>
     </Project>
+    <CustomParameters>
+      <CustomParameter Name="$EntityAnywhereTemplateType$" Value="Entity"/>
+    </CustomParameters>
   </TemplateContent>
   <WizardExtension>
     <Assembly>EntityAnywhere.EntityWizard, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=566fe0d84f491d6f</Assembly>

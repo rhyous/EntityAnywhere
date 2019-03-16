@@ -19,7 +19,7 @@
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$WebService.cs</ProjectItem>
     </Project>
     <CustomParameters>
-      <CustomParameter Name="$TemplateType$" Value="WebService"/>
+      <CustomParameter Name="$EntityAnywhereTemplateType$" Value="WebService"/>
     </CustomParameters>
   </TemplateContent>
   <WizardExtension>

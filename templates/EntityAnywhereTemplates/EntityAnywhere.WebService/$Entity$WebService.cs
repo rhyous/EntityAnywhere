@@ -5,8 +5,8 @@ using System.Text;
 
 namespace $safeprojectname$
 {
-    [CustomWebService("Entity1WebService", typeof(I$IEntity$WebService), typeof($IEntity$))]
-    public class $IEntity$WebService : EntityWebService<$IEntity$, I$IEntity$, int, ServiceCommon<$IEntity$, I$IEntity$, int>>, I$IEntity$Service
+    [CustomWebService("Entity1WebService", typeof($IEntity$WebService), typeof($Entity$))]
+    public class $Entity$WebService : EntityWebService<$Entity$, $IEntity$, int, ServiceCommon<$IEntity$, $IEntity$, int>>, $IEntity$Service
     {
     }
 }

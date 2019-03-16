@@ -2,7 +2,7 @@
 
 namespace EntityAnywhere.EntityWizard
 {
-    public interface IStarter
+    internal interface IStarter
     {
         void Start(IDictionary<string, string> replacementsDictionary);
     }

@@ -11,7 +11,7 @@ namespace Rhyous.Mvvm
     /// default return value for the CanExecute
     /// method is 'true'.
     /// </summary>
-    public class RelayCommand : ICommand
+    internal class RelayCommand : ICommand
     {
         #region Fields
         readonly Action<object> _execute;

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<ProductVersion>8.0.30703</ProductVersion>
+		<SchemaVersion>2.0</SchemaVersion>
+		<ProjectGuid>$guid1$</ProjectGuid>
+		<OutputType>Library</OutputType>
+		<AppDesignerFolder>Properties</AppDesignerFolder>
+		<RootNamespace>Rhyous.Framework.Services</RootNamespace>
+		<AssemblyName>Rhyous.Framework.$safeprojectname$</AssemblyName>
+		<TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
+		<FileAlignment>512</FileAlignment>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\</OutputPath>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>pdbonly</DebugType>
+ 		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\</OutputPath>
+		<DefineConstants>TRACE</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="System"/>
+		$if$ ($targetframeworkversion$ >= 3.5)
+		<Reference Include="System.Core"/>
+		<Reference Include="System.Xml.Linq"/>
+		<Reference Include="System.Data.DataSetExtensions"/>
+		$endif$
+		$if$ ($targetframeworkversion$ >= 4.0)
+		<Reference Include="Microsoft.CSharp"/>
+ 		$endif$
+		<Reference Include="System.Data"/>
+		<Reference Include="System.Xml"/>
+    <Reference Include="System.Net.Htpp"/>
+    <Reference Include="System.ServiceModel"/>
+    <Reference Include="System.ServiceModel."/>
+	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
+      <Name>Interfaces.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
+      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
+      <Name>Attributes.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services.Common\Services.Common.csproj">
+      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
+      <Name>Services.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="$Entity$Service.cs" />
+    <Compile Include="$IEntity$Service.cs" />
+
+		<Compile Include="Properties\AssemblyInfo.cs" />
+	</ItemGroup>
+	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET proj=$(ProjectName)
+      SET entity=%proj:*.=%
+      ECHO entity = %entity%
+      SET copyToDir="$(SolutionDir)Services\Services.Main\Plugins\Services\%entity%"
+      ECHO %25copyToDir%25
+      IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+      COPY /Y "$(TargetPath)" %25copyToDir%25
+      COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+
+      SET dllDir="%25copyToDir%25\bin"
+      ECHO %25dllDir%25
+      IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
+      COPY /Y "$(Targetdir)*.dll" %25dllDir%25
+      COPY /Y "$(Targetdir)*.pdb" %25dllDir%25
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+
+ </Project>

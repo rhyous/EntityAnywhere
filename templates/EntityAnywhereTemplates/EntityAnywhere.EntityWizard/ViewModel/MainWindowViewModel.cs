@@ -2,19 +2,49 @@
 
 namespace EntityAnywhere.EntityWizard
 {
-    class MainWindowViewModel : ViewModelBase
+    internal class MainWindowViewModel : ViewModelBase
     {
-        public int Title
-        {
-            get { return _Title; }
-            set { SetAndNotifyPropertyChanged(ref _Title, value); }
-        } private int _Title;
+        private readonly Model _Model;
 
-        public int Label
+        public MainWindowViewModel(Model model)
         {
-            get { return _Label; }
-            set { SetAndNotifyPropertyChanged(ref _Label, value); }
-        } private int _Label;
+            _Model = model;
+        }
 
+        public string WindowTitle
+        {
+            get { return _Model.WindowTitle; }
+            set
+            {
+                if (_Model.WindowTitle == value)
+                    return;
+                _Model.WindowTitle = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Heading
+        {
+            get { return _Model.Heading; }
+            set
+            {
+                if (_Model.Heading == value)
+                    return;
+                _Model.Heading = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Label
+        {
+            get { return _Model.Label; }
+            set
+            {
+                if (_Model.Label == value)
+                    return;
+                _Model.Label = value;
+                NotifyPropertyChanged();
+            }
+        }
     }
 }

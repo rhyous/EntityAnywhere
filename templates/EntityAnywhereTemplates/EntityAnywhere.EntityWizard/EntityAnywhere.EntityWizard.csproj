@@ -51,6 +51,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IStarter.cs" />
+    <Compile Include="Model\Model.cs" />
+    <Compile Include="Model\ModelDictionary.cs" />
     <Compile Include="Mvvm\RelayCommand.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Business\Starter.cs" />
@@ -72,6 +74,13 @@
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EntityAnywhere.Service\EntityAnywhere.Service.csproj">
+      <Project>{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}</Project>
+      <Name>EntityAnywhere.Service</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
     <ProjectReference Include="..\EntityAnywhere.WebService\EntityAnywhere.WebService.csproj">
       <Project>{dd914dea-e7ff-4b38-8fff-fb547d39bdea}</Project>
       <Name>EntityAnywhere.WebService</Name>
