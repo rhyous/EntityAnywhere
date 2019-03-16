@@ -6,7 +6,7 @@ using System.ServiceModel.Web;
 namespace $safeprojectname$
 { 
     [ServiceContract]
-    public interface IEntity1 : IEntityWebService<Entity1, int>
+    public interface I$IEntity$ : IEntityWebService<$IEntity$, int>, ICustomWebService
     {
     }
 }

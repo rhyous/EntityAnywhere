@@ -64,8 +64,8 @@
     </ProjectReference>
   </ItemGroup>
 	<ItemGroup>
-		<Compile Include="Entit1WebService.cs" />
-    <Compile Include="IEntit1WebService.cs" />
+		<Compile Include="$Entity$WebService.cs" />
+    <Compile Include="$IEntity$WebService.cs" />
 
 		<Compile Include="Properties\AssemblyInfo.cs" />
 	</ItemGroup>

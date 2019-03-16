@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace EntityAnywhere.EntityWizard
 {
-    class Wizard : IWizard
+    internal class Wizard : IWizard
     {
         // This method is called before opening any item that   
         // has the OpenInEditor attribute.  
@@ -36,12 +36,7 @@ namespace EntityAnywhere.EntityWizard
         {
             try
             {
-                var entity = replacementsDictionary["$safeprojectname$"]?.Split('.')?.Reverse().First();
-                var window = new MainWindow();
-                window.EntityTextBox.Text = entity;
-                window.ShowDialog();
-                replacementsDictionary.Add("$Entity$", window.EntityTextBox.Text);
-                replacementsDictionary.Add("$IEntity$", $"I{window.EntityTextBox.Text}");                
+                Starter.Start(replacementsDictionary);
             }
             catch (Exception ex)
             {
@@ -55,5 +50,12 @@ namespace EntityAnywhere.EntityWizard
         {
             return true;
         }
+
+        public IStarter Starter
+        {
+            get { return _Starter ?? (_Starter = new Starter()); }
+            set { _Starter = value; }
+        } private IStarter _Starter;
+
     }
 }

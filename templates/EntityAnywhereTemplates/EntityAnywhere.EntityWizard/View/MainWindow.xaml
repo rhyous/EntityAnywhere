@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="What is your entity name?"
+        Title="{Binding Title, FallbackValue='What is your entity name?'}"
         Width="500"
         Height="200">
     <Grid Width="400" Height="25">
@@ -13,7 +13,7 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label HorizontalContentAlignment="Right" Grid.Column="0" Content="Entity name: "/>
+        <Label HorizontalContentAlignment="Right" Grid.Column="0" Content="{Binding Label, FallbackValue='Entity name:'}"/>
         <TextBox Grid.Column="1" MinWidth="250" Name="EntityTextBox" PreviewKeyUp="EntityTextBox_PreviewKeyUp" VerticalContentAlignment="Center"/>
         <Button Grid.Column="2" Content="Go" MinWidth="50" Click="Button_Click" IsEnabled="{Binding ElementName=EntityTextBox,Path=Text.Length, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>

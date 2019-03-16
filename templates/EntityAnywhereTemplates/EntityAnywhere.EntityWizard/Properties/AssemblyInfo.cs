@@ -30,4 +30,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
+
+[assembly: InternalsVisibleTo("EntityAnywhere.EntityWizard.Tests, PublicKey=002400000480000094000000060200000024000052534131000400000100010009321c9dc9553136f36198f762aa60f3a4c9d0735458dbec4eeceea1d66e00478fdb08fd7736add9083db0f873ecf778d64b9810acf7f46b7f1dbf44b0a3b0c2a815972eaa0f57eb27a62d6d8b8ec8f04cd86215c45c4cbb3aac53345106aa8fc212e39ba73b7c02dafe177c97e6c9845e62ec1eb768d50b5eb25a0df869c696")]
