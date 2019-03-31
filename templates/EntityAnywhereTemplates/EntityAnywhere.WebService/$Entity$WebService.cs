@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Rhyous.WebFramework.Attributes;
+using Rhyous.WebFramework.Entities;
+using Rhyous.WebFramework.Interfaces;
+using Rhyous.WebFramework.WebServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace $safeprojectname$
+namespace Rhyous.WebFramework.WebServices
 {
-    [CustomWebService("Entity1WebService", typeof($IEntity$WebService), typeof($Entity$))]
-    public class $Entity$WebService : EntityWebService<$Entity$, $IEntity$, int, ServiceCommon<$IEntity$, $IEntity$, int>>, $IEntity$Service
+    [CustomWebService("$Entity$WebService", typeof($IEntity$WebService), typeof($Entity$))]
+    public class $Entity$WebService : EntityWebService<$Entity$, $IEntity$, int, ServiceCommon<$Entity$, $IEntity$, int>>, $IEntity$WebService
     {
     }
 }

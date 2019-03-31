@@ -8,8 +8,8 @@
 		<ProjectGuid>$guid1$</ProjectGuid>
 		<OutputType>Library</OutputType>
 		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>Rhyous.Framework.Services</RootNamespace>
-		<AssemblyName>Rhyous.Framework.$safeprojectname$</AssemblyName>
+		<RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
+		<AssemblyName>Rhyous.WebFramework.$safeprojectname$</AssemblyName>
 		<TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
 		<FileAlignment>512</FileAlignment>
 	</PropertyGroup>
@@ -42,9 +42,8 @@
  		$endif$
 		<Reference Include="System.Data"/>
 		<Reference Include="System.Xml"/>
-    <Reference Include="System.Net.Htpp"/>
+    <Reference Include="System.Net.Http"/>
     <Reference Include="System.ServiceModel"/>
-    <Reference Include="System.ServiceModel."/>
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
@@ -62,6 +61,12 @@
       <Name>Services.Common</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Entities\Entities.$Entity$\Entities.$Entity$.csproj">
+      <Name>Entities.$Entity$</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.$Entity$\Interfaces.$Entity$.csproj">
+      <Name>Interfaces.$Entity$</Name>
+    </ProjectReference>
   </ItemGroup>
 	<ItemGroup>
 		<Compile Include="$Entity$Service.cs" />
@@ -72,20 +77,23 @@
 	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>SET proj=$(ProjectName)
-      SET entity=%proj:*.=%
-      ECHO entity = %entity%
-      SET copyToDir="$(SolutionDir)Services\Services.Main\Plugins\Services\%entity%"
-      ECHO %25copyToDir%25
-      IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-      COPY /Y "$(TargetPath)" %25copyToDir%25
-      COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+SET entity=%proj:*.=%
+ECHO entity = %entity%
+SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Services\%entity%"
+ECHO %25copyToDir%25
+IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
+COPY /Y "$(TargetPath)" %25copyToDir%25
+COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
 
-      SET dllDir="%25copyToDir%25\bin"
-      ECHO %25dllDir%25
-      IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-      COPY /Y "$(Targetdir)*.dll" %25dllDir%25
-      COPY /Y "$(Targetdir)*.pdb" %25dllDir%25
-    </PostBuildEvent>
+SET dllDir="%copyToDir%\bin"
+ECHO %dllDir%
+IF NOT EXIST %dllDir% MKDIR %dllDir%
+FOR %%X in ("$(Targetdir)*.dll") DO (
+IF NOT "%%X"=="$(TargetPath)" COPY /Y "%%X" %dllDir%
+)
+FOR %%X in ("$(Targetdir)*.pdb") DO (
+IF NOT "%%X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%%X" %dllDir%
+)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
