@@ -3,6 +3,7 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -21,7 +22,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EntityAnywhere.EntityWizard</RootNamespace>
     <AssemblyName>EntityAnywhere.EntityWizard</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
@@ -68,22 +69,39 @@
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="uninstall.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityAnywhere.Service\EntityAnywhere.Service.csproj">
-      <Project>{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}</Project>
-      <Name>EntityAnywhere.Service</Name>
+    <ProjectReference Include="..\EntityAnywhere.CustomWebService\EntityAnywhere.CustomWebService.csproj">
+      <Project>{2E7B656F-43B2-442F-8B26-CED9D726C753}</Project>
+      <Name>EntityAnywhere.CustomWebService</Name>
       <VSIXSubPath>ProjectTemplates</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
     </ProjectReference>
-    <ProjectReference Include="..\EntityAnywhere.WebService\EntityAnywhere.WebService.csproj">
+    <ProjectReference Include="..\EntityAnywhere.EntityEvent\EntityAnywhere.EntityEvent.csproj">
+      <Project>{E291F835-7B0D-4148-902C-FCABD0B112B3}</Project>
+      <Name>EntityAnywhere.EntityEvent</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityAnywhere.Service\EntityAnywhere.EntityService.csproj">
+      <Project>{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}</Project>
+      <Name>EntityAnywhere.EntityService</Name>
+      <VSIXSubPath>ProjectTemplates</VSIXSubPath>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityAnywhere.WebService\EntityAnywhere.EntityWebService.csproj">
       <Project>{dd914dea-e7ff-4b38-8fff-fb547d39bdea}</Project>
-      <Name>EntityAnywhere.WebService</Name>
+      <Name>EntityAnywhere.EntityWebService</Name>
       <VSIXSubPath>ProjectTemplates</VSIXSubPath>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <IncludeOutputGroupsInVSIX>TemplateProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>

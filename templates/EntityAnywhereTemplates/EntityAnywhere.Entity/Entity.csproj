@@ -40,6 +40,9 @@
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.$Entity$\Interfaces.$Entity$.csproj">
+      <Name>Interfaces.$Entity$</Name>
+    </ProjectReference>
   </ItemGroup>
 	<ItemGroup>
 		<Compile Include="$Entity$.cs" />

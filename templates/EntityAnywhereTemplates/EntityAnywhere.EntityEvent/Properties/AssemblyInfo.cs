@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EntityAnywhere.EntityWebService")]
+[assembly: AssemblyTitle("EntityAnywhere.EntityEvent")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jared Barneck")]
-[assembly: AssemblyProduct("EntityAnywhere.EntityWebService")]
-[assembly: AssemblyCopyright("Copyright © Jared Barneck 2017")]
+[assembly: AssemblyProduct("EntityAnywhere.EntityEvent")]
+[assembly: AssemblyCopyright("Copyright © Jared Barneck 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dd914dea-e7ff-4b38-8fff-fb547d39bdea")]
+[assembly: Guid("e291f835-7b0d-4148-902c-fcabd0b112b3")]
 
 // Version information for an assembly consists of the following four values:
 //

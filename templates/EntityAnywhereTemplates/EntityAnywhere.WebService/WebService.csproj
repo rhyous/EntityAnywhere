@@ -32,19 +32,24 @@
 	</PropertyGroup>
 	<ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhyous.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Collections.1.0.12\lib\net461\Rhyous.Collections.dll</HintPath>
+      <HintPath>..\..\..\packages\Rhyous.Collections.1.0.12\lib\net461\Rhyous.Collections.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.23\lib\net461\Rhyous.Odata.dll</HintPath>
+      <HintPath>..\..\..\packages\Rhyous.Odata.1.0.23\lib\net461\Rhyous.Odata.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.15\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
+      <HintPath>..\..\..\packages\Rhyous.Odata.Csdl.1.0.15\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.10\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+      <HintPath>..\..\..\packages\Rhyous.StringLibrary.1.1.10\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+      <Private>False</Private>
     </Reference>
 		<Reference Include="System"/>
 		$if$ ($targetframeworkversion$ >= 3.5)
@@ -62,34 +67,38 @@
     <Reference Include="System.Xml.Linq"/>
 	</ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
+    <ProjectReference Include="Clients.Common.csproj">
       <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
       <Name>Clients.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
+    <ProjectReference Include="Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
       <Name>Interfaces.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
+    <ProjectReference Include="Attributes.Common.csproj">
       <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
       <Name>Attributes.Common</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
+    <ProjectReference Include="Services.Common.csproj">
       <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
       <Name>Services.Common</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
+    <ProjectReference Include="WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
       <Name>WebServices.Common</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Entities\Entities.$Entity$\Entities.$Entity$.csproj">
       <Name>Entities.$Entity$</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.$Entity$\Interfaces.$Entity$.csproj">
       <Name>Interfaces.$Entity$</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
 	<ItemGroup>

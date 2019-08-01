@@ -1,5 +1,4 @@
 ﻿using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Entities;
 using Rhyous.WebFramework.Interfaces;
 using Rhyous.WebFramework.WebServices;
 using System;
@@ -9,8 +8,8 @@ using System.Text;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    [CustomWebService("$Entity$WebService", typeof($IEntity$WebService), typeof($Entity$))]
-    public class $Entity$WebService : EntityWebService<$Entity$, $IEntity$, int, ServiceCommon<$Entity$, $IEntity$, int>>, $IEntity$WebService
+    [CustomWebService("$Entity$WebService", typeof($IEntity$WebService), null)]
+    public class $Entity$WebService : $IEntity$WebService
     {
         public void Dispose()
         {

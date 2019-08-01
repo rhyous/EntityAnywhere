@@ -1,0 +1,1 @@
+vsixinstaller /u:EntityAnywhere.EntityWizard.e2b75425-822d-4226-a17e-e2c2c40abe92

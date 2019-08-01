@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
-    <Name>EntityAnywhere.EntityService</Name>
-    <Description>A custom service for an Entity.</Description>
-    <Icon>Service.ico</Icon>
+    <Name>EntityAnywhere.EntityWebService</Name>
+    <Description>A custom web service for an Entity.</Description>
+    <Icon>WebService.ico</Icon>
     <ProjectType>CSharp</ProjectType>
     <RequiredFrameworkVersion>4.6.1</RequiredFrameworkVersion>
     <SortOrder>1000</SortOrder>
-    <TemplateID>0af614b1-23d1-4b38-b1df-caf15ea74391</TemplateID>
+    <TemplateID>0af614b1-23d1-4b38-b1df-caf15ea74390</TemplateID>
     <CreateNewFolder>true</CreateNewFolder>
-    <DefaultName>Services.Entity</DefaultName>
+    <DefaultName>WebServices.Entity</DefaultName>
     <ProvideDefaultName>true</ProvideDefaultName>
   </TemplateData>
   <TemplateContent>
-    <Project File="Service.csproj" ReplaceParameters="true">
+    <Project File="WebService.csproj" ReplaceParameters="true">
       <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$Service.cs</ProjectItem>
-      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$Service.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$WebService.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$WebService.cs</ProjectItem>
+      <ProjectItem>packages.config</ProjectItem>
     </Project>
     <CustomParameters>
-      <CustomParameter Name="$EntityAnywhereTemplateType$" Value="Service"/>
+      <CustomParameter Name="$EntityAnywhereTemplateType$" Value="WebService"/>
     </CustomParameters>
   </TemplateContent>
   <WizardExtension>

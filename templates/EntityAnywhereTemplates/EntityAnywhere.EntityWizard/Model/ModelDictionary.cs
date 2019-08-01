@@ -14,19 +14,31 @@ namespace EntityAnywhere.EntityWizard
             });
             Add("Interface", new Model
             {
-                WindowTitle = "Entity Anywhere - Interface",
+                WindowTitle = "Entity Anywhere - Entity Interface",
                 Heading = "What is your entity name? Leave off the \"I\" prefix.",
                 Label = "Entity name:"
             });
             Add("Service", new Model
             {
-                WindowTitle = "Entity Anywhere - Service",
+                WindowTitle = "Entity Anywhere - Entity Service",
                 Heading = "What is your entity name?",
                 Label = "Entity name:"
             });
             Add("WebService", new Model
             {
-                WindowTitle = "Entity Anywhere - Web Service",
+                WindowTitle = "Entity Anywhere - Entity Web Service",
+                Heading = "What is your entity name?",
+                Label = "Entity name:"
+            });
+            Add("CustomWebService", new Model
+            {
+                WindowTitle = "Entity Anywhere - Custom Web Service",
+                Heading = "What is your Web Service name?",
+                Label = "Web Service name:"
+            });
+            Add("EntityEvent", new Model
+            {
+                WindowTitle = "Entity Anywhere - Entity Event",
                 Heading = "What is your entity name?",
                 Label = "Entity name:"
             });

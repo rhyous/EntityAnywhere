@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>EntityAnywhere.EntityEvent</Name>
+    <Description>EntityAnywhere.EntityEvent</Description>
+    <Icon>EntityAnywhere.EntityEvent.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <LanguageTag>csharp</LanguageTag>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>683a087b-e8db-4d1a-aea5-86e9b9574c99</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Events.Entity</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="EntityEvent.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$Event.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <CustomParameters>
+    <CustomParameter Name="$EntityAnywhereTemplateType$" Value="Event"/>
+  </CustomParameters>
+</VSTemplate>

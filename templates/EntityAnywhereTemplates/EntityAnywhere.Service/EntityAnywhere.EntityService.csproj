@@ -10,11 +10,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{00143442-9DDE-4CB6-B55D-0872918B6839}</ProjectGuid>
+    <ProjectGuid>{DD914DEA-E7FF-4B38-8FFF-FB547D39BDEB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityAnywhere.MultiProject</RootNamespace>
-    <AssemblyName>EntityAnywhere.MultiProject</AssemblyName>
+    <RootNamespace>EntityAnywhere.Service</RootNamespace>
+    <AssemblyName>EntityAnywhere.Service</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
@@ -55,27 +55,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entity\%24ext_Entity%24.cs" />
-    <None Include="Entity\AssemblyInfo.cs" />
-    <None Include="Interface\%24ext_IEntity%24.cs" />
-    <None Include="Interface\%24ext_IEntity%24Extensions.cs" />
-    <None Include="Interface\AssemblyInfo.cs" />
+    <None Include="%24IEntity%24Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Entity\Entity.csproj" />
+    <None Include="AssemblyInfo.cs" />
+    <None Include="%24Entity%24Service.cs" />
+    <None Include="Service.csproj" />
+    <None Include="Service.ico" />
   </ItemGroup>
   <ItemGroup>
-    <VSTemplate Include="Entity\Entity.vstemplate" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="README.txt" />
-    <VSTemplate Include="MultiProject.vstemplate" />
-    <None Include="EntityAnywhere.Entity.ico" />
-    <Content Include="Interface\Interface.csproj">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Interface\Interface.vstemplate" />
+    <VSTemplate Include="Service.vstemplate" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
