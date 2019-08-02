@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Rhyous.WebFramework.WebServices
 {
-    [CustomWebService("$Entity$WebService", typeof($IEntity$WebService), null)]
+    [CustomWebService("$Entity$WebService", typeof($IEntity$WebService), null, "$Entity$Service.svc")]
     public class $Entity$WebService : $IEntity$WebService
     {
         public void Dispose()
