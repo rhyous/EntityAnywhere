@@ -10,6 +10,8 @@ How did this API come about? Well, after using Entity Framework, it came to my a
 2. Providing UI interactions beyond CRUD.
 3. Sometimes creating a custom repository when the repository isn't a new MS SQL database.
 
+Also, it became clear that there are many situations when the data will not be in one database, so coupling the data is not an option. Using the repository pattern is not novel, however, using the repository pattern per entity is novel. Also, since the data isn't in the same relational SQL server, you won't have foreign keys or database relationships. Having data related is not novel, however, having common code to handle relationships (1-to-1, 1-to-Many, Many-to-1, and Many-to-Many) between data in different repositories is novel.
+
 ## Getting Started 
 
 1. Check out the source code.
