@@ -1,6 +1,8 @@
-﻿using System.Collections.Specialized;
+﻿using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.Interfaces
+namespace Rhyous.EntityAnywhere.Interfaces
 {
     /// <summary>
     /// The contract that all header validator plugins must implement. Usually a token is passed in a header to avoid constant authentication.
@@ -8,15 +10,23 @@ namespace Rhyous.WebFramework.Interfaces
     public interface IHeaderValidator
     {
         /// <summary>
+        /// The Id of the logged in user
+        /// </summary>
+        long UserId { get; set; }
+
+        /// <summary>
         /// A list of headers from a web call.
         /// </summary>
         /// <param name="headers">The NameValueCollection of all headers included in a web call.</param>
         /// <returns>True or the header is valid and not expired. False otherwise.</returns>
-        bool IsValid(NameValueCollection headers);
+        Task<bool> IsValidAsync(NameValueCollection headers);
 
         /// <summary>
-        /// This must be populated by the IsValid method if true is returned. This is the UserId associated with the valid header.
+        /// The headers this validator will validate.
+        /// If a call doesn't have any of these headers, then this validator shouldn't be called.
+        /// If a HandledHeaders is null or empty, it will be called always.
         /// </summary>
-        long UserId { get; set; }
+        /// <remarks></remarks>
+        IList<string> Headers { get; }
     }
 }

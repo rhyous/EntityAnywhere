@@ -1,0 +1,11 @@
+Id, Expected, Message
+O'Brien, O'Brien, Unescaped quote is unchanged.
+"O'Brien", O'Brien, Unescaped quote is unchanged.
+'O''Brien', "O'Brien", Escaped quote is unescaped.
+"O''Brien", "O'Brien", Escaped quote is unescaped.
+''N Guns, "'N Guns", Escaped quote at beginning of Id is unescaped.
+"''N Guns", "'N Guns", Escaped quote at beginning of Id is unescaped.
+'''N Guns', "'N Guns", Escaped quote at beginning of Id is unescaped.
+Runnin', Runnin', Escaped quote at end of Id is unescaped.
+"Runnin''", Runnin', Escaped quote at end of Id is unescaped.
+'Runnin''', Runnin', Escaped quote at end of Id is unescaped.

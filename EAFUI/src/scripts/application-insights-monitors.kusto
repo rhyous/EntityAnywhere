@@ -1,0 +1,43 @@
+// See: https://docs.microsoft.com/en-us/azure/kusto/ for details about the Kusto Query Language
+
+// THIS IS FOR THE ALERTS
+customEvents
+| where name == "ApiRequestDuration"
+| order by timestamp asc nulls last
+| extend json=parse_json(customDimensions)
+| extend url = tostring(json.url)
+| extend method = tostring(json.method)
+| extend duration = todouble(json.durationms) / 1000
+| where url contains "ActivationService.svc"
+| summarize AggregatedValue=max(duration) by bin(timestamp, 1s)
+
+customEvents
+| where name == "ApiRequestDuration"
+| order by timestamp asc nulls last
+| extend json=parse_json(customDimensions)
+| extend url = tostring(json.url)
+| extend method = tostring(json.method)
+| extend duration = todouble(json.durationms) / 1000
+| where url contains "LicenseGeneratorService.svc"
+| summarize AggregatedValue=max(duration) by bin(timestamp, 1s)
+
+customEvents
+| where name == "ApiRequestDuration"
+| order by timestamp asc nulls last
+| extend json=parse_json(customDimensions)
+| extend url = tostring(json.url)
+| extend method = tostring(json.method)
+| extend duration = todouble(json.durationms) / 1000
+| where url contains "EntitledProduct.svc"
+| summarize AggregatedValue=max(duration) by bin(timestamp, 1s)
+
+// This is for the URL monitoring
+customEvents
+| where name == "ApiRequestDuration"
+| order by timestamp asc nulls last
+| extend json=parse_json(customDimensions)
+| extend url = tostring(json.url)
+| extend method = tostring(json.method)
+| extend duration = todouble(json.durationms) / 1000
+| extend urlparts = split(url, '/')
+| summarize avg(duration), max(duration), min(duration) by strcat(method, ' ', urlparts[3], '/', split(urlparts[4], '?')[0])

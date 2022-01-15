@@ -1,0 +1,14 @@
+.cookie-banner {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    background-color: #acacac;
+    display: flex;
+    width: 100%;
+    z-index: 1000;
+}
+
+p {
+    padding-left: 10px;
+    font-weight: normal;
+}

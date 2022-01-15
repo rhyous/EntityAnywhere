@@ -1,8 +1,8 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.EntityAnywhere.Interfaces;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
-    public interface IToken : IEntity<int>
+    public interface IToken : IBaseEntity<long>
     {
         string Text { get; set; }
     }

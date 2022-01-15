@@ -1,141 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>8.0.30703</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>$guid1$</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-		<AssemblyName>Rhyous.WebFramework.WebServices.$safeprojectname$</AssemblyName>
-		<TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
-		<FileAlignment>512</FileAlignment>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
- 		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Rhyous.Collections.1.0.12\lib\net461\Rhyous.Collections.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Rhyous.Odata.1.0.23\lib\net461\Rhyous.Odata.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Rhyous.Odata.Csdl.1.0.15\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Rhyous.StringLibrary.1.1.10\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-		<Reference Include="System"/>
-		$if$ ($targetframeworkversion$ >= 3.5)
-		<Reference Include="System.Core"/>
-    $endif$
-    $if$ ($targetframeworkversion$ >= 4.0)
-    <Reference Include="Microsoft.CSharp"/>
-    $endif$
-    <Reference Include="System.Data"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    <Reference Include="System.Net.Http"/>
-    <Reference Include="System.ServiceModel"/>
-    <Reference Include="System.ServiceModel.Web"/>
-		<Reference Include="System.Xml"/>
-    <Reference Include="System.Xml.Linq"/>
-	</ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Clients.Common.csproj">
-      <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
-      <Name>Clients.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
-      <Name>Attributes.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="Services.Common.csproj">
-      <Project>{1563AA30-4399-4E19-A661-02072E245F66}</Project>
-      <Name>Services.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="WebServices.Common\WebServices.Common.csproj">
-      <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
-      <Name>WebServices.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.$Entity$\Entities.$Entity$.csproj">
-      <Name>Entities.$Entity$</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.$Entity$\Interfaces.$Entity$.csproj">
-      <Name>Interfaces.$Entity$</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-	<ItemGroup>
-		<Compile Include="$Entity$WebService.cs" />
-    <Compile Include="$IEntity$WebService.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-	</ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PostBuildEvent>SET proj=$(ProjectName)
+    <TargetFramework>$targetframeworkversion$</TargetFramework>
+    <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.WebServices.$Entity$</AssemblyName>
+    <Product>WebServices.User</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)
 SET entity=%proj:*.=%
 ECHO entity = %entity%
-SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\%entity%"
+SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\%entity%&quot;
 ECHO %25copyToDir%25
 IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
+COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25
+COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25
 
-SET dllDir="%copyToDir%\bin"
+SET dllDir=&quot;%copyToDir%\bin&quot;
 ECHO %dllDir%
 IF NOT EXIST %dllDir% MKDIR %dllDir%
-FOR %%X in ("$(Targetdir)*.dll") DO (
-IF NOT "%%X"=="$(TargetPath)" COPY /Y "%%X" %dllDir%
+FOR %%X in (&quot;$(Targetdir)*.dll&quot;) DO (
+IF NOT &quot;%%X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%%X&quot; %dllDir%
 )
-FOR %%X in ("$(Targetdir)*.pdb") DO (
-IF NOT "%%X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%%X" %dllDir%
-)</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+FOR %%X in (&quot;$(Targetdir)*.pdb&quot;) DO (
+IF NOT &quot;%%X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%%X&quot; %dllDir%
+" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 
- </Project>
+  <Import Project="..\..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\..\Misc\Attributes.Wcf\Attributes.Wcf.csproj" />
+    <ProjectReference Include="..\..\..\Services\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj" />
+    <ProjectReference Include="..\..\WebServices.Wcf\WebServices.Wcf.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.4.0" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.0.3" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+</Project>

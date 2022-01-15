@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Rhyous.Odata;
+using Rhyous.EntityAnywhere.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Entities;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
     public interface IClaimsBuilderAsync
     {
-        Task<List<ClaimDomain>> BuildAsync(IUser user, IEnumerable<ClaimConfiguration> claimsConfigurations);
+        Task<IUser> BuildAsync(long userId, IToken token);
+        Task<List<ClaimDomain>> BuildAsync(IUser user, IEnumerable<IClaimConfiguration> claimsConfigurations, IList<RelatedEntityCollection> relatedEntityCollections);
     }
 }

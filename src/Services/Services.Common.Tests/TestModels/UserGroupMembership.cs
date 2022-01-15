@@ -1,15 +1,16 @@
 ﻿using Rhyous.Odata;
-using Rhyous.WebFramework.Interfaces;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Entities;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
-    [AdditionalWebServiceTypes(typeof(int), typeof(int))]
-    public partial class UserGroupMembership : Entity<long>, IUserGroupMembership
+    [AdditionalWebServiceTypes(typeof(int), typeof(long))]
+    public partial class UserGroupMembership : BaseEntity<long>, IUserGroupMembership
     {
         [RelatedEntity("UserGroup")]
         public int UserGroupId { get; set; }
 
         [RelatedEntity("User")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

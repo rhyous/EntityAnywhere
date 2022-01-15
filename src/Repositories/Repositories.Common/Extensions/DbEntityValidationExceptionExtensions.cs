@@ -2,7 +2,7 @@
 using System.Data.Entity.Validation;
 using System.Text;
 
-namespace Rhyous.WebFramework.Repositories
+namespace Rhyous.EntityAnywhere.Repositories
 {
     /// <summary>
     /// This extension takes a DbEntityValidationException and creates a more understandable error message by putting entity validation error data into a string.

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.Services.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.User.Tests</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.All.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\Services.User\Services.User.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LinqKit.Core" Version="1.1.17" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

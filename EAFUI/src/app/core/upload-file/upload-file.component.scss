@@ -1,0 +1,39 @@
+.uploadfilecontainer {
+    background-color: #fff;
+    border: rgba(0,0,0,0.38) dashed 1px;
+    color: rgba(0, 0, 0, 0.38);
+    height: 120px;
+    width: 50%;
+    display: flex;
+}
+
+.uploadfilecontainer > span {
+    margin: auto;
+    text-align: center;
+    font-size: 14px;
+}
+
+.uploadfilecontainer:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.files-list .delete-file img {
+    width: 30px;
+}
+
+p {
+    display: flex;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.mat-form-field {
+    width: 27%;
+}
+
+.uploadfilebuttoncontainer {
+    display: flex;
+}

@@ -1,41 +1,64 @@
-﻿using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Entities;
+﻿using Rhyous.Collections;
+using Rhyous.StringLibrary;
+using Rhyous.EntityAnywhere.Clients2;
+using Rhyous.EntityAnywhere.Entities;
+using Rhyous.EntityAnywhere.Exceptions;
+using Rhyous.EntityAnywhere.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
-    public partial class UserService : ServiceCommonAlternateKey<User, IUser, long>
+    public partial class UserService : ServiceCommonAlternateKey<User, IUser, long, string>,
+                                       IUserService
     {
-        public override Expression<Func<User, string>> PropertyExpression => e => e.Username;
+        private readonly IDuplicateUsernameDetector _DuplicateUsernameDetector;
+        private readonly IPasswordManager _PasswordManager;
 
-        public override List<IUser> Add(IEnumerable<IUser> users)
+        public UserService(IServiceHandlerProviderAltKey<User, IUser, long, string> serviceHandlerProviderAltKey,
+                           IDuplicateUsernameDetector duplicateUsernameDetector,
+                           IPasswordManager passwordManager)
+            : base(serviceHandlerProviderAltKey) 
         {
-            var duplicateUsernames = new List<string>();
-            foreach (User user in users)
-            {
-                if (Get(user.Username) != null)
-                {
-                    duplicateUsernames.Add(user.Username);
-                    continue;
-                }
-                if (!user.IsHashed)
-                    continue;
-                if (string.IsNullOrWhiteSpace(user.Salt))
-                {
-                    user.Salt = Hash.Get(user.Username);
-                }
-                if (string.IsNullOrWhiteSpace(user.Password))
-                {
-                    // Todo: Password notification email here. Maybe plugins for handling password (Creation, Resetting, etc.)
-                    user.Password = Hash.Get(CryptoRandomString.GetCryptoRandomAlphaNumericString(10), user.Salt);
-                }
-                user.Password = Hash.Get(user.Password, user.Salt);
-            }
-            if (duplicateUsernames.Count > 0)
-                throw new Exception("Duplicate username(s) detected: " + string.Join(", ", duplicateUsernames));
-            return Repo.Create(users);
+            _DuplicateUsernameDetector = duplicateUsernameDetector;
+            _PasswordManager = passwordManager;
+        }
+
+        public override Task<List<IUser>> AddAsync(IEnumerable<IUser> users)
+        {
+            _DuplicateUsernameDetector.Detect(users.Select(u => u.Username), true);
+            _PasswordManager.SetOrHashPassword(users);
+            return _ServiceHandlerProvider.AddHandler.AddAsync(users);
+        }
+
+        public override IUser Update(long id, PatchedEntity<IUser, long> patchedEntity)
+        {
+            var existingUser = Get(id);
+            if (existingUser == null)
+                throw new EntityNotFoundException("No such user to update. User id: " + id);
+            var user = patchedEntity.Entity;
+            var changedProperties = patchedEntity.ChangedProperties;
+            var changedPropClone = patchedEntity.ChangedProperties.ToHashSet(StringComparer.OrdinalIgnoreCase);
+            if (changedProperties.Contains(nameof(User.Username), StringComparer.OrdinalIgnoreCase)
+             && !existingUser.Username.Equals(user.Username, StringComparison.OrdinalIgnoreCase))
+                _DuplicateUsernameDetector.Detect(new[] { user.Username }, true);
+
+            existingUser.ConcreteCopy(user as User, changedPropClone);
+
+            if (string.IsNullOrWhiteSpace(user.Password) && user.IsHashed)
+                throw new InvalidUserDataException("The password cannot be blank if IsHashed is set to true.");
+
+            _PasswordManager.SetOrHashPassword(user, changedPropClone.Contains(nameof(user.Password)) || changedPropClone.Contains(nameof(User.IsHashed)));
+            if (existingUser.Password != user.Password && !changedPropClone.Contains(nameof(user.Password)))
+                changedPropClone.Add(nameof(user.Password));
+            if (existingUser.Salt != user.Salt && !changedPropClone.Contains(nameof(user.Salt)))
+                changedPropClone.Add(nameof(user.Salt));
+            patchedEntity.ChangedProperties = changedPropClone;
+            return _ServiceHandlerProvider.UpdateHandler.Update(id, patchedEntity);
         }
     }
 }

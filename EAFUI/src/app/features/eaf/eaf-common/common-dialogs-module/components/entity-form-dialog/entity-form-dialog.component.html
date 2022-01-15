@@ -1,0 +1,7 @@
+<div fxFlex fxFlexOffset="1" fxLayout="column">
+    <h1>{{title | spacetitle}}</h1>
+  
+    <div *ngIf="entityConfig.length > 0">
+      <app-entity-form [fields]="entityConfig" (submit)="submit($event)"></app-entity-form>
+    </div>
+  </div>

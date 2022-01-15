@@ -2,7 +2,7 @@
 
 namespace Rhyous.WebFramework.Interfaces
 {
-public interface $IEntity$ : IBaseEntity<int>, IName, IDescription, IAuditable
+public interface $IEntity$ : IAuditableEntity<int>, IName, IDescription, IAuditable
 {
 }
 }

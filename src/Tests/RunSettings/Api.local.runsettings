@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This is for running locally against a locally running debug instance. It is not used in the pipeline.-->
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>2</MaxCpuCount>
+    <TargetPlatform>x64</TargetPlatform>
+  </RunConfiguration>
+  <TestRunParameters>
+    <Parameter name="Host" value="https://localhost:44317"/>
+    <Parameter name="EntityAdminToken" value="OGJiYjAzYjdlNWY1ZTE4ODZiMWNhMTJhNDA0NGI4OTlkNWYzOWY1MTlmZDNkZjVhZTVhMTM4OGU5NGFkMzRjOQ==" />
+    <Parameter name="EntityWebHost" value="https://localhost:44355/" />
+    <Parameter name="EntitySubpath" value="" />
+    <Parameter name="EntitlementServicesUrl" value="https://localhost:44381/" />
+    <Parameter name="EntitlementServicesSubPath" value="" />
+  </TestRunParameters>
+</RunSettings>

@@ -1,0 +1,8 @@
+<div fxFlex fxLayout="column" class="admin-form">
+    <div fxLayout="row">
+      <h1>Multi Update<mat-icon matTooltip="Update the selected items with the following information">help_outline</mat-icon></h1>
+    </div>
+  <div *ngIf="entityConfig && entityConfig.length > 0">
+    <app-entity-form [fields]="entityConfig" (submit)="submit($event)" ></app-entity-form>
+  </div>  
+</div>

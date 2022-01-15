@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.Services.RelatedEntities</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.RelatedEntities</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.All.Import.csproj" />
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common.Tests\Interfaces.Common.Tests.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\Services.Metadata\Services.Metadata.csproj" />
+  </ItemGroup>
+
+</Project>

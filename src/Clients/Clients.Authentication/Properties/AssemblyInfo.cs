@@ -1,0 +1,2 @@
+﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Rhyous.EntityAnywhere.Clients.Authentication.Tests")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DynamicProxyGenAssembly2")]

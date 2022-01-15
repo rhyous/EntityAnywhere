@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  webservices.webapi:
+    image: ${DOCKER_REGISTRY-}webserviceswebapi
+    build:
+      context: .
+      dockerfile: WebServices/WebServices.WebApi/Dockerfile

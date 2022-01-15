@@ -1,0 +1,6 @@
+<div fxLayout="row">
+    <div [formGroup]="group" [fxFlex]="field.flex" fxLayoutAlign="end center">
+      <button id="{{field.entity}}_{{field.label}}" type="submit" mat-raised-button color="primary" [disabled]="!group.valid">{{field.label}}</button>
+    </div>
+  </div>
+  

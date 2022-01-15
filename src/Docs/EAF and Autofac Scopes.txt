@@ -1,0 +1,111 @@
+# EAF and Autofac Scopes
+It is important to understand Autofac registration scopes:
+
+EAF has quite a few scopes that you should know about
+
+ 1. RootContainer (IContainer)
+    The root scope
+ 2. WCFScope (ILifetimeScope)
+    All WebService plugins and their 
+ 3. Inner Builder Scope
+    Used to load some general tools so that WebService plugins can be loaded and registered withint the WCFScope
+ 4. PerCall scope.
+    A new scope will be created for each web service call.
+    Items like IUrlParameters, IHeaders, and other per call objects are registered just-in-time before instantiating the web service
+ 5. SimplePluginLoader scope
+    Just before loading a plugin, a scope is created and a plugins module is registered just-in-time before instantiating the plugin
+
+## WcfPerInstanceContextModule
+This is scoped to per call already.
+Everything in this should be SingleInstance(), otherwise, nested scopes, such as a nest PluginLoader LifetimeScope, would create a new instance instead of use the same instance for this call.
+
+
+## Web Service - Plugin Registrar and Module
+When registering a dependency in a web service module, it is important to set the correct life time. The options are:
+
+1. Per request (nothing added to regtration)
+   Every object that takes in ISomething through Autofac dependency injection will get a new instance of ISomething.
+   If you have n web services calls and m classes request this be injected in, you will n*m instances of this object instantiated, which is Big O(n*m).
+   It is pretty rare that you would use this.
+```
+    builder.RegisterType<Something>()
+           .As<ISomething>();
+```
+2. SingleInstance 
+   Because the web service's module is registered with the WCFScope, this means that the first one of these created will be used by all calls to any and all web services.
+   If you have a module where nothing is per-call dependent, use this.
+   Be aware, it will also be available to all calls to all web services.
+   If you have n web services calls and m classes request this be injected in, you will 1 instances of this object instantiated, i.e. Big O(1).
+```
+   builder.RegisterType<Something>()
+          .As<ISomething>()
+          .SingleInstance();
+```
+3. InstancePerLifetimeScope
+   Because each web service call has it's own lifetime scope, if you want one and only one instance per call,
+   then you would use this setting.
+   
+   If you have n web services calls and m classes request this be injected in, you will n instances of this, or per call, which is Big O(n).
+```
+
+   builder.RegisterType<Something>()
+          .As<ISomething>()
+          .InstancePerLifetimeScope();
+```
+
+### Unit Testing the Plugin Registrar and Module
+It is important to tests the scopes as they will be in EAF.
+
+In the unit test, you should create the three scopes:
+ 1. Root Container - Mock upstream registrations here
+ 2. WcfScope - Call Web Service's Registrar here
+ 3. Per Call scope - Use in the unit tests
+
+```
+    [TestClass]
+    public class MyCustomWebServiceModuleTests
+    {
+        private MockRepository _MockRepository;
+        private Mock<IHeaders> _MockHeaders;
+        private Mock<ILogger> _MockLogger;
+
+        private ILifetimeScope _PerCallScope;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _MockRepository = new MockRepository(MockBehavior.Strict);
+
+            _MockHeaders = _MockRepository.Create<IHeaders>();
+            _MockLogger = _MockRepository.Create<ILogger>();
+
+            var rootBuilder = new ContainerBuilder();
+            // Register any mocked upstream items in root scope here, if any
+            rootBuilder.RegisterInstance(_MockLogger.Object).As<ILogger>();
+            var rootContainer = rootBuilder.Build();
+
+            var wcfScope = rootContainer.BeginLifetimeScope((wcfBuilder) =>
+            {
+                // Register any mocked upstream items in WcfScope here, if any
+
+                // Register web service plugin Registrar
+                var registrar = new Registrar();
+                registrar.Register(wcfBuilder);
+            });
+
+            _PerCallScope = wcfScope.BeginLifetimeScope((b) => 
+            {
+                // Register per call dependencies here, if any
+                b.Register(ctx => _MockHeaders.Object)
+                 .As<IHeaders>()
+                 .SingleInstance();
+            });
+        }
+
+        [TestMethod]
+        public void MyCustomWebServiceModule_ISomeDependency_Registered()
+        {
+            Assert.IsNotNull(_PerCallScope.Resolve<ISomeDependency>());
+        }
+    }
+```

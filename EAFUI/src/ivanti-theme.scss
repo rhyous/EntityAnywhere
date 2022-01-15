@@ -1,0 +1,123 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ILS-Portal-primary: mat-palette($mat-indigo);
+$ILS-Portal-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ILS-Portal-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$ILS-Portal-theme: mat-light-theme($ILS-Portal-primary, $ILS-Portal-accent, $ILS-Portal-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ILS-Portal-theme);
+
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$mat-ivantired: (
+  50 : #fbe5e4,
+  100 : #f4bfbb,
+  200 : #ed948e,
+  300 : #e56960,
+  400 : #e0493e,
+  500 : #da291c,
+  600 : #d62419,
+  700 : #d01f14,
+  800 : #cb1911,
+  900 : #c20f09,
+  A100 : #ffeded,
+  A200 : #ffbbba,
+  A400 : #ff8987,
+  A700 : #ff706e,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$mat-ivantigrey: (
+  50 : #c0fdf8,
+  100 : #6df9ed,
+  200 : #66c1cc,
+  300 : #5e969e,
+  400 : #59767c,
+  500 : #53565A,
+  600 : #4d5155,
+  700 : #474c50,
+  800 : #42464d,
+  900 : #393c45,
+  A100 : #9D968D,
+  A200 : #53565A,
+  A400 : #393c45,
+  A700 : #2a2d31,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$ivanti-app-primary: mat-palette($mat-ivantired);
+$ivanti-app-accent:  mat-palette($mat-ivantired, A200, A100, A400);
+
+
+// The warn palette is optional (defaults to red).
+$ivanti-app-warn:    mat-palette($mat-ivantigrey);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$ivanti-app-theme: mat-light-theme($ivanti-app-primary, $ivanti-app-accent, $ivanti-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ivanti-app-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

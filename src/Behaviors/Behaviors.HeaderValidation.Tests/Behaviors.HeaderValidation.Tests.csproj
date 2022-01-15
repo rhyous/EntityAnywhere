@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.Behaviors.HeaderValidation.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Behaviors.HeaderValidation.Tests</AssemblyName>
+    <UserSecretsId>72823255-39f4-470d-89aa-fec4cffe8437</UserSecretsId>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.StringLibrary.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Authenticators\HeaderValidators.Token\HeaderValidators.Token.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Wcf\Attributes.Wcf.csproj" />
+    <ProjectReference Include="..\..\Misc\Rhyous.Wrappers\Rhyous.Wrappers.Wcf.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj" />
+    <ProjectReference Include="..\..\WebServices\WebServices.Common\WebServices.Common.csproj" />
+    <ProjectReference Include="..\Behaviors.HeaderValidation\Behaviors.HeaderValidation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="Rhyous.Collections" Version="1.2.3" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Data\Data.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\IsAllowedUrlData.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\IsAnonymousData.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

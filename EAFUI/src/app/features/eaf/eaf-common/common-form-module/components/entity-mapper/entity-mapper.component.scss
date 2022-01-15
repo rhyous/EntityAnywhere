@@ -1,0 +1,56 @@
+.body {
+    margin-top:20px;
+  }
+  
+  .button-spacer {
+    margin-left: 20px;
+  }
+  
+  .mat-column-Id {
+    flex: 0 0 40px;
+  }
+  
+  .mat-column-Name {
+    flex: 0 0 100;
+  }
+  
+  .mat-column-Version {
+    flex: 0 0 60px;
+    display:flex;
+    text-align: right;
+    padding-right: 5px;
+  }
+  
+  .mat-column-Type {
+    flex: 0 0 80px;
+  }
+  
+  .mat-column-select {
+    flex: 0 0 40px;
+    align-content: center;
+  }
+  
+  .loader-overlay {
+    height: 3px;
+    position: fixed;
+    width:100%;
+    top:0;
+    left: 0;
+    opacity: 1;
+    z-index: 500000;
+  }
+  
+  mat-row {
+    cursor: pointer;
+  }
+  
+  mat-row:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .mat-form-field {
+    width: 100% !important;
+  }
+  
+  
+  

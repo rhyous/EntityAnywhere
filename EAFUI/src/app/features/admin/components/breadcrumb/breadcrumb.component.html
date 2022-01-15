@@ -1,0 +1,8 @@
+<ng-container *ngIf="urlParts.length > 1">
+    <div class="flex-row">
+        <ng-container *ngFor="let part of urlParts; let i = index">
+            <a [routerLink]="[part.url]">{{part.label | removeHyphens | splitPascalCase | titlecase}}</a> 
+            <mat-icon *ngIf="i !== urlParts.length - 1">chevron_right</mat-icon>
+        </ng-container>
+    </div>
+</ng-container>

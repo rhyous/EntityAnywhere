@@ -13,7 +13,6 @@
   </TemplateData>
   <TemplateContent>
     <Project File="Entity.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$.cs</ProjectItem>
     </Project>
     <CustomParameters>

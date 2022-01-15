@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Jared Barneck (Rhyous)",
+  "classifications": [ "EntityAnywhere", "Library" ],
+  "identity": "Rhyous.EntityAnywhere.Entity",
+  "name": "Rhyous.EntityAnywhere.Entity",
+  "shortName": "entity",
+  "preferNameDirectory": true,
+  "tags": {
+    "type": "project",
+    "language": "C#"
+  },
+  "sourceName": "Entity1",
+  "defaultName": "Entities.Entity"
+}

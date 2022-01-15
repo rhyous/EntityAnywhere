@@ -1,4 +1,4 @@
-﻿namespace Rhyous.WebFramework.Interfaces
+﻿namespace Rhyous.EntityAnywhere.Interfaces
 {
     /// <summary>
     /// An interface that helps provide a standard Name property for Entities.

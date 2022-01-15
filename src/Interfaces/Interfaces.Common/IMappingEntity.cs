@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhyous.WebFramework.Interfaces
+namespace Rhyous.EntityAnywhere.Interfaces
 {
     /// <summary>
     /// An interface that all mapping entities must use.

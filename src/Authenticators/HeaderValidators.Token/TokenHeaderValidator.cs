@@ -1,11 +1,11 @@
-﻿using Rhyous.WebFramework.Clients;
-using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.Collections;
+using Rhyous.EntityAnywhere.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
+using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.HeaderValidators
+namespace Rhyous.EntityAnywhere.HeaderValidators
 {
     /// <summary>
     /// This is the primary token validator used by Entity Anywhere framework. It uses the Token entity to maintain logged in state.
@@ -14,49 +14,81 @@ namespace Rhyous.WebFramework.HeaderValidators
     /// </summary>
     public class TokenHeaderValidator : IHeaderValidator
     {
-        /// <inheritdoc />
-        public long UserId { get; set; }
-
         internal static long OneWeekInSeconds = 604800L;
 
-        internal static TokenCache Cache = new TokenCache();
+        private readonly ITokenDecoder _TokenDecoder;
+        private readonly IAppSettings _AppSettings;
+        private readonly IEntityNameProvider _EntityNameProvider;
+        private readonly IEntityPermissionChecker _EntityPermissionChecker;
+        private readonly IHeadersUpdater _HeadersUpdater;
+        private readonly ICustomCustomerRoleAuthorization _CustomCustomerRoleAuthorization;
+
+        public TokenHeaderValidator(ITokenDecoder tokenDecoder,
+                                    IAppSettings appSettings,
+                                    IEntityNameProvider entityNameProvider,
+                                    IEntityPermissionChecker entityPermissionChecker,
+                                    IHeadersUpdater headersUpdater,
+                                    ICustomCustomerRoleAuthorization customCustomerRoleAuthorization)
+        {
+            _TokenDecoder = tokenDecoder;
+            _AppSettings = appSettings;
+            _EntityNameProvider = entityNameProvider;
+            _EntityPermissionChecker = entityPermissionChecker;
+            _HeadersUpdater = headersUpdater;
+            _CustomCustomerRoleAuthorization = customCustomerRoleAuthorization;
+        }
 
         /// <summary>
         /// Time to live of the token in seconds.
         /// Default token TimeToLive value: 1 week
         /// </summary>
-        internal static long TimeToLive { get { return ConfigurationManager.AppSettings.Get("TokenTimeToLive", OneWeekInSeconds); } }
+        internal long TimeToLive { get { return _AppSettings.Collection.Get("TokenTimeToLive", OneWeekInSeconds); } }
+
+        public long UserId { get; set; }
+
+        public IList<string> Headers => new List<string> { "Token" };
 
         /// <inheritdoc />
-        public bool IsValid(NameValueCollection headers)
+        public Task<bool> IsValidAsync(NameValueCollection headers)
         {
             var tokenText = headers["Token"];
             if (string.IsNullOrWhiteSpace(tokenText))
+                return Task.FromResult(false);
+
+            var token = _TokenDecoder.Decode(tokenText);
+            if (token == null || string.IsNullOrWhiteSpace(token.Text))
+                return Task.FromResult(false);
+
+            UserId = token.CredentialEntityId;
+            return Task.FromResult(!IsExpired(token) && IsTokenVerified(token, headers));
+        }
+
+        internal bool IsTokenVerified(IToken token, NameValueCollection headers)
+        {
+            if (token is null || headers is null)
                 return false;
-            Token token;
-            if (!Cache.TryGetValue(tokenText, out token))            
-            {
-                token = TaskRunner.RunSynchonously(TokenService.GetAsync, tokenText)?.Object;
-                if (token == null || IsExpired(token))
-                    return false;
-                Cache.Add(tokenText, token);
-            }
-            UserId = token.UserId;
-            return true;
+
+            if (token.RoleId == WellknownUserRoleIds.Admin)
+                return true;
+
+            var absolutePath = headers.Get("AbsolutePath");
+            if (string.IsNullOrWhiteSpace(absolutePath))
+                return false;
+
+            // Add values to the header so the service has it if needed
+            _HeadersUpdater.Update(token, headers);
+
+            var entityName = _EntityNameProvider.Provide(absolutePath);
+            var sapId = token.GetClaimValue("Organization", "SapId");
+
+            return _EntityPermissionChecker.HasPermission(token.RoleId, entityName) // Role-based Authorization - from configuration
+                || _CustomCustomerRoleAuthorization.IsAuthorized(headers, token.RoleId); // Temporary URL security for the customer roles, until we get authorization via roles, then we can remove this
         }
 
         /// <inheritdoc />
         internal bool IsExpired(IToken token)
         {
-            return token.CreateDate.AddSeconds(TimeToLive) < DateTime.Now;
+            return token.CreateDate.AddSeconds(TimeToLive) < DateTimeOffset.Now;
         }
-
-        #region Injectable
-        internal EntityClientAsync<Token, long> TokenService
-        {
-            get { return _TokenService ?? (_TokenService = new EntityClientAdminAsync<Token, long>(true)); }
-            set { _TokenService = value; }
-        } private EntityClientAsync<Token, long> _TokenService;
-        #endregion
     }
 }

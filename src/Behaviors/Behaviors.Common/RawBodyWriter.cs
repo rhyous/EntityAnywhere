@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel.Channels;
 using System.Xml;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class RawBodyWriter : BodyWriter
     {

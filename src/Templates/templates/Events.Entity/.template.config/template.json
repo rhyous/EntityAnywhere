@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Jared Barneck (Rhyous)",
+  "classifications": [ "EntityAnywhere", "Library" ],
+  "identity": "Rhyous.EntityAnywhere.EntityEvent",
+  "name": "Rhyous.EntityAnywhere.EntityEvent",
+  "shortName": "entityev",
+  "preferNameDirectory": true,
+  "tags": {
+    "type": "project",
+    "language": "C#"
+  },
+  "sourceName": "Entity1",
+  "defaultName": "Events.Entity"
+}

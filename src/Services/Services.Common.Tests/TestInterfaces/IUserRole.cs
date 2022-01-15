@@ -1,6 +1,6 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.EntityAnywhere.Interfaces;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
-    public interface IUserRole : IEntity<int>, IName { }
+    public interface IUserRole : IBaseEntity<int>, IName { }
 }

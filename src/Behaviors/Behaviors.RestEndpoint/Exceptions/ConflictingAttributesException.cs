@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class ConflictingAttributesException : Exception
     {

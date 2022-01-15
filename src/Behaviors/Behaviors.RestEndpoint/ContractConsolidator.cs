@@ -1,9 +1,9 @@
-﻿using Rhyous.WebFramework.Attributes;
+﻿using Rhyous.EntityAnywhere.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Description;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     internal class ContractConsolidator
     {

@@ -1,4 +1,4 @@
-﻿namespace Rhyous.WebFramework.Behaviors
+﻿namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class ErrorHandlerBehaviorExtension : BehaviorExtensionBase<ErrorHandlerServiceBehavior>
     {

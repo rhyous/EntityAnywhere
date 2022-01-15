@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Rhyous.WebFramework.WebServices.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Rhyous.EntityAnywhere.WebServices.Global" Language="C#" %>

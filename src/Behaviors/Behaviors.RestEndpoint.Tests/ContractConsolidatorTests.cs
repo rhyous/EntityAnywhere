@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Behaviors;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;

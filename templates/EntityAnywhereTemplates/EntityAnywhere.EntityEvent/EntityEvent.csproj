@@ -1,72 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>8.0.30703</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>$guid1$</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>$targetframeworkversion$</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
     <RootNamespace>Rhyous.WebFramework.Events</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.$safeprojectname$</AssemblyName>
-		<TargetFrameworkVersion>v$targetframeworkversion$</TargetFrameworkVersion>
-		<FileAlignment>512</FileAlignment>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
- 		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="System"/>
-		$if$ ($targetframeworkversion$ >= 3.5)
-		<Reference Include="System.Core"/>
-		<Reference Include="System.Xml.Linq"/>
-		<Reference Include="System.Data.DataSetExtensions"/>
-		$endif$
-		$if$ ($targetframeworkversion$ >= 4.0)
-		<Reference Include="Microsoft.CSharp"/>
- 		$endif$
-		<Reference Include="System.Data"/>
-		<Reference Include="System.Xml"/>
-	</ItemGroup>
-	<ItemGroup>
-    <Compile Include="$Entity$Event.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-	</ItemGroup>
+    <AssemblyName>Rhyous.WebFramework.Events.Entity</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Events\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;   IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;)&#xD;&#xA;FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;   IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;)" />
+  </Target>
   <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Entity\Interfaces.$Entity$.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Entities\Entities.Entity\Entities.$Entity$.csproj">
+      <Private>false</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
+      <Private>false</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.$Entity$\Entities.$Entity$.csproj">
-      <Name>Interfaces.$Entity$</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.$Entity$\Interfaces.$Entity$.csproj">
-      <Name>Interfaces.$Entity$</Name>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj">
+      <Private>false</Private>
     </ProjectReference>
   </ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-
- </Project>
+</Project>

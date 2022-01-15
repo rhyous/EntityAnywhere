@@ -1,0 +1,28 @@
+.mat-column-Id {
+    flex: 0 0 40px;
+    margin-right: 10px;
+  }
+  
+  .mat-column-Entity {
+    flex: 0 0 100;
+  }
+  
+  .mat-column-EntityId {
+    flex: 0 0 60px;
+    display:flex;
+    text-align: right;
+    padding-right: 5px;
+  }
+  
+  .mat-column-Property {
+    flex: 0 0 80px;
+  }
+  
+  mat-row {
+    cursor: pointer;
+  }
+  
+  mat-row:hover {
+    background-color: #f0f0f0;
+  }
+  

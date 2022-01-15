@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhyous.WebFramework.Attributes
+namespace Rhyous.EntityAnywhere.Attributes
 {
     /// <summary>
     /// The PluralName attribute. 
@@ -11,6 +11,10 @@ namespace Rhyous.WebFramework.Attributes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class PluralNameAttribute : Attribute
     {
+        /// <summary>
+        /// Enter the custom plural name in this contructor.
+        /// </summary>
+        /// <param name="pluralName">The custom plural name.</param>
         public PluralNameAttribute(string pluralName)
         {
             PluralName = pluralName;
@@ -18,10 +22,9 @@ namespace Rhyous.WebFramework.Attributes
 
         /// <summary>
         /// The plural name of the Entity.
-        /// Examples: 
-        /// Addenda (plural of Addendum)
-        /// Fungi (plural of Fungus)
         /// </summary>
+        /// <example>Addenda (plural of Addendum)
+        /// Fungi (plural of Fungus)</example>
         public string PluralName
         {
             get { return _PluralName; }

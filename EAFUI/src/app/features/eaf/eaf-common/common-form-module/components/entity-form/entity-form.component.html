@@ -1,0 +1,15 @@
+<form class="entity-form" [formGroup]="form">
+    <ng-container *ngFor="let field of fields;" appEntityField [field]="field" [group]="form">
+    </ng-container>
+  
+    <div fxLayout="row">
+        <div [fxFlex]="15" fxLayoutAlign="start" *ngIf="this.canClone">
+          <button id="clone" type="button" mat-raised-button color="primary" [disabled]="!this.canClone" (click)="cloneRecord()">Clone</button>
+        </div>
+        <div [fxFlex]="15" fxLayoutAlign="end center" *ngIf="this.canSave">
+          <button id="add" type="submit" mat-raised-button color="primary" [disabled]="!this.form.valid" (click)="onSubmit($event)">{{this.addLabel}}</button>
+        </div>
+    </div>
+  </form>
+
+ 

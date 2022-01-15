@@ -1,0 +1,60 @@
+<mat-progress-bar *ngIf="showProgressBar" color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+<div fxLayout="column" class="admin-form">
+  <div fxLayout="row">
+    <button id="returnToMenu" mat-button color="basic" (click)="returnToMenu()"><mat-icon>arrow_back</mat-icon></button>
+    <h1 fxFlexOffset="10px">{{entityName | pluralize | spacetitle}}</h1>
+  </div>
+  <div [hidden]="!displayTable" fxLayout="column">
+    <!-- Table -->
+    <div fxLayout="row" style="overflow-x: scroll;">
+    <mat-table id="entity-list-table" 
+      #table 
+      [dataSource]="dataSource" 
+      fxFlex="99" 
+      fxFlexOffset="10px" 
+      matSort 
+      [formGroup]="entityFilters">
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index" (click)="$event.stopPropagation()">
+          <mat-checkbox id="entity-list-table-row_{{i}}_select" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row.Id) : null" [checked]="selection.isSelected(row.Id)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let prop of entityProperties" [matColumnDef]="prop.name">
+        <mat-header-cell  mat-sort-header *matHeaderCellDef >
+          <div class="table-column-container">
+            <p style="text-align: center;" [className]="prop.searchable? '' : 'not-searchable'">{{ prop.name | spacetitle }}</p>
+            <ng-container *ngIf="entityFilters !== null && prop.searchable" [formGroupName]="prop.name">
+              <input id="filter_{{prop.name}}" matInput type="text" placeholder="Filter {{prop.name | spacetitle}}" formControlName="filter" (click)="$event.stopPropagation()">
+              <mat-checkbox id="exact-match_{{prop.name}}" formControlName="exactMatch" labelPosition="before" (click)="$event.stopPropagation()">Exact Match</mat-checkbox>
+            </ng-container>
+          </div>
+        </mat-header-cell>
+        <mat-cell id="entity-list-table-row_{{i}}_{{prop.name}}" *matCellDef="let row; let i = index">{{ formatCell(row[prop.name]) }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick(row)"></mat-row>
+    </mat-table>
+  </div>
+
+    <!-- No data message -->
+    <div id="no-entities-found-container" [style.display]="dataSource.data.length === 0 ? '' : 'none'">
+      No {{entityName | pluralize | spacetitle}} found.
+    </div>
+
+    <!-- Pagingator -->
+    <mat-paginator #paginator [length]="count" [pageIndex]="filterSettings.PageIndex" [pageSize]="filterSettings.PageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"></mat-paginator>
+
+    <!-- Buttons -->
+    <div fxLayout="row">
+      <div fxLayoutAlign="end center" fxFlex="93">
+        <div><button id="entity-list-add" mat-fab color="primary" style="position:fixed; bottom:5%;" (click)="createNew()"><mat-icon>add</mat-icon></button></div>
+        <div><button id="entity-list-delete" mat-fab color="warn" style="position:fixed; bottom:5%; margin-left:-70px" *ngIf="selection.selected.length > 0" (click)="deleteEntities()"><mat-icon>delete_forever</mat-icon></button></div>
+        <div *ngIf="enableBulkEditFeature"><button id="entity-list-batch-update" mat-fab color="warn" style="position:fixed; bottom:5%; margin-left:-140px" *ngIf="selection.selected.length > 1" (click)="multiUpdate()" matTooltip="Update the selected {{entityNamePlural | spacetitle}}"><mat-icon>edit</mat-icon></button></div>
+      </div>
+    </div>
+  </div>
+</div>

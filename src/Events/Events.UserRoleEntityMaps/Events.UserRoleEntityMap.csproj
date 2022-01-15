@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Ivanti Licensing Team</Authors>
+    <Company>Ivanti</Company>
+    <RootNamespace>Rhyous.WebFramework.Events</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Events.UserRoleEntityMap</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Events\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25" />
+  </Target>
+</Project>

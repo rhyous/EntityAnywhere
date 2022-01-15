@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Rhyous.WebFramework.Services.Security</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Services.Security</AssemblyName>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\SharedBin&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.Collections" Version="1.2.3" />
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+</Project>

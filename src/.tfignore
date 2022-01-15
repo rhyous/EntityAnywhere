@@ -17,3 +17,7 @@ dev.config
 !\Entities\Entities.User\Properties\*.*
 !\Services\Services.User\*.*
 !\Services\Services.User\Properties\*.*
+Microsoft.Bcl.Build.targets
+\packages
+\WebServices\WebServices.Main\SharedBin
+*.ps1

@@ -1,118 +1,42 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7AA1310C-871F-429D-982C-1575508C69C1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.WebServices.Authentication</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Rhyous.EntityAnywhere.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.WebServices.Authentication</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>WebServices.Authentication</AssemblyTitle>
+    <Product>WebServices.Authentication</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM These dlls need to go to SharedBin&#xD;&#xA;SET dllDir=&quot;$(SolutionDir)WebServices\WebServices.Main\SharedBin&quot;&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;&#xD;&#xA;COPY /Y &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.pdb&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.JsonWebTokens.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.Logging.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.Tokens.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)System.IdentityModel.Tokens.Jwt.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)System.Security.AccessControl.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)System.Security.Permissions.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)System.Security.Principal.Windows.dll&quot; %25dllDir%25&#xD;&#xA;" />
+  </Target>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationWebService.cs" />
-    <Compile Include="IAuthenticationWebService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\..\..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj" />
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\..\Misc\Attributes.Wcf\Attributes.Wcf.csproj" />
+    <ProjectReference Include="..\..\..\Services\Services.Authentication\Services.Authentication.csproj" />
+    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj" />
+    <ProjectReference Include="..\..\WebServices.Wcf\WebServices.Wcf.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Entities\Entities.Token\Entities.Token.csproj">
-      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
-      <Name>Entities.Token</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
-      <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
-      <Name>Interfaces.Authentication</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
-      <Project>{50CB75A3-E903-40A9-BADC-BE6A836FDA90}</Project>
-      <Name>Interfaces.Token</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Misc\Attributes.Common\Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
-      <Name>Attributes.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Services\Services.Authentication\Services.Authentication.csproj">
-      <Project>{4F1824E2-427D-40EF-960C-4286203275DD}</Project>
-      <Name>Services.Authentication</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WebServices.Common\WebServices.Common.csproj">
-      <Project>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</Project>
-      <Name>WebServices.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>SET proj=$(ProjectName)
-SET entity=%25proj:*.=%25
-ECHO entity = %25entity%25
-SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\%25entity%25"
-ECHO %25copyToDir%25
-IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
-
-REM Uncomment this to copy additional dll dependencies
-SET dllDir="%25copyToDir%25\bin"
-ECHO %25dllDir%25
-IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-FOR %25%25X in ("$(Targetdir)*.dll") DO (
-   IF NOT "%25%25X"=="$(TargetPath)" COPY /Y "%25%25X" %25dllDir%25
-)
-FOR %25%25X in ("$(Targetdir)*.pdb") DO (
-   IF NOT "%25%25X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%25%25X" %25dllDir%25
-)</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

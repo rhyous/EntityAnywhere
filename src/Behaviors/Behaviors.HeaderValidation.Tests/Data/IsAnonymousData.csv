@@ -1,0 +1,13 @@
+﻿Path, Expected
+/EntitlementServices/LicensedDeviceService.svc/GetDeactivationReasons, true
+/ProductGroupMembershipService.svc/ProductGroupMemberships, true
+/ProductGroupService.svc/ProductGroups, true
+/ProductService.svc/Products, true
+/SingleSignOnService.svc/ValidateToken, true
+/EntitledProductService.svc/EntitledProducts/ByOrganization, false
+/EntitledProductService.svc/EntitledProducts/ByOrder, false
+/EntitlementServices/LicensedDeviceService.svc/help, true
+/EntitlementServices/LicensedDeviceService.svc, true
+/EntitledProductService.svc/EntitledProducts/ByOrderTestFalse, false
+/EntitlementServices/LicensedDeviceService.exe, false
+/EntitlementServices/LicensedDeviceService.svc/helpmetest, true

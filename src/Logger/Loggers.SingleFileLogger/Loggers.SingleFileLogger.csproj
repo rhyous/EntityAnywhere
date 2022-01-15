@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>Loggers.SingleFileLogger</AssemblyTitle>
+    <Product>Loggers.SingleFileLogger</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Loggers\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;FOR %25%25X in (&quot;$(Targetdir)log4net.dll&quot;) DO (&#xD;&#xA;   IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;)&#xD;&#xA;" />
+  </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

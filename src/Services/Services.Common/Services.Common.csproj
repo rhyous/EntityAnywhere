@@ -1,156 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1563AA30-4399-4E19-A661-02072E245F66}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Services.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Rhyous.EntityAnywhere.Services</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Common</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Rhyous.EntityAnywhere.Services.Common</AssemblyTitle>
+    <Product>Rhyous.EntityAnywhere.Services.Common</Product>
+    <Copyright>Copyright © Rhyous Publishing LLC 2017</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.All.Import.csproj" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Services\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment to copy a dependency&#xD;&#xA;REM SET dllDir=%25copyToDir%25\bin&#xD;&#xA;REM ECHO %25dllDir%25&#xD;&#xA;REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)Dependency.dll&quot; %25dllDir%25&#xD;&#xA;" />
+  </Target>
   <ItemGroup>
-    <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.Odata.Expand, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Expand.1.0.5\lib\net461\Rhyous.Odata.Expand.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.Odata.Filter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Filter.1.0.4\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.StringLibrary, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Entity\Entities.Entity.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\AssemblyDictionary.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\AssemblyDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\AssemblyLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\AssemblyLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Exceptions\PluginTypeLoadException.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Exceptions\PluginTypeLoadException.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Extensions\AppDomainExtensions.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Extensions\AppDomainExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Extensions\TypeExtensions.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Extensions\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\InstancesLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\InstancesLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IAssemblyDictionary.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IAssemblyDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IAssemblyLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IAssemblyLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\ILoadInstancesOfType.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\ILoadInstancesOfType.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\ILoadPlugins.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\ILoadPlugins.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IPluginDependencyResolver.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IPluginDependencyResolver.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IPluginFinder.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Interfaces\IPluginFinder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Plugin.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\Plugin.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginCollection.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginDependencyResolver.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginDependencyResolver.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginFinder.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginFinder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginLoader.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\..\packages\Rhyous.SimplePluginLoader.Sources.1.2.4\src\App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginPaths.cs">
-      <Link>App_Packages\Rhyous.SimplePluginLoader.Sources.1.2.4\PluginPaths.cs</Link>
-    </Compile>
-    <Compile Include="Business\CryptoRandomString.cs" />
-    <Compile Include="Business\EntityRepositoryLoader.cs" />
-    <Compile Include="Business\EntityRepositoryLoaderCommon.cs" />
-    <Compile Include="Business\Hash.cs" />
-    <Compile Include="Business\IPluginLoader.cs" />
-    <Compile Include="Business\RelatedEntityOneToMany.cs" />
-    <Compile Include="Business\RelatedEntityManyToMany.cs" />
-    <Compile Include="Business\RelatedEntityManyToOne.cs" />
-    <Compile Include="Business\RelatedEntityExtensions.cs" />
-    <Compile Include="Business\PluginLoaderBase.cs" />
-    <Compile Include="Business\RelatedEntityManagerAsync.cs" />
-    <Compile Include="Business\RepositoryLoader.cs" />
-    <Compile Include="Extensions\QueryableExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Extensions\ValueAccessorExtensions.cs" />
-    <Compile Include="Interfaces\IGetRelatedEntities.cs" />
-    <Compile Include="Interfaces\IGetRelatedEntitiesAsync.cs" />
-    <Compile Include="Interfaces\IServiceCommon.cs" />
-    <Compile Include="Interfaces\IServiceCommonAlternateKey.cs" />
-    <Compile Include="ServiceCommon.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceCommonAlternateKey.cs" />
+    <PackageReference Include="LinqKit.Core" Version="1.1.17" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
-      <Project>{0F2DABD2-F7D9-4CF6-A488-06AAB3B4C585}</Project>
-      <Name>Clients.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

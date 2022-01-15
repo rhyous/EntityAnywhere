@@ -1,91 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2A745C3A-17EF-4E35-97DF-3A970D9E7D65}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.Repositories</RootNamespace>
     <AssemblyName>Rhyous.WebFramework.Repositories.Country</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>Repositories.Country</AssemblyTitle>
+    <Product>Repositories.Country</Product>
+    <Copyright>Copyright © Rhyous Publishing LLC 2017</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Repositories\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;" />
+</Target>
+  <Import Project="..\..\Imports\netstandard\Rhyous.StringLibrary.Import.csproj" />
   <ItemGroup>
-    <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\..\Entities\Entities.Country\Entities.Country.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Country\Interfaces.Country.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CountryRepository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Entities\Entities.Country\Entities.Country.csproj">
-      <Project>{12c4040d-03ba-42ea-9c55-58b5da02ca3e}</Project>
-      <Name>Entities.Country</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Country\Interfaces.Country.csproj">
-      <Project>{7f4dbda0-a6c0-400b-9ca9-df272848e51a}</Project>
-      <Name>Interfaces.Country</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>SET proj=$(ProjectName)
-SET entity=%25proj:*.=%25
-ECHO entity = %25entity%25
-SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Repositories\%25entity%25"
-ECHO %25copyToDir%25
-IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
-
-SET dllDir="%25copyToDir%25\bin"
-ECHO %25dllDir%25
-IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-FOR %25%25X in ("$(Targetdir)*.dll") DO (
-   IF NOT "%25%25X"=="$(TargetPath)" COPY /Y "%25%25X" %25dllDir%25
-)
-FOR %25%25X in ("$(Targetdir)*.pdb") DO (
-   IF NOT "%25%25X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%25%25X" %25dllDir%25
-)</PostBuildEvent>
-  </PropertyGroup>
 </Project>

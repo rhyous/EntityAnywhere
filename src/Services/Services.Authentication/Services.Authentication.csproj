@@ -1,128 +1,35 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F1824E2-427D-40EF-960C-4286203275DD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Services</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Services.Authentication</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <RootNamespace>Rhyous.EntityAnywhere.Services</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Authentication</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Services.Authentication</AssemblyTitle>
+    <Product>Services.Authentication</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <FileVersion>1.0.10.0</FileVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Filter.Import.csproj" />
+  <Import Project="..\..\Imports\netstandard\Rhyous.StringLibrary.Import.csproj" />
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Misc\PluginLoaders\PluginLoaders.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\ClaimsBuilderAsync.cs" />
-    <Compile Include="Interfaces\IClaimsBuilderAsync.cs" />
-    <Compile Include="Models\ClaimDomainDictionary.cs" />
-    <Compile Include="Services\AuthenticationService.cs" />
-    <Compile Include="Business\BasicAuth.cs" />
-    <Compile Include="Models\Credentials.cs" />
-    <Compile Include="PluginCredentialsValidator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Business\TokenGenerator.cs" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
+    <PackageReference Include="jose-jwt" Version="2.4.0" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Clients\Clients.Common\Clients.Common.csproj">
-      <Project>{0f2dabd2-f7d9-4cf6-a488-06aab3b4c585}</Project>
-      <Name>Clients.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.ClaimConfiguration\Entities.ClaimConfiguration.csproj">
-      <Project>{02876A74-8A39-4323-9C65-56ED1A458A3F}</Project>
-      <Name>Entities.ClaimConfiguration</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.Token\Entities.Token.csproj">
-      <Project>{43F70F7F-50FC-4080-876C-EAB2825D27D1}</Project>
-      <Name>Entities.Token</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj">
-      <Project>{d8895fc7-868c-4c01-b5cf-66c2f1ba0d60}</Project>
-      <Name>Interfaces.Authentication</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.ClaimConfiguration\Interfaces.ClaimConfiguration.csproj">
-      <Project>{4448973b-0ba9-40ad-8715-9e076f8b252f}</Project>
-      <Name>Interfaces.ClaimConfiguration</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Token\Interfaces.Token.csproj">
-      <Project>{50cb75a3-e903-40a9-badc-be6a836fda90}</Project>
-      <Name>Interfaces.Token</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
-      <Project>{222278D6-81F4-4BE6-973B-6D534DE47E8E}</Project>
-      <Name>Interfaces.User</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj">
-      <Project>{671bdeaf-6c84-40f7-80ea-1735d623cf1e}</Project>
-      <Name>Entities.User</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Services.Common\Services.Common.csproj">
-      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
-      <Name>Services.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -2,7 +2,7 @@
 using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public abstract class BehaviorExtensionBase<T> : BehaviorExtensionElement where T : IServiceBehavior, new()
     {

@@ -1,4 +1,4 @@
-namespace Rhyous.WebFramework.Interfaces
+namespace Rhyous.EntityAnywhere.Interfaces
 {
     /// <summary>
     /// This provides the contract for entities to standardize CreatedBy into a common auditable property.
@@ -14,6 +14,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// public int? IAuditableCreatedBy.CreatedBy { get { return User; } set { ModifiedBy = User; } }
         /// 3. Have a different concrete instance of the entity interface in the repository and only implement this in the repository's concrete instance.
         /// </summary>
-        int CreatedBy { get; set; }
+        long CreatedBy { get; set; }
     }
 }

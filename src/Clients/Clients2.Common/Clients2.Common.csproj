@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Clients2.Common</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Clients2.Common</RootNamespace>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Model.ServiceErrorResponse\Model.ServiceErrorResponse.csproj" />
+  </ItemGroup>
+
+</Project>

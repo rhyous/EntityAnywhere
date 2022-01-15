@@ -1,0 +1,54 @@
+EAF Features
+
+Configuration
+1. [ ] A user can create a new Entity as a configuration action.
+2. [X] Once an entity is created, a full REST API is available for it.
+3. [X] Once an entity is created, a UI page offereing full CRUD capability exists.
+4. [X] An entity can be configured to have a primary property be its label
+
+
+Web Service
+  1. [ ] A common Web Service exists. The common Web Service is the Web Service used by all entities
+  2. [ ] A partially common Web Service can be configured. Partially common means that more than one entity can use the same Web Service, but only configured entities use it.
+         [ ] A special entity type can use it by default without additional configuration. (Example: Extension Entities)
+  3. [ ] A custom Web Service can be configured.
+  	     [ ] A developer may overload a web service endpoint method in a Custom WebService, but still get all the rest of the common REST API methods.
+ 
+  Odata
+    1. [P] The web service uses the Odata spec
+	2. [ ] The $filter parameter is usable
+
+Service
+  1. [X] A common Service exists. The common Service is the Service used by all entities
+  2. [ ] A partially common Service can be configured. Partially common means that more than one entity can use the same Service, but only configured entities use it.
+         [ ] A special entity type can use it by default without additional configuration.
+  3. [X] A custom Service can be configured.
+     [X] A developer may overload a service method, but still get all the rest of the common REST API methods.
+ 	
+Repostory
+  1. [X] A common repository exist. The common repository is the repository used by all entities
+  2. [ ] A partially common repository can be configured. Partially common means that more than one entity can use the same repository, but only configured ones use it.
+         [ ] A special entity type can use it by default without additional configuration.
+  3. [X] A custom repository can be configured.
+     [X] A developer may overload a repository method, but still get all the rest of the common REST API methods.
+  
+	Common Entity Framework Repository
+	  1. [X] A common Entity Framework Repository exists
+	  2. [ ]  
+
+Decoupling
+  1. An entity should not know more about another entity than it needs to know
+     Usually this means one entity should only know the following about a related entity:
+     - The related entity exists
+	 - The related entity's name or alias
+	 - Id or other key field	 
+  2. 
+
+Related Entities
+  1. [X] An entity can be related to another entity
+  2. [X] An entity can be queried and have the response include related entities
+  3. [ ] An entity can be filtered by a related entity
+  4. [X] An entity cannot be given a related entity Id or Key if such Id or Key doesn't exist.
+         [ ] Except when allow nulls
+		 [X] Except when RelatedEntityMustExist set to false
+  5. 

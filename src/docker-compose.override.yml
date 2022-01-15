@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  webservices.webapi:
+    environment:
+      - AWS_REGION=us-west-2
+      - AWS_PROFILE=default
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=44317
+      - ILS_DATABASE_CONNECTION_STRING_SECRET_KEY=ils-${TF_VAR_ENVIRONMENT_NAME}-connection-string
+    ports:
+      - "61851:80"
+      - "44317:443"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${USERPROFILE}/.aws:/root/.aws:ro

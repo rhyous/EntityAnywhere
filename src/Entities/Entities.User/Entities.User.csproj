@@ -1,88 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{671BDEAF-6C84-40F7-80EA-1735D623CF1E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.Entities</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.Entities.User</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <AssemblyName>Rhyous.EntityAnywhere.Entities.User</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Entities</RootNamespace>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Runtime.Serialization" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0a228dcf-0770-433d-a2be-6ae9993c7109}</Project>
-      <Name>Interfaces.Common</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj">
-      <Project>{222278d6-81f4-4be6-973b-6d534de47e8e}</Project>
-      <Name>Interfaces.User</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>SET copyToDir="$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities"
-ECHO %25copyToDir%25
-IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25
-COPY /Y "$(TargetPath)" %25copyToDir%25
-COPY /Y "$(TargetDir)$(TargetName).pdb" %25copyToDir%25
-
-SET dllDir="%25copyToDir%25\bin"
-ECHO %25dllDir%25
-IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25
-FOR %25%25X in ("$(Targetdir)*.dll") DO (
-   IF NOT "%25%25X"=="$(TargetPath)" COPY /Y "%25%25X" %25dllDir%25
-)
-FOR %25%25X in ("$(Targetdir)*.pdb") DO (
-   IF NOT "%25%25X"=="$(TargetDir)$(TargetName).pdb" COPY /Y "%25%25X" %25dllDir%25
-)</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Copy interface dll&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.pdb&quot; %25dllDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,65 +1,95 @@
-﻿using Rhyous.Odata;
-using Rhyous.WebFramework.Clients;
-using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
-using System.Collections.Generic;
-using System.Configuration;
-using System.ServiceModel.Web;
+﻿using Rhyous.Collections;
+using Rhyous.StringLibrary.Pluralization;
+using Rhyous.EntityAnywhere.Clients2;
+using Rhyous.EntityAnywhere.Entities;
+using Rhyous.EntityAnywhere.Interfaces;
+using Rhyous.EntityAnywhere.Services;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.Authenticators
+namespace Rhyous.EntityAnywhere.Authenticators
 {
     /// <summary>
     /// This is the primary login method as part of Entity Anywhere framework. This logs in using the User entity.
     /// </summary>
-    public class UserCredentialsValidator : ICredentialsValidatorAsync, ITokenBuilder
+    public class UserCredentialsValidator : ICredentialsValidatorAsync
     {
+        internal const string AuthenticateExternallySetting = "ForceExternalUsersToAuthenticateExternally";
+        private readonly ITokenBuilder<IUser> _TokenBuilder;
+        private readonly IAdminEntityClientAsync<User, long> _UserClient;
+        private readonly IAppSettings _AppSettings;
+
+        public UserCredentialsValidator(ITokenBuilder<IUser> tokenGenerator,
+                                        IAdminEntityClientAsync<User, long> userClient,
+                                        IAppSettings appSettings)
+        {
+            _TokenBuilder = tokenGenerator;
+            _UserClient = userClient;
+            _AppSettings = appSettings;
+        }
+
+        public string Name => nameof(User).Pluralize();
+
         /// <summary>
         /// If this is true, external users cannot login using this plugin.
         /// If this is false, users can login either with this plugin or with another plugin.
         /// </summary>
-        public static bool ForceExternalUsersToAuthenticateExternally { get { return ConfigurationManager.AppSettings.Get("ForceExternalUsersToAuthenticateExternally", true); } }
+        public bool ForceExternalUsersToAuthenticateExternally { get { return _AppSettings.Collection.Get(AuthenticateExternallySetting, true); } }
 
         /// <inheritdoc />
-        public async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections)
+        public async Task<CredentialsValidatorResponse> IsValidAsync(ICredentials creds)
         {
-            return await TokenGenerator.BuildAsync(creds, user, relatedEntityCollections);
-        }
+            if (creds == null || string.IsNullOrWhiteSpace(creds.User) || string.IsNullOrWhiteSpace(creds.Password))
+                throw new ArgumentException(nameof(creds));
 
-        /// <inheritdoc />
-        public async Task<IToken> IsValidAsync(ICredentials creds)
-        {
-            var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>>(typeof(User).Name);
-            var odataUser = await userClient.GetByAlternateKeyAsync(creds.User);
+            var response = new CredentialsValidatorResponse { AuthenticationPlugin = Name };
+            var odataUser = await _UserClient.GetByAlternateKeyAsync(creds.User, "?$expand=UserRole");
             var user = odataUser?.Object;
+            
             if (user == null)
-                return null;
+            {
+                response.Message = $"This user {creds.User} was not found.";
+                return response;
+            }
+            if (!user.Enabled)
+            {
+                response.Message = $"This user {creds.User} is disabled.";
+                return response;
+            }
             if (user.ExternalAuth && ForceExternalUsersToAuthenticateExternally)
-                return null; // This will allow a different authenticator plugin to attempt authentication
-            bool result = (user.IsHashed) ? Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding)
-                                          : creds.Password == user.Password;
+            {
+                response.Message = $"This user {creds.User} can only authenticate with external authenticators.";
+                return response;
+            }
 
-            var token = result ? await BuildAsync(creds, user, odataUser.RelatedEntityCollection) : null;
-            return token;
+            var roles = odataUser.RelatedEntityCollection.FirstOrDefault(re => re.RelatedEntity == "UserRole");
+            if (roles == null)
+            {
+                response.Message = "The user has not been configured with a user role.";
+                return response;
+            }
+            bool result;
+            if (user.IsHashed)
+            {
+                result = Hash.Compare(creds.Password, user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding);
+                if (!result) // Try by trimming the provided password, just in case they copy and pasted with a space, which is a top support issue
+                    result = Hash.Compare(creds.Password.Trim(), user.Salt, user.Password, Hash.DefaultHashType, Hash.DefaultEncoding);
+            }
+            else
+            {
+                result = creds.Password == user.Password;
+                if (!result) // Try by trimming the provided password, just in case they copy and pasted with a space, which is a top support issue
+                    result = creds.Password.Trim() == user.Password;
+            }
+            if (!result)
+            {
+                response.Message = $"The provided {Name} password is invalid.";
+                return response;
+            }
+            response.Token = await _TokenBuilder.BuildAsync(creds, user);
+            response.Success = true;
+            return response;
         }
-
-        #region Injectable
-        /// <summary>
-        /// Used for both caching and reusing existing clients and is also used for dependency injection, for example, mocking in unit tests.
-        /// </summary>
-        internal IEntityClientCache ClientsCache
-        {
-            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache()); }
-            set { _ClientsCache = value; }
-        } private IEntityClientCache _ClientsCache;
-
-        public ITokenBuilder TokenGenerator
-        {
-            get { return _TokenGenerator ?? (_TokenGenerator = new TokenGenerator()); }
-            set { _TokenGenerator = value; }
-        } private ITokenBuilder _TokenGenerator;
-
-        #endregion
     }
 }

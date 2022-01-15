@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.HeaderValidators.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.HeaderValidators.OAuth.Tests</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <IsPackable>false</IsPackable>
+    <TestProjectType>UnitTest</TestProjectType>
+    <AssemblyTitle>Rhyous.EntityAnywhere.HeaderValidators.OAuth.Tests</AssemblyTitle>
+    <Product>HeaderValidators.OAuth.Tests</Product>
+    <Copyright>Copyright © Rhyous 2018</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HeaderValidators.OAuth\HeaderValidators.OAuth.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0-release-20210626-04" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />
+    <PackageReference Include="Rhyous.UnitTesting" Version="1.0.10" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

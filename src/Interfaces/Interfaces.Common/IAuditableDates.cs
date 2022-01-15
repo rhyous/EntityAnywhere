@@ -1,4 +1,4 @@
-﻿namespace Rhyous.WebFramework.Interfaces
+﻿namespace Rhyous.EntityAnywhere.Interfaces
 {
     /// <summary>
     /// And interface that adds together the auditble date fields: 

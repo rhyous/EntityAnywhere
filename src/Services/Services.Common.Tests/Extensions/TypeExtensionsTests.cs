@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Rhyous.WebFramework.Services;
-using System.Diagnostics;
-using Rhyous.WebFramework.Interfaces;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Interfaces;
+using System;
 
 namespace Services.Common.Tests
 {
@@ -15,8 +14,8 @@ namespace Services.Common.Tests
     [Test1(TestProperty = "Test Value")]
     public class Test1Class { }
 
-    [AlternateKey(KeyProperty = "Username")]
-    public class User : IEntity<int>
+    [AlternateKey("Username")]
+    public class User : IBaseEntity<int>
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -27,32 +26,35 @@ namespace Services.Common.Tests
     public class TypeExtensionsTests
     {
         [TestMethod]
+        public void TypeExtensions_GetAlternateIdProperty_TypeNull_Test()
+        {
+            // Arrange - Done above
+            // Act
+            Type type = null;
+            var value = type.GetAlternateKeyProperty();
+
+            // Assert
+            Assert.IsNull(value);
+        }
+
+        [TestMethod]
+        public void TypeExtensions_GetAlternateIdProperty_TypeHasNoAttribute_Test()
+        {
+            // Arrange - Done above
+            // Act
+            Type type = typeof(string);
+            var value = type.GetAlternateKeyProperty();
+
+            // Assert
+            Assert.IsNull(value);
+        }
+
+        [TestMethod]
         public void GetAlternateIdPropertyValueTests()
         {
             // Arrange - Done above
             // Act
             var value = typeof(User).GetAlternateKeyProperty();
-
-            // Assert
-            Assert.AreEqual("Username", value);
-        }
-
-        [TestMethod]
-        public void GetAlternateIdPropertyValuePerformanceTests()
-        {
-            // Arrange - Done above
-            // Act
-
-            string value = string.Empty;
-
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            for (int i = 0; i < 100000; i++)
-            {
-                value = typeof(User).GetAlternateKeyProperty();
-            }
-            watch.Stop();
-            Assert.IsTrue(watch.ElapsedMilliseconds < 100);
 
             // Assert
             Assert.AreEqual("Username", value);

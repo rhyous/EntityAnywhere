@@ -1,81 +1,104 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Rhyous.Collections;
 using Rhyous.Odata;
-using Rhyous.WebFramework.Clients;
-using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
+using Rhyous.EntityAnywhere.Clients2;
+using Rhyous.EntityAnywhere.Entities;
+using Rhyous.EntityAnywhere.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
     public class ClaimsBuilderAsync : IClaimsBuilderAsync
     {
-        public ClaimsBuilderAsync() { }
-        public ClaimsBuilderAsync(IEntityClientCache clientsCache) { ClientsCache = clientsCache; }
+        private readonly IAdminEntityClientAsync<ClaimConfiguration, int> ClaimConfigurationClient;
+        private readonly IAdminEntityClientAsync<User, long> UserClient;
 
-        public async Task<List<ClaimDomain>> BuildAsync(IUser user, IEnumerable<ClaimConfiguration> claimsConfigurations)
+        public ClaimsBuilderAsync(
+            IAdminEntityClientAsync<ClaimConfiguration, int> claimConfigurationClient,
+            IAdminEntityClientAsync<User, long> userClient
+        ) {
+            ClaimConfigurationClient = claimConfigurationClient;
+            UserClient = userClient;
+        }
+
+        public async Task<IUser> BuildAsync(long userId, IToken token)
+        {
+            var claimConfigs = await ClaimConfigurationClient.GetAllAsync();
+            var relatedEntitiesToExpand = claimConfigs?.Where(c => c.Object.Entity != "User").Select(c => c.Object.Entity).Distinct();
+
+            var odataUser = await UserClient.GetAsync(userId.ToString(), $"$expand={string.Join(",", relatedEntitiesToExpand)}") ?? throw new Exception("User not found.");
+            var user = odataUser.Object;
+
+            var claims = await BuildAsync(user, claimConfigs?.Select(c => c.Object), odataUser.RelatedEntityCollection);
+            if (claims != null && claims.Count > 0)
+                token.ClaimDomains.AddRange(claims);
+            Task.WaitAll();
+            return user;
+        }
+
+        #pragma warning disable 1998
+        public async Task<List<ClaimDomain>> BuildAsync(IUser user, IEnumerable<IClaimConfiguration> claimsConfigurations, IList<RelatedEntityCollection> relatedEntityCollections)
         {
             if (user == null || user.Id <= 0 || claimsConfigurations == null || !claimsConfigurations.Any())
                 return null;
             var claimDomains = new ClaimDomainDictionary();
-            foreach (var claimConfig in claimsConfigurations)
-            {
-                await BuildClaimAsync(user, claimDomains, claimConfig);
-            }
+            BuildClaimsFromUserEntity(claimDomains, user, claimsConfigurations);
+            BuildClaimsFromRelatedEntities(claimDomains, claimsConfigurations, relatedEntityCollections);
             return claimDomains.Values.ToList();
         }
-
-        internal async Task BuildClaimAsync(IUser user, ClaimDomainDictionary claimDomains, ClaimConfiguration claimConfig)
+        
+        internal void BuildClaimsFromUserEntity(ClaimDomainDictionary claimDomains, IUser user, IEnumerable<IClaimConfiguration> claimsConfigurations)
         {
-            var domainName = string.IsNullOrWhiteSpace(claimConfig.Domain) ? claimConfig.Entity : claimConfig.Domain;
-            var domain = claimDomains[domainName];
-            if (claimConfig.Entity == "User")
+            if (claimDomains == null || user == null)
+                return;
+            if (claimsConfigurations != null && claimsConfigurations.Any())
             {
-                var value = user.GetPropertyValue(claimConfig.EntityProperty).ToString();
-                domain.Claims.Add(new Claim { Name = claimConfig.Name, Value = value });
+                var userClaimConfigs = claimsConfigurations.Where(cc => cc.Entity == "User");
+                foreach (var claimConfig in userClaimConfigs)
+                {
+                    var domainKey = string.IsNullOrWhiteSpace(claimConfig.Domain) ? claimConfig.Entity : claimConfig.Domain;
+                    var claimDomain = claimDomains[domainKey];
+                    claimDomain.Claims.Add(BuildUserClaim(user, claimConfig));
+                }
             }
-            else
+            var now = DateTimeOffset.Now.ToUniversalTime();
+            var lastAuthenticated = new Claim { Name = "LastAuthenticated", Value = now.ToString(DateTimeFormatInfo.CurrentInfo.RFC1123Pattern) };
+            claimDomains["User"].Claims.Add(lastAuthenticated);
+        }
+        
+        internal Claim BuildUserClaim(IUser user, IClaimConfiguration claimConfig)
+        {
+            var value = user.GetPropertyValue(claimConfig.EntityProperty).ToString();
+            return new Claim { Name = claimConfig.Name, Value = value };
+        }
+        
+        internal void BuildClaimsFromRelatedEntities(ClaimDomainDictionary claimDomains, IEnumerable<IClaimConfiguration> claimsConfigurations, IList<RelatedEntityCollection> relatedEntityCollections)
+        {
+            var relatedEntityClaimConfigs = claimsConfigurations.Where(cc => cc.Entity != "User");
+            foreach (var claimConfig in relatedEntityClaimConfigs)
             {
-                var claims = await BuildClaimFromEntityAsync(user, claimConfig);
-                if (claims != null && claims.Any())
-                    domain.Claims.AddRange(claims);
+                var domainKey = string.IsNullOrWhiteSpace(claimConfig.Domain) ? claimConfig.Entity : claimConfig.Domain;
+                var domain = claimDomains[domainKey];
+                var relatedEntityCollection = relatedEntityCollections.FirstOrDefault(re => re.RelatedEntity == claimConfig.Entity);
+                if (relatedEntityCollection == null || !relatedEntityCollection.Any())
+                    continue;
+                var claims = BuildRelatedEntityClaim(relatedEntityCollection, claimConfig);
+                domain.Claims.AddRange(claims);
             }
         }
 
-        internal async Task<List<Claim>> BuildClaimFromEntityAsync(IUser user, ClaimConfiguration claimConfig)
+        internal List<Claim> BuildRelatedEntityClaim(RelatedEntityCollection relatedEntityCollection, IClaimConfiguration claimConfig)
         {
-            var entities = await GetEntities(claimConfig.Entity, claimConfig.EntityIdProperty, user.GetPropertyValue(claimConfig.RelatedEntityIdProperty, "Id").ToString());
-            if (entities == null || !entities.Any())
-                return null;
-            var claims = new List<Claim>();
-            foreach (var entity in entities)
+            var values = JsonClaimsParser.Parse(claimConfig, relatedEntityCollection);
+            var list = new List<Claim>();
+            foreach (var value in values)
             {
-                var jobject = JObject.Parse(entity.Object.ToString());
-                var value = jobject[claimConfig.EntityProperty]?.ToObject<string>();
-                claims.Add(new Claim { Name = claimConfig.Name, Value = value });
+                list.Add(new Claim { Name = claimConfig.Name, Value = value });
             }
-            return claims;
+            return list;
         }
-
-        internal async Task<OdataObjectCollection> GetEntities(string entity, string relatedIdProperty, string id)
-        {
-            var client = ClientsCache.Json[entity];
-            var entitiesJson = await client.GetAllAsync($"?$filter={relatedIdProperty} eq {id}");
-            if (string.IsNullOrWhiteSpace(entitiesJson))
-                return null;
-            var entities = JsonConvert.DeserializeObject<OdataObjectCollection>(entitiesJson);
-            return entities;
-        }
-
-        /// <summary>
-        /// Used for both caching and reusing existing clients and is also used for dependency injection, for example, mocking in unit tests.
-        /// </summary>
-        internal IEntityClientCache ClientsCache
-        {
-            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache(true)); }
-            set { _ClientsCache = value; }
-        } private IEntityClientCache _ClientsCache;
     }
 }

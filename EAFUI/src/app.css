@@ -1,0 +1,393 @@
+html{ /*height: 100%;*/
+    display:block;
+}
+
+body {
+  background-color: #FFF;
+  font-family: "Open Sans", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  padding-right: 0 !important;
+  position: relative;
+  display:block;
+  height: 100vh; 
+}
+
+body > div:first-child,
+body > div:first-child > div.ng-scope {
+  height: 100%;
+}
+
+app-root {
+  min-height: 100%;
+}
+
+a, a:hover {
+  color:#DA291C;
+  text-decoration: none;
+}
+
+.login-summary {
+  padding-top: 20px;
+  text-align: justify;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+form .formdiv {
+  /*margin: 10px;*/
+  width: 100%;
+}
+
+form .formdivlabel {
+  text-align: right;
+  display: inline-block;
+  /*width: 21%;*/
+  vertical-align: middle;
+}
+
+form .formlabel {
+  padding: 6px;
+  font-weight: bold;
+}
+
+form .formdivinput {
+  text-align: left;
+  display: inline-block;
+}
+
+form .formdivbutton {
+  padding-top: 35px;
+}
+
+textarea {
+  min-height: 216px;
+  resize: none !important;
+  overflow: auto;
+}
+
+
+button.form-field-action {
+  margin: 0 15px;
+}
+
+p.error {
+  margin: 0;
+  padding: 0;
+  color: #DA291C;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+mat-icon.clickable {
+  cursor: pointer;
+  color: #DA291C;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  display: flex;
+  flex-direction: row;
+}
+
+.fillwidth {
+  width: 100%;
+}
+
+.fillheight {
+  width: 100%;
+}
+
+
+.userpassword {
+  width: 270px;
+  height: 28px;
+}
+
+.sign-in-form {
+  background-color: #FFF;
+  height: 100vh;
+}
+
+.login-logo {
+  margin-top: 50px;    
+}
+
+.login-logo img.ld-icon {
+  height: 142px;
+  margin:0 auto;
+}
+
+
+#userlogin-title {
+  text-align: center;
+  /*padding-top: 110px;*/
+  font-weight: bold;
+  font-size: 28px;
+  color: #ACACAC;
+  margin-bottom: 60px;
+}
+
+.loginboxshadow {
+  /*-webkit-box-shadow: 0 0 2px #777777;
+  -ms-box-shadow: 0 0 2px #777777;
+  box-shadow: 0 0 2px #777777;
+  background-color: #EFEFEF;*/
+  padding-bottom: 30px;
+  width: 600px;
+  margin: auto;
+  display: block;
+  margin-top: 50px;
+}
+
+.loginform {
+  margin: auto;
+  padding-top: 20px;
+}
+
+.loginformHeader4 {
+  padding-top: 10px;
+}
+
+.loginboxshadow button.btn {
+  width: 200px;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+#loginFooter {
+  margin-top: 20px;
+}
+
+#loginFooter > a:hover {
+  color: #333 !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+}
+
+/*.kp-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin:-200px 0 0 -200px;
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }*/
+
+.ld-login-spinner{
+  position: relative;
+  width: 70px;
+  height: 70px;
+  float: left;
+  left: 70px;
+  top: 10px;
+}
+
+.heat-message {
+  padding: 20px;
+  margin-top: 50px;
+  color: #da291c;
+}
+
+.ld-login-spinner i {
+  color: #DA291C;
+}
+
+.login-modal-spinner {
+  padding-top: 40px;
+  padding-bottom: 100px;
+  text-align: center;
+  color: #DA291C;
+}
+
+.login-modal-text {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.md-button.md-primary.md-raised {
+  color:#fff !important;
+}
+
+md-input-container .md-errors-spacer {
+  min-height: 0px !important;
+}
+
+md-tabs {
+  margin-top:15px;
+}
+
+.login-content {
+  padding:10px;
+}
+
+.loginbox md-input-container {
+  margin-top:30px;
+}
+
+.loginbox .md-button.md-primary.md-raised {
+  margin: 0;
+}
+
+md-toast.md-center {
+  left: 50%;
+  text-align: center;
+  transform: translate3d(-50%, 0, 0);
+}
+
+td a md-icon {
+  color: #da291c;
+  cursor: pointer;
+}
+
+.md-table-pagination md-icon {
+  color: rgba(0,0,0,0.54);
+}
+
+.page-label {
+  float: right;
+  margin-right: 20px;
+}
+
+md-checkbox.md-default-theme.md-checked .md-ink-ripple,
+md-checkbox.md-checked .md-ink-ripple {
+  color: #FF9E1B !important;
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon,
+md-checkbox.md-checked .md-icon {
+  background-color: #FF9E1B !important;
+}
+
+.searchOrganization md-autocomplete.searchOrganization.ng-isolate-scope.flex-gt-md-40.flex-100 {
+  max-width: 60%;
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  background-color: #acacac;
+  display: flex;
+}
+
+.content-button {
+  padding: -10px;
+  float: right;
+  text-align: center;
+  margin: auto 10px auto auto;
+  min-width: 100px;
+}
+
+.cookie-message {
+  padding: 10px;
+}
+
+md-sidenav {
+  position: fixed !important;
+  max-width: 255px !important;
+}
+
+@media screen and (min-width: 959px) {
+  .ld-view {
+      margin-left: 250px;
+  }
+}
+
+#return-to-top {
+  width: 40px !important;
+  line-height: 40px !important;
+  overflow: hidden !important;
+  z-index: 999 !important;
+  display: none;
+  cursor: pointer !important;
+  -moz-transform: rotate(270deg) !important;
+  -webkit-transform: rotate(270deg) !important;
+  -o-transform: rotate(270deg) !important;
+  -ms-transform: rotate(270deg) !important;
+  transform: rotate(270deg) !important;
+  position: fixed !important;
+  bottom: 50px !important;
+  right: 0 !important;
+  background-color: #DDD !important;
+  color: #555 !important;
+  text-align: center !important;
+  font-size: 30px !important;
+  text-decoration: none !important;
+}
+
+  #return-to-top:hover {
+      background-color: #DDF !important;
+      color: #000 !important;
+  }
+
+
+  .admin-form > h2 {
+    font-weight: normal;
+}
+
+.admin-form {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background: #FFF;
+    min-width: 300px;
+    padding: 16px;
+    margin: 16px 0px;
+    min-height: 50px;
+}
+
+.form-field {
+    width: 100%
+}
+
+.mat-form-field {
+    width: 50%;
+}
+
+
+textarea {
+    min-height: 216px;
+    resize: none !important;
+    overflow: auto;
+}
+
+.form-actions {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+}
+
+.form-actions button {
+  margin: 6px 8px;
+}
+
+.mat-snack-bar-container {
+  word-wrap: anywhere;
+}
+
+.introjs-tooltip {
+  top: auto !important;
+  margin-top: 35px !important;
+}
+
+.introjs-arrow {
+  display: none !important;
+}

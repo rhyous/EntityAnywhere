@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.Services</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Metadata</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>Services.Metadata</AssemblyTitle>
+    <Product>Services.Metadata</Product>
+    <Copyright>Copyright © Rhyous Publishing LLC 2019</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Entity\Entities.Entity.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Entity\Interfaces.Entity.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+</Project>

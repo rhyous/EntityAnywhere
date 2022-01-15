@@ -13,11 +13,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
     <AssemblyName>Rhyous.WebFramework.WebServices.Main</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44355</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -26,7 +26,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -34,22 +33,66 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+    <Reference Include="Autofac, Version=6.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.6.2.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="LinqKit.Core, Version=1.1.17.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.Core.1.1.17\lib\net45\LinqKit.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.Collections, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Collections.1.2.3\lib\net461\Rhyous.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.Odata, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.1.2.0\lib\net461\Rhyous.Odata.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.Odata.Csdl, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.2.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.Odata.Filter, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.Odata.Filter.1.2.0\lib\net461\Rhyous.Odata.Filter.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhyous.StringLibrary, Version=1.2.43.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rhyous.StringLibrary.1.2.43\lib\net461\Rhyous.StringLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -69,9 +112,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SqlRepository.mdf" />
-    <Content Include="App_Data\SqlRepository_log.ldf">
-      <DependentUpon>SqlRepository.mdf</DependentUpon>
+    <Content Include="App_Data\SafeShareDb.mdf" />
+    <Content Include="App_Data\SafeShareDb_log.ldf">
+      <DependentUpon>SafeShareDb.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="Web.config">
@@ -87,16 +130,33 @@
   <ItemGroup>
     <Folder Include="Plugins\Authenticators\" />
     <Folder Include="Plugins\Entities\" />
+    <Folder Include="Plugins\Handlers\" />
+    <Folder Include="Plugins\HeaderValidators\" />
+    <Folder Include="Plugins\LicenseGenerators\" />
+    <Folder Include="Plugins\Loggers\" />
     <Folder Include="Plugins\Repositories\" />
     <Folder Include="Plugins\ServiceBehaviors\" />
     <Folder Include="Plugins\Services\" />
     <Folder Include="Plugins\WebServices\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\EAF.pubxml">
+    <Content Include="Log4Net.config" />
+    <Content Include="Log4Net.Dev1.config">
+      <DependentUpon>Log4Net.config</DependentUpon>
+    </Content>
+    <Content Include="Log4Net.Eng.config">
+      <DependentUpon>Log4Net.config</DependentUpon>
+    </Content>
+    <Content Include="Log4Net.Debug.config">
+      <DependentUpon>Log4Net.config</DependentUpon>
       <SubType>Designer</SubType>
-    </None>
+    </Content>
+    <Content Include="Log4Net.Release.config">
+      <DependentUpon>Log4Net.config</DependentUpon>
+    </Content>
+    <Content Include="AppSettings.json" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\AutoDeploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -109,13 +169,35 @@
       <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
       <Name>Behaviors.RestEndpoint</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Entities\Entities.Entity\Entities.Entity.csproj">
+      <Project>{816e4a2d-2e80-4e5a-9a65-c91a79b725a8}</Project>
+      <Name>Entities.Entity</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
       <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
       <Name>Interfaces.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
+      <Project>{b8fb6e36-1760-4154-9c0a-4f7b6fc64e80}</Project>
+      <Name>Attributes.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj">
+      <Project>{6c6efb35-f306-4629-b16c-5ff8893916a1}</Project>
+      <Name>Entities.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Entity\Interfaces.Entity.csproj">
+      <Project>{470edb8c-92e9-4b7c-af5e-6e75c7ab495d}</Project>
+      <Name>Interfaces.Entity</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj">
       <Project>{54423e2d-c8f8-4c5e-a7c9-f7c4f358139b}</Project>
       <Name>WebServices.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebServices.Wcf\WebServices.Wcf.csproj">
+      <Project>{07eb63ac-536a-4237-95cb-fb413437a72a}</Project>
+      <Name>WebServices.Wcf</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -129,11 +211,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3896</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:3896/</IISUrl>
+          <IISUrl>https://localhost:44355/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -148,6 +230,10 @@
    ECHO ^&lt;^?xml version="1.0" encoding="utf-8"^?^&gt; &gt; "$(ProjectDir)dev.config"
    ECHO ^&lt;appSettings^&gt; &gt;&gt; "$(ProjectDir)dev.config"
    ECHO    ^&lt;add key="PluginDirectory" value="$(ProjectDir)Plugins"/^&gt;  &gt;&gt; "$(ProjectDir)dev.config"
+   ECHO    ^&lt;add key="PluginSharedBinPaths" value="$(ProjectDir)SharedBin"/^&gt;  &gt;&gt; "$(ProjectDir)dev.config"
+   ECHO    ^&lt;add key="JWTPublicKey" value="$(SolutionDir)Certificate\publicKey.pem"/^&gt;  &gt;&gt; "$(ProjectDir)dev.config"
+   ECHO    ^&lt;add key="JWTPrivateKey" value="$(SolutionDir)Certificate\privateKey.pem"/^&gt;  &gt;&gt; "$(ProjectDir)dev.config"
+   ECHO    ^&lt;add key="ApplicationSettingsPath" value="$(ProjectDir)AppSettings.json"/^&gt;  &gt;&gt; "$(ProjectDir)dev.config"
    ECHO ^&lt;/appSettings^&gt; &gt;&gt; "$(ProjectDir)dev.config"
 )</PreBuildEvent>
   </PropertyGroup>
@@ -160,16 +246,12 @@
   -->
   <Target Name="afterClean">
     <ItemGroup>
-      <FilesToDelete Include="Plugins\**\*" />
+      <FilesToDelete Include="SharedBin\**;Plugins\**\*;dev.config" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
   </Target>
-  <Target Name="CustomCollectFiles">
-    <ItemGroup>
-      <_CustomFiles Include=".\Plugins\**\*" />
-      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
-        <DestinationRelativePath>.\Plugins\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-      </FilesForPackagingFromProject>
-    </ItemGroup>
-  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

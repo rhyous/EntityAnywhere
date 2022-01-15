@@ -1,73 +1,93 @@
-﻿using Rhyous.WebFramework.Interfaces;
-using Rhyous.WebFramework.Services;
+﻿using Rhyous.Collections;
+using Rhyous.EntityAnywhere.Exceptions;
+using Rhyous.EntityAnywhere.Interfaces;
+using Rhyous.EntityAnywhere.Tools;
+using Rhyous.Wrappers;
 using System.Collections.Specialized;
-using System.Configuration;
+using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
+using System.Web;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
-    public class HeaderValidationInspector : IDispatchMessageInspector
+    public class HeaderValidationInspector : IHeaderValidationInspector
     {
+        private readonly IPluginHeaderValidator _HeaderValidator;
+        private readonly IAccessController _AccessController;
+        private readonly ILogger Logger;
 
-        public static readonly string AllowAnonymousSvcPages = "AllowAnonymousSvcPages";
-        public static readonly string AllowAnonymousSvcHelpPages = "AllowAnonymousSvcHelpPages";
+        public HeaderValidationInspector(IPluginHeaderValidator headerValidator,
+                                         IAccessController accessController,
+                                         ILogger logger)
+        {
+            _HeaderValidator = headerValidator;
+            _AccessController = accessController;
+            Logger = logger;
+        }
 
         public object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext)
         {
             // Return BadRequest if request is null
-            if (WebOperationContext.Current == null) { throw new WebFaultException(HttpStatusCode.BadRequest); }
+            if (WebOperationContext.Current == null) { throw new RestException(HttpStatusCode.BadRequest); }
+            var headers = Append(WebOperationContext.Current?.IncomingRequest?.Headers, HttpContext.Current?.Request?.Headers);
+            var webOperationContext = new WebOperationContextWrapper(WebOperationContext.Current);
+            return AfterReceiveRequest(ref request, channel, instanceContext, webOperationContext, headers);
+       }
 
-            if (IsAnonymousAllowed(request.Headers.To.AbsolutePath))
+        internal object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext, IWebOperationContext context, NameValueCollection headers)
+        {
+            var urlAbsolutePath = request.Headers?.To.AbsolutePath;
+            // There are many ways to get headers, but this one works in One Way where others didn't
+            headers.Add("AbsolutePath", urlAbsolutePath);
+            var pathAndQuery = request.Headers?.To.PathAndQuery;
+            headers.Add("PathAndQuery", pathAndQuery);
+            headers.Add("HttpMethod", context.IncomingRequest.Method);
+
+            if (_AccessController.IsSystemAdmin(headers, context) || _AccessController.IsAnonymousAllowed(urlAbsolutePath))
+            {
                 return null;
-
-            ValidateByHeaders(WebOperationContext.Current.IncomingRequest.Headers);
-            return null;
-        }
-
-        private static bool IsAnonymousAllowed(string absolutePath)
-        {
-            return (ConfigurationManager.AppSettings.Get(AllowAnonymousSvcPages, true)
-                    && absolutePath.EndsWith(".svc"))
-                   || (ConfigurationManager.AppSettings.Get(AllowAnonymousSvcHelpPages, true)
-                       && absolutePath.Contains("/help"));
-        }
-
-        private static void ValidateByHeaders(NameValueCollection token)
-        {
-            IHeaderValidator validator = new PluginHeaderValidator();
-            if (!validator.IsValid(token))
-            {
-                throw new WebFaultException(HttpStatusCode.Forbidden);
             }
-            // Add Userid to the header so the service has it if needed
-            WebOperationContext.Current?.IncomingRequest.Headers.Add("UserId", validator.UserId.ToString());
-        }
 
-        private static void ValidateBasicAuthentication()
-        {
-            var authorization = WebOperationContext.Current?.IncomingRequest.Headers["Authorization"];
-            if (string.IsNullOrWhiteSpace(authorization))
+            // At this point we need to verify so we will get it and verify
+            if (TaskRunner.RunSynchonously(_HeaderValidator.IsValidAsync, headers))
             {
-                throw new WebFaultException(HttpStatusCode.Forbidden);
+                CallContext.LogicalSetData("UserId", _HeaderValidator.UserId);
+                return null;
             }
-            var basicAuth = new BasicAuth(authorization);
-            var token = AuthService.Authenticate(basicAuth.Creds);
+
+            Logger?.Debug($"The following url is forbidden: {request.Headers?.To.AbsoluteUri}. Token: {headers.Get("Token","No token provided")}");
+            throw new RestException(request.Headers?.To.AbsoluteUri, HttpStatusCode.Forbidden);
         }
 
-        public void BeforeSendReply(ref Message reply, object correlationState)
-        {
-        }
+        public void BeforeSendReply(ref Message reply, object correlationState) {}
 
-        #region Injectables
-        public static AuthenticationService AuthService
+        internal NameValueCollection Append(params NameValueCollection[] args)
         {
-            get { return _AuthService ?? (_AuthService = new AuthenticationService()); }
-            internal set { _AuthService = value; }
-        } private static AuthenticationService _AuthService;
-        #endregion
+            if (args == null || args.Length == 0)
+            {
+                return new NameValueCollection();
+            }
+            var mergedNvc = args[0] ?? new NameValueCollection();
+            for (int i = 1; i < args.Length; i++)
+            {
+                var currentNvc = args[i];
+                if (currentNvc != null && currentNvc.Count > 0)
+                {
+                    foreach (string key in currentNvc)
+                    {
+                        var existingValue = mergedNvc[key];
+                        var newValue = currentNvc[key];
+                        if (existingValue == newValue || (existingValue != null && existingValue.Split(',').Any(s=> s == newValue)))
+                            continue;
+                        mergedNvc.Add(key, currentNvc[key]);
+                    }
+                }
+            }
+            return mergedNvc;
+        }
     }
 }

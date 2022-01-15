@@ -1,0 +1,47 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="login-component">
+  <div fxFlex="95" fxFlex.gt-sm="60">
+    <div fxLayout="column" style="display: flex; flex-direction: column;">
+      <img class="ld-icon" src="{{ logo }}" />
+      <div fxFlex="20" id="userlogin-title">Your App</div>
+    </div>
+    <br/>
+    <div class="login-container">
+      <div class="login-local">
+        <div>
+          <h3 class="mat-title">Administrators / Legacy Credentials</h3>
+          <div [formGroup]="form" fxLayout="column" *ngIf="!loading">
+            <div fxLayout="row">
+              <mat-form-field fxFlex="65">
+                  <input matInput name="username" placeholder="Username" formControlName="username" id="username" (keydown.enter)="login()"/>
+                  <mat-error *ngIf="form.controls.username.hasError('required')">
+                      Please enter your username
+                  </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field fxFlex="65">
+                  <input matInput 
+                    type="password" 
+                    name="password"
+                    placeholder="Password" 
+                    formControlName="password"
+                    (keydown.enter)="login()"
+                    id="password"/>
+                  <mat-error *ngIf="form.controls.password.hasError('required')">
+                    Please enter your password
+                  </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end end">
+                <button id="sign-in" mat-raised-button color="primary" fxFlex="15" (click)="login()" [disabled]="!form.controls.username.valid || !form.controls.password.valid">Login</button>
+                <div fxFlex="5"></div>
+            </div>
+          </div>
+          <div *ngIf="loading" fxLayout="row" fxLayoutAlign="center center" style="height:75px;">
+            <mat-spinner strokeWidth="3" class="login-spinner" diameter="50"></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

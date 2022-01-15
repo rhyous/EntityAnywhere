@@ -1,0 +1,134 @@
+{
+  "Count": 1,
+  "Entities": [
+    {
+      "Id": 1,
+      "Object": {
+        "Id": 1,
+        "Name": "ActivationAttempt",
+        "CreateDate": "2019-03-21T22:12:17.1233812",
+        "CreatedBy": 41892,
+        "Description": "This entity stores attempts to activate an Endpoint Manager, formerly Management Suite, Core Server",
+        "Enabled": true,
+        "EntityGroupId": 1,
+        "LastUpdated": "2019-03-21T22:12:27.2173665",
+        "LastUpdatedBy": 41892
+      },
+      "RelatedEntityCollection": [
+        {
+          "Count": 1,
+          "RelatedEntity": "EntityGroup",
+          "RelatedEntities": [
+            {
+              "Id": "1",
+              "Object": {
+                "Id": 1,
+                "Name": "Miscellaneous",
+                "CreateDate": "2019-03-21T22:11:44.7476988",
+                "CreatedBy": 41892,
+                "Description": "A group for entities that have yet to be grouped.",
+                "LastUpdated": null,
+                "LastUpdatedBy": null
+              },
+              "Uri": "http://localhost:3896/EntityGroupService.svc/EntityGroups/Ids(1)"
+            }
+          ]
+        },
+        {
+          "Count": 5,
+          "RelatedEntity": "EntityProperty",
+          "RelatedEntities": [
+            {
+              "Id": "1",
+              "Object": {
+                "Id": 1,
+                "Name": "Id",
+                "CreateDate": "2019-03-21T22:17:15.4798628",
+                "CreatedBy": 41892,
+                "Description": "The identifier.",
+                "EntityId": 1,
+                "LastUpdated": "2019-03-21T22:18:34.7021794",
+                "LastUpdatedBy": 41892,
+                "Order": 1,
+                "Searchable": true,
+                "Type": "System.Int32"
+              },
+              "Uri": "http://localhost:3896/EntityPropertyService.svc/EntityProperties/EntityId/Values(1)"
+            },
+            {
+              "Id": "2",
+              "Object": {
+                "Id": 2,
+                "Name": "HostName",
+                "CreateDate": "2019-03-21T22:18:25.9361925",
+                "CreatedBy": 41892,
+                "Description": "This proeprty is misnamed. It is really the guid of the Core Server.",
+                "EntityId": 1,
+                "LastUpdated": "2019-03-21T22:18:56.7343296",
+                "LastUpdatedBy": 41892,
+                "Order": 2,
+                "Searchable": true,
+                "Type": "System.String"
+              },
+              "Uri": "http://localhost:3896/EntityPropertyService.svc/EntityProperties/EntityId/Values(2)"
+            },
+            {
+              "Id": "3",
+              "Object": {
+                "Id": 3,
+                "Name": "Username",
+                "CreateDate": "2019-03-21T22:19:49.6739819",
+                "CreatedBy": 41892,
+                "Description": "The username used to activate.",
+                "EntityId": 1,
+                "LastUpdated": null,
+                "LastUpdatedBy": null,
+                "Order": 3,
+                "Searchable": true,
+                "Type": "System.String"
+              },
+              "Uri": "http://localhost:3896/EntityPropertyService.svc/EntityProperties/EntityId/Values(3)"
+            },
+            {
+              "Id": "4",
+              "Object": {
+                "Id": 4,
+                "Name": "Password",
+                "CreateDate": "2019-03-21T22:20:16.3938239",
+                "CreatedBy": 41892,
+                "Description": "The password used to activate.",
+                "EntityId": 1,
+                "LastUpdated": null,
+                "LastUpdatedBy": null,
+                "Order": 4,
+                "Searchable": true,
+                "Type": "System.String"
+              },
+              "Uri": "http://localhost:3896/EntityPropertyService.svc/EntityProperties/EntityId/Values(4)"
+            },
+            {
+              "Id": "5",
+              "Object": {
+                "Id": 5,
+                "Name": "CreateDate",
+                "CreateDate": "2019-03-21T22:21:08.39567",
+                "CreatedBy": 41892,
+                "Description": "The date an activation attempt occurred.",
+                "EntityId": 1,
+                "LastUpdated": null,
+                "LastUpdatedBy": null,
+                "Order": 4,
+                "Searchable": true,
+                "Type": "System.DateTimeOffset"
+              },
+              "Uri": "http://localhost:3896/EntityPropertyService.svc/EntityProperties/EntityId/Values(5)"
+            }
+          ]
+        }
+      ],
+      "Uri": "https://localhost:44355/EntityService.svc/Entities(1)"
+    }
+  ],
+  "Entity": "Entity",
+  "TotalCount": 1
+}

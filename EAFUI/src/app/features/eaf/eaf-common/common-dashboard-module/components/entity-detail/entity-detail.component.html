@@ -1,0 +1,26 @@
+<mat-progress-bar *ngIf="showProgressBar" color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+<div fxFlex fxLayout="column" class="admin-form">
+    <div fxLayout="row">
+      <button mat-button color="basic" id="returnToList" (click)="returnToList()"><mat-icon>arrow_back</mat-icon></button>
+      <h1>{{ title | spacetitle  }} <span id="object-id">{{entityId}}</span></h1>
+    </div>
+  <div *ngIf="entityConfig.length > 0">
+    <app-entity-form [fields]="entityConfig" (submit)="submit($event)" (clone)="clone()"></app-entity-form>
+  </div>
+
+  <div *ngIf="mappingComponents.length > 0">
+    <app-entity-form [fields]="mappingComponents"></app-entity-form>
+  </div>
+
+  <!-- <form> -->
+  <div *ngFor="let extensionEntity of extensionEntities">
+    <app-extension-entity [extensionEntityData]="extensionEntity" [parentEntityId]="entityId" [parentEntityName]="entityName" ></app-extension-entity>
+  </div>
+  <!-- </form> -->
+
+  <ng-container *ngFor="let foreignEntity of foreignEntities">
+    <app-foreign-entity [fields]="foreignEntity" [parentEntityId]="foreignEntityFilterId(foreignEntity)" [parentEntityName]="entityName"></app-foreign-entity>
+  </ng-container>
+  
+</div>
+

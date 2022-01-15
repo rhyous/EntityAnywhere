@@ -1,6 +1,6 @@
 using System.Configuration;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class ServiceResponseCollection : ConfigurationElementCollection
     {

@@ -1,0 +1,11 @@
+<div class="cookie-banner" *ngIf="!hasConsent">
+    <p>
+        We use cookies to improve your experience on this website, 
+        to anonymously aggregate statistics about site visits, 
+        and to personalize our marketing efforts. 
+        By continuing to use our sites, you accept our use of cookies. 
+        You can learn more about our use of cookies, including how to manage them, in our Privacy Policy.
+    </p>
+
+    <button mat-button (click)="consent()" color="primary" id="ok">Ok</button>
+</div>

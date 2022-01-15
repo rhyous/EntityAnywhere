@@ -59,7 +59,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AssemblyInfo.cs" />
     <None Include="%24Entity%24Service.cs" />
     <None Include="Service.csproj" />
     <None Include="Service.ico" />

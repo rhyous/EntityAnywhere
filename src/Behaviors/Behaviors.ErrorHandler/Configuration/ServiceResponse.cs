@@ -1,7 +1,7 @@
 using System.Configuration;
 using System.Xml;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class ServiceResponse : ConfigurationElement
     {

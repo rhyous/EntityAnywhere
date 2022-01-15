@@ -1,10 +1,11 @@
-﻿using Rhyous.WebFramework.Attributes;
+﻿using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Description;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     internal class ServiceBehaviorApplicator
     {
@@ -16,11 +17,12 @@ namespace Rhyous.WebFramework.Behaviors
                                         typeof(ExcludedServiceBehaviorTypesAttribute)
                                     };
 
-        internal static void AddServiceBehavior(IList<Attribute> attributes, KeyedByTypeCollection<IServiceBehavior> behaviors, List<IServiceBehavior> serviceBehaviorPlugins)
+        internal static void AddServiceBehavior(IList<Attribute> attributes, KeyedByTypeCollection<IServiceBehavior> behaviors, IList<IServiceBehavior> serviceBehaviorPlugins, ILogger logger)
         {
             if (attributes == null || attributes.Count == 0 || attributes.Count(a => Types.Contains(a.GetType())) == 0)
             {
-                serviceBehaviorPlugins.ForEach(sb => behaviors.Add(sb));
+                foreach (var sb in serviceBehaviorPlugins)
+                    behaviors.Add(sb);
                 return;
             }
             if (attributes.Count(a => Types.Contains(a.GetType())) > 1)

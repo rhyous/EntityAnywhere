@@ -1,12 +1,12 @@
 ﻿using Rhyous.Odata;
-using Rhyous.WebFramework.Interfaces;
+using Rhyous.EntityAnywhere.Entities;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
-    public class Token : Entity<int>, IToken
+    public class Token : BaseEntity<long>, IToken
     {
         [RelatedEntity("User", AutoExpand = true)]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public string Text { get; set; }
     }
 }

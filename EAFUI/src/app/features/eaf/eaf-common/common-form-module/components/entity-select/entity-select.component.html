@@ -1,0 +1,11 @@
+<div fxLayout="row">
+    <mat-form-field class="margin-top" [formGroup]="group" [fxFlex]="field.flex">
+      <mat-select #clientValue [placeholder]="field.label" [formControlName]="field.name" id="{{field.entity}}_{{field.name}}">
+      <mat-option *ngFor="let item of field.options; let i = index"  id="{{this.field.name}}_option_{{i}}"
+        [value]="item.Id">
+          <span id="{{this.field.name}}_option_{{item.Id}}">{{item.Value}}</span>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    

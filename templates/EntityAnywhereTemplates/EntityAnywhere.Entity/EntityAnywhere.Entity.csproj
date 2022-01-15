@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="%24Entity%24.cs" />
-    <None Include="AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

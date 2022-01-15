@@ -1,9 +1,9 @@
-﻿using Rhyous.WebFramework.Attributes;
+﻿using Rhyous.EntityAnywhere.Attributes;
 using System.Linq;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class ErrorHandlerServiceBehavior : ServiceBehaviorBase
     {
@@ -11,7 +11,7 @@ namespace Rhyous.WebFramework.Behaviors
         {
             foreach (var channelDispatcher in serviceHostBase.ChannelDispatchers.OfType<ChannelDispatcher>())
             {
-                channelDispatcher.ErrorHandlers.Add(new ErrorHandler());
+                channelDispatcher.ErrorHandlers.Add(new ErrorHandler(Logger));
             }
         }
 

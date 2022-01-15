@@ -1,0 +1,28 @@
+.admin-menu {
+    background-color: #C8C9CB;
+    padding: 15px;
+}
+
+.uploadForm {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background: #FFF;
+    min-width: 300px;
+    padding: 16px;
+}
+
+button {
+    min-height: 36px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.layout-row:last-child {
+    padding-bottom: 30px !important;
+}
+
+.md-title {
+    font-size: 20px;
+    letter-spacing: .005em;
+    padding-left: 16px;
+    font-weight: normal;
+}

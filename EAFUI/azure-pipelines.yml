@@ -1,0 +1,74 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+pool: 
+   name: VS2017
+   demands:
+      - REGION -equals EM
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.13'
+  displayName: 'Install Node.js'
+
+- task: Npm@1
+  displayName: 'Install NPM'
+  inputs:
+    verbose: false
+
+
+- task: Npm@1
+  displayName: 'Build to $(System.DefaultWorkingDirectory)'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build-dev'
+
+- task: Npm@1
+  displayName: 'Run tests and code coverage'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run test'
+
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results /tests/TESTS-*.xml'
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '$(System.DefaultWorkingDirectory)/**/tests/TESTS-*.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage Angular results'
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+    failIfCoverageEmpty: true
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    contents: |
+     **\dist\**\*
+     !**\node_modules\**\*
+    sourceFolder: '$(Agent.BuildDirectory)'
+    targetFolder: '$(build.artifactstagingdirectory)'
+    cleanTargetFolder: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: EAFUI'
+  inputs:
+    pathtoPublish: '$(build.artifactstagingdirectory)'
+    artifactName: 'EAFUI_UI_NewPipeline'

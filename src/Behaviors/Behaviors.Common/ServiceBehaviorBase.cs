@@ -1,12 +1,15 @@
-﻿using System.ServiceModel.Description;
-using System.ServiceModel;
+﻿using Autofac;
+using Autofac.Integration.Wcf;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Interfaces;
 using System.Collections.ObjectModel;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
-using Rhyous.WebFramework.Attributes;
+using System.ServiceModel.Description;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
-    public abstract class ServiceBehaviorBase : IServiceBehavior
+    public abstract class ServiceBehaviorBase : IServiceBehavior, ILogProperty
     {
         public virtual void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters)
         {
@@ -19,5 +22,12 @@ namespace Rhyous.WebFramework.Behaviors
         }
 
         public virtual ServiceBehaviorType Type { get; }
+
+        public ILogger Logger
+        {
+            get { return _Logger ?? (_Logger = AutofacHostFactory.Container.Resolve<ILogger>()); }
+            set { _Logger = value; }
+        } private ILogger _Logger;
+
     }
 }

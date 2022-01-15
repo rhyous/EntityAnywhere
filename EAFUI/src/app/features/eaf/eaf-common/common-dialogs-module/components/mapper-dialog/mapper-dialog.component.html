@@ -1,0 +1,40 @@
+<div fxFlex fxFlexOffset="1" fxLayout="column">
+    <div fxLayout="row">
+      <h1>Add {{data.ToEntityName | spacetitle}} to {{data.FromEntityName | spacetitle}}</h1>
+    </div>
+
+    <div [formGroup]="form" fxLayout="row">
+      <mat-form-field [fxFlex]="filterField.Flex" *ngFor="let filterField of filterFields;let i = index" [fxFlexOffset]="i === 0?0:5">
+        <input id="app-mapper-dialog_{{filterField.Name}}" matInput [placeholder]="filterField.Name" (keyup)="onKeyUp($event)" [formControlName]="filterField.Name">
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" *ngIf="displayProgress">
+      <mat-progress-bar color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+    </div>
+    <div fxLayout="column" *ngIf="datasource.data.length !== 0">
+      <mat-table #table [dataSource]="datasource" fxFlex="99" fxFlexOffset="10px">
+          <ng-container matColumnDef='{{column.Name}}'  *ngFor='let column of filterFields'>
+              <mat-header-cell *matHeaderCellDef>{{column.Name}}</mat-header-cell>
+              <mat-cell *matCellDef='let row; let i = index' id="app-mapper-dialog-table-row_{{i}}_{{column.Name}}">{{getPropValue(row, column.Name)}}</mat-cell>
+          </ng-container>
+
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick(row)"></mat-row>
+        </mat-table>
+
+      <div fxLayout="column">
+      <!-- Pagingator -->
+        <mat-paginator #paginator [length]="count" [pageIndex]="pageIndex" [pageSize]="10" (page)="pageChange($event)"></mat-paginator>
+    </div>
+  </div>
+    <!-- No data message -->
+    <div [style.display]="datasource.data.length === 0 ? '' : 'none'">
+      No {{data.ToEntityName | pluralize | spacetitle}} found.
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" class="cancel">
+      <button mat-button fxFlex="10" (click)="cancel()">Cancel</button>
+    </div>
+</div>  
+
+

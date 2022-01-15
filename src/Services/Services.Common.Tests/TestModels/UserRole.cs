@@ -1,10 +1,10 @@
 ﻿using Rhyous.Odata;
-using Rhyous.WebFramework.Interfaces;
+using Rhyous.EntityAnywhere.Entities;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
     [RelatedEntityForeign("UserRoleMembership", "UserRole")]
-    public class UserRole : Entity<int>, IUserRole
+    public class UserRole : BaseEntity<int>, IUserRole
     {
         public string Name { get; set; }
     }

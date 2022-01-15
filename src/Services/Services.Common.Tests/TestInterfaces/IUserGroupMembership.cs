@@ -1,10 +1,10 @@
-﻿using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.EntityAnywhere.Interfaces;
 
-namespace Rhyous.WebFramework.Services.Common.Tests
+namespace Rhyous.EntityAnywhere.Services.Common.Tests
 {
-    public interface IUserGroupMembership : IEntity<long>, IMappingEntity<int, int>
+    public interface IUserGroupMembership : IBaseEntity<long>, IMappingEntity<long, int>
     {
-        int UserId { get; set; }
+        long UserId { get; set; }
         int UserGroupId { get; set; }
     }
 }

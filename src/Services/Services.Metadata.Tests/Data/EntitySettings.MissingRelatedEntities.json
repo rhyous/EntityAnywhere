@@ -1,0 +1,22 @@
+{
+  "Count": 1,
+  "Entities": [
+    {
+      "Id": 1,
+      "Object": {
+        "Id": 1,
+        "Name": "ActivationAttempt",
+        "CreateDate": "2019-03-21T22:12:17.1233812",
+        "CreatedBy": 41892,
+        "Description": "This entity stores attempts to activate an Endpoint Manager, formerly Management Suite, Core Server",
+        "Enabled": true,
+        "EntityGroupId": 1,
+        "LastUpdated": "2019-03-21T22:12:27.2173665",
+        "LastUpdatedBy": 41892
+      },
+      "Uri": "https://localhost:44355/EntityService.svc/Entities(1)"
+    }
+  ],
+  "Entity": "Entity",
+  "TotalCount": 1
+}

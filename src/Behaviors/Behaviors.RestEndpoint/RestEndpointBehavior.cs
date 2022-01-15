@@ -1,17 +1,23 @@
-﻿using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Interfaces;
+﻿using Rhyous.Collections;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Interfaces;
 using System;
 using System.Linq;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 using System.ServiceModel.Web;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class RestEndpointBehavior : WebHttpBehavior
     {
+        internal ILogger Logger;
         public RestEndpointBehavior()
         {
+        }
+        public RestEndpointBehavior(ILogger logger)
+        {
+            Logger = logger;
             HelpEnabled = true;
             DefaultOutgoingRequestFormat = DefaultOutgoingResponseFormat = WebMessageFormat.Json;
         }
@@ -56,6 +62,12 @@ namespace Rhyous.WebFramework.Behaviors
             if (inheritedInterfaces != null && inheritedInterfaces.Count > 0)
                 return inheritedInterfaces[0].GenericTypeArguments[0];
             return null;
+        }
+
+        protected override IDispatchMessageFormatter GetRequestDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)
+        {
+            var parentFormatter = base.GetRequestDispatchFormatter(operationDescription, endpoint);
+            return new CustomDispatchMessageFormatter(this, operationDescription, parentFormatter);
         }
 
         protected override IDispatchMessageFormatter GetReplyDispatchFormatter(OperationDescription operationDescription, ServiceEndpoint endpoint)

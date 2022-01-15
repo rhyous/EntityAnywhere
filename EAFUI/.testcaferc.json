@@ -1,0 +1,6 @@
+{
+    "browsers": "chrome",
+    "src": [
+        "integration-tests/*.ispec.ts"
+    ]
+}

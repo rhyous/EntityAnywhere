@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
     public static class QueryableExtensions
     {

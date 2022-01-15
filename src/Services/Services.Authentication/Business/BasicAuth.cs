@@ -1,60 +1,30 @@
-﻿using System;
+﻿using Rhyous.Collections;
+using Rhyous.EntityAnywhere.Interfaces;
 using System.Text;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
-    /// <summary>
-    /// A class that can create or extract credentials from a BasicAuth header.
-    /// </summary>
-    public class BasicAuth
+    partial class BasicAuth : IBasicAuth
     {
-        private readonly string _User;
-        private readonly string _Password;
-        private const string Prefix = "Basic ";
+        private readonly IHeaders _Headers;
+        private readonly IBasicAuthEncoder _BasicAuthEncoder;
 
-        #region Constructors
-        public BasicAuth(string encodedHeader)
-            : this(encodedHeader, Encoding.UTF8)
+        public BasicAuth(IHeaders headers,
+                                    IBasicAuthEncoder basicAuthEncoder)
         {
+            _Headers = headers;
+            _BasicAuthEncoder = basicAuthEncoder;
         }
 
-        public BasicAuth(string encodedHeader, Encoding encoding)
+        public Credentials Credentials => ReadBasicAuthCredentials();
+
+        public string HeaderValue => _Headers?.Collection.Get<string>("Authorization", null);
+
+        private Credentials ReadBasicAuthCredentials()
         {
-            HeaderValue = encodedHeader;
-            var decodedHeader = encodedHeader.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase)
-                ? encoding.GetString(Convert.FromBase64String(encodedHeader.Substring(Prefix.Length)))
-                : encoding.GetString(Convert.FromBase64String(encodedHeader));
-            var credArray = decodedHeader.Split(':');
-            if (credArray.Length > 0)
-                _User = credArray[0];
-            if (credArray.Length > 1)
-                _Password = credArray[1];
+            if (string.IsNullOrWhiteSpace(HeaderValue))
+                return null;
+            return _BasicAuthEncoder.Decode(HeaderValue, Encoding.UTF8);
         }
-
-        public BasicAuth(string user, string password)
-            : this(user, password, Encoding.UTF8)
-        {
-        }
-
-        public BasicAuth(string user, string password, Encoding encoding)
-        {
-            _User = user;
-            _Password = password;
-            HeaderValue = Prefix + Convert.ToBase64String(encoding.GetBytes(string.Format("{0}:{1}", _User, _Password)));
-        }
-        #endregion
-
-        /// <summary>
-        /// The credentials. Either these were provided to the constructor or the constructor generated these from a BasicAuth header.
-        /// </summary>
-        public Credentials Creds
-        {
-            get { return _Creds ?? (_Creds = new Credentials { User = _User, Password = _Password }); }
-        } private Credentials _Creds;
-
-        /// <summary>
-        /// The BasicAuth header. Either this was provided to the constructor or the constructor generated this from a user name and password.
-        /// </summary>
-        public string HeaderValue { get; }
     }
 }

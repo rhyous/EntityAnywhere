@@ -1,9 +1,9 @@
-﻿using Rhyous.WebFramework.Attributes;
+﻿using Rhyous.EntityAnywhere.Attributes;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class InstanceContextServiceBehavior : ServiceBehaviorBase
     {

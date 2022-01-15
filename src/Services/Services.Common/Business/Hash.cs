@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
     /// <summary>
     /// This allows for easily created hashes from MD5, SHA1, SHA256, and SHA512.

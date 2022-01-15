@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rhyous.WebFramework.Interfaces
+namespace Rhyous.EntityAnywhere.Interfaces
 {
     public interface IAuditableLastUpdatedDate
     {
@@ -13,6 +13,6 @@ namespace Rhyous.WebFramework.Interfaces
         /// public int? IAuditableLastUpdatedDate.LastUpdated { get { return Date; } set { Date = value; } }
         /// 3. Have a different concrete instance of the entity interface in the repository and only implement this in the repository's concrete instance.
         /// </summary>
-        DateTime? LastUpdated { get; set; }
+        DateTimeOffset? LastUpdated { get; set; }
     }
 }

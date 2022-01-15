@@ -1,164 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{54423E2D-C8F8-4C5E-A7C9-F7C4F358139B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rhyous.WebFramework.WebServices</RootNamespace>
-    <AssemblyName>Rhyous.WebFramework.WebServices.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net48</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.WebServices.Common</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.All.Import.csproj" />
   <ItemGroup>
-    <Reference Include="LinqKit.Core, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LinqKit.Core.1.1.9.0\lib\net45\LinqKit.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.Odata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.1.0.8\lib\net461\Rhyous.Odata.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.Odata.Csdl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.Odata.Csdl.1.0.0\lib\net461\Rhyous.Odata.Csdl.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhyous.StringLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Rhyous.StringLibrary.1.1.0\lib\net461\Rhyous.StringLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Web" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Model.ServiceErrorResponse\Model.ServiceErrorResponse.csproj" />
+    <ProjectReference Include="..\..\Misc\PluginLoaders\PluginLoaders.csproj" />
+    <ProjectReference Include="..\..\Misc\Rhyous.Wrappers\Rhyous.Wrappers.Wcf.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Metadata\Services.Metadata.csproj" />
+    <ProjectReference Include="..\..\Services\Services.RelatedEntities\Services.RelatedEntities.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\EntityEndPointBuilder.cs" />
-    <Compile Include="Business\EntityServiceLoader.cs" />
-    <Compile Include="Business\ArrayMaker.cs" />
-    <Compile Include="Business\RelatedEntityFetcher.cs" />
-    <Compile Include="Business\ListMaker.cs" />
-    <Compile Include="Business\EntityWebServiceLoader.cs" />
-    <Compile Include="Business\EntityLoader.cs" />
-    <Compile Include="Business\Starter.cs" />
-    <Compile Include="Business\CustomWebServiceLoader.cs" />
-    <Compile Include="ClientInterfaces\IMappingEntityClientAsyncJson.cs" />
-    <Compile Include="Clients\EntityCache.cs" />
-    <Compile Include="Clients\EntityClientAdminJsonAsync.cs" />
-    <Compile Include="Clients\EntityClientAdminAsync.cs" />
-    <Compile Include="Clients\EntityClientAsync.cs" />
-    <Compile Include="Clients\EntityClientBase.cs" />
-    <Compile Include="Clients\EntityClientAsyncJson.cs" />
-    <Compile Include="Clients\EntityClientCache.cs" />
-    <Compile Include="Clients\HttpClientRunner.cs" />
-    <Compile Include="ClientInterfaces\IEntityClientBase.cs" />
-    <Compile Include="ClientInterfaces\IEntityClientCache.cs" />
-    <Compile Include="Clients\MappingEntityClientAsyncJson.cs" />
-    <Compile Include="Clients\MappingEntityClientAsync.cs" />
-    <Compile Include="Interfaces\IMappingEntityCache.cs" />
-    <Compile Include="Interfaces\IEntityCache.cs" />
-    <Compile Include="Clients\MappingEntityClient.cs" />
-    <Compile Include="Clients\EntityClient.cs" />
-    <Compile Include="Clients\TaskRunner.cs" />
-    <Compile Include="Extensions\HttpClientExtensions.cs" />
-    <Compile Include="Extensions\WebOperationContextExtensions.cs" />
-    <Compile Include="ClientInterfaces\IEntityClientAsyncJson.cs" />
-    <Compile Include="ClientInterfaces\IEntityClientAsync.cs" />
-    <Compile Include="ClientInterfaces\IMappingEntityClientAsync.cs" />
-    <Compile Include="ClientInterfaces\IMappingEntityClient.cs" />
-    <Compile Include="ClientInterfaces\IEntityClient.cs" />
-    <Compile Include="Interfaces\ICustomWebService.cs" />
-    <Compile Include="Interfaces\IMappingEntityWebService.cs" />
-    <Compile Include="Interfaces\IEntityWebService.cs" />
-    <Compile Include="Interfaces\IMetadataService.cs" />
-    <Compile Include="Interfaces\IEntityWebServiceReadOnly.cs" />
-    <Compile Include="Interfaces\IRelatedEntityFetcher.cs" />
-    <Compile Include="Models\AttributeToServiceDictionary.cs" />
-    <Compile Include="Interfaces\IHttpContextProvider.cs" />
-    <Compile Include="Models\PatchedEntity.cs" />
-    <Compile Include="Clients\HttpContextProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EntityWebServiceReadOnly.cs" />
-    <Compile Include="Services\MappingEntityWebService.cs" />
-    <Compile Include="Services\EntityWebServiceAlternateKey.cs" />
-    <Compile Include="Services\EntityWebService.cs" />
-    <Compile Include="Services\MetadataService.cs" />
+    <PackageReference Include="LinqKit.Core" Version="1.1.17" />
+    <PackageReference Include="Rhyous.BusinessRules" Version="1.0.2" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Behaviors\Behaviors.Common\Behaviors.Common.csproj">
-      <Project>{0cff60bb-38e4-4c3c-8ab3-775eeefb0ace}</Project>
-      <Name>Behaviors.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Behaviors\Behaviors.InstanceContext\Behaviors.InstanceContext.csproj">
-      <Project>{7e6d99c2-2a33-4557-857e-f58d78ae8ac3}</Project>
-      <Name>Behaviors.InstanceContext</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj">
-      <Project>{B6EFBAAE-39A6-44F4-AF2D-A47BF238CD91}</Project>
-      <Name>Behaviors.RestEndpoint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Entities\Entities.Addendum\Entities.Addendum.csproj">
-      <Project>{3DDFE5B3-76E8-4503-9442-0D2A5179BBD4}</Project>
-      <Name>Entities.Addendum</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj">
-      <Project>{0A228DCF-0770-433D-A2BE-6AE9993C7109}</Project>
-      <Name>Interfaces.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj">
-      <Project>{B8FB6E36-1760-4154-9C0A-4F7B6FC64E80}</Project>
-      <Name>Attributes.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj">
-      <Project>{1563aa30-4399-4e19-a661-02072e245f66}</Project>
-      <Name>Services.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

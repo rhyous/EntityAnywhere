@@ -1,0 +1,58 @@
+Path, Expected
+/ActivationCredentialService.svc/ActivationCredentials?$filter=OrganizationId eq '1236548',true
+/ActivationCredentialService.svc/ActivationCredentials?$filter=OrganizationId eq 1236548,true
+/AddendumService.svc/Addenda/Feature/Ids,true
+/AlternateIdService.svc/AlternateIds/Feature/Ids,true
+/DecentralizedIdentityService.svc/ByMachineId/machine123,true
+/DecentralizedIdentityService.svc/ByOrganizationAndGroup/Group1,true
+/EntitledProductService.svc/EntitledProducts/BySuite/1236548/911,true
+/EntitledProductUsageService.svc/Available/Group1/Machine123,true
+/EntitledProductUsageService.svc/AvailableByGroupAndVersion/Group1/1.00/Machin123,true
+/EntitledProductUsageService.svc/ByMachineId/Machin123,true
+/FileService.svc/Organizations(sap123)/Files,true
+/FileService.svc/Organizations('sap123')/Files,true
+/FileService.svc/Organizations(sap123)/Files(6da50ccf-df3b-e811-9420-005056af575b)/Data,true
+/FileService.svc/Organizations('sap123')/Files('6da50ccf-df3b-e811-9420-005056af575b')/Data,true
+/FileService.svc/Products(2799)/Files/Zip,true
+/FileService.svc/Products('2799')/Files/Zip,true
+/ProductService.svc/Products(2799),true
+/ProductService.svc/Products('2799'),true
+/ResActivationService.svc/ResActivations(01268dac-fcda-a28f-0e57-b8f9b0409000),true
+/ResActivationService.svc/ResActivations('01268dac-fcda-a28f-0e57-b8f9b0409000'),true
+/ResActivationService.svc/ResActivations(01268DAC-FCDA-A28F-0E57-B8F9B0409000),true
+/ResActivationService.svc/ResActivations('01268DAC-FCDA-A28F-0E57-B8F9B0409000'),true
+/TenantService.svc/Tenants(123)?$expand=Landscape&$filter=OrganizationId eq 1236548,true
+/TenantService.svc/Tenants('123')?$expand=Landscape&$filter=OrganizationId eq '1236548',true
+/TenantService.svc/Tenants?$filter=OrganizationId eq 1236548,true
+/TenantService.svc/Tenants?$filter=OrganizationId eq '1236548',true
+"/TenantService.svc/Tenants?$Expand=Product($Expand=ProductType,Feature,ProductGroup($expand=Addendum)),Landscape&$filter=OrganizationId%20eq%201236548", true
+"/TenantService.svc/Tenants?$filter=OrganizationId%20eq%201236548&$Expand=Product($Expand=ProductType,Feature,ProductGroup($expand=Addendum)),Landscape", true
+/ActivationCredentialService/ActivationCredentials?$filter=OrganizationId eq '1236548',true
+/ActivationCredentialService/ActivationCredentials?$filter=OrganizationId eq 1236548,true
+/AddendumService/Addenda/Feature/Ids,true
+/AlternateIdService/AlternateIds/Feature/Ids,true
+/DecentralizedIdentityService/ByMachineId/machine123,true
+/DecentralizedIdentityService/ByOrganizationAndGroup/Group1,true
+/EntitledProductService/EntitledProducts/BySuite/1236548/911,true
+/EntitledProductUsageService/Available/Group1/Machine123,true
+/EntitledProductUsageService/AvailableByGroupAndVersion/Group1/1.00/Machin123,true
+/EntitledProductUsageService/ByMachineId/Machin123,true
+/FileService/Organizations(sap123)/Files,true
+/FileService/Organizations('sap123')/Files,true
+/FileService/Organizations(sap123)/Files(6da50ccf-df3b-e811-9420-005056af575b)/Data,true
+/FileService/Organizations('sap123')/Files('6da50ccf-df3b-e811-9420-005056af575b')/Data,true
+/FileService/Products(2799)/Files/Zip,true
+/FileService/Products('2799')/Files/Zip,true
+"/OrganizationService/Organizations('1236548')?$Expand=Addendum($filter=contains(Property, 'ITSM')",true
+/ProductService/Products(2799),true
+/ProductService/Products('2799'),true
+/ResActivationService/ResActivations(01268dac-fcda-a28f-0e57-b8f9b0409000),true
+/ResActivationService/ResActivations('01268dac-fcda-a28f-0e57-b8f9b0409000'),true
+/ResActivationService/ResActivations(01268DAC-FCDA-A28F-0E57-B8F9B0409000),true
+/ResActivationService/ResActivations('01268DAC-FCDA-A28F-0E57-B8F9B0409000'),true
+/TenantService/Tenants(123)?$expand=Landscape&$filter=OrganizationId eq 1236548,true
+/TenantService/Tenants('123')?$expand=Landscape&$filter=OrganizationId eq '1236548',true
+/TenantService/Tenants?$filter=OrganizationId eq 1236548,true
+/TenantService/Tenants?$filter=OrganizationId eq '1236548',true
+"/TenantService/Tenants?$Expand=Product($Expand=ProductType,Feature,ProductGroup($expand=Addendum)),Landscape&$filter=OrganizationId%20eq%201236548", true
+"/TenantService/Tenants?$filter=OrganizationId%20eq%201236548&$Expand=Product($Expand=ProductType,Feature,ProductGroup($expand=Addendum)),Landscape", true

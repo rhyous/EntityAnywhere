@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.Odata.Csdl" Version="1.2.0" />
+  </ItemGroup>
+</Project>
+

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.Events</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Events.Entity</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Csdl.Import.csproj" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Events\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;REM SET dllDir=%25copyToDir%25\bin&#xD;&#xA;REM ECHO %25dllDir%25&#xD;&#xA;REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
+  </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Entity\Interfaces.Entity.csproj"/>
+    <ProjectReference Include="..\..\Entities\Entities.Entity\Entities.Entity.csproj"/>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj"/>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj"/>
+  </ItemGroup>
+</Project>

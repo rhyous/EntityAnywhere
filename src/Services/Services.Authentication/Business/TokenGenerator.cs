@@ -1,62 +1,36 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Rhyous.Odata;
-using Rhyous.WebFramework.Clients;
-using Rhyous.WebFramework.Entities;
-using Rhyous.WebFramework.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Web;
+﻿using Rhyous.EntityAnywhere.Entities;
+using Rhyous.EntityAnywhere.Interfaces;
 using System.Threading.Tasks;
 
-namespace Rhyous.WebFramework.Services
+namespace Rhyous.EntityAnywhere.Services
 {
     /// <summary>
     /// A class to generate an authentication token.
     /// </summary>
-    public partial class TokenGenerator : ITokenBuilder
+    public partial class TokenGenerator : ITokenBuilder<IUser>, ILogProperty
     {
-        /// <summary>
-        /// The size of the token string.
-        /// </summary>
-        public static int TokenSize = 100;
+        private readonly IClaimsBuilderAsync ClaimsBuilder;
+        private readonly IJWTToken JWTToken;
 
-        /// <inheritdoc />
-        public virtual async Task<IToken> BuildAsync(ICredentials creds, IUser user, List<RelatedEntityCollection> relatedEntityCollections)
-        {
-            if (user == null)
-            {
-                var userClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<User, long>>(typeof(User).Name);
-                var odataUser = await userClient.GetAsync(creds.User) ?? throw new Exception("User not found.");
-                user = odataUser.Object;
-                relatedEntityCollections = relatedEntityCollections ?? new List<RelatedEntityCollection>();
-                relatedEntityCollections.AddRange(odataUser.RelatedEntityCollection);
-            }
-            var tokenClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<Token, long>, bool>(typeof(Token).Name, true);
-            var token = new Token { Text = CryptoRandomString.GetCryptoRandomAlphaNumericString(TokenSize), UserId = user.Id };
-            var odataToken = await tokenClient.PostAsync(new List<Token> { token });
-            var claimConfigClient = ClientsCache.Generic.GetValueOrNew<EntityClientAdminAsync<ClaimConfiguration, int>>(typeof(ClaimConfiguration).Name);
-            var claimConfigs = await claimConfigClient.GetAllAsync();
-            var claims = await ClaimsBuilder.BuildAsync(user, claimConfigs?.Select(c=>c.Object));
-            if (claims != null && claims.Count > 0)
-                token.ClaimDomains.AddRange(claims);
-            Task.WaitAll();
-            return token;
+        public TokenGenerator(
+            IClaimsBuilderAsync claimsBuilder,
+            IJWTToken jwtToken,
+            ILogger logger)
+        { 
+            Logger = logger;
+            ClaimsBuilder = claimsBuilder;
+            JWTToken = jwtToken;
         }
 
-        #region injectables
-        internal IEntityClientCache ClientsCache
-        {
-            get { return _ClientsCache ?? (_ClientsCache = new EntityClientCache(true)); }
-            set { _ClientsCache = value; }
-        } private IEntityClientCache _ClientsCache;
+        public ILogger Logger { get; set; }
 
-        public IClaimsBuilderAsync ClaimsBuilder
+        /// <inheritdoc />
+        public virtual async Task<IToken> BuildAsync(ICredentials creds, IUser user)
         {
-            get { return _ClaimsBuilder ?? (_ClaimsBuilder = new ClaimsBuilderAsync(ClientsCache)); }
-            set { _ClaimsBuilder = value; }
-        } private IClaimsBuilderAsync _ClaimsBuilder;
-        #endregion
+            var token = new Token { CredentialEntityId = user.Id, CredentialEntity = nameof(User) };
+            user = await ClaimsBuilder.BuildAsync(user.Id, token);
+            token.Text = JWTToken.GetTokenText(token.ClaimDomains);
+            return token;
+        }
     }
 }

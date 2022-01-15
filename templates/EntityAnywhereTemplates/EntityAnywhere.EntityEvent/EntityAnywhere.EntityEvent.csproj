@@ -57,7 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AssemblyInfo.cs" />
     <None Include="%24Entity%24Event.cs" />
     <None Include="EntityEvent.csproj" />
     <None Include="EntityAnywhere.EntityEvent.ico" />

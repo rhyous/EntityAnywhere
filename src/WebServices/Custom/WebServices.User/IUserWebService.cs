@@ -1,16 +1,16 @@
-﻿using Rhyous.WebFramework.Attributes;
+﻿using Rhyous.Odata;
 using Rhyous.WebFramework.Entities;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Threading.Tasks;
 
 namespace Rhyous.WebFramework.WebServices
 {
     [ServiceContract]
-    [CustomWebService(Entity = typeof(User))]
-    public interface IUserWebService : IEntityWebService<User, long>, ICustomWebService
+    interface IUserWebService : IEntityWebService<User, long>, ICustomWebService
     {
         [OperationContract]
-        [WebInvoke(UriTemplate = "Test", Method = "GET", ResponseFormat = WebMessageFormat.Json)]
-        string Test();
+        [WebInvoke(Method = "GET", UriTemplate = "Users/Filter", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        Task<OdataObjectCollection<User, long>> FilterAsync();
     }
 }

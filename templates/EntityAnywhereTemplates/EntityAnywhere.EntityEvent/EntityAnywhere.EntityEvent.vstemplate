@@ -15,7 +15,6 @@
   </TemplateData>
   <TemplateContent>
     <Project File="EntityEvent.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$Event.cs</ProjectItem>
     </Project>
   </TemplateContent>

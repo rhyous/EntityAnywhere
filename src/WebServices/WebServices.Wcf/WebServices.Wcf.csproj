@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.WebServices.Wcf</AssemblyName>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.All.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Behaviors\Behaviors.Common\Behaviors.Common.csproj" />
+    <ProjectReference Include="..\..\Behaviors\Behaviors.RestEndpoint\Behaviors.RestEndpoint.csproj" />
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Wcf\Attributes.Wcf.csproj" />
+    <ProjectReference Include="..\..\Misc\Rhyous.Wrappers\Rhyous.Wrappers.Wcf.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Metadata\Services.Metadata.csproj" />
+    <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac.Wcf" Version="6.0.0" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="1.5.30" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="1.5.30" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+</Project>

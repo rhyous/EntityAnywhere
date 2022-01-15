@@ -1,0 +1,14 @@
+.loader-overlay {
+    height: 3px;
+    position: fixed;
+    width:100%;
+    top:0;
+    left: 0;
+    opacity: 1;
+    z-index: 500000;
+  }
+  
+  button.clone-button {
+    margin-top:10px;
+  }
+  

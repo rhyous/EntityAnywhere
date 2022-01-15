@@ -1,5 +1,5 @@
-﻿using Rhyous.WebFramework.Attributes;
-using Rhyous.WebFramework.Behaviors;
+﻿using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Behaviors;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 

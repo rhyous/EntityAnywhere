@@ -59,9 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AssemblyInfo.cs" />
     <None Include="%24Entity%24WebService.cs" />
-    <None Include="packages.config" />
     <None Include="WebService.csproj" />
     <None Include="WebService.ico" />
   </ItemGroup>

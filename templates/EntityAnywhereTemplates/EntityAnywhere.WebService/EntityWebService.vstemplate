@@ -14,10 +14,8 @@
   </TemplateData>
   <TemplateContent>
     <Project File="WebService.csproj" ReplaceParameters="true">
-      <ProjectItem ReplaceParameters="true" TargetFileName="Properties\AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$Entity$WebService.cs</ProjectItem>
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">$IEntity$WebService.cs</ProjectItem>
-      <ProjectItem>packages.config</ProjectItem>
     </Project>
     <CustomParameters>
       <CustomParameter Name="$EntityAnywhereTemplateType$" Value="WebService"/>

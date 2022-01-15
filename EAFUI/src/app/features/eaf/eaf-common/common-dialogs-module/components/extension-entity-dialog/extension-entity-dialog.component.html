@@ -1,0 +1,9 @@
+<mat-progress-bar *ngIf="showProgressBar" color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+
+<div fxFlex fxLayout="column">
+  <h1>Add {{data.extensionEntityData.Name | spacetitle}}</h1>
+
+  <div *ngIf="entityConfig.length > 0">
+    <app-entity-form [fields]="entityConfig" (submit)="submit($event)"></app-entity-form>
+  </div>
+</div>

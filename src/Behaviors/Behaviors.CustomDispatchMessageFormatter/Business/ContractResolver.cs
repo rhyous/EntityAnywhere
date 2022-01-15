@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Rhyous.Odata;
-using Rhyous.WebFramework.Interfaces;
+using Rhyous.EntityAnywhere.Attributes;
+using Rhyous.EntityAnywhere.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public sealed class ContractResolver : ExcludeEmptyEnumerablesContractResolver
     {
@@ -32,14 +33,17 @@ namespace Rhyous.WebFramework.Behaviors
 
         internal static List<JsonProperty> GetPreferentialOrder(Type type, IList<JsonProperty> properties)
         {
-            var contractResolver = new PreferentialComparer();
-            var prefsFromAttributes = GetPreferentialPropetiesFromAttributes(type);
-            if (prefsFromAttributes != null && prefsFromAttributes.Count > 0)
-                contractResolver.Preferences.InsertRange(1, prefsFromAttributes);
-            return properties.OrderBy(p => p.PropertyName, contractResolver).ToList();
+            var preferentialPropertyComparer = new PreferentialPropertyComparer();
+            var prefsFromAttributes = GetPreferentialPropertiesFromAttributes(type);
+            if (prefsFromAttributes != null && prefsFromAttributes.Any())
+            {
+                foreach (var preferredPropertyName in prefsFromAttributes)
+                    preferentialPropertyComparer.PreferredProperties.Add(preferredPropertyName);
+            }
+            return properties.OrderBy(p => p.PropertyName, preferentialPropertyComparer).ToList();
         }
 
-        internal static List<string> GetPreferentialPropetiesFromAttributes(Type type)
+        internal static List<string> GetPreferentialPropertiesFromAttributes(Type type)
         {
             var list = new List<string>();
             // KeyAttribute

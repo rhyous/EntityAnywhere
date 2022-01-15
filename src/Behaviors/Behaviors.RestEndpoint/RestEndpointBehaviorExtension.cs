@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ServiceModel.Configuration;
 
-namespace Rhyous.WebFramework.Behaviors
+namespace Rhyous.EntityAnywhere.Behaviors
 {
     public class RestEndpointBehaviorExtension : BehaviorExtensionElement
     {
