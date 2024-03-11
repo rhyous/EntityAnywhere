@@ -1,0 +1,59 @@
+﻿<parameters>
+  <parameter name="TokenTimeToLive" description="" defaultvalue="__TOKENTIMETOLIVE__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='TokenTimeToLive']/@value" />
+  </parameter>
+  <parameter name="ApplicationSettingsPath" description="" defaultvalue="__APPLICATIONSETTINGSPATH__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='ApplicationSettingsPath']/@value" />
+  </parameter>
+  <parameter name="AutomaticMigrationDataLossAllowed" description="" defaultvalue="__DATALOSSALLOWED__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='AutomaticMigrationDataLossAllowed']/@value" />
+  </parameter>
+  <parameter name="EntityAdminToken" description="" defaultvalue="__ENTITYADMINTOKEN__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='EntityAdminToken']/@value" />
+  </parameter>
+  <parameter name="SSO_TokenSize" description="Tokens Size for the SSO service" defaultvalue="__SSOTOKENSIZE__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='SSO_TokenSize']/@value" />
+  </parameter>
+  <parameter name="SSO_TokenTimeToLive" description="" defaultvalue="__SSOTOKENTIMETOLIVE__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='SSO_TokenTimeToLive']/@value" />
+  </parameter>
+  <parameter name="LogRequestMessage" description="" defaultvalue="__LOGREQUESTMESSAGE__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='LogRequestMessage']/@value" />
+  </parameter>
+  <parameter name="LogRequestUrls" description="" defaultvalue="__LOGREQUESTURLS__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='LogRequestUrls']/@value" />
+  </parameter>
+  <parameter name="LogResponseMessage" description="" defaultvalue="__LOGRESPONSEMESSAGE__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='LogResponseMessage']/@value" />
+  </parameter>
+  <parameter name="LogResponseUrls" description="" defaultvalue="__LOGRESPONSEURLS__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='LogResponseUrls']/@value" />
+  </parameter>
+  <parameter name="EntityWebHost" description="" defaultvalue="__ENTITYWEBHOST__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='EntityWebHost']/@value" />
+  </parameter>
+  <parameter name="PluginDirectory" description="" defaultvalue="__PLUGINDIRECTORY__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='PluginDirectory']/@value" />
+  </parameter>
+  <parameter name="EntitySubpath" description="" defaultvalue="__ENTITYSUBPATH__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='EntitySubpath']/@value" />
+  </parameter>
+  <parameter name="PluginLoaderLogPath" description="" defaultvalue="__PLUGINLOADERLOGPATH__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='PluginLoaderLogPath']/@value" />
+  </parameter>
+  <parameter name="JWTPublicKey" description="" defaultvalue="__JWTPUBLICKEY__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='JWTPublicKey']/@value" />
+  </parameter>
+  <parameter name="JWTPrivateKey" description="" defaultvalue="__JWTPRIVATEKEY__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='JWTPrivateKey']/@value" />
+  </parameter>
+  <parameter name="Log4NetConfig" description="" defaultvalue="__LOG4NETCONFIG__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/log4net/@configSource" />
+  </parameter>
+  <parameter name="PluginSharedBinPaths" description="" defaultvalue="__PLUGINSHAREDBINPATHS__" tags="">
+    <parameterentry kind="XmlFile" scope="\\web.config$" match="/configuration/appSettings/add[@key='PluginSharedBinPaths']/@value" />
+  </parameter>
+</parameters>
+
+
+

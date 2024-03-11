@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Jared Barneck</Authors>
+    <Company>Rhous</Company>
+    <RootNamespace>Rhyous.EntityAnywhere.Events</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Events.UserRoleEntityMap</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)\Plugins\Events\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="proj=$(ProjectName); entity=${proj#*.}; echo entity = $entity; copyToDir=&quot;$(SolutionDir)Plugins/Events/$entity&quot;; echo $copyToDir; if [ ! -f $copyToDir ]; then mkdir -p $copyToDir; fi; cp -fr &quot;$(TargetPath)&quot; $copyToDir; cp -fr &quot;$(TargetDir)$(TargetName).pdb&quot; $copyToDir;" />
+  </Target>
+</Project>

@@ -1,0 +1,45 @@
+<mat-sidenav-container class="container">
+    <mat-sidenav mode="side" opened>
+        <div class="menu">
+            <div class="logo-area" flex="8">
+                <img class="eaf-icon" src="/assets/logo_254x106.png"/>
+            </div>
+            <div class="ld-user-profile-small eaf-menu-area">
+                <app-impersonate-customer-banner *ngIf="isImpersonate" [username]="username"></app-impersonate-customer-banner>
+                <div class="user-name" *ngIf="!isImpersonate" layout="column">
+                    <div layout="row" layout-align="center center">
+                        <mat-icon flex class="user-icon">account_circle</mat-icon>
+                        <span id="username">{{ username }}</span>
+                    </div>
+                    <div class="logout" layout="row" layout-align="end center">
+                        <a ng-click="logOut()">
+                            <span id="logout-link" class="ld-user-profile-logout" (click)="logout()">Logout</span>                        
+                        </a>
+                        <mat-icon>chevron_right</mat-icon>
+                    </div>
+                </div>
+                <ul id="admin-menu" class="md-sidemenu" *ngIf="showAdminMenu">
+                    <li class="md-button" (click)="navigateToDashboard()">
+                        <a id="admin-link">Administration</a>
+                    </li>
+                </ul>
+                <ul id="default-menu" class="md-sidemenu" *ngIf="showDefaultMenu">
+
+                    <!-- Example menu item -->
+                    <li class="md-button" [routerLink]="['some-default-route']" id="some-default-route">
+                        <div>Example menu item</div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="admin-menu">
+            <div class="admin-content">
+                <ng-content></ng-content>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

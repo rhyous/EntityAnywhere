@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.Services.Common.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Common.Tests</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <IsPackable>false</IsPackable>
+    <TestProjectType>UnitTest</TestProjectType>
+    <AssemblyTitle>Services.Common.Tests</AssemblyTitle>
+    <Product>Services.Common.Tests</Product>
+    <Copyright>Copyright ©  2017</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Filter.Import.csproj" />
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\Services.Common\Services.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="LinqKit.Core" Version="1.2.5" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\ComplexFilterStrings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

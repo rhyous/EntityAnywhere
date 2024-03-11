@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.Repositories.Common.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Repositories.Common.Tests</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <IsPackable>false</IsPackable>
+    <TestProjectType>UnitTest</TestProjectType>
+    <AssemblyTitle>Repositories.Common.Tests</AssemblyTitle>
+    <Product>Repositories.Common.Tests</Product>
+    <Copyright>Copyright ©  2018</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\Repositories.Common\Repositories.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

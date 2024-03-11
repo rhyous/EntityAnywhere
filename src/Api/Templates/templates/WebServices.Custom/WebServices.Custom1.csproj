@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\WebServices\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
+  </Target>
+  
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Misc\Attributes.Wcf\Attributes.Wcf.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Services.User\Services.User.csproj" />
+    <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj" />
+    <ProjectReference Include="..\WebServices.Wcf\WebServices.Wcf.csproj" />
+  </ItemGroup>
+  
+</Project>

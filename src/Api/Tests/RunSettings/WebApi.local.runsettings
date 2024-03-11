@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This is for running locally against a locally running debug instance. It is not used in the pipeline.-->
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>2</MaxCpuCount>
+    <TargetPlatform>x64</TargetPlatform>
+  </RunConfiguration>
+  <TestRunParameters>
+    <Parameter name="Host" value="https://localhost:7090"/>
+    <Parameter name="EntityAdminToken" value="ba258083519e2cb36d59b6105531cef2529a83e87826f3448e1f06e9b16ca400" />
+    <Parameter name="EntityWebHost" value="https://localhost:7090/" />
+    <Parameter name="EntitySubpath" value="Api" />
+  </TestRunParameters>
+</RunSettings>

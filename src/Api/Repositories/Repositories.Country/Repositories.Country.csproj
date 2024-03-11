@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.WebFramework.Repositories</RootNamespace>
+    <AssemblyName>Rhyous.WebFramework.Repositories.Country</AssemblyName>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>Repositories.Country</AssemblyTitle>
+    <Product>Repositories.Country</Product>
+    <Copyright>Copyright © Rhyous Publishing LLC 2017</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Repositories\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;" />
+</Target>
+  <Import Project="..\..\Imports\netstandard\Rhyous.StringLibrary.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.Country\Entities.Country.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Country\Interfaces.Country.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+</Project>

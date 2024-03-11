@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Interfaces.Entity1</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Interfaces</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj" />
+  </ItemGroup>
+
+</Project>

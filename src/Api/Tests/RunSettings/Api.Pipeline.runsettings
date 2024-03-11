@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This is for the pipeline. The pipeline should replace the empty values with values from pipeline variables.-->
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>2</MaxCpuCount>
+    <TargetPlatform>x64</TargetPlatform>
+  </RunConfiguration>
+  <TestRunParameters>
+    <Parameter name="Host" value=""/>
+    <Parameter name="EntityAdminToken" value="" />
+    <Parameter name="EntityWebHost" value="" />
+    <Parameter name="EntitySubpath" value="" />
+    <Parameter name="EntitlementServicesUrl" value="" />
+    <Parameter name="EntitlementServicesSubPath" value="" />
+  </TestRunParameters>
+</RunSettings>

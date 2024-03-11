@@ -1,0 +1,114 @@
+parameters:
+  envName: 'NOT_DEFINED'
+  fullVmEnvironment: 'NOT_DEFINED'
+  dependsOn: 'NOT_DEFINED'
+
+stages:
+- stage: Deploy_${{ parameters.envName }}
+  displayName: 'Deploy to ${{ parameters.envName }}'
+  dependsOn: ${{ parameters.dependsOn }}
+  condition: succeeded()
+  variables:
+     - group: EAFUI-Common
+     - group: EAFUI-${{ parameters.envName }} # Deployment variables are stored in a variable group in Azure DevOps under Library
+     - name: workingPath
+       value: '$(System.DefaultWorkingDirectory)/../'
+
+  jobs:
+  - deployment: Deploy_${{ parameters.envName }}
+    displayName: 'Deploy'    
+    environment: ${{ parameters.fullVmEnvironment }}
+    workspace:
+      clean: all
+    strategy:
+      runOnce:
+        deploy:
+          steps:        
+          - download: current
+            displayName: 'Download EAFUI artifact'
+            artifact: EAFUI_UI_app       
+          - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+            displayName: 'Replace tokens in main.*.js file'
+            inputs:
+              sourcePath: '$(workingPath)/EAFUI_UI_app/dist/EAF-Portal'
+              filePattern: 'main.*.js'
+              tokenRegex: '#{(\w+)}#'
+          - task: PowerShell@2
+            displayName: 'Remove Previous Front End Files'
+            inputs:
+              targetType: 'inline'
+              script: 'Get-ChildItem C:\inetpub\wwwroot -exclude Api,Bin,EntitlementServices,web.config | Remove-Item -Recurse'
+          - task: CopyFiles@2
+            displayName: 'Copy Files to: c:\inetpub\wwwroot'
+            inputs:
+              SourceFolder: '$(workingPath)/EAFUI_UI_app/dist/EAF-Portal'
+              TargetFolder: 'c:\inetpub\wwwroot'
+              OverWrite: true
+
+  - job: Run_e2e_Tests
+    displayName: 'e2e Tests'
+    condition: and(succeeded(), eq(variables['skipe2eTests'], 'false'))
+    pool: VS2022
+    dependsOn: Deploy_${{ parameters.envName }}
+    variables:
+      ${{ if in(parameters.envName, 'ENG', 'Prod', 'Prod2' ) }}:
+        e2eTestKind: 'e2e-prod'
+      ${{ else }}:
+        e2eTestKind: 'e2e'
+
+    steps:
+    - checkout: none
+    - download: current
+      displayName: 'Download EAFUI e2e tests artifact'
+      artifact: EAFUI_UI_e2eTests 
+    - task: DownloadSecureFile@1
+      displayName: 'Download internal-root-ca cert'
+      name: internalRootCertAuthority
+      inputs:
+        secureFile: 'internal-ROOT-CA.cer'
+        retryCount: 5
+    - task: PowerShell@2
+      displayName: 'Install internal-root-ca Certificate Authority cert'
+      inputs:
+        targetType: 'inline'
+        script: 'import-certificate -filepath $(internalRootCertAuthority.secureFilePath) -certstorelocation Cert:/LocalMachine/Root'
+    - task: DownloadSecureFile@1
+      displayName: 'Download internal-sub-ca cert'
+      name: internalSubCertAuthority
+      inputs:
+        secureFile: 'internal-SUB-CA.cer'
+        retryCount: 5
+    - task: PowerShell@2
+      displayName: 'Install internal-sub-ca Certificate Authority cert'
+      inputs:
+        targetType: 'inline'
+        script: 'import-certificate -filepath $(internalSubCertAuthority.secureFilePath) -certstorelocation Cert:/LocalMachine/Root'
+    - task: FileTransform@1
+      displayName: 'File Transform: .testcaferc.json'
+      inputs:
+        folderPath: '$(workingPath)/EAFUI_UI_e2eTests/e2e-tests'
+        fileType: json
+        targetFiles: .testcaferc.json
+    - task: NodeTool@0
+      displayName: 'Use Node 16.13.x'
+      inputs:
+        versionSpec: 16.13.x
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        workingDir: '$(workingPath)/EAFUI_UI_e2eTests/e2e-tests'
+        verbose: false
+    - task: Npm@1
+      displayName: 'Run e2e tests'
+      inputs:
+        command: custom
+        workingDir: '$(workingPath)/EAFUI_UI_e2eTests/e2e-tests'
+        verbose: false
+        customCommand: 'run $(e2eTestKind)'
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results reports/e2e-tests-report.xml'
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: 'reports/e2e-tests-report.xml'
+        searchFolder: '$(workingPath)/EAFUI_UI_e2eTests/e2e-tests'
+        testRunTitle: 'EAFUI e2e Test Results'

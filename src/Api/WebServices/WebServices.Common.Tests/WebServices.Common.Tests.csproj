@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.WebServices.Common.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.WebServices.Common.Tests</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <IsPackable>false</IsPackable>
+    <TestProjectType>UnitTest</TestProjectType>
+    <AssemblyTitle>WebServices.Common.Tests</AssemblyTitle>
+    <Product>WebServices.Common.Tests</Product>
+    <Copyright>Copyright ©  2017</Copyright>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+  <ItemGroup>
+    <None Include="Data\IdsWithEmbeddedQuotes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Controllers\Controllers.WebApi\Controllers.WebApi.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Metadata\Services.Metadata.csproj" />
+    <ProjectReference Include="..\WebServices.Common\WebServices.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.0.0" />
+    <PackageReference Include="Rhyous.BusinessRules" Version="1.0.2" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

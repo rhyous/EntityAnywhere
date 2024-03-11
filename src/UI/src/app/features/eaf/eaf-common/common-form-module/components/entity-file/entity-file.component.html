@@ -1,0 +1,18 @@
+<div fxLayout="row" *ngIf="field.name !== undefined">
+  <mat-form-field [formGroup]="group" [fxFlex]="field.flex">
+      <mat-toolbar>
+        <!-- Display files names -->
+        <input matInput [(ngModel)]="fileAttr" readonly name="name" [formControl]="filename" />
+        <!-- Browse Button -->
+        <button mat-flat-button color="primary">Browse File</button>
+      </mat-toolbar>
+      <input type="file"
+             #fileInput
+             id="uploadFile"
+             (change)="uploadFileEvent($event)"
+             name="uploadFile"
+             value="field.value"
+             accept="*"
+    />
+  </mat-form-field>
+</div>

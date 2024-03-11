@@ -1,0 +1,112 @@
+# This workflow was created by Jared Barneck (Rhyous).
+# Used for dotnet microlibraries that build and publish to NuGet
+name: API-Action
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**.yml'
+      - '**.md'
+      - '**/docs/**'
+      - '**/.editorconfig'
+      - '**/.gitignore'
+      - '**/NuGet.Config'
+      - '**/*.Tests/**'
+      - '**/.editorconfig'
+      - '.gitignore'
+      - 'CODEOWNERS'
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**.yml'
+      - '**.md'
+      - '**/docs/**'
+      - '**/.editorconfig'
+      - '**/.gitignore'
+      - '**/NuGet.Config'
+      - '**/*.Tests/**'
+      - '**/.editorconfig'
+      - '.gitignore'
+      - 'CODEOWNERS'
+      
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: src/Api
+      
+    strategy:
+      matrix:
+        dotnet-version: [ '6.0.x' ]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      # Get dotnet setup and ready to work
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      # restore nuget packages
+      - name: Restoring NuGet packages
+        run: dotnet restore
+        
+      # Get build number
+      - name: Get Build Number with base offset
+        uses: mlilback/build-number@v1
+        with:
+          base: -1
+          run-id: ${{github.run_number}}
+
+      - name: Setup environment
+        uses: trevorlloydelliott/set-environment-variables@v1.0.0
+        with:
+          DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: false
+          LC_ALL: en_US.UTF-8
+          LANG: en_US.UTF-8
+        
+      # Build 
+      - name: Build source
+        run: dotnet build --configuration Release --no-restore -p:AssemblyVersion=1.0.0 -p:FileVersion=1.0.${{env.BUILD_NUMBER}} -p:Version=1.0.${{env.BUILD_NUMBER}}
+        
+      # Run Unit Tests
+      # Add coverlet.collector nuget package to test project - 'dotnet add <TestProject.cspoj> package coverlet
+      - name: Run Tests
+        run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --logger trx --results-directory coverage --filter TestCategory!=Api
+
+      # Code Coverage
+      - name: Code Coverage Report
+        if: runner.os == 'Linux'
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: '**/coverage.cobertura.xml'
+          badge: true
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: runner.os == 'Linux' && github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md

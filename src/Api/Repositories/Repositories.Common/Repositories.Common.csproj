@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <ProjectGuid>{4952293D-0EEC-4772-8854-4FE0F818CC92}</ProjectGuid>
+    <RootNamespace>Rhyous.EntityAnywhere.Repositories</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Repositories.Common</AssemblyName>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="SET proj=$(ProjectName)&#xD;&#xA;SET plugin=%25proj:*.=%25&#xD;&#xA;ECHO plugin = %25plugin%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)\Plugins\Repositories\%25plugin%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Dependencies&#xD;&#xA;REM These dlls need to go to SharedBin&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;&#xD;&#xA;COPY /Y &quot;$(TargetDir)EntityFramework.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)EntityFramework.SqlServer.dll&quot; %25dllDir%25&#xD;&#xA;REM System.Data.SqlClient.dll has to be loaded by the main app for some plugin bug in .net core 6&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)System.Data.SqlClient.dll&quot; %25dllDir%25" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="proj=$(ProjectName); plugin=${proj#*.}; echo plugin = $plugin; copyToDir=&quot;$(SolutionDir)Plugins/Repositories/$plugin&quot;; echo $copyToDir; if [ ! -f $copyToDir ]; then mkdir -p $copyToDir; fi; cp -fr &quot;$(TargetPath)&quot; $copyToDir; cp -fr &quot;$(TargetDir)$(TargetName).pdb&quot; $copyToDir; dllDir=$copyToDir/bin; echo $dllDir; if [ ! -f $dllDir ]; then mkdir $dllDir; fi; echo &quot;TargetDir = $(TargetDir)&quot;; cp -fr &quot;$(TargetDir)EntityFramework.dll&quot; $dllDir; cp -fr &quot;$(TargetDir)EntityFramework.SqlServer.dll&quot; $dllDir" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="LinqKit.Core" Version="1.2.5" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="2.0.4" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+</Project>

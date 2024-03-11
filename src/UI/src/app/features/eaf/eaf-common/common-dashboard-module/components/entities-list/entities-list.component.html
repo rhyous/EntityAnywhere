@@ -1,0 +1,14 @@
+<mat-progress-bar *ngIf="showProgressBar" color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+<div fxLayout="column" fxLayoutPadding class="layout-right-pane">
+  <div fxLayout="row">
+      <h1 fxFlexOffset="10px">Entities</h1>
+  </div>
+  <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="10px" *ngIf="entitiesArray !== undefined" [@entities]="entitiesArray.length">
+    <div *ngFor="let entityGroup of entitiesArray" fxFlex="100%">
+      <h3 style="margin-left: 10px">{{entityGroup.group}}</h3>
+      <ng-container *ngFor="let entityGroupData of entityGroup.data">
+          <button id="entities-list_{{entityGroupData.entityName}}" mat-button (click)="toEntityList(entityGroupData.entityName)" style="text-align:start;">{{ entityGroupData.entityName | spacetitle | pluralize  }}</button>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <RootNamespace>Rhyous.EntityAnywhere.Events.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Events.Entity.Tests</AssemblyName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common.Tests\Interfaces.Common.Tests.csproj" />
+    <ProjectReference Include="..\Events.Entity\Events.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

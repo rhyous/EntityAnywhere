@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.Services</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Authentication</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyTitle>Services.Authentication</AssemblyTitle>
+    <Product>Services.Authentication</Product>
+    <Copyright>Copyright ©  2016</Copyright>
+    <FileVersion>1.0.10.0</FileVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+  <Import Project="..\..\Imports\netstandard\Rhyous.Odata.Filter.Import.csproj" />
+  <Import Project="..\..\Imports\netstandard\Rhyous.StringLibrary.Import.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.User\Interfaces.User.csproj" />
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Misc\PluginLoaders\PluginLoaders.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+    <PackageReference Include="jose-jwt" Version="2.4.0" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="2.0.0" />
+  </ItemGroup>
+</Project>

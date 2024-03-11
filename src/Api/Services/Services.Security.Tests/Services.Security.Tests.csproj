@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+
+    <RootNamespace>Rhyous.EntityAnywhere.Services.Security.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Services.Security.Tests</AssemblyName>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Services.Security\Services.Security.csproj" />
+  </ItemGroup>
+
+</Project>

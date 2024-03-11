@@ -1,0 +1,12 @@
+<div id="impersonate-banner" layout="column">
+    <div layout="row" layout-align="center center">
+        <mat-icon flex class="user-icon">supervised_user_circle</mat-icon>
+        <span id="impersonate-message">You are currently impersonating {{ username }}</span>                    
+    </div>
+    <div class="switch-back" layout="row" layout-align="end center">
+        <a ng-click="switchBack()">
+            <span id="switch-back-link" (click)="switchBack()">Switch Back</span>                        
+        </a>
+        <mat-icon>chevron_right</mat-icon>
+    </div>
+</div>

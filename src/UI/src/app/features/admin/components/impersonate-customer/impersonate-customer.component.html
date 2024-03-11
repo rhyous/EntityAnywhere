@@ -1,0 +1,16 @@
+<mat-progress-bar mode="indeterminate" color="primary" *ngIf="displayProgressBar"></mat-progress-bar>
+<h2>Impersonate Customer</h2>
+<div class="layout-right-pane" [formGroup]="form">
+
+    <div class="form-field">
+        <mat-form-field>
+            <mat-select formControlName="UserRole" placeholder="User Role" id="user-role">
+                <mat-option id="role_{{i}}" *ngFor="let role of userRoles; let i = index" [value]="role" >{{role.Object.Name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+        <button id="impersonate-button" color="primary" mat-raised-button [disabled]="!form.valid" (click)="impersonateCustomer()">Switch To Customer</button>
+    </div>
+</div>

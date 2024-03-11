@@ -1,0 +1,24 @@
+{
+    "browsers": "chrome",
+    "src": [
+        "**.e2e.spec.ts"
+    ],
+    "reporter": [
+        {
+            "name": "spec"
+        },
+        {
+            "name": "xunit",
+            "output": "reports/e2e-tests-report.xml"
+        },
+        {
+            "name": "html",
+            "output": "reports/e2e-tests-report.html"
+        }
+    ],
+    "userVariables": {
+        "AdminUserPassword": "",
+        "CustomerWarehouseoneUserPassword": "",
+        "e2eTest-PortalBaseUrl": "http://localhost:4200"
+    }
+}

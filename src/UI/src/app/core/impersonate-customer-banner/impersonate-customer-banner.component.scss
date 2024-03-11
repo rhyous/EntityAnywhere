@@ -1,0 +1,30 @@
+a {
+    color: #FFF;
+}
+
+.user-icon {
+    font-size: 28px;
+    margin: 0 10px 0 4px;
+}
+
+#impersonate-banner {
+    background-color: #FF1515;
+    padding-bottom: 5px;
+}
+
+#impersonate-banner > div {
+    text-align: center;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.switch-back {
+    font-size: 14px !important;
+    cursor: pointer;
+    margin-left: 140px;
+}
+
+.switch-back a:hover {
+    text-decoration: underline;
+}

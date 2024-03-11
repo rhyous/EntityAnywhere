@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Entities.Entity1</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Entities</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\Plugins\Entities\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Copy interface dll&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.pdb&quot; %25dllDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
+  </Target>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Entity1\Interfaces.Entity1.csproj" />
+  </ItemGroup>
+
+</Project>

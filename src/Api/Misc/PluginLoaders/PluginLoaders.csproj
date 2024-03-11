@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.PluginLoaders</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.PluginLoaders</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>    
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />    
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+  
+</Project>

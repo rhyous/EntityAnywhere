@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "symbolInfo": [
+    {
+	  "id": "EntityInterface",
+	  "name": {
+		  "text": "Entity Interface name:"
+	  },
+	  "isVisible": "true"
+    },
+    {
+	  "id": "IdType",
+	  "name": {
+		  "text": "Entity's Id type:"
+	  },
+	  "isVisible": "true"
+    }
+  ]
+}

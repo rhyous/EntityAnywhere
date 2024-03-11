@@ -1,0 +1,31 @@
+<mat-progress-bar mode="indeterminate" color="primary" *ngIf="displayProgressBar"></mat-progress-bar>
+
+<h2>Product File Upload</h2>
+
+<div class="layout-right-pane" [formGroup]="form">
+    <app-auto-complete entityName="Product"
+    [field]="productIdField"
+    [form]="form"
+    [displayFunction]="displayFn"
+    fxFlex.lt-sm="98" 
+    fxFlex.gt-sm="40" 
+    fxFlex.gt-lg="30"
+    id="p-f-u-autocomplete"></app-auto-complete>
+
+    <p *ngIf="lookingUpFiles">Looking up existing files</p>
+
+    <ng-container *ngIf="currentFiles && currentFiles.Entities && currentFiles.Count > 0">
+        <p>Current Files</p>
+        <ul>
+            <li *ngFor="let entity of currentFiles.Entities; let i = index" id="file_{{i}}">
+                {{entity.Object.Name}}
+                <mat-icon (click)="deleteFile(entity.Object)" class="clickable" id="file-delete_{{i}}">close</mat-icon>
+            </li>
+        </ul>
+    </ng-container>
+
+    <app-upload-file></app-upload-file>
+    <div class="form-actions">
+        <button mat-raised-button color="primary" (click)="upload()" [disabled]="!showUpload" id="upload">Upload</button>
+    </div>
+</div>

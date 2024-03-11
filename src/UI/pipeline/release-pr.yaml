@@ -1,0 +1,19 @@
+pr:
+  branches:
+    include:
+    - '*'
+
+stages:
+- template: 'templates/build.yaml'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'Dev1'
+    fullVmEnvironment: 'eaf-Dev1.SLC-eaf-DEV1'
+    dependsOn: 'Build'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'Dev3'
+    fullVmEnvironment: 'eaf-Dev3.SLC-eaf-DEV3'
+    dependsOn: 'Deploy_Dev1'

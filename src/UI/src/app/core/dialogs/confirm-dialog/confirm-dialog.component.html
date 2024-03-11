@@ -1,0 +1,11 @@
+<div mat-dialog-title id="confirm-dialog-title">{{data.title}}</div>
+<div mat-dialog-content id="confirm-dialog-content">
+  {{data.message}}
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end end" *ngIf="confirmation">
+  <button id="confirm-dialog-cancel" mat-button (click)="onNoClick()" tabindex="-1" color="primary">Cancel</button>
+  <button id="confirm-dialog-confirm" mat-button (click)="onConfirm()" tabindex="2" color="primary">Confirm</button>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end end" *ngIf="!confirmation">
+  <button style="margin-left: auto;" id="confirm-dialog-confirm" mat-button (click)="onConfirm()" tabindex="1" color="primary">Ok</button>
+</div>

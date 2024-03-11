@@ -1,0 +1,124 @@
+
+// Custom Theming for Angular Material
+@use '@angular/material' as mat;
+// For more information: https://material.angular.io/guide/theming
+@import '@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Default-primary: mat.define-palette(mat.$indigo-palette);
+$Default-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Default-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Default-theme: mat.define-light-theme($Default-primary, $Default-accent, $Default-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($Default-theme);
+
+@import '@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$mat-defaultred: (
+  50 : #fbe5e4,
+  100 : #f4bfbb,
+  200 : #ed948e,
+  300 : #e56960,
+  400 : #e0493e,
+  500 : #511F21,
+  600 : #d62419,
+  700 : #d01f14,
+  800 : #cb1911,
+  900 : #c20f09,
+  A100 : #ffeded,
+  A200 : #ffbbba,
+  A400 : #ff8987,
+  A700 : #ff706e,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$mat-defaultgrey: (
+  50 : #c0fdf8,
+  100 : #6df9ed,
+  200 : #66c1cc,
+  300 : #5e969e,
+  400 : #59767c,
+  500 : #53565A,
+  600 : #4d5155,
+  700 : #474c50,
+  800 : #42464d,
+  900 : #393c45,
+  A100 : #9D968D,
+  A200 : #53565A,
+  A400 : #393c45,
+  A700 : #2a2d31,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$default-app-primary: mat.define-palette($mat-defaultred);
+$default-app-accent:  mat.define-palette($mat-defaultred, A200, A100, A400);
+
+
+// The warn palette is optional (defaults to red).
+$default-app-warn:    mat.define-palette($mat-defaultgrey);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$default-app-theme: mat.define-light-theme($default-app-primary, $default-app-accent, $default-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($default-app-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

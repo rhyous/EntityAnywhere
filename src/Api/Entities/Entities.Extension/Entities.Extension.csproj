@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <AssemblyName>Rhyous.EntityAnywhere.Entities.Extension</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Entities</RootNamespace>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)\Plugins\Entities\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM Copy interface dll&#xD;&#xA;SET dllDir=%25copyToDir%25\bin&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)*Interfaces.%25entity%25.pdb&quot; %25dllDir%25&#xD;&#xA;&#xD;&#xA;REM Uncomment this to copy additional dll dependencies&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="proj=$(ProjectName); entity=${proj#*.}; echo entity = $entity; copyToDir=&quot;$(SolutionDir)Plugins/Entities/$entity&quot;; echo $copyToDir; if [ ! -f $copyToDir ]; then mkdir -p $copyToDir; fi; cp -fr &quot;$(TargetPath)&quot; $copyToDir; cp -fr &quot;$(TargetDir)$(TargetName).pdb&quot; $copyToDir; dllDir=$copyToDir/bin; echo $dllDir; if [ ! -f $dllDir ]; then mkdir -p $dllDir; fi; cp -fr &quot;$(TargetDir)Rhyous.EntityAnywhere.Interfaces.$entity.dll&quot; $dllDir; cp -fr &quot;$(TargetDir)Rhyous.EntityAnywhere.Interfaces.$entity.pdb&quot; $dllDir" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Extension\Interfaces.Extension.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,150 @@
+** Creating generic web service types **
+
+Sometimes you have a custom web service method that many entities will share. Instead of creating a custom web service project for each entity, you can instead overload the generic webservice type.
+
+However, unlike a single custom web service type for an entity, a generic web service type for multiple entities cannot be implemented as a plugin. It must be implemented either in WebServices.Common, or in a Project that WebService.Common directly references.
+
+A 'generic web service type' has been create for the following types already:
+
+- All default entities.
+- Entities that are mapping entities. See MappingEntityAttribute and MappingEntityWebService. 
+- Entities with an alternate key. See AlternateKeyAttribute and EntityWebServiceAlternateKey. 
+- Entities that are read only. See ReadOnlyEntityAttribute and EntityWebServiceReadOnly.
+- Entities with that are Extension Entities. See ExtensionEntityAttribute and ExtensionEntityWebService. 
+
+Background for this specific use case:
+    We need another entity type, called an Extension Entity. An Extension Entity is a property value list that can be added to any Entity. At first, it appeared we only needed one, but we now have three Extension Entity types we want to keep separated: Addenda, AlternateId, Notes.
+
+    - Addenda = Any customization 
+              = If any property value becomes common for 1 entity, model it into that entity.
+              = If any property value becomes common for many entities, but not all, give it's own Extension Entity separate from Addenda. We have foreseen AlternateId and Notes to be just that.
+    - AlternateId = the ability to add a custom Id from external systems.
+    - Notes = The ablity to add a note to any entity
+
+    Addenda could suffice for both AlternateId and Notes, however, AlternateIds is a feature that is critical and keeping it separated from other Addenda is desired. Also, it is important to make finding alternate ids easy, both visually, and techically. Notes are also better kept separately for this same reason.
+
+To do this, follow these steps:
+
+1.	In Interfaces.Common, in the attributes folder, create a new WebService Attribute. It must inherit EntityAttribute.
+
+ExtensionEntityAttribute.cs
+
+    using System;
+
+    namespace Rhyous.EntityAnywhere.Interfaces
+    {
+        public class ExtensionEntityAttribute : EntityAttribute
+        {
+        }
+    }
+
+2. (Optional) Add any properties you made need to the attribute.
+
+    In this example we added one, but you may not need one.
+
+    public class ReadOnlyEntityAttribute : Attribute
+    {
+        public bool AutoExpand { get; set; }
+    }
+
+3. (Optional) If you are adding a Create the custom web service's Interface. Usually it inherits an existing web service type.
+
+How do you know if you need this step?
+There are two types of customizatons. 
+- Overriding an exiting web service call. EntityWebServiceAlternateKey does this.
+- Adding additional web service calls. MappingEntityWebService does this.
+If you are only overriding existing web service calls, you don't need a new interface. 
+If you are adding a call, you need a new interface that specifies the calls you are adding.
+
+Important: Remember to leave the UriTemplate blank.
+
+IExtensionEntityWebService.cs
+
+    using Rhyous.Odata;
+    using Rhyous.EntityAnywhere.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.ServiceModel;
+    using System.ServiceModel.Web;
+
+    namespace Rhyous.EntityAnywhere.WebServices
+    {
+        /// <summary>
+        /// A service contract for an Entity Extension. This inherits the service contract for a regular entity.
+        /// </summary>
+        /// <typeparam name="TEntity">The entity type.</typeparam>
+        /// <typeparam name="TId">The entity id type. However, because TEntity must implement IExtension entity, TId will always be a long.</typeparam>
+        [ServiceContract]
+        public interface IExtensionEntityWebService<TEntity, TId> : IEntityWebService<TEntity, TId>
+            where TEntity : class, IExtensionEntity, new()
+            where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        {
+            /// <summary>
+            /// Gets a list of Entity Extensions by a list of EntityIdentifiers.
+            /// </summary>
+            /// <param name="entityIdentifiers">The list of entity identifiers, which includes Entity name and the Entity's id.</param>
+            /// <returns>A list of Entity Extensions.</returns>
+            [OperationContract]
+            [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json)]
+            OdataObjectCollection<TEntity, TId> GetByEntityIdentifiers(List<EntityIdentifier> EntityIdentifiers);        
+        }
+    }
+
+4. Create a web service in WebServices.Common (or in project that WebServices.Common must reference):
+
+ExtensionEntityWebService.cs
+
+    using LinqKit;
+    using Rhyous.Odata;
+    using Rhyous.EntityAnywhere.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    namespace Rhyous.EntityAnywhere.WebServices
+    {
+        public class ExtensionEntityWebService<TEntity, TInterface, TId>
+                     : EntityWebService<TEntity, TInterface, TId>,
+                       IExtensionEntityWebService<TEntity, TId>
+            where TEntity : class, TInterface, new()
+            where TInterface : IExtensionEntity, IEntity<TId>
+            where TId : IComparable, IComparable<TId>, IEquatable<TId>
+        {
+            public OdataObjectCollection<TEntity, TId> GetByEntityIdentifiers(List<EntityIdentifier> entityIdentifiers)
+            {
+                var expression = PredicateBuilder.New<TEntity>();
+                foreach (var identifier in entityIdentifiers)
+                {
+                    expression.Or(e => e.Entity == identifier.Entity && e.EntityId == identifier.EntityId);
+                }
+                return Service.Get(expression).ToConcrete<TEntity, TInterface>().ToList().AsOdata<TEntity, TId>(RequestUri);
+            }
+        }
+    }
+
+Note: So the default generic webservice has four generic types. The one we are creating, could only have three, as we will always use long as the type for Id. However, the generic loader supports adding additional types, but not use less types. Using less types will have to be architected in at some point. So for now, we will use for types, and TId will remain generic even though it will always be a long.
+    
+5. In AttributeToServiceDictionary.cs, add an enty that maps the created attribute to the created web service.
+
+Add the following line to the constructor:
+
+    Add(typeof(ExtensionsEntityAttribute), new Tuple<Type, Type, Type>(typeof(ServiceCommon<,,>), typeof(ExtensionEntityWebService<,,,>), typeof(EntityWebServiceLoader<,>)));
+
+6. Define the generated UriTemplates in Behaviors.RestEndpoint's RestDictionary.cs.
+
+Add the following line to the constructor:
+
+    // https://<server>/<entity>Service/<entities>/EntityIdentifiers (POST)
+    // Takes in a list of EntityIdentifiers and gets all the entities for the EntityIdentifiers posted.
+    // Returns: all the entities for the EntityIdentifiers posted.
+    Add("GetByEntityIdentifiers", "{0}/EntityIdentifiers"); // {0} should be pluralized entity name.
+
+7. (Optional) - If an only if there special tokens, you have to update CustomRestDictionary as it done for the mapping entities.
+
+8. Decorate the Entities with the attribute you created.
+
+    [ExtensionEntity(AutoExpand = true)]
+    [RelatedEntityExclusions("Addendum", "AlternateId")]
+    public partial class Addendum : ExtensionEntity, IAddendum
+    {
+    }

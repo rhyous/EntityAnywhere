@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Interfaces.Metadata</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Interfaces</RootNamespace>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Clients\Clients2.Common\Clients2.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Entities.Common\Entities.Common.csproj" />
+    <ProjectReference Include="..\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\Interfaces.Services\Interfaces.Services.csproj" />
+  </ItemGroup>
+
+</Project>

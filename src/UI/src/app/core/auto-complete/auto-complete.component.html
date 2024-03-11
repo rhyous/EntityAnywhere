@@ -1,0 +1,15 @@
+<div [formGroup]="form">
+    <mat-form-field fxFlex>
+      <input id="auto-complete-input" type="text" [placeholder]="field.label" matInput [formControlName]="field.name" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFunction">
+        <mat-option
+            *ngFor="let opt of filteredData | async; let i = index"
+            id="auto-complete-option_{{i}}"
+            [value]="opt">
+                {{ displayFunction(opt) }}
+        </mat-option>
+
+      </mat-autocomplete>
+      <mat-progress-bar style="position: absolute; top: 32px;" mode="indeterminate" *ngIf="showProgressBar"></mat-progress-bar>
+    </mat-form-field>
+  </div>  

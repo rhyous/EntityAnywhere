@@ -1,0 +1,14 @@
+<div fxLayout="row" *ngIf="field.name !== undefined">
+    <mat-form-field [formGroup]="group" [fxFlex]="field.flex">
+      <input matInput id="{{field.entity}}_{{field.name}}" 
+        [formControlName]="field.name" 
+        [placeholder]="field.label??''" 
+        [type]="field.inputType ?? ''" 
+        [value]="field.value" 
+        [required]="field.required !== undefined ? field.required : false"
+        [readonly]="field.readOnly">
+      <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+        <mat-error *ngIf="group.get(field.name)?.hasError(validation.name)">{{validation.message}}</mat-error>
+      </ng-container>
+    </mat-form-field>
+  </div>

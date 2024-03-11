@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Clients.Authentication</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Clients2</RootNamespace>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+  
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="SET proj=$(ProjectName)&#xD;&#xA;SET handler=%25proj:*.=%25&#xD;&#xA;SET handler=%25handler:*.=%25&#xD;&#xA;ECHO handler = %25handler%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)WebServices\WebServices.Main\SharedBin&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM SET dllDir=&quot;%25copyToDir%25\bin&quot;&#xD;&#xA;REM ECHO %25dllDir%25&#xD;&#xA;REM IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.dll&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetPath)&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )&#xD;&#xA;REM FOR %25%25X in (&quot;$(Targetdir)*.pdb&quot;) DO (&#xD;&#xA;REM    IF NOT &quot;%25%25X&quot;==&quot;$(TargetDir)$(TargetName).pdb&quot; COPY /Y &quot;%25%25X&quot; %25dllDir%25&#xD;&#xA;REM )" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="proj=$(ProjectName); handler=${proj#*.}; handler=${handler#*.}; echo handler = $handler; copyToDir=&quot;$(SolutionDir)WebServices/WebServices.Main/SharedBin&quot;; echo $copyToDir; if [ ! -f $copyToDir ]; then mkdir $copyToDir; fi; cp -fr &quot;$(TargetPath)&quot; $copyToDir; cp -fr &quot;$(TargetDir)$(TargetName).pdb&quot; $copyToDir;"/>
+  </Target>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.User\Entities.User.csproj" />
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\Clients2.Common\Clients2.Common.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="2.0.0" />
+  </ItemGroup>
+</Project>

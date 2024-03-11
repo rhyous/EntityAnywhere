@@ -1,0 +1,42 @@
+# This workflow was created by the Routing Interns
+name: Dockerize Actions
+
+on:
+  push:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**.yml'
+      - '**.md'
+      - '**/docs/**'
+      - '**/.editorconfig'
+      - '**/.gitignore'
+      - '**/NuGet.Config'
+      - '**/*.Tests/**'
+      - '**/.editorconfig'
+      - '.gitignore'
+      - 'CODEOWNERS'
+  pull_request:
+    branches: [ "master" ]
+    paths-ignore:
+      - '**.yml'
+      - '**.md'
+      - '**/docs/**'
+      - '**/.editorconfig'
+      - '**/.gitignore'
+      - '**/NuGet.Config'
+      - '**/*.Tests/**'
+      - '**/.editorconfig'
+      - '.gitignore'
+      - 'CODEOWNERS'
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the stack
+      run: docker-compose up -d

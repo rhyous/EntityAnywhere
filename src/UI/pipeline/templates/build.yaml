@@ -1,0 +1,82 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+stages:
+- stage: Build
+  displayName: Build
+  pool:
+    name: VS2022
+
+  variables:
+    ${{ if eq( variables['Build.SourceBranchName'], 'master' ) }}:
+      skipBlackDuck: 'false'
+    ${{ if ne( variables['Build.SourceBranchName'], 'master' ) }}:
+      skipBlackDuck: 'true'
+
+  jobs:
+  - job:
+    steps:
+    - task: NodeTool@0    
+      displayName: 'Install Node.js'
+      inputs:
+        versionSpec: '16.13.x'
+    - task: Npm@1
+      displayName: 'Install NPM'
+      inputs:
+        verbose: false
+    - task: Npm@1
+      displayName: 'Build to $(System.DefaultWorkingDirectory)'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: 'run build'
+    - task: Npm@1
+      displayName: 'Run tests and code coverage'
+      inputs:
+        command: custom
+        verbose: false
+        customCommand: 'run test'
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results /tests/TESTS-*.xml'
+      condition: succeededOrFailed()
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: '$(System.DefaultWorkingDirectory)/**/tests/TESTS-*.xml'
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish code coverage Angular results'
+      condition: succeededOrFailed()
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+        failIfCoverageEmpty: true
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)/app'
+      inputs:
+        Contents: |
+          **\dist\**\*
+          !**\node_modules\**\*
+          !**\e2e-tests\**\*
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/app'
+        CleanTargetFolder: true
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifact: EAFUI'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/app'
+        artifact: 'EAFUI_UI_app'
+        publishLocation: 'pipeline'
+    - task: CopyFiles@2
+      displayName: 'Copy e2e test files to: $(Build.ArtifactStagingDirectory)/e2e-tests'
+      inputs:
+        Contents: |
+          **\e2e-tests\**\*
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/e2e-tests'
+        CleanTargetFolder: true
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Artifact: EAFUI e2e tests'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/e2e-tests'
+        artifact: 'EAFUI_UI_e2eTests'
+        publishLocation: 'pipeline'

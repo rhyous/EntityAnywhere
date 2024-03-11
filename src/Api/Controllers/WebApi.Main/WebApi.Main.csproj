@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>Jared Barneck (Rhyous)</Authors>
+    <Company>Rhyous Publishing LLC</Company>
+    <AssemblyName>Rhyous.EntityAnywhere.WebApi</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.WebApi.Main</RootNamespace>
+    <GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="IF NOT EXIST &quot;$(ProjectDir)dev.config&quot; (&#xD;&#xA;   ECHO ^&lt;^?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;^?^&gt; &gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO ^&lt;appSettings^&gt; &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO    ^&lt;add key=&quot;PluginDirectory&quot; value=&quot;$(SolutionDir)Plugins&quot;/^&gt;  &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO    ^&lt;add key=&quot;PluginSharedBinPaths&quot; value=&quot;$(SolutionDir)Plugins\SharedBin&quot;/^&gt;  &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO    ^&lt;add key=&quot;JWTPublicKey&quot; value=&quot;$(SolutionDir)Certificate\publicKey.pem&quot;/^&gt;  &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO    ^&lt;add key=&quot;JWTPrivateKey&quot; value=&quot;$(SolutionDir)Certificate\privateKey.pem&quot;/^&gt;  &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO    ^&lt;add key=&quot;ApplicationSettingsPath&quot; value=&quot;$(ProjectDir)EafAppSettings.json&quot;/^&gt;  &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;   ECHO ^&lt;/appSettings^&gt; &gt;&gt; &quot;$(ProjectDir)dev.config&quot;&#xD;&#xA;)" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="if [ ! -f &quot;${ProjectDir}dev.config&quot; ]; then     echo &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&quot; &gt; &quot;${ProjectDir}dev.config&quot; ;     echo &quot;&lt;appSettings&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot; ;     echo &quot;    &lt;add key=\&quot;PluginDirectory\&quot; value=\&quot;${SolutionDir}Plugins\&quot;/&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;;     echo &quot;    &lt;add key=\&quot;PluginSharedBinPaths\&quot; value=\&quot;${SolutionDir}Plugins/SharedBin\&quot;/&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;;     echo &quot;    &lt;add key=\&quot;JWTPublicKey\&quot; value=\&quot;${SolutionDir}Certificate/publicKey.pem\&quot;/&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;;     echo &quot;    &lt;add key=\&quot;JWTPrivateKey\&quot; value=\&quot;${SolutionDir}Certificate/privateKey.pem\&quot;/&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;;     echo &quot;    &lt;add key=\&quot;ApplicationSettingsPath\&quot; value=\&quot;${ProjectDir}EafAppSettings.json\&quot;/&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;;     echo &quot;&lt;/appSettings&gt;&quot; &gt;&gt; &quot;${ProjectDir}dev.config&quot;; fi" />
+  </Target>
+
+  <ItemGroup>
+    <Content Remove="app.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Controllers.WebApi\Controllers.WebApi.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="Data\SqlWebApiRepository.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+    
+  <Target Name="CleanDevConfig" AfterTargets="Clean">
+    <Delete Files="$(ProjectDir)dev.config" ContinueOnError="true" />
+  </Target>
+    
+</Project>

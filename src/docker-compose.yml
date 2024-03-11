@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  db:
+    build: ./mssql
+    environment:
+    - "ACCEPT_EULA=Y"
+    - "MSSQL_SA_PASSWORD=somepw"
+    ports:
+    - 1433:1433
+  ui:
+    depends_on: 
+      - api
+    build: ./UI
+    ports:
+    - 4200:4200
+  api:
+    depends_on: 
+      - db
+    build: ./Api
+    ports:
+      - 5000:80
+    
+
+networks:
+  default:
+    name: customNetwork
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.22.0.0/24"

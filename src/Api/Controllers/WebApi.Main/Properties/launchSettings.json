@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:20545",
+            "sslPort": 44329
+        }
+    },
+    "profiles": {
+        "WebApi.Main": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "EAF_TokenTimeToLive": "86400",
+                "EAF_AutomaticMigrationDataLossAllowed": "true",
+                "EAF_EntityAdminToken": "ba258083519e2cb36d59b6105531cef2529a83e87826f3448e1f06e9b16ca400",
+                "EAF_InternalOrganizationId": "1",
+                "EAF_SSO_TokenSize": "100",
+                "EAF_SSO_TokenTimeToLive": "86400",
+                "EAF_LogRequestMessage": "true",
+                "EAF_LogRequestUrls": "OwnershipService/Create",
+                "EAF_LogResponseMessage": "true",
+                "EAF_LogResponseUrls": "OwnershipService/Create",
+                "EAF_ForceExternalUsersToAuthenticateExternally": "false",
+                "EAF_MaxFailedAttempts": "10",
+                "EAF_UseEntityFrameworkDatabaseManagementForAgents": "false",
+                "EAF_UseEntityFrameworkDatabaseManagementForSkills": "false",
+                "EAF_PluginDirectory": "/home/jakob/test/data-domain-agent/src/Api/Plugins",
+                "EAF_PluginSharedBinPaths": "/home/jakob/test/data-domain-agent/src/Api/Plugins/SharedBin",
+                "EAF_JWTPublicKey": "/home/jakob/test/data-domain-agent/src/Api/Certificate/publicKey.pem",
+                "EAF_JWTPrivateKey": "/home/jakob/test/data-domain-agent/src/Api/Certificate/privateKey.pem",
+                "EAF_EntityWebHost": "https://localhost:7090",
+                "EAF_EntitySubpath": "Api"
+            },
+            "applicationUrl": "https://localhost:7090;http://localhost:5090",
+            "dotnetRunMessages": true
+        },
+        "IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    }
+}

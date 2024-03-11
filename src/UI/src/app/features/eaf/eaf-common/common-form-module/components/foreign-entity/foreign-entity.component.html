@@ -1,0 +1,47 @@
+<div [fxFlex]="100" class="body">
+  <div fxLayout="column" *ngIf="displayProgress">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title id="foreignEntity_{{field.Name}}">{{field.Name  | spacetitle}}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div fxLayout="column" *ngIf="tableData.data.length !== 0">
+        <mat-table #table [dataSource]="tableData" fxFlex="99" fxFlexOffset="10px" matSort>
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index" (click)="$event.stopPropagation()">
+              <mat-checkbox id="Select_{{field.Name}}_{{i}}" (click)="$event.stopPropagation()"
+                (change)="$event ? selection.toggle(row.Id) : null" [checked]="selection.isSelected(row.Id)">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <ng-container *ngFor="let prop of entityColumns" [matColumnDef]="prop">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{ prop }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ formatCell(row[prop]) }}</mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick(row)"></mat-row>
+        </mat-table>
+
+        <div fxLayout="column">
+          <!-- Pagingator -->
+          <mat-paginator [length]="count" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+        </div>
+      </div>
+      <div fxLayout="column">
+        <div>
+          <button mat-fab id="foreignEntity_{{field.Name}}_Add" color="primary" (click)="createNew()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-fab id="foreignEntity_{{field.Name}}_Delete" color="warn" class="button-spacer"
+            *ngIf="selection.selected.length > 0" (click)="deleteEntities()">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

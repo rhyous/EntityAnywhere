@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.StringLibrary" Version="1.2.43" />
+  </ItemGroup>
+</Project>

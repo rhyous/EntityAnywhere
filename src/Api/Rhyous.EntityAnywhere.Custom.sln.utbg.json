@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "FileNameTemplate": "$ClassName$Tests",
+  "CustomMockFieldDeclarationTemplate": "private $CustomMockClass$ _Mock$InterfaceMockName$;",
+  "CustomMockFieldInitializationTemplate": "_Mock$InterfaceMockName$ = new $CustomMockClass$();",
+  "CustomMockObjectReferenceTemplate": "_Mock$InterfaceMockName$",
+  "Templates": {
+    "VisualStudio_None_TestMethodInvocation": "#region $TestedMethodName$\r\n[TestMethod]\r\npublic $AsyncModifier$ $AsyncReturnType$ $TestMethodName$()\r\n{\r\n\t// Arrange\r\n\tvar $ClassNameShort.CamelCase$ = $TodoConstructor$;\r\n\t$ParameterSetupDefaults.NewLineIfPopulated$\t\r\n\t// Act\r\n\t$MethodInvocationPrefix$$ClassNameShort.CamelCase$$MethodInvocation$;\r\n\t\r\n\t// Assert\r\n\tAssert.Fail();\r\n}\r\n#endregion",
+    "VisualStudio_None_TestMethodEmpty": "#region $TestedMethodName$\r\n[TestMethod]\r\npublic void TestMethod1()\r\n{\r\n\t// Arrange\r\n\tvar $ClassNameShort.CamelCase$ = $TodoConstructor$;\r\n\t\r\n\t// Act\r\n\t\r\n\t\r\n\t// Assert\r\n\tAssert.Fail();\r\n}\r\n#endregion",
+    "VisualStudio_None_TestMethodName": "$ClassNameShort$_$TestedMethodName$_StateUnderTest_ExpectedBehavior",
+    "VisualStudio_Moq_File": "$UsingStatements$\r\n\r\nnamespace $Namespace$\r\n{\r\n\t[TestClass]\r\n\tpublic class $ClassName$Tests\r\n\t{\r\n\t\tprivate MockRepository _MockRepository;\r\n\t\t\r\n\t\t$MockFieldDeclarations$\r\n\t\t\r\n\t\t[TestInitialize]\r\n\t\tpublic void TestInitialize()\r\n\t\t{\r\n\t\t\t_MockRepository = new MockRepository(MockBehavior.Strict);\r\n\t\t\t\r\n\t\t\t$MockFieldInitializations$\r\n\t\t}\r\n\t\t\r\n\t\tprivate $ClassName$ Create$ClassNameShort$()\r\n\t\t{\r\n\t\t\treturn $ExplicitConstructor$;\r\n\t\t}\r\n\t\t\r\n\t\t$TestMethods$\r\n\t}\r\n}\r\n",
+    "VisualStudio_Moq_MockFieldDeclaration": "private Mock<$InterfaceType$> _Mock$InterfaceMockName$;",
+    "VisualStudio_Moq_MockFieldInitialization": "_Mock$InterfaceMockName$ = _MockRepository.Create<$InterfaceType$>();",
+    "VisualStudio_Moq_MockObjectReference": "_Mock$InterfaceMockName$.Object",
+    "VisualStudio_Moq_TestMethodInvocation": "#region $TestedMethodName$\r\n[TestMethod]\r\npublic $AsyncModifier$ $AsyncReturnType$ $TestMethodName$()\r\n{\r\n\t// Arrange\r\n\tvar $ClassNameShort.CamelCase$ = Create$ClassNameShort$();\r\n\t$ParameterSetupDefaults.NewLineIfPopulated$\t\r\n\t// Act\r\n\t$MethodInvocationPrefix$$ClassNameShort.CamelCase$$MethodInvocation$;\r\n\t\r\n\t// Assert\r\n\tAssert.Fail();\r\n\t_MockRepository.VerifyAll();\r\n}\r\n#endregion",
+    "VisualStudio_Moq_TestMethodEmpty": "#region $TestedMethodName$\r\n[TestMethod]\r\npublic void TestMethod1()\r\n{\r\n\t// Arrange\r\n\tvar $ClassNameShort.CamelCase$ = this.Create$ClassNameShort$();\r\n\t\r\n\t// Act\r\n\t\r\n\t\r\n\t// Assert\r\n\tAssert.Fail();\r\n\t_MockRepository.VerifyAll();\r\n}\r\n#endregion",
+    "VisualStudio_Moq_TestMethodName": "$ClassNameShort$_$TestedMethodName$_StateUnderTest_ExpectedBehavior"
+  }
+}

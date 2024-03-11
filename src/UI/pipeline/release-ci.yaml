@@ -1,0 +1,32 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+
+stages:
+- template: 'templates/build.yaml'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'QA'
+    fullVmEnvironment: 'EAF-QA.SLC-EAF-QA'
+    dependsOn: 'Build'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'ENG'
+    fullVmEnvironment: 'EAF-ENG.SLC-EAF-ENG'
+    dependsOn: 'Deploy_QA'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'Prod'
+    fullVmEnvironment: 'EAF-Prod.BD-EAF'
+    dependsOn: 'Deploy_ENG'
+
+- template: 'templates/deploy.yaml'
+  parameters:
+    envName: 'Prod2'
+    fullVmEnvironment: 'EAF-Prod2.BD-EAF-WEB02'
+    dependsOn: 'Deploy_Prod'

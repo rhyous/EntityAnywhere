@@ -1,0 +1,30 @@
+Autofac Scopes
+
+- Root scope start
+  - Register common root stuff
+- Root scope build
+	- WCF Scope start
+		- Inner Scope start - Startup Plugin Loader
+		  - Register plugin loader stuff
+		- Inner scope build
+	  - Register plugins
+	- WCF Scope build
+Assign WCF scope to AutofacHostFactory.Container
+
+per call (when a client makes a web service call)
+
+- Code in Autofac
+	- Wcfscope makes a PerCall scope
+	  - Per Call Scope start
+		- Register per call stuff
+	  - Per call scope build
+	- Per Call resolves WCF Service & dependencies
+	
+We have registrations in WCF Scope that fail to resolve,
+without registrations in the Per Call scope.
+ - Web SErvices plugin loader, registers it's registrar with 
+   the WCF Scope
+ - Costly to register everything per call
+ - ServiceProxy allows for the service to be registered with
+   the WCF Scope, but the real service to be loaded by the
+   Per Call scope.

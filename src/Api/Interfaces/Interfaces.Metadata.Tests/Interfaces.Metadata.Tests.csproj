@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Rhyous.EntityAnywhere.Interfaces.Metadata.Tests</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Interfaces.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\Entities.Extension\Entities.Extension.csproj" />
+    <ProjectReference Include="..\Interfaces.Metadata\Interfaces.Metadata.csproj" />
+    <ProjectReference Include="..\Interfaces.Common.Tests\Interfaces.Common.Tests.csproj" />
+  </ItemGroup>
+
+</Project>

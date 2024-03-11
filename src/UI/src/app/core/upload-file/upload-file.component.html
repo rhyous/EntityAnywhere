@@ -1,0 +1,19 @@
+<div id="upload-file-container" class="uploadfilebuttoncontainer" (click)="fileInputButton.click();" *ngIf="isButton">
+    <input id="upload-file-input" hidden (change)="uploadFile($any($event.target).files)" #fileInputButton type="file">
+    <mat-icon color="primary" id="upload-file-button">file_upload</mat-icon>
+</div>
+<div id="upload-file-container" class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)" *ngIf="!file && !isButton">
+    <input id="upload-file-input" hidden type="file" #fileInput (change)="uploadFile($any($event.target).files)">
+    <span id="file-upload-text">Drop file here to upload. Click to select file.</span>
+</div>
+
+<div id="file" *ngIf="file && !isButton">
+    <b>Uploading:</b>
+    <mat-form-field>
+        <input matInput type="text" [formControl]="filename">
+    </mat-form-field>
+    <mat-icon (click)="deleteFile()">close</mat-icon>
+</div>
+
+
+

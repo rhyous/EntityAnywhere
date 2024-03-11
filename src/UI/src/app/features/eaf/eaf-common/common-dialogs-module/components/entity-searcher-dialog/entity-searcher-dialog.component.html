@@ -1,0 +1,45 @@
+<div fxFlex fxFlexOffset="1" fxLayout="column">
+    <div fxLayout="row">
+      <h1 id='entity-searcher-dialog-title'>Find {{entityName}}</h1>
+    </div>
+  
+    <div [formGroup]="form" fxLayout="row">
+      <mat-form-field [fxFlex]="filterField.Flex" *ngFor="let filterField of filterFields;let i = index" [fxFlexOffset]="i === 0?0:5">
+        <input
+          id="entity-searcher-dialog-input_{{entityName}}_{{filterField.Name}}"
+          matInput 
+          [placeholder]="filterField.Name" 
+          (keyup)="onKeyUp($event)" 
+          [formControlName]="filterField.Name">
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" *ngIf="displayProgress">
+      <mat-progress-bar color="primary" mode="indeterminate" class="loader-overlay"></mat-progress-bar>
+    </div>
+    <div fxLayout="column" *ngIf="datasource.data.length !== 0 && !displayProgress">
+      <mat-table #table [dataSource]="datasource" fxFlex="99" fxFlexOffset="10px" id="entity-searcher-table">
+          <ng-container matColumnDef='{{column.Name}}'  *ngFor='let column of filterFields'>
+              <mat-header-cell *matHeaderCellDef>{{column.Name}}</mat-header-cell>
+              <mat-cell *matCellDef='let row'>{{getPropValue(row, column.Name)}}</mat-cell>
+          </ng-container>  
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row id="entity-searcher-dialog_{{entityName}}-table-row_{{i}}" *matRowDef="let row; columns: displayedColumns;let i = index" (click)="rowClick(row)"></mat-row>
+        </mat-table>
+ 
+      <div fxLayout="column">
+      <!-- Pagingator -->
+        <mat-paginator #paginator [length]="count" [pageIndex]="pageIndex" [pageSize]="10" (page)="pageChange($event)"></mat-paginator>
+    </div>
+  </div>
+  <!-- No data message -->
+  <div [style.display]="datasource.data.length === 0 ? '' : 'none'">
+    No {{entityName | pluralize | spacetitle}} found.
+  </div>
+  <div fxLayout="row" fxLayoutAlign="end center" class="cancel">
+    <button mat-button fxFlex="10" (click)="cancel()">Cancel</button>
+  </div>
+</div>
+  
+  
+  

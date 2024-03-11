@@ -1,0 +1,58 @@
+﻿using Rhyous.EntityAnywhere.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+
+namespace Rhyous.EntityAnywhere.HeaderValidators
+{
+    class CustomCustomerRoleAuthorization : ICustomCustomerRoleAuthorization
+    {
+        private readonly ITokenSecurityList _TokenSecurityList;
+        private readonly IPathNormalizer _PathNormalizer;
+
+        public CustomCustomerRoleAuthorization(ITokenSecurityList tokenSecurityList,
+                                               IPathNormalizer pathNormalizer)
+        {
+            _TokenSecurityList = tokenSecurityList;
+            _PathNormalizer = pathNormalizer;
+        }
+
+        public bool IsAuthorized(IHeadersContainer headers, int userRoleId)
+        {
+            if (headers is null || headers.Count == 0
+                || userRoleId < 1)
+                return false;
+
+            var absolutePath = headers.Get("AbsolutePath");
+            if (string.IsNullOrWhiteSpace(absolutePath))
+                return false;
+            var httpMethod = headers.Get("HttpMethod");
+            if (string.IsNullOrWhiteSpace(httpMethod))
+                return false;
+
+            var customerRoles = new HashSet<int>() { WellknownUserRoleIds.Customer };
+            if (!customerRoles.Contains(userRoleId))
+                return false;
+
+            var normalizedAbsolutePath = _PathNormalizer.Normalize(absolutePath);
+
+            if (IsAllowedUrl(normalizedAbsolutePath, httpMethod))
+                return true;
+
+            var pathAndQuery = headers.Get("PathAndQuery");
+            pathAndQuery = _PathNormalizer.Normalize(pathAndQuery);
+            if (!string.IsNullOrWhiteSpace(pathAndQuery))
+                return true;
+
+            return false;
+        }
+
+        internal bool IsAllowedUrl(string absolutePath, string httpMethod)
+        {
+            var customerCalls = _TokenSecurityList.GetCustomerCalls();
+            return (customerCalls.TryGetValue(absolutePath, out IEnumerable<string> call) || customerCalls.TryGetValue(absolutePath.TrimEnd('/'), out call))
+                 && call.Contains(httpMethod, StringComparer.OrdinalIgnoreCase);
+        }
+    }
+}

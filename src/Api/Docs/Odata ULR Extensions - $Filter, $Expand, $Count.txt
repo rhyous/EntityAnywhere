@@ -1,0 +1,266 @@
+# Support Odata Url parameters in EAF
+
+## $Count
+You can call any base entity service with $count to get the total number of entities.
+
+It is case insensitive. $Count or $count or $coUnT or any case variation all work the same.
+
+Example:
+https://eaf.domain.tld/Api/UserService.svc/Users?$Count
+
+
+## $Expand
+You can expand a related entity with $Expand, regardless of they type of related enitity.
+
+### Related Entity Types:
+ - Related Entity 			= Local (Foreign Id in current entity)
+ - Related Entity Foreign 	= Foreign (Nothing in current entity, current enitity Id in foreign entity)
+ - Related Entity Mapping	= Mapping (Nothing in current or foreign entity, there is a third entity that is a mapping table that is related to both.
+ - Related Entity Extension	= Extension (Nothing in current entity. Extension entity has the Entity name and Entity Id as strings. There is one extension entity for all entities.)
+
+### Examples - Related Entity (Local)
+
+#### $Example 1 - A to B
+This expands B from A.
+	Example: Current entity = A
+```
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("B")] // This is required for Local to work
+		public int BId { get; set; }
+	}
+	
+	public class B : BaseEntity<int>, IB
+	{
+	    public int Id { get; set; }
+	}	
+```
+
+	Current entity = A
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=B
+
+#### $Example 1 - A to B to C
+This expands B from A and C from B.
+	Example: Current entity = A
+```
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("B")] // This is required for Local to work
+		public int BId { get; set; }
+	}
+	
+	public class B : BaseEntity<int>, IB
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("C")] // This is required for Local to work
+		public int CId { get; set; }
+	}	
+	
+	public class C : BaseEntity<int>, IC
+	{
+	    public int Id { get; set; }
+	}	
+```
+	Current entity = A
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=B($expand=C)
+	
+### Examples - Related Entity Foreign
+#### $Example 1 - A to B
+This expands B from A.
+	Example: Current entity = A
+```	
+	[RelatedEntityForeign("B", nameof(A)] // This is required for Foreign to work
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+	}
+	
+	public class B : BaseEntity<int>, IB
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("A")] // This is required for Foreign to work
+		public int AId { get; set; }
+	}	
+```
+	Current entity = A
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=B
+
+#### $Example 1 - A to B to C
+This expands B from A and C from B.
+	Example: Current entity = A
+```	
+	[RelatedEntityForeign("B", nameof(A)] // This is required for Foreign to work
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+	}
+	
+	[RelatedEntityForeign("C", nameof(B)] // This is required for Foreign to work
+	public class B : BaseEntity<int>, IB
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("A")] // This is required for Foreign to work
+		public int AId { get; set; }
+	}	
+	
+	public class C : BaseEntity<int>, IC
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("B")] // This is required for Foreign to work
+		public int BId { get; set; }
+	}	
+```
+	Current entity = A
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=B($expand=C)
+	
+	Mapping
+
+### Examples - Related Entity Mapping
+The following shows examples of $expand. 
+Note: Interfaces are not displayed in code for brevity.
+
+#### $Example 1 - A to B through ABMap
+This expands B from A through ABMap.
+	Example: Current entity = A
+```	
+	[RelatedEntityForeign(nameof(ABMap), nameof(A)] // This is required for Mapping to work
+    [RelatedEntityMapping(nameof(B), nameof(ABMap), nameof(B))]// This is required for Mapping to work
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+	}
+	
+	[RelatedEntityForeign(nameof(ABMap), nameof(B)] // This is required for Mapping to work
+    [RelatedEntityMapping(nameof(A), nameof(ABMap), nameof(B))]// This is required for Mapping to work
+	public class B : BaseEntity<int>, IB
+	{
+	    public int Id { get; set; }
+	}
+	
+    [MappingEntity(Entity1 = nameof(A), Entity2 = nameof(B))] // This is required for Mapping to work
+	public class ABMap : BaseEntity<int>, IAbMap // IABMap must inherit IMappingEntity<int, int>
+	{	
+		[RelatedEntity("A")] // This is required for Mapping to work
+		public int AId { get; set; }
+		[RelatedEntity("B")] // This is required for Mapping to work
+		public int BId { get; set; }
+	}
+```
+	Current entity = A
+	This URL uses ABMap but excludes it, only returned Bs related to A through ABMap. ABMap is excluded from the result.
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=B
+	
+	You *could* also multi-expand as it is a Foriegn/Local, which is what is happening under the covers with mapping, only ABMap is not excluded from the result.
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=ABMap($Expand(B))
+
+
+### Examples - Related Entity Extensions
+Extension entities provide the ability to add custom property value pairs to any entity.
+
+#### $Example 1 - A to B
+This expands B from A.
+	Example: Current entity = A
+```
+	public class A : BaseEntity<int>, IA
+	{
+	    public int Id { get; set; }
+		[RelatedEntity("B")] // This is required for Local to work
+		public int BId { get; set; }
+	}
+	
+	public class AlternateId : ExtensionEntity, IAlternateId
+	{
+		// These four properties are in the base class, but we are displaying them here for documentation and example purposes.
+        public virtual string Entity { get; set; }
+        public virtual string EntityId { get; set; }
+        public virtual string Property { get; set; }
+        public virtual string Value { get; set; }
+	}
+	
+	
+	Current entity = A
+	This uses custom code to get the entities with Entity set to "A" and a matching EntityId.
+	https://eaf.domain.tld/Api/AService.svc/As?$expand=AlternateId
+	
+	
+# $Filter
+The $Filter allows for filtering based on property values.
+
+We will use this class for all examples.
+
+	public class A : IA
+	{
+	    public int Id { get; set; }
+		public int Number { get; set; }
+	    public string Name { get; set; }
+		public DateTimeOffset CreateDate { get; set; }
+	}
+
+A quick equals filter would be:
+https://eaf.domain.tld/Api/AService.svc/As?$Filter=Name eq 'Name1'
+	
+$Filter supports the following parameters. Most work for all primitives, but not all work for string. They are case insensitive.
+
+  - EQ = Equal. Example: $Filter=Name eq 'Name1'
+  - NE = Not equal. Example: $Filter=Name ne 'Name1'
+  - GT = Greater than. Example: $Filter=Number gt 127
+  - GE = Greater than or equal. Example: $Filter=Number ge 127
+  - LT = Less than. Example: $Filter=Number lt 20
+  - LE = Less than or equal. $Filter=Number le 20
+  - IN = Equal to any item in the array. Example: $Filter=Number in (5,10,11,21)		
+  
+## And/Or
+You can add multiple filters together with AND and OR, case insensitive.
+
+Example - And
+$Filter=Contains(Name, 'abc') and Contains(Name, 'def')
+
+Would find 'abcdef' but not 'abc' or 'def'.
+
+Or Example
+$Filter=Contains(Name, 'abc') or Contains(Name, 'def') or Contains(Name, 'xyz')
+
+Would find any and all of 'abcdef', 'abc', 'def', 'xyz'.
+
+## Grouping with parenthesis
+$Filter=(Contains(Name, 'abc') and Contains(Name, 'def')) or (Contains(Name, 'xyz') and Contains(Name, 'def'))
+
+Would find either 'abcdef', 'xyzdef' but not 'abcxyz'.
+
+## String	
+String doesn't have the idea of greater than or less than, but EQ, NE, and IN all work.
+
+$Filter supports any method that is a direct member of the class. For example, string has:
+
+  - Contains(string) Example: $Filter=Contains(Name, abc)
+  - StartsWith(string)
+  - EndsWith(string)
+
+However, it doesn't support extension methods.
+
+Quoting Strings
+If there is a space, you must wrap it in quotes.
+  - $Filter=Contains(Name, 'abc def')
+
+Quote Rules:
+How to make quotes part of the search string?
+  - You can wrap spaces with single or double quotes.
+  - You can wrap single quotes in double quotes.
+  - You can wrap double quotes with single quotes.
+  - Escaping a quote is done by adding two quotes.
+  - With only one single quote, you shouldn't need to such as in O'Brien, no quoting is necessary. All three below should work:
+    - $Filter=name eq O'Brien
+    - $Filter=name eq "O'Brien"
+    - $Filter=name eq 'O''Brien'
+  - If there are two single quotes, such as the fullname O'Brien O'Malley, you must escape them, and not just because of the space. If there wasn't a space, O'Brien-O'Malley, then it would still need to be escaped.
+    - $Filter=name eq O'Brien-O'Malley (won't work because of the quotes will be considered a group and removed)
+    - $Filter=name eq "O'Brien-O'Malley" (Works)
+    - $Filter=name eq 'O''Brien-O''Malley' (Works)
+
+## Dates
+Dates should support any of the operators listed. 
+$Filter supports any method that is a direct member of the DateTime or DateTimeOffset class that can compare another date.
+You have to use a string representation of a DateTime or DateTimeOffset that easily converts.
+

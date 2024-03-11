@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "msedge",
+        "request": "launch",
+        "name": "Launch Edge against localhost",
+        "url": "http://localhost:4200",
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        "name": "Launch Chrome",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:4200/",
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        "name": "Attach Chrome",
+        "type": "chrome",
+        "request": "attach",
+        "url": "http://localhost",
+        "port": 4200,
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        "name": "Launch Chrome (Test)",
+        "type": "chrome",
+        "request": "launch",
+        "url": "http://localhost:9876/debug.html",
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        "type": "node",
+        "protocol": "inspector",
+        "request": "launch",
+        "name": "Launch test files with TestCafe",
+        "program": "${workspaceRoot}/node_modules/testcafe/bin/testcafe.js",
+        "args": [
+            "chrome"
+        ],
+        "console": "integratedTerminal",
+        "cwd": "${workspaceRoot}\\e2e-tests"
+      }
+    ]
+  }

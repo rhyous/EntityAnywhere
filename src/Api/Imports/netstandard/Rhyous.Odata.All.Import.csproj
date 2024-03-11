@@ -1,0 +1,7 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Include="Rhyous.Odata.Csdl" Version="1.2.19" />
+    <PackageReference Include="Rhyous.Odata.Expand" Version="1.2.19" />
+    <PackageReference Include="Rhyous.Odata.Filter" Version="1.2.19" />
+  </ItemGroup>
+</Project>

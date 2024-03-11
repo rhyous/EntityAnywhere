@@ -1,0 +1,11 @@
+<div [formGroup]="group">
+    <mat-form-field fxFlex>
+      <input type="text" [placeholder]="field.label ?? ''" matInput [formControlName]="field.name ?? ''" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onChangeCallback">
+        <mat-option *ngFor="let opt of filteredOptions | async" [value]="opt">{{opt}}</mat-option>
+      </mat-autocomplete>
+      <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
+        <mat-error *ngIf="field.name && group.get(field.name)?.hasError(validation.name)">{{validation.message}}</mat-error>
+      </ng-container>
+    </mat-form-field>
+</div>

@@ -1,0 +1,20 @@
+<div [formGroup]="group" fxFlex="50" *ngIf="field.name">
+  <mat-form-field>
+    <input 
+      id="app-entity-searcher-input_{{field.name}}"
+      type="text" 
+      [readonly]="field.readOnly"
+      [placeholder]="field.label ?? ''" 
+      matInput  
+      [formControlName]="field.name" 
+      (click)="getEntity()" 
+      [value]="entityValue" 
+      [required]='$any(field.required)' >
+  </mat-form-field>
+</div>
+<div class="pull-right">
+  <button *ngIf="canGoTo" mat-button color="basic" id="goto" (click)="goto()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>
+  

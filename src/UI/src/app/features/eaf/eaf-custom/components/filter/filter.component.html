@@ -1,0 +1,22 @@
+<form [formGroup]="form" novalidate>
+  <!-- Filter Button -->
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="filterToggle()" type="button" id="filter-toggle">
+      <mat-icon>filter_list</mat-icon> Filter results</button>
+  </div>
+  <!-- Filter Panel -->
+  <div *ngIf="displayFilters" class="filter-panel" fxLayout="column">
+    <div fxLayout="row">
+      <mat-form-field  fxFlex="50">
+        <input matInput formControlName="filterText" placeholder="Filter by" (keyup)="onKeyUp()" id="filter-text"/>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <mat-checkbox *ngFor="let prop of filters" 
+      [formControlName]="prop.HeaderName" 
+      class="filter-checkbox" (click)="toggleFilterProperty(prop)"
+      id="filter_{{prop.HeaderName}}">{{prop.HeaderName}}</mat-checkbox>
+    </div>
+  </div>
+</form>
+      

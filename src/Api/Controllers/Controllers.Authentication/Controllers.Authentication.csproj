@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Rhyous.EntityAnywhere.WebServices</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.Controllers.Authentication</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <AssemblyTitle>Controllers.Authentication</AssemblyTitle>
+    <Product>Controllers.Authentication</Product>
+    <Copyright>Copyright © Rhyous Publishing LLC 2022</Copyright>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Condition="'$(OS)' == 'Windows_NT'" Command="SET proj=$(ProjectName)&#xD;&#xA;SET entity=%25proj:*.=%25&#xD;&#xA;ECHO entity = %25entity%25&#xD;&#xA;SET copyToDir=&quot;$(SolutionDir)\Plugins\Controllers\%25entity%25&quot;&#xD;&#xA;ECHO %25copyToDir%25&#xD;&#xA;IF NOT EXIST %25copyToDir%25 MKDIR %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetPath)&quot; %25copyToDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)$(TargetName).pdb&quot; %25copyToDir%25&#xD;&#xA;&#xD;&#xA;REM These dlls need to go to SharedBin&#xD;&#xA;SET dllDir=&quot;$(SolutionDir)Plugins\SharedBin&quot;&#xD;&#xA;ECHO %25dllDir%25&#xD;&#xA;IF NOT EXIST %25dllDir%25 MKDIR %25dllDir%25&#xD;&#xA;&#xD;&#xA;COPY /Y &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.dll&quot; %25dllDir%25&#xD;&#xA;COPY /Y &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.pdb&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.JsonWebTokens.dll&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.Logging.dll&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)Microsoft.IdentityModel.Tokens.dll&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)System.IdentityModel.Tokens.Jwt.dll&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)System.Security.AccessControl.dll&quot; %25dllDir%25&#xD;&#xA;REM COPY /Y &quot;$(TargetDir)System.Security.Principal.Windows.dll&quot; %25dllDir%25&#xD;&#xA;" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="proj=$(ProjectName); entity=${proj#*.}; echo entity = $entity; copyToDir=&quot;$(SolutionDir)Plugins/Controllers/$entity&quot;; echo $copyToDir; if [ ! -f $copyToDir ]; then mkdir -p $copyToDir; fi; cp -fr &quot;$(TargetPath)&quot; $copyToDir; cp -fr &quot;$(TargetDir)$(TargetName).pdb&quot; $copyToDir; dllDir=&quot;$(SolutionDir)Plugins/SharedBin&quot;; echo $dllDir; if [ ! -f $dllDir ]; then mkdir -p $dllDir; fi; cp -fr &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.dll&quot; $dllDir; cp -fr &quot;$(TargetDir)Rhyous.EntityAnywhere.Services.Authentication.pdb&quot; $dllDir"/>
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Services.Authentication\Services.Authentication.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+    <PackageReference Include="Rhyous.SimplePluginLoader.Autofac" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>

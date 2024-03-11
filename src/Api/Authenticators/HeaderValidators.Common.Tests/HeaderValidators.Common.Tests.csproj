@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Rhyous.EntityAnywhere.HeaderValidators.Tests</RootNamespace>
+    <AssemblyName>Rhyous.EntityAnywhere.HeaderValidators.Common.Tests</AssemblyName>
+    <AssemblyTitle>HeaderValidators.OAuth</AssemblyTitle>
+    <Product>HeaderValidators.OAuth</Product>
+    <Copyright>Copyright © Rhyous 2021</Copyright>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Authentication\Interfaces.Authentication.csproj" />
+    <ProjectReference Include="..\HeaderValidators.Common\HeaderValidators.Common.csproj" />
+  </ItemGroup>
+  
+</Project>

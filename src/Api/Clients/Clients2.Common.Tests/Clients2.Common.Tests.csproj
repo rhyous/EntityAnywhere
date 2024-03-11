@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>Rhyous.EntityAnywhere.Clients2.Common.Tests</AssemblyName>
+    <RootNamespace>Rhyous.EntityAnywhere.Clients2.Common.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="..\..\Imports\netstandard\Tests.Import.csproj" />
+
+  <ItemGroup>
+    <PackageReference Include="Rhyous.SimplePluginLoader" Version="2.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interfaces\Interfaces.Common\Interfaces.Common.csproj" />
+    <ProjectReference Include="..\..\Misc\Attributes.Common\Attributes.Common.csproj" />
+    <ProjectReference Include="..\..\Services\Services.Common\Services.Common.csproj" />
+    <ProjectReference Include="..\Clients2.Common\Clients2.Common.csproj" />
+  </ItemGroup>
+  
+</Project>
